@@ -271,14 +271,24 @@ pub fn rules() -> Vec<Rewrite> { vec![
 
 fn main() {
     let start: RecExpr<Math> = "(+ x (+ x (+ x x)))".parse().unwrap();
-    let end: RecExpr<Math> = "(* 4 x)".parse().unwrap();
+    let mut end: RecExpr<Math> = "(* 4 x)".parse().unwrap();
 
     let now = Instant::now();
     // That's it! We can run equality saturation now.
     let runner = Runner::default().with_expr(&start).run(rules().iter());
 
     println!("Saturation took: {} ms", now.elapsed().as_millis());
-    let eclasses = runner.egraph.equivs(&start, &end);
+
+    let mut eclasses = runner.egraph.equivs(&start, &end);
+    if eclasses.is_empty() {
+        println!("{} and {} are not equivalent", start, end);
+    } else {
+        println!("{} and {} are equivalent", start, end);
+    }
+
+    end = "(* 3 x)".parse().unwrap();
+
+    eclasses = runner.egraph.equivs(&start, &end);
     if eclasses.is_empty() {
         println!("{} and {} are not equivalent", start, end);
     } else {
@@ -300,12 +310,12 @@ fn main() {
     // We want to extract the best expression represented in the
     // same e-class as our initial expression, not from the whole e-graph.
     // Luckily the runner stores the eclass Id where we put the initial expression.
-    let (best_cost, best_expr) =
-        extractor.find_best(runner.egraph.find(*runner.roots.last().unwrap()));
+    let (_, best_expr) = extractor.find_best(runner.egraph.find(*runner.roots.last().unwrap()));
 
     println!(
-        "Best Expr: {} found in {} ms (without saturation)",
+        "Best Expr: {} found in {} ms (without saturation) {} ms (with saturation)",
         best_expr,
+        now1.elapsed().as_millis(),
         now.elapsed().as_millis()
     );
 }
