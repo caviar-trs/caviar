@@ -271,16 +271,27 @@ pub fn rules() -> Vec<Rewrite> { vec![
 
 fn main() {
     let start: RecExpr<Math> = "(+ x (+ x (+ x x)))".parse().unwrap();
+    let end: RecExpr<Math> = "(* 4 x)".parse().unwrap();
 
     let now = Instant::now();
     // That's it! We can run equality saturation now.
     let runner = Runner::default().with_expr(&start).run(rules().iter());
+
     println!("Saturation took: {} ms", now.elapsed().as_millis());
+    let eclasses = runner.egraph.equivs(&start, &end);
+    if eclasses.is_empty() {
+        println!("{} and {} are not equivalent", start, end);
+    } else {
+        println!("{} and {} are equivalent", start, end);
+    }
+
+    /// Graph Printing
     // let egraph = &runner.egraph;
     // println!("printing graph to svg");
     // // create a Dot and then compile it assuming `dot` is on the system
     // egraph.dot().to_svg("target/foo.svg").unwrap();
     // println!("done printing graph to svg");
+
     // Extractors can take a user-defined cost function,
     // we'll use the egg-provided AstSize for now
     let now1 = Instant::now();
@@ -291,9 +302,7 @@ fn main() {
     // Luckily the runner stores the eclass Id where we put the initial expression.
     let (best_cost, best_expr) =
         extractor.find_best(runner.egraph.find(*runner.roots.last().unwrap()));
-    // println!("My egraph dot file: {}", egraph.dot());
 
-    // we found the best thing, which is just "a" in this case
     println!(
         "Best Expr: {} found in {} ms (without saturation)",
         best_expr,
