@@ -131,7 +131,6 @@ pub fn rules() -> Vec<Rewrite> { vec![
     rw!("distribute"; "(* ?a (+ ?b ?c))"        => "(+ (* ?a ?b) (* ?a ?c))"),
     rw!("factor"    ; "(+ (* ?a ?b) (* ?a ?c))" => "(* ?a (+ ?b ?c))"),
     // rw!("max-min"; "* (max ?x ?b) (min ?x ?b)" => "(* ?x ?b)")
-    
 
     // rw!("pow-mul"; "(* (pow ?a ?b) (pow ?a ?c))" => "(pow ?a (+ ?b ?c))"),
     // rw!("pow0"; "(pow ?x 0)" => "1"
@@ -284,7 +283,7 @@ pub fn rules() -> Vec<Rewrite> { vec![
 // }
 
 fn main() {
-    let start: RecExpr<Math> = "* (max 2 3) (min 2 3)".parse().unwrap();
+    let start: RecExpr<Math> = "(max 2 3)".parse().unwrap();
     let mut end: RecExpr<Math> = "10".parse().unwrap();
 
     let now = Instant::now();
