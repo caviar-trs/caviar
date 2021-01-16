@@ -1,6 +1,6 @@
 use egg::{rewrite as rw, *};
 use ordered_float::NotNan;
-use std::time::{Duration, Instant};
+use std::time::Instant;
 
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
 pub type Rewrite = egg::Rewrite<Math, ConstantFold>;
@@ -13,7 +13,8 @@ define_language! {
         "-" = Sub([Id; 2]),
         "*" = Mul([Id; 2]),
         "/" = Div([Id; 2]),
-
+        "max" = Max([Id; 2]),
+        "min" = Min([Id; 2]),
         Constant(Constant),
         Symbol(Symbol),
     }
@@ -39,6 +40,8 @@ impl Analysis<Math> for ConstantFold {
             Math::Sub([a, b]) => x(a)? - x(b)?,
             Math::Mul([a, b]) => x(a)? * x(b)?,
             Math::Div([a, b]) if x(b) != Some(0.0.into()) => x(a)? / x(b)?,
+            Math::Max([a, b]) => std::cmp::max(x(a)?, x(b)?),
+            Math::Min([a, b]) => std::cmp::min(x(a)?, x(b)?),
             _ => return None,
         })
     }
@@ -104,6 +107,8 @@ fn is_not_zero(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 pub fn rules() -> Vec<Rewrite> { vec![
     rw!("comm-add";  "(+ ?a ?b)"        => "(+ ?b ?a)"),
     rw!("comm-mul";  "(* ?a ?b)"        => "(* ?b ?a)"),
+    rw!("comm-max";  "(max ?a ?b)"        => "(max ?b ?a)"),
+    rw!("comm-min";  "(min ?a ?b)"        => "(min ?b ?a)"),
     rw!("assoc-add"; "(+ ?a (+ ?b ?c))" => "(+ (+ ?a ?b) ?c)"),
     rw!("assoc-mul"; "(* ?a (* ?b ?c))" => "(* (* ?a ?b) ?c)"),
 
@@ -125,6 +130,8 @@ pub fn rules() -> Vec<Rewrite> { vec![
 
     rw!("distribute"; "(* ?a (+ ?b ?c))"        => "(+ (* ?a ?b) (* ?a ?c))"),
     rw!("factor"    ; "(+ (* ?a ?b) (* ?a ?c))" => "(* ?a (+ ?b ?c))"),
+    // rw!("max-min"; "* (max ?x ?b) (min ?x ?b)" => "(* ?x ?b)")
+    
 
     // rw!("pow-mul"; "(* (pow ?a ?b) (pow ?a ?c))" => "(pow ?a (+ ?b ?c))"),
     // rw!("pow0"; "(pow ?x 0)" => "1"
@@ -269,16 +276,22 @@ pub fn rules() -> Vec<Rewrite> { vec![
 //     test_add, rules(), "(+ a (+ a (+ a (+ a (+ a a)))))" => "(* 6 a)"
 // }
 
+// fn print_graph(egraph: &EGraph) {
+//     println!("printing graph to svg");
+//     // create a Dot and then compile it assuming `dot` is on the system
+//     egraph.dot().to_svg("target/foo.svg").unwrap();
+//     println!("done printing graph to svg");
+// }
+
 fn main() {
-    let start: RecExpr<Math> = "(+ x (+ x (+ x x)))".parse().unwrap();
-    let mut end: RecExpr<Math> = "(* 4 x)".parse().unwrap();
+    let start: RecExpr<Math> = "* (max 2 3) (min 2 3)".parse().unwrap();
+    let mut end: RecExpr<Math> = "10".parse().unwrap();
 
     let now = Instant::now();
     // That's it! We can run equality saturation now.
     let runner = Runner::default().with_expr(&start).run(rules().iter());
-
+    // print_graph(&runner.egraph);
     println!("Saturation took: {} ms", now.elapsed().as_millis());
-
     let mut eclasses = runner.egraph.equivs(&start, &end);
     if eclasses.is_empty() {
         println!("{} and {} are not equivalent", start, end);
@@ -297,10 +310,6 @@ fn main() {
 
     /// Graph Printing
     // let egraph = &runner.egraph;
-    // println!("printing graph to svg");
-    // // create a Dot and then compile it assuming `dot` is on the system
-    // egraph.dot().to_svg("target/foo.svg").unwrap();
-    // println!("done printing graph to svg");
 
     // Extractors can take a user-defined cost function,
     // we'll use the egg-provided AstSize for now
