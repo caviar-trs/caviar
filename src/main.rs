@@ -16,6 +16,7 @@ define_language! {
         "max" = Max([Id; 2]),
         "min" = Min([Id; 2]),
         "<" = Lt([Id; 2]),
+        ">" = Gt([Id; 2]),
         Constant(Constant),
         Symbol(Symbol),
     }
@@ -44,6 +45,12 @@ impl Analysis<Math> for ConstantFold {
             Math::Max([a, b]) => std::cmp::max(x(a)?, x(b)?),
             Math::Min([a, b]) => std::cmp::min(x(a)?, x(b)?),
             Math::Lt([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Less {
+                1.0
+            } else {
+                0.0
+            })
+            .unwrap(),
+            Math::Gt([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Greater {
                 1.0
             } else {
                 0.0
@@ -90,6 +97,16 @@ fn is_const_pos(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     move |egraph, _, subst| {
         egraph[subst[var]].nodes.iter().any(|n| match n {
             Math::Constant(c) => c.cmp(&zero) == Ordering::Greater,
+            _ => return false,
+        })
+    }
+}
+fn is_const_neg(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+    let var = var.parse().unwrap();
+    let zero = NotNan::from(0.0);
+    move |egraph, _, subst| {
+        egraph[subst[var]].nodes.iter().any(|n| match n {
+            Math::Constant(c) => c.cmp(&zero) == Ordering::Less,
             _ => return false,
         })
     }
@@ -167,9 +184,18 @@ pub fn rules() -> Vec<Rewrite> { vec![
     rw!("cancel-min-lt";  "(< ?a (min ?a ?b))" => "0"),
     rw!("cancel-min--max-lt";  "(< (max ?a ?c) (min ?a ?b))" => "0"),
 
+    rw!("div-Gt-Lt-";  "(> ?x ?z)" => "(< (* -1 ?x) (* -1 ?z))"),
+
 
     rw!("change-side-c-lt";  "(< (+ ?x ?y) ?z)" => "(< ?x (- ?z ?y))" ),
     // rw!("change-side-c-lt";  "(< ?z (+ ?x ?y))" => "(< (- ?z ?y) ?x)" ),  //adding it causes an error
+
+    rw!("div-c-lt";  "(< (* ?x ?y) ?z)" => "(< ?x (/ ?z ?y))"  if is_const_pos("?y")),
+    
+    // rw!("cancel-mul-pos-lt";  "(< (* ?x ?c) (* ?y ?c))" => "(< ?x ?y)" if is_const_pos("?c")),
+    // rw!("cancel-mul-neg-lt";  "(< (* ?x ?c) (* ?y ?c))" => "(< ?y ?x)" if is_const_neg("?c")),
+
+
 
     
 ]}
@@ -283,8 +309,8 @@ pub fn rules() -> Vec<Rewrite> { vec![
 // }
 
 fn main() {
-    let start: RecExpr<Math> = "(< (+ (+ z x) y) x )".parse().unwrap();
-    let end: Pattern<Math> = "(< (+ z y) 0 )".parse().unwrap();
+    let start: RecExpr<Math> = "(> (* -1 (max a b)) (* -1 (min a c)))".parse().unwrap();
+    let end: Pattern<Math> = "0".parse().unwrap();
 
     let now = Instant::now();
     // That's it! We can run equality saturation now.
