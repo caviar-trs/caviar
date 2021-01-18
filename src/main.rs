@@ -1,7 +1,7 @@
+use colored::*;
 use egg::{rewrite as rw, *};
 use ordered_float::NotNan;
 use std::{cmp::Ordering, time::Instant};
-
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
 pub type Rewrite = egg::Rewrite<Math, ConstantFold>;
 
@@ -191,6 +191,7 @@ pub fn rules() -> Vec<Rewrite> { vec![
     // rw!("change-side-c-lt";  "(< ?z (+ ?x ?y))" => "(< (- ?z ?y) ?x)" ),  //adding it causes an error
 
     rw!("div-c-lt";  "(< (* ?x ?y) ?z)" => "(< ?x (/ ?z ?y))"  if is_const_pos("?y")),
+    rw!("div-c-neg-lt";  "(< (* ?x ?y) ?z)" => "(< (/ ?z ?y) ?x)"  if is_const_neg("?y")),
     
     // rw!("cancel-mul-pos-lt";  "(< (* ?x ?c) (* ?y ?c))" => "(< ?x ?y)" if is_const_pos("?c")),
     // rw!("cancel-mul-neg-lt";  "(< (* ?x ?c) (* ?y ?c))" => "(< ?y ?x)" if is_const_neg("?c")),
@@ -309,21 +310,34 @@ pub fn rules() -> Vec<Rewrite> { vec![
 // }
 
 fn main() {
-    let start: RecExpr<Math> = "(> (* -1 (max a b)) (* -1 (min a c)))".parse().unwrap();
-    let end: Pattern<Math> = "0".parse().unwrap();
+    let start: RecExpr<Math> = "(< (* 2 x) y)".parse().unwrap();
+    let end: Pattern<Math> = "(<  x (/ y 2))".parse().unwrap();
 
     let now = Instant::now();
     // That's it! We can run equality saturation now.
     let runner = Runner::default().with_expr(&start).run(rules().iter());
-    println!("Saturation took: {} ms", now.elapsed().as_millis());
+    println!(
+        "Saturation took: {}",
+        format!("{} ms", now.elapsed().as_millis())
+            .bright_green()
+            .bold()
+    );
 
     // print_graph(&runner.egraph);
     let id = runner.egraph.find(*runner.roots.last().unwrap());
     let matches = end.search_eclass(&runner.egraph, id);
     if matches.is_none() {
-        println!("Could not prove goal:\n{}\n", end.pretty(40),);
+        println!(
+            "{}\n{}\n",
+            "Could not prove goal:".bright_red().bold(),
+            end.pretty(40),
+        );
     } else {
-        println!("Proved goal:\n{}\n", end.pretty(40));
+        println!(
+            "{}\n{}\n",
+            "Proved goal:".bright_green().bold(),
+            end.pretty(40)
+        );
     }
 
     // Extractors can take a user-defined cost function,
@@ -337,9 +351,11 @@ fn main() {
     let (_, best_expr) = extractor.find_best(id);
 
     println!(
-        "Best Expr: {} found in {} ms (without saturation) {} ms (with saturation)",
-        best_expr,
+        "Best Expr: {} found in {} ms (without saturation) {} (with saturation)",
+        format!("{}", best_expr).bright_green().bold(),
         now1.elapsed().as_millis(),
-        now.elapsed().as_millis()
+        format!("{} ms", now.elapsed().as_millis())
+            .bright_green()
+            .bold()
     );
 }
