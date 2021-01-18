@@ -17,6 +17,9 @@ define_language! {
         "min" = Min([Id; 2]),
         "<" = Lt([Id; 2]),
         ">" = Gt([Id; 2]),
+        "!" = Not(Id),
+        "<=" = Let([Id;2]),
+        ">=" = Get([Id;2]),
         Constant(Constant),
         Symbol(Symbol),
     }
@@ -44,6 +47,13 @@ impl Analysis<Math> for ConstantFold {
             Math::Div([a, b]) if x(b) != Some(0.0.into()) => x(a)? / x(b)?,
             Math::Max([a, b]) => std::cmp::max(x(a)?, x(b)?),
             Math::Min([a, b]) => std::cmp::min(x(a)?, x(b)?),
+            Math::Not(a) => NotNan::new(if x(a)?.cmp(&NotNan::from(0.0)) == Ordering::Equal {
+                1.0
+            } else {
+                0.0
+            })
+            .unwrap(),
+
             Math::Lt([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Less {
                 1.0
             } else {
@@ -56,6 +66,25 @@ impl Analysis<Math> for ConstantFold {
                 0.0
             })
             .unwrap(),
+
+            Math::Let([a, b]) => NotNan::new(
+                if x(a)?.cmp(&x(b)?) == Ordering::Less || x(a)?.cmp(&x(b)?) == Ordering::Equal {
+                    1.0
+                } else {
+                    0.0
+                },
+            )
+            .unwrap(),
+
+            Math::Get([a, b]) => NotNan::new(
+                if x(a)?.cmp(&x(b)?) == Ordering::Greater || x(a)?.cmp(&x(b)?) == Ordering::Equal {
+                    1.0
+                } else {
+                    0.0
+                },
+            )
+            .unwrap(),
+
             _ => return None,
         })
     }
@@ -184,140 +213,46 @@ pub fn rules() -> Vec<Rewrite> { vec![
     rw!("cancel-min-lt";  "(< ?a (min ?a ?b))" => "0"),
     rw!("cancel-min--max-lt";  "(< (max ?a ?c) (min ?a ?b))" => "0"),
 
-    rw!("div-Gt-Lt-";  "(> ?x ?z)" => "(< (* -1 ?x) (* -1 ?z))"),
+    rw!("div-Gt-Lt";  "(> ?x ?z)" => "(< ?z ?x)"),
 
 
     rw!("change-side-c-lt";  "(< (+ ?x ?y) ?z)" => "(< ?x (- ?z ?y))" ),
     // rw!("change-side-c-lt";  "(< ?z (+ ?x ?y))" => "(< (- ?z ?y) ?x)" ),  //adding it causes an error
 
-    rw!("div-c-lt";  "(< (* ?x ?y) ?z)" => "(< ?x (/ ?z ?y))"  if is_const_pos("?y")),
-    rw!("div-c-neg-lt";  "(< (* ?x ?y) ?z)" => "(< (/ ?z ?y) ?x)"  if is_const_neg("?y")),
-    
-    // rw!("cancel-mul-pos-lt";  "(< (* ?x ?c) (* ?y ?c))" => "(< ?x ?y)" if is_const_pos("?c")),
-    // rw!("cancel-mul-neg-lt";  "(< (* ?x ?c) (* ?y ?c))" => "(< ?y ?x)" if is_const_neg("?c")),
-
+    rw!("cancel-mul-pos-lt";  "(< (* ?x ?y) ?z)" => "(< ?x (/ ?z ?y))"  if is_const_pos("?y")),
+    rw!("cancel-mul-neg-lt";  "(< (* ?x ?y) ?z)" => "(< (/ ?z ?y) ?x)"  if is_const_neg("?y")),
 
 
     
+
+    // NOT RULES
+    rw!("cancel-eqlt";  "(<= ?x ?y)" => "(! (< ?y ?x))" ),
+    rw!("not-eqgt";  "(>= ?x ?y)" => "(! (< ?x ?y))" ),
+    // rw!("not-eq";  "(! (== x y))" => "!= y x" ),
+    // rw!("not-dif";  "(! (!= x y))" => "<= y x" ),
+
 ]}
 
-// egg::test_fn! {
-//     math_associate_adds, [
-//         rw!("comm-add"; "(+ ?a ?b)" => "(+ ?b ?a)"),
-//         rw!("assoc-add"; "(+ ?a (+ ?b ?c))" => "(+ (+ ?a ?b) ?c)"),
-//     ],
-//     runner = Runner::default()
-//         .with_iter_limit(7)
-//         .with_scheduler(SimpleScheduler),
-//     "(+ 1 (+ 2 (+ 3 (+ 4 (+ 5 (+ 6 7))))))"
-//     =>
-//     "(+ 7 (+ 6 (+ 5 (+ 4 (+ 3 (+ 2 1))))))"
-//     @check |r: Runner<Math, ()>| assert_eq!(r.egraph.number_of_classes(), 127)
-// }
-
-// egg::test_fn! {
-//     #[should_panic(expected = "Could not prove goal 0")]
-//     math_fail, rules(),
-//     "(+ x y)" => "(/ x y)"
-// }
-
-// egg::test_fn! {math_simplify_add, rules(), "(+ x (+ x (+ x x)))" => "(* 4 x)" }
-// egg::test_fn! {math_powers, rules(), "(* (pow 2 x) (pow 2 y))" => "(pow 2 (+ x y))"}
-
-// egg::test_fn! {
-//     math_simplify_const, rules(),
-//     "(+ 1 (- a (* (- 2 1) a)))" => "1"
-// }
-
-// egg::test_fn! {
-//     math_simplify_root, rules(),
-//     runner = Runner::default().with_node_limit(75_000),
-//     r#"
-//     (/ 1
-//        (- (/ (+ 1 (sqrt five))
-//              2)
-//           (/ (- 1 (sqrt five))
-//              2)))"#
-//     =>
-//     "(/ 1 (sqrt five))"
-// }
-
-// egg::test_fn! {
-//     math_simplify_factor, rules(),
-//     "(* (+ x 3) (+ x 1))"
-//     =>
-//     "(+ (+ (* x x) (* 4 x)) 3)"
-// }
-
-// egg::test_fn! {math_diff_same,      rules(), "(d x x)" => "1"}
-// egg::test_fn! {math_diff_different, rules(), "(d x y)" => "0"}
-// egg::test_fn! {math_diff_simple1,   rules(), "(d x (+ 1 (* 2 x)))" => "2"}
-// egg::test_fn! {math_diff_simple2,   rules(), "(d x (+ 1 (* y x)))" => "y"}
-// egg::test_fn! {math_diff_ln,        rules(), "(d x (ln x))" => "(/ 1 x)"}
-
-// egg::test_fn! {
-//     diff_power_simple, rules(),
-//     "(d x (pow x 3))" => "(* 3 (pow x 2))"
-// }
-
-// egg::test_fn! {
-//     diff_power_harder, rules(),
-//     runner = Runner::default()
-//         .with_time_limit(std::time::Duration::from_secs(10))
-//         .with_iter_limit(60)
-//         .with_node_limit(100_000)
-//         // HACK this needs to "see" the end expression
-//         .with_expr(&"(* x (- (* 3 x) 14))".parse().unwrap()),
-//     "(d x (- (pow x 3) (* 7 (pow x 2))))"
-//     =>
-//     "(* x (- (* 3 x) 14))"
-// }
-
-// egg::test_fn! {
-//     integ_one, rules(), "(i 1 x)" => "x"
-// }
-
-// egg::test_fn! {
-//     integ_sin, rules(), "(i (cos x) x)" => "(sin x)"
-// }
-
-// egg::test_fn! {
-//     integ_x, rules(), "(i (pow x 1) x)" => "(/ (pow x 2) 2)"
-// }
-
-// egg::test_fn! {
-//     integ_part1, rules(), "(i (* x (cos x)) x)" => "(+ (* x (sin x)) (cos x))"
-// }
-
-// egg::test_fn! {
-//     integ_part2, rules(),
-//     "(i (* (cos x) x) x)" => "(+ (* x (sin x)) (cos x))"
-// }
-
-// egg::test_fn! {
-//     integ_part3, rules(), "(i (ln x) x)" => "(- (* x (ln x)) x)"
-// }
-
-// egg::test_fn! {
-//     test_add, rules(), "(< 5 0)" => "(1)"
-// }
-
-// fn print_graph(egraph: &EGraph) {
-//     println!("printing graph to svg");
-//     // create a Dot and then compile it assuming `dot` is on the system
-//     egraph.dot().to_svg("target/foo.svg").unwrap();
-//     println!("done printing graph to svg");
-// }
+fn print_graph(egraph: &EGraph) {
+    println!("printing graph to svg");
+    // create a Dot and then compile it assuming `dot` is on the system
+    egraph.dot().to_svg("target/foo.svg").unwrap();
+    println!("done printing graph to svg");
+}
 
 fn main() {
-    let start: RecExpr<Math> = "(< (* 2 x) y)".parse().unwrap();
-    let end: Pattern<Math> = "(<  x (/ y 2))".parse().unwrap();
+    //  let start: RecExpr<Math> = "(< (/ (+ (min (+ v0 11) v1) -13) 2) (/ (+ v1 -13) 2))"
+    let start: RecExpr<Math> = "(<= ( - v0 11 ) ( + ( * ( / ( - v0 v1 ) 12 ) 12 ) v1 ))"
+        .parse()
+        .unwrap();
+    let end: Pattern<Math> = "1".parse().unwrap();
+    println!("{}\n", start);
 
     let now = Instant::now();
     // That's it! We can run equality saturation now.
     let runner = Runner::default().with_expr(&start).run(rules().iter());
     println!(
-        "Saturation took: {}",
+        "Saturation took: {}\n",
         format!("{} ms", now.elapsed().as_millis())
             .bright_green()
             .bold()
