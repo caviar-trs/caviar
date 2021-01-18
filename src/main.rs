@@ -84,6 +84,17 @@ fn is_const_or_distinct_var(v: &str, w: &str) -> impl Fn(&mut EGraph, Id, &Subst
     }
 }
 
+fn is_const_pos(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+    let var = var.parse().unwrap();
+    let zero = NotNan::from(0.0);
+    move |egraph, _, subst| {
+        egraph[subst[var]].nodes.iter().any(|n| match n {
+            Math::Constant(c) => c.cmp(&zero) == Ordering::Greater,
+            _ => return false,
+        })
+    }
+}
+
 fn is_const(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
     move |egraph, _, subst| {
@@ -149,10 +160,18 @@ pub fn rules() -> Vec<Rewrite> { vec![
     rw!("cancel-mul-div"; "(/ (* ?y ?x) ?x)" => "?y"),
 
 
-
-    rw!("lt-x-xminus";  "(< (- ?a ?y) ?a )" => "1" ),
+    // LT RULES
     rw!("cancel-lt";  "(< ?a ?a)" => "0"),
-    rw!("cancel-max-lt";  "(< ?a ?a)" => "0"),
+    rw!("lt-x-xminus";  "(< (- ?a ?y) ?a )" => "1" ),
+    rw!("cancel-max-lt";  "(< (max ?a ?b) ?a)" => "0"),
+    rw!("cancel-min-lt";  "(< ?a (min ?a ?b))" => "0"),
+    rw!("cancel-min--max-lt";  "(< (max ?a ?c) (min ?a ?b))" => "0"),
+
+
+    rw!("change-side-c-lt";  "(< (+ ?x ?y) ?z)" => "(< ?x (- ?z ?y))" ),
+    // rw!("change-side-c-lt";  "(< ?z (+ ?x ?y))" => "(< (- ?z ?y) ?x)" ),  //adding it causes an error
+
+    
 ]}
 
 // egg::test_fn! {
@@ -264,10 +283,8 @@ pub fn rules() -> Vec<Rewrite> { vec![
 // }
 
 fn main() {
-    let start: RecExpr<Math> = "( < ( - v0 8 ) ( + ( * ( / ( - v0 v1 ) 9 ) 9 ) v1 ) )"
-        .parse()
-        .unwrap();
-    let end: Pattern<Math> = "(1)".parse().unwrap();
+    let start: RecExpr<Math> = "(< (+ (+ z x) y) x )".parse().unwrap();
+    let end: Pattern<Math> = "(< (+ z y) 0 )".parse().unwrap();
 
     let now = Instant::now();
     // That's it! We can run equality saturation now.
