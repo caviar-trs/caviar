@@ -359,6 +359,13 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("x-1-and";  "(&& 1 ?x)"        => "?x"),
     rw!("x-0-and";  "(&& 0 ?x)"        => "0"),
     rw!("x-x-and";  "(&& ?x ?x)"        => "?x"),
+    rw!("x-!x-and";  "(&& ?x (! ?x))" => "0"),
+    
+    rw!("max-and";  "(&& (< ?x ?y) (< ?x ?z))" => "(< ?x (min ?y ?z))"),
+    rw!("and-max";  "(< ?x (min ?y ?z))" => "(&& (< ?x ?y) (< ?x ?z))"),
+    //rewrite(y < x || z < x, min(y, z) < x) ||
+    rw!("min-and";  "(&& (< ?y ?x) (< ?z ?x))" => "(< (max ?y ?z) ?x)"),
+    rw!("and-min";  "(< (max ?y ?z) ?x)" => "(&& (< ?y ?x) (< ?z ?x))"),
 
     // AND-OR RULES
     rw!("and-over-or";  "(&& ?a (|| ?b ?c))" => "(|| (&& ?a ?b) (&& ?a ?c))"),
