@@ -20,6 +20,7 @@ define_language! {
         "!" = Not(Id),
         "<=" = Let([Id;2]),
         ">=" = Get([Id;2]),
+        "%" = Mod([Id; 2]),
         Constant(Constant),
         Symbol(Symbol),
     }
@@ -84,6 +85,14 @@ impl Analysis<Math> for ConstantFold {
                 },
             )
             .unwrap(),
+
+            Math::Mod([a, b]) => {
+                if x(b)? == NotNan::from(0.0) {
+                    NotNan::from(0.0)
+                } else {
+                    x(a)? % x(b)?
+                }
+            }
 
             _ => return None,
         })
@@ -172,43 +181,50 @@ fn is_not_zero(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 
 #[rustfmt::skip]
 fn rules() -> Vec<Rewrite> { vec![
-    rw!("comm-add";  "(+ ?a ?b)"        => "(+ ?b ?a)"),
-    rw!("comm-mul";  "(* ?a ?b)"        => "(* ?b ?a)"),
-    rw!("comm-max";  "(max ?a ?b)"        => "(max ?b ?a)"),
-    rw!("comm-min";  "(min ?a ?b)"        => "(min ?b ?a)"),
-    rw!("assoc-add"; "(+ ?a (+ ?b ?c))" => "(+ (+ ?a ?b) ?c)"),
-    rw!("assoc-mul"; "(* ?a (* ?b ?c))" => "(* (* ?a ?b) ?c)"),
 
-    rw!("sub-canon"; "(- ?a ?b)" => "(+ ?a (* -1 ?b))"),
-    // rw!("div-canon"; "(/ ?a ?b)" => "(* ?a (pow ?b -1))" if is_not_zero("?b")),
-    // rw!("canon-sub"; "(+ ?a (* -1 ?b))"   => "(- ?a ?b)"),
-    // rw!("canon-div"; "(* ?a (pow ?b -1))" => "(/ ?a ?b)" if is_not_zero("?b")),
+    // ADD RULES
+    rw!("comm-add";  "(+ ?a ?b)"        => "(+ ?b ?a)"),
+    rw!("assoc-add"; "(+ ?a (+ ?b ?c))" => "(+ (+ ?a ?b) ?c)"),
 
     rw!("add-double"; "(+ ?a ?a)" => "(* 2 a)"),
     rw!("zero-add"; "(+ ?a 0)" => "?a"),
-    rw!("zero-sub"; "(- ?a 0)" => "?a"),
-    rw!("zero-mul"; "(* ?a 0)" => "0"),
-    rw!("one-mul";  "(* ?a 1)" => "?a"),
-
     rw!("add-zero"; "?a" => "(+ ?a 0)"),
-    rw!("sub-zero"; "?a" => "(- ?a 0)"),
-    rw!("mul-one";  "?a" => "(* ?a 1)"),
-
-    rw!("cancel-sub"; "(- ?a ?a)" => "0"),
-    rw!("cancel-div"; "(/ ?a ?a)" => "1" if is_not_zero("?a")),
 
     rw!("distribute"; "(* ?a (+ ?b ?c))"        => "(+ (* ?a ?b) (* ?a ?c))"),
     rw!("factor"    ; "(+ (* ?a ?b) (* ?a ?c))" => "(* ?a (+ ?b ?c))"),
-    // rw!("mul-max-min"; "* (max ?a ?b) (min ?a ?b)" => "(* ?a ?b)")
-
-
-    ///////////////////////// TESTS
-
-    rw!("div-to-mul"; "(/ ?x ?y)" => "(* ?x (/ 1 ?y))"),
-
-    rw!("cancel-div-1surdiv"; "(* (/ 1 ?a) ?a)" => "1" if is_not_zero("?a")),
     
+
+    // SUB RULES
+    rw!("sub-canon"; "(- ?a ?b)" => "(+ ?a (* -1 ?b))"),
+    rw!("canon-sub"; "(+ ?a (* -1 ?b))"   => "(- ?a ?b)"),
+    rw!("canon-sub-const"; "(+ ?a ?b)"   => "(- ?a (* -1 ?b))"),
+    rw!("cancel-sub"; "(- ?a ?a)" => "0"),
+    rw!("sub-zero"; "?a" => "(- ?a 0)"),
+    rw!("zero-sub"; "(- ?a 0)" => "?a"),
+
+    //MUL RULES
+    rw!("comm-mul";  "(* ?a ?b)"        => "(* ?b ?a)"),
+    rw!("assoc-mul"; "(* ?a (* ?b ?c))" => "(* (* ?a ?b) ?c)"),
+    rw!("zero-mul"; "(* ?a 0)" => "0"),
+    rw!("one-mul";  "(* ?a 1)" => "?a"),
+    rw!("mul-one";  "?a" => "(* ?a 1)"),
+    rw!("cancel-div-1surdiv"; "(* (/ 1 ?a) ?a)" => "1" if is_not_zero("?a")),
     rw!("cancel-mul-div"; "(/ (* ?y ?x) ?x)" => "?y"),
+
+    rw!("mul-max-min"; "(* (max ?a ?b) (min ?a ?b))" => "(* ?a ?b)"),
+
+    //DIV RULES
+    rw!("div-to-mul"; "(/ ?x ?y)" => "(* ?x (/ 1 ?y))"),
+    rw!("cancel-div"; "(/ ?a ?a)" => "1" if is_not_zero("?a")),
+
+     //MOD RULES
+    rw!("zero-mod"; "(% 0 ?x)" => "0"),
+    rw!("mod-zero"; "(% ?x 0)" => "0"),
+    rw!("x-x-mod"; "(% ?x ?x)" => "0"),
+    rw!("mod-one"; "(% ?x 1)" => "0"),
+    //rewrite((x - y) % 2, (x + y) % 2)  Addition and subtraction are the same modulo 2, because -1 == 1
+    rw!("mod-two"; "(% (- ?x ?y) 2)" => "(% (+ ?x ?y) 2)"),
+    rw!("mod-two"; "(% (+ ?x ?y) 2)" => "(% (- ?x ?y) 2)"),
 
 
     // LT RULES
@@ -216,18 +232,17 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("lt-x-xminus";  "(< (- ?a ?y) ?a )" => "1" ),
     rw!("cancel-max-lt";  "(< (max ?a ?b) ?a)" => "0"),
     rw!("cancel-min-lt";  "(< ?a (min ?a ?b))" => "0"),
-    rw!("cancel-min--max-lt";  "(< (max ?a ?c) (min ?a ?b))" => "0"),
-
+    rw!("cancel-min-max-lt";  "(< (max ?a ?c) (min ?a ?b))" => "0"),
     rw!("div-Gt-Lt";  "(> ?x ?z)" => "(< ?z ?x)"),
-
-
     rw!("change-side-c-lt";  "(< (+ ?x ?y) ?z)" => "(< ?x (- ?z ?y))" ),
     // rw!("change-side-c-lt";  "(< ?z (+ ?x ?y))" => "(< (- ?z ?y) ?x)" ),  //adding it causes an error
-
     rw!("cancel-mul-pos-lt";  "(< (* ?x ?y) ?z)" => "(< ?x (/ ?z ?y))"  if is_const_pos("?y")),
     rw!("cancel-mul-neg-lt";  "(< (* ?x ?y) ?z)" => "(< (/ ?z ?y) ?x)"  if is_const_neg("?y")),
 
-    // Min rules
+
+
+    // MIN RULES
+    rw!("comm-min";  "(min ?a ?b)"        => "(min ?b ?a)"),
     rw!("min-x-x";          "(min ?x ?x)"                   => "(?x)"),
     rw!("min-min";          "(min (min ?x ?y) ?x)"          => "(min ?x ?y)"),
     rw!("min-max";          "(min (max ?x ?y) ?x)"          => "(?x)"),
@@ -259,9 +274,11 @@ fn rules() -> Vec<Rewrite> { vec![
     //rw!("min-to-max";       "(min ?x ?y)"                   => "(max (* -1 ?x) (* -1 ?y))"),
 
 
+    // MAX RULES
+    rw!("comm-max";  "(max ?a ?b)"        => "(max ?b ?a)"),
 
-    
-    
+
+   
 
     // NOT RULES
     rw!("cancel-eqlt";  "(<= ?x ?y)" => "(! (< ?y ?x))" ),
@@ -280,7 +297,7 @@ pub fn print_graph(egraph: &EGraph) {
 }
 
 #[allow(dead_code)]
-pub fn prove(start_expression: &str, end_expressions: &str) {
+pub fn prove(start_expression: &str, end_expressions: &str) -> bool {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end: Pattern<Math> = end_expressions.parse().unwrap();
     let runner = Runner::default().with_expr(&start).run(rules().iter());
@@ -292,12 +309,27 @@ pub fn prove(start_expression: &str, end_expressions: &str) {
             "Could not prove goal:".bright_red().bold(),
             end.pretty(40),
         );
+
+        let mut extractor = Extractor::new(&runner.egraph, AstSize);
+
+        // We want to extract the best expression represented in the
+        // same e-class as our initial expression, not from the whole e-graph.
+        // Luckily the runner stores the eclass Id where we put the initial expression.
+        let (_, best_expr) = extractor.find_best(id);
+
+        println!(
+            "Best Expr: {}",
+            format!("{}", best_expr).bright_green().bold()
+        );
+
+        false
     } else {
         println!(
             "{}\n{}\n",
             "Proved goal:".bright_green().bold(),
             end.pretty(40)
         );
+        true
     }
 }
 
@@ -349,9 +381,10 @@ pub fn find_best_time(start_expression: &str) {
 }
 
 #[allow(dead_code)]
-fn prove_time(start_expression: &str, end_expressions: &str) {
+pub fn prove_time(start_expression: &str, end_expressions: &str) -> bool {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end: Pattern<Math> = end_expressions.parse().unwrap();
+    let result: bool;
     // That's it! We can run equality saturation now.
     let runner = Runner::default().with_expr(&start).run(rules().iter());
     let id = runner.egraph.find(*runner.roots.last().unwrap());
@@ -362,18 +395,33 @@ fn prove_time(start_expression: &str, end_expressions: &str) {
             "Could not prove goal:".bright_red().bold(),
             end.pretty(40),
         );
+
+        let mut extractor = Extractor::new(&runner.egraph, AstDepth);
+        // We want to extract the best expression represented in the
+        // same e-class as our initial expression, not from the whole e-graph.
+        // Luckily the runner stores the eclass Id where we put the initial expression.
+        let (_, best_expr) = extractor.find_best(id);
+
+        println!(
+            "Best Expr: {}",
+            format!("{}", best_expr).bright_green().bold()
+        );
+
+        result = false;
     } else {
         println!(
             "{}\n{}\n",
             "Proved goal:".bright_green().bold(),
             end.pretty(40)
         );
+        result = true;
     }
     let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
     println!(
         "Execution took: {}\n",
         format!("{} s", total_time).bright_green().bold()
     );
+    result
 }
 
 // fn main() {
