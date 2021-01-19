@@ -1,5 +1,5 @@
 import sys
-import pandas as pd
+#import pandas as pd
 
 class Stack:
 
@@ -29,7 +29,7 @@ class Stack:
 ## an opertor or any alphabet or digit
 def isOperator(char):
 
-    return char in ('+', '-', '*', '/', '%' , '<', '>', '<=', '>=' , 'max' , 'min', '&&', '||', '!')
+    return char in ('+', '-', '*', '/', '%' , '<', '>', '<=', '>=' , 'max' , 'min', '&&', '||', '!', '==', '!=')
 
 def isVar(s):
 
@@ -41,30 +41,18 @@ def priority(opr):
         return 1
     elif opr == '&&':
         return 2
-    elif opr == '<' or opr == '>' or opr == '<=' or opr == '>=' :
+    elif opr == '==' or opr == '!=':
         return 3
+    elif opr == '<' or opr == '>' or opr == '<=' or opr == '>=' :
+        return 4
     elif opr == '+' or opr == '-':
-        return 4
+        return 5
     elif opr == '*' or opr == '/' or opr == '%':
-        return 5
-    elif opr == '!':
         return 6
-    return 0
-    '''
-    if opr == '+' or opr == '-':
-        return 1
-    elif opr == '*' or opr == '/':
-        return 2
-    elif opr == '&&' or opr == '||':
-        return 3
     elif opr == '!':
-        return 4
-    elif opr == 'min' or opr == 'max':
-        return 5
-    elif opr == '<' or opr == '>' or opr == '<=' or opr == '>=' :
-        return 6
+        return 7
     return 0
-    '''
+    
 
 def expr_str_to_arr(s):
     res = []
@@ -72,6 +60,9 @@ def expr_str_to_arr(s):
     while i < len(s):
         if s[i] == ' ':
             pass
+        elif s[i:i+2] in ('&&','||','==', '!='):
+            res.append(s[i:i+2])
+            i += 1
         elif s[i] in ('+', '*', '%', '/', '(', ')', ',','!'):
             res.append(s[i])
         elif s[i] == '-':
@@ -83,9 +74,6 @@ def expr_str_to_arr(s):
                 res.append(n)
             else:
                 res.append(s[i])
-        elif s[i:i+2] in ('&&','||'):
-            res.append(s[i:i+2])
-            i += 1
         elif s[i] in ('<', '>'):
             if s[i+1] in ('='):
                 res.append(s[i]+s[i+1])
@@ -201,29 +189,28 @@ if __name__ == '__main__':
     expr = minus_plus(expr)
     expr = expr_str_to_arr(expr)
     expr = fun_to_op(expr)
-    # print(expr)
-    prefix = infixToPrefix(expr) 
-    # print(prefix)
-    print('(' + ' '.join(prefix) + ')')
-    
-    # data_path = sys.argv[1]
-    # df = pd.read_csv(data_path)
-    # i = 0
-    # with open("results.csv", "w") as result:
-    #     for line in df.iterrows():
-    #         print(i)
-    #         i += 1
-    #         line = line[1].values[0]
-    #         expr_s = line[1:-1]
-    #         if 'select' in expr_s or 'float32' in expr_s or 'int32' in expr_s:
-    #             continue
-    #         expr = minus_plus(expr_s)
-    #         expr = expr_str_to_arr(expr)
-    #         expr = fun_to_op(expr)
-    #         # print(' '.join(expr))
-    #         infix = infixToPrefix(expr) 
-    #         # print(' '.join(infix))
-    #         result.write(
-    #             '"' + expr_s + '"'+ "," +'"' + ' '.join(infix) + '"\n'
-    #         )
-    
+    print(expr)
+    infix = infixToPrefix(expr) 
+    print(' '.join(infix))
+    '''
+    data_path = sys.argv[1]
+    df = pd.read_csv(data_path)
+    i = 0
+    with open("results.csv", "w") as result:
+        for line in df.iterrows():
+            print(i)
+            i += 1
+            line = line[1].values[0]
+            expr_s = line[1:-1]
+            if 'select' in expr_s or 'float32' in expr_s or 'int32' in expr_s:
+                continue
+            expr = minus_plus(expr_s)
+            expr = expr_str_to_arr(expr)
+            expr = fun_to_op(expr)
+            # print(' '.join(expr))
+            infix = infixToPrefix(expr) 
+            # print(' '.join(infix))
+            result.write(
+                '"' + expr_s + '"'+ "," +'"' + ' '.join(infix) + '"\n'
+            )
+    '''
