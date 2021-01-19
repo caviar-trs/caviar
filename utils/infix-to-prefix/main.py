@@ -175,7 +175,7 @@ def infixToPrefix(infix):
     return prefix[::-1]
 
 if __name__ == '__main__':
-    expr = '(max((v0/2), -2) + 1) <= max(((v0 + 3)/2), 0)'
+    expr = '(z || x != y) || x == y'
     # expr = '((v0 + -8) <= ((((v0 - v1)/9)*9) + v1))'
     # expr = 'max(1,-1)'
     # expr = '((((((((v0*81) + v1) + 81)/2) - v2)/11) + -1) <= max(((((((v0*81) + v1) + 61)/2) - v2)/11), -1))'
@@ -183,26 +183,27 @@ if __name__ == '__main__':
     expr = expr_str_to_arr(expr)
     expr = fun_to_op(expr)
     # print(expr)
-    infix = infixToPrefix(expr) 
-    # print(' '.join(infix))
+    prefix = infixToPrefix(expr) 
+    # print(prefix)
+    print(' '.join(prefix))
     
-    data_path = sys.argv[1]
-    df = pd.read_csv(data_path)
-    i = 0
-    with open("results.csv", "w") as result:
-        for line in df.iterrows():
-            print(i)
-            i += 1
-            line = line[1].values[0]
-            expr_s = line[1:-1]
-            if 'select' in expr_s or 'float32' in expr_s or 'int32' in expr_s:
-                continue
-            expr = minus_plus(expr_s)
-            expr = expr_str_to_arr(expr)
-            expr = fun_to_op(expr)
-            # print(' '.join(expr))
-            infix = infixToPrefix(expr) 
-            # print(' '.join(infix))
-            result.write(
-                '"' + expr_s + '"'+ "," +'"' + ' '.join(infix) + '"\n'
-            )
+    # data_path = sys.argv[1]
+    # df = pd.read_csv(data_path)
+    # i = 0
+    # with open("results.csv", "w") as result:
+    #     for line in df.iterrows():
+    #         print(i)
+    #         i += 1
+    #         line = line[1].values[0]
+    #         expr_s = line[1:-1]
+    #         if 'select' in expr_s or 'float32' in expr_s or 'int32' in expr_s:
+    #             continue
+    #         expr = minus_plus(expr_s)
+    #         expr = expr_str_to_arr(expr)
+    #         expr = fun_to_op(expr)
+    #         # print(' '.join(expr))
+    #         infix = infixToPrefix(expr) 
+    #         # print(' '.join(infix))
+    #         result.write(
+    #             '"' + expr_s + '"'+ "," +'"' + ' '.join(infix) + '"\n'
+    #         )

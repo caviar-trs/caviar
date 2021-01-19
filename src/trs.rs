@@ -22,6 +22,7 @@ define_language! {
         "<=" = Let([Id;2]),
         ">=" = Get([Id;2]),
         "==" = Eq([Id; 2]),
+        "!=" = IEq([Id; 2]),
         "||" = Or([Id; 2]),
         "&&" = And([Id; 2]),
         Constant(Constant),
@@ -104,6 +105,14 @@ impl Analysis<Math> for ConstantFold {
                 0.0
             })
             .unwrap(),
+
+            Math::IEq([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Equal {
+                0.0
+            } else {
+                1.0
+            })
+            .unwrap(),
+
             Math::And([a, b]) => NotNan::new(
                 if x(a)?.cmp(&NotNan::from(0.0)) == Ordering::Equal
                     || x(b)?.cmp(&NotNan::from(0.0)) == Ordering::Equal
@@ -255,7 +264,6 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("mod-one"; "(% ?x 1)" => "0"),
     //rewrite((x - y) % 2, (x + y) % 2)  Addition and subtraction are the same modulo 2, because -1 == 1
     rw!("mod-two"; "(% (- ?x ?y) 2)" => "(% (+ ?x ?y) 2)"),
-    rw!("mod-two"; "(% (+ ?x ?y) 2)" => "(% (- ?x ?y) 2)"),
 
 
     // LT RULES
@@ -320,17 +328,30 @@ fn rules() -> Vec<Rewrite> { vec![
 
     // Equality RULES
     rw!("comm-Eq";  "(== ?x ?y)"        => "(== ?y ?x)"),
-    rw!("one-Eq";  "(== ?x 1)"        => "(?x)"),
-    rw!("zero-Eq";  "(== ?x 0)"        => "(! ?x)"),
+    // rw!("one-Eq";  "(== ?x 1)"        => "(?x)"),
+    // rw!("zero-Eq";  "(== ?x 0)"        => "(! ?x)"),
     rw!("x-x-Eq";  "(== ?x ?x)"        => "1"),
-    // rw!("x-x-Eq";  "(== (* ?x ?y) 0)"        => "1"),
+
+    // Inequality RULES
+    rw!("comm-IEq";  "(!= ?x ?y)"      => "(!= ?y ?x)"),
+    rw!("IEq-Eq";  "(!= ?x ?y)"        => "(! (== ?x ?y))"),
+
+
 
     // OR RULES
     rw!("comm-or";  "(|| ?y ?x)"        => "(|| ?x ?y)"),
     rw!("assoc-or"; "(|| ?a (|| ?b ?c))" => "(|| (|| ?a ?b) ?c)"),
     rw!("x-1-or";  "(|| 1 ?x)"        => "1"),
-    rw!("x-0-or";  "(|| 0 ?x)"        => "?x"),
-    rw!("x-x-or";  "(|| ?x ?x)"        => "?x"),
+    rw!("x-0-or";  "(|| 0 ?x)" => "?x"),
+    rw!("x-x-or";  "(|| ?x ?x)" => "?x"),
+    rw!("x-!x-or";  "(|| ?x (! ?x))" => "1"),
+    //x < y || x < z, x < max(y, z)
+    rw!("max-or";  "(|| (< ?x ?y) (< ?x ?z))" => "(< ?x (max ?y ?z))"),
+    rw!("or-max";  "(< ?x (max ?y ?z))" => "(|| (< ?x ?y) (< ?x ?z))"),
+    //rewrite(y < x || z < x, min(y, z) < x) ||
+    rw!("min-or";  "(|| (< ?y ?x) (< ?z ?x))" => "(< (min ?y ?z) ?x)"),
+    rw!("or-min";  "(< (min ?y ?z) ?x)" => "(|| (< ?y ?x) (< ?z ?x))"),
+
 
     // AND RULES
     rw!("comm-and";  "(&& ?y ?x)"        => "(&& ?x ?y)"),
@@ -345,6 +366,10 @@ fn rules() -> Vec<Rewrite> { vec![
 
     rw!("or-over-and";  "(|| ?a (&& ?b ?c))" => "(&& (|| ?a ?b) (|| ?a ?c))"),
     rw!("or-over-and-inv";  "(&& (|| ?a ?b) (|| ?a ?c))" => "(|| ?a (&& ?b ?c))" ),
+
+
+    rw!("x-xandy-or";  "(|| ?x (&& ?x ?y))"        => "?x"),
+    rw!("x-xory-and";  "(&& ?x (|| ?x ?y))"        => "?x"),
 
 
 
