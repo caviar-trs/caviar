@@ -22,6 +22,8 @@ define_language! {
         "<=" = Let([Id;2]),
         ">=" = Get([Id;2]),
         "==" = Eq([Id; 2]),
+        "||" = Or([Id; 2]),
+        "&&" = And([Id; 2]),
         Constant(Constant),
         Symbol(Symbol),
     }
@@ -101,6 +103,27 @@ impl Analysis<Math> for ConstantFold {
             } else {
                 0.0
             })
+            .unwrap(),
+            Math::And([a, b]) => NotNan::new(
+                if x(a)?.cmp(&NotNan::from(0.0)) == Ordering::Equal
+                    || x(b)?.cmp(&NotNan::from(0.0)) == Ordering::Equal
+                {
+                    0.0
+                } else {
+                    1.0
+                },
+            )
+            .unwrap(),
+
+            Math::Or([a, b]) => NotNan::new(
+                if x(a)?.cmp(&NotNan::from(1.0)) == Ordering::Equal
+                    || x(b)?.cmp(&NotNan::from(1.0)) == Ordering::Equal
+                {
+                    1.0
+                } else {
+                    0.0
+                },
+            )
             .unwrap(),
 
             _ => return None,
@@ -190,7 +213,6 @@ fn is_not_zero(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 
 #[rustfmt::skip]
 fn rules() -> Vec<Rewrite> { vec![
-
     // ADD RULES
     rw!("comm-add";  "(+ ?a ?b)"        => "(+ ?b ?a)"),
     rw!("assoc-add"; "(+ ?a (+ ?b ?c))" => "(+ (+ ?a ?b) ?c)"),
@@ -302,7 +324,13 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("zero-Eq";  "(== ?x 0)"        => "(! ?x)"),
     rw!("x-x-Eq";  "(== ?x ?x)"        => "1"),
     // rw!("x-x-Eq";  "(== (* ?x ?y) 0)"        => "1"),
-    
+
+
+
+
+
+    //Adel Work after this line so we avoid cofnlicts and don't push the main.rs
+
 
 ]}
 
