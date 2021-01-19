@@ -325,6 +325,28 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("x-x-Eq";  "(== ?x ?x)"        => "1"),
     // rw!("x-x-Eq";  "(== (* ?x ?y) 0)"        => "1"),
 
+    // OR RULES
+    rw!("comm-or";  "(|| ?y ?x)"        => "(|| ?x ?y)"),
+    rw!("assoc-or"; "(|| ?a (|| ?b ?c))" => "(|| (|| ?a ?b) ?c)"),
+    rw!("x-1-or";  "(|| 1 ?x)"        => "1"),
+    rw!("x-0-or";  "(|| 0 ?x)"        => "?x"),
+    rw!("x-x-or";  "(|| ?x ?x)"        => "?x"),
+
+    // AND RULES
+    rw!("comm-and";  "(&& ?y ?x)"        => "(&& ?x ?y)"),
+    rw!("assoc-and"; "(&& ?a (&& ?b ?c))" => "(&& (&& ?a ?b) ?c)"),
+    rw!("x-1-and";  "(&& 1 ?x)"        => "?x"),
+    rw!("x-0-and";  "(&& 0 ?x)"        => "0"),
+    rw!("x-x-and";  "(&& ?x ?x)"        => "?x"),
+
+    // AND-OR RULES
+    rw!("and-over-or";  "(&& ?a (|| ?b ?c))" => "(|| (&& ?a ?b) (&& ?a ?c))"),
+    rw!("and-over-or-inv";  "(|| (&& ?a ?b) (&& ?a ?c))" => "(&& ?a (|| ?b ?c))" ),
+
+    rw!("or-over-and";  "(|| ?a (&& ?b ?c))" => "(&& (|| ?a ?b) (|| ?a ?c))"),
+    rw!("or-over-and-inv";  "(&& (|| ?a ?b) (|| ?a ?c))" => "(|| ?a (&& ?b ?c))" ),
+
+
 
 
 

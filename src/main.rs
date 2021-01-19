@@ -1,8 +1,8 @@
 mod trs;
 
 fn main() {
-    let start = "(|| 0 0)";
-    let end = "(1)";
+    let start = "(|| (&& x y) x)";
+    let end = "(&& ?x (|| ?x ?y))";
     println!("Simplifying expression:\n {}\n", start);
     trs::prove_time(start, end);
 }
