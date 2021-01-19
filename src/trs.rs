@@ -268,11 +268,11 @@ fn rules() -> Vec<Rewrite> { vec![
 
     // LT RULES
     rw!("cancel-lt";  "(< ?a ?a)" => "0"),
-    rw!("lt-x-xminus";  "(< (- ?a ?y) ?a )" => "1" ),
+    rw!("lt-x-xminus";  "(< (- ?a ?y) ?a )" => "1" if is_const_pos("?y")),
     rw!("cancel-max-lt";  "(< (max ?a ?b) ?a)" => "0"),
     rw!("cancel-min-lt";  "(< ?a (min ?a ?b))" => "0"),
     rw!("cancel-min-max-lt";  "(< (max ?a ?c) (min ?a ?b))" => "0"),
-    rw!("div-Gt-Lt";  "(> ?x ?z)" => "(< ?z ?x)"),
+    rw!("Gt-Lt";  "(> ?x ?z)" => "(< ?z ?x)"),
     rw!("change-side-c-lt";  "(< (+ ?x ?y) ?z)" => "(< ?x (- ?z ?y))" ),
     // rw!("change-side-c-lt";  "(< ?z (+ ?x ?y))" => "(< (- ?z ?y) ?x)" ),  //adding it causes an error
     rw!("cancel-mul-pos-lt";  "(< (* ?x ?y) ?z)" => "(< ?x (/ ?z ?y))"  if is_const_pos("?y")),
@@ -305,14 +305,14 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("min-ass1";          "(min (min ?x ?y) ?z)"         => "(min ?x (min ?y ?z))"),
     rw!("min-ass2";          "(min ?x (min ?y ?z))"         => "(min (min ?x ?y) ?z)"),
 
-    //rw!("min-to-max";       "(min ?x ?y)"                   => "(max (* -1 ?x) (* -1 ?y))"), CAUSING A PROB
 
 
     // NOT RULES
     rw!("cancel-eqlt";  "(<= ?x ?y)" => "(! (< ?y ?x))" ),
     rw!("not-eqgt";  "(>= ?x ?y)" => "(! (< ?x ?y))" ),
-    // rw!("not-eq";  "(! (== x y))" => "!= y x" ),
-    // rw!("not-dif";  "(! (!= x y))" => "<= y x" ),
+    rw!("not-eq";  "(! (== ?x ?y))" => "(!= ?x ?y)" ),
+    rw!("not-dif";  "(! (!= ?x ?y))" => "(== ?x ?y)" ),
+    rw!("not-not-x";  "(! (! ?x))" => "?x" ),
 
 
     // Equality RULES
