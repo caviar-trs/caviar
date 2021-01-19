@@ -183,10 +183,12 @@ pub fn rules() -> Vec<Rewrite> { vec![
 
     rw!("add-double"; "(+ ?a ?a)" => "(* 2 a)"),
     rw!("zero-add"; "(+ ?a 0)" => "?a"),
+    rw!("zero-sub"; "(- ?a 0)" => "?a"),
     rw!("zero-mul"; "(* ?a 0)" => "0"),
     rw!("one-mul";  "(* ?a 1)" => "?a"),
 
     rw!("add-zero"; "?a" => "(+ ?a 0)"),
+    rw!("sub-zero"; "?a" => "(- ?a 0)"),
     rw!("mul-one";  "?a" => "(* ?a 1)"),
 
     rw!("cancel-sub"; "(- ?a ?a)" => "0"),
@@ -222,12 +224,45 @@ pub fn rules() -> Vec<Rewrite> { vec![
     rw!("cancel-mul-pos-lt";  "(< (* ?x ?y) ?z)" => "(< ?x (/ ?z ?y))"  if is_const_pos("?y")),
     rw!("cancel-mul-neg-lt";  "(< (* ?x ?y) ?z)" => "(< (/ ?z ?y) ?x)"  if is_const_neg("?y")),
 
+    // Min rules
+    rw!("min-x-x";          "(min ?x ?x)"                   => "(?x)"),
+    rw!("min-min";          "(min (min ?x ?y) ?x)"          => "(min ?x ?y)"),
+    rw!("min-max";          "(min (max ?x ?y) ?x)"          => "(?x)"),
+    rw!("min-max-min";      "(min (max ?x ?y) (min ?x ?y))" => "(min ?x ?y)"),
+    rw!("min-min-min-x";    "(min (min ?x ?y) (min ?x ?z))" => "(min (min ?y ?z) ?x)"),
+    rw!("min-min-min";      "(min (min ?x ?y) (min ?z ?w))" => "(min (min (min ?x ?y) ?z) ?w)"),
+    rw!("min-max-max-x";    "(min (max ?x ?y) (max ?x ?z))" => "(max (min ?y ?z) ?x)"),
+    rw!("min-max-min2";     "(min (max (min ?x ?y) ?z) ?y)" => "(min (max ?x ?z) ?y)"),
 
+    rw!("min-min-c0-pos";   "(min (+ (min ?x ?y) ?c) ?x)"   => "(min ?x (+ ?y ?c))" if is_const_pos("?c")),
+    rw!("min-min-c0-neg";   "(min (+ (min ?x ?y) ?c) ?x)"   => "(+ (min ?x ?y) ?c))" if is_const_neg("?c")),
+
+    rw!("min-plus1";         "(+ (min ?x ?y) ?z)"           => "(min (+ ?x ?z) (+ ?y ?z))"),
+    rw!("min-plus2";         "(min (+ ?x ?z) (+ ?y ?z))"    => "(+ (min ?x ?y) ?z)"),
+    rw!("min-sub1";          "(- (min ?x ?y) ?z)"           => "(min (- ?x ?z) (- ?y ?z))"),
+    rw!("min-sub2";          "(min (- ?x ?z) (- ?y ?z))"    => "(- (min ?x ?y) ?z)"),
+    rw!("min-mul-pos1";      "(* (min ?x ?y) ?z)"           => "(min (* ?x ?z) (* ?y ?z))" if is_const_pos("?z")),
+    rw!("min-mul-pos2";      "(min (* ?x ?z) (* ?y ?z))"    => "(* (min ?x ?y) ?z)"  if is_const_pos("?z")),
+    rw!("min-mul-neg1";      "(* (min ?x ?y) ?z)"           => "(max (* ?x ?z) (* ?x ?y))" if is_const_neg("?z")),
+    rw!("min-mul-neg2";      "(max (* ?x ?z) (* ?y ?z))"    => "(* (min ?x ?y) ?z)" if is_const_neg("?z")),
+    rw!("min-div-pos1";      "(max (/ ?x ?z) (/ ?y ?z))"    => "(/ (min ?x ?y) ?z)" if is_const_pos("?z")),
+    rw!("min-div-pos2";      "(/ (min ?x ?y) ?z)"           => "(max (/ ?x ?z) (/ ?y ?z))" if is_const_pos("?z")),
+    rw!("min-div-neg1";      "(max (/ ?x ?z) (/ ?y ?z))"    => "(/ (min ?x ?y) ?z)" if is_const_neg("?z")),
+    rw!("min-div-neg2";      "(/ (min ?x ?y) ?z)"           => "(max (/ ?x ?z) (/ ?y ?z))"  if is_const_neg("?z")),
+
+    rw!("min-ass1";          "(min (min ?x ?y) ?z)"         => "(min ?x (min ?y ?z))"),
+    rw!("min-ass2";          "(min ?x (min ?y ?z))"         => "(min (min ?x ?y) ?z)"),
+
+    //rw!("min-to-max";       "(min ?x ?y)"                   => "(max (* -1 ?x) (* -1 ?y))"),
+
+
+
+    
     
 
     // NOT RULES
     rw!("cancel-eqlt";  "(<= ?x ?y)" => "(! (< ?y ?x))" ),
-    rw!("not-eqgt";  "(>= ?x ?y)" => "(! (< ?x ?y))" ),
+    rw!("not-eqgt";  "(>= ?x ?y)" => "(! (< ?x ?y))" )
     // rw!("not-eq";  "(! (== x y))" => "!= y x" ),
     // rw!("not-dif";  "(! (!= x y))" => "<= y x" ),
 
@@ -241,8 +276,7 @@ fn print_graph(egraph: &EGraph) {
 }
 
 fn main() {
-    //  let start: RecExpr<Math> = "(< (/ (+ (min (+ v0 11) v1) -13) 2) (/ (+ v1 -13) 2))"
-    let start: RecExpr<Math> = "(<= ( - v0 11 ) ( + ( * ( / ( - v0 v1 ) 12 ) 12 ) v1 ))"
+    let start: RecExpr<Math> = "(<= ( / ( - ( min ( + v0 27 ) v1 ) 29 ) 2 ) ( / ( - v1 29 ) 2 ))"
         .parse()
         .unwrap();
     let end: Pattern<Math> = "1".parse().unwrap();
@@ -258,7 +292,7 @@ fn main() {
             .bold()
     );
 
-    // print_graph(&runner.egraph);
+    //print_graph(&runner.egraph);
     let id = runner.egraph.find(*runner.roots.last().unwrap());
     let matches = end.search_eclass(&runner.egraph, id);
     if matches.is_none() {
