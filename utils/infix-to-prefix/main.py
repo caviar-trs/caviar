@@ -1,5 +1,5 @@
 import sys
-#import pandas as pd
+import pandas as pd
 
 class Stack:
 
@@ -201,10 +201,10 @@ if __name__ == '__main__':
     expr = minus_plus(expr)
     expr = expr_str_to_arr(expr)
     expr = fun_to_op(expr)
-    print(expr)
+    # print(expr)
     infix = infixToPrefix(expr) 
-    print(' '.join(infix))
-    '''
+    # print(' '.join(infix))
+    
     data_path = sys.argv[1]
     df = pd.read_csv(data_path)
     i = 0
@@ -225,4 +225,4 @@ if __name__ == '__main__':
             result.write(
                 '"' + expr_s + '"'+ "," +'"' + ' '.join(infix) + '"\n'
             )
-    '''
+    
