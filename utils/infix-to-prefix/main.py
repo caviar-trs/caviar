@@ -1,5 +1,5 @@
 import sys
-#import pandas as pd
+import pandas as pd
 
 class Stack:
 
@@ -49,8 +49,10 @@ def priority(opr):
         return 5
     elif opr == '*' or opr == '/' or opr == '%':
         return 6
-    elif opr == '!':
+    elif opr == 'min' or opr == 'max':
         return 7
+    elif opr == '!':
+        return 8
     return 0
     
 
@@ -182,17 +184,18 @@ def infixToPrefix(infix):
     return prefix[::-1]
 
 if __name__ == '__main__':
-    expr = '(z && x != y) && x == y'
+    expr = '(((min(((v0/2) + (v1*161)), v2) + -3)/2) <= ((v2 + -3)/2))'
     # expr = '((v0 + -8) <= ((((v0 - v1)/9)*9) + v1))'
     # expr = 'max(1,-1)'
     # expr = '((((((((v0*81) + v1) + 81)/2) - v2)/11) + -1) <= max(((((((v0*81) + v1) + 61)/2) - v2)/11), -1))'
     expr = minus_plus(expr)
     expr = expr_str_to_arr(expr)
+    # print(expr)
     expr = fun_to_op(expr)
-    print(expr)
+    # print(expr)
     infix = infixToPrefix(expr) 
-    print(' '.join(infix))
-    '''
+    # print(' '.join(infix))
+    
     data_path = sys.argv[1]
     df = pd.read_csv(data_path)
     i = 0
@@ -213,4 +216,4 @@ if __name__ == '__main__':
             result.write(
                 '"' + expr_s + '"'+ "," +'"' + ' '.join(infix) + '"\n'
             )
-    '''
+    
