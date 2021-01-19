@@ -13,6 +13,7 @@ define_language! {
         "-" = Sub([Id; 2]),
         "*" = Mul([Id; 2]),
         "/" = Div([Id; 2]),
+        "%" = Mod([Id; 2]),
         "max" = Max([Id; 2]),
         "min" = Min([Id; 2]),
         "<" = Lt([Id; 2]),
@@ -20,7 +21,7 @@ define_language! {
         "!" = Not(Id),
         "<=" = Let([Id;2]),
         ">=" = Get([Id;2]),
-        "%" = Mod([Id; 2]),
+        "==" = Eq([Id; 2]),
         Constant(Constant),
         Symbol(Symbol),
     }
@@ -61,6 +62,7 @@ impl Analysis<Math> for ConstantFold {
                 0.0
             })
             .unwrap(),
+
             Math::Gt([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Greater {
                 1.0
             } else {
@@ -93,6 +95,13 @@ impl Analysis<Math> for ConstantFold {
                     x(a)? % x(b)?
                 }
             }
+
+            Math::Eq([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Equal {
+                1.0
+            } else {
+                0.0
+            })
+            .unwrap(),
 
             _ => return None,
         })
@@ -282,9 +291,18 @@ fn rules() -> Vec<Rewrite> { vec![
 
     // NOT RULES
     rw!("cancel-eqlt";  "(<= ?x ?y)" => "(! (< ?y ?x))" ),
-    rw!("not-eqgt";  "(>= ?x ?y)" => "(! (< ?x ?y))" )
+    rw!("not-eqgt";  "(>= ?x ?y)" => "(! (< ?x ?y))" ),
     // rw!("not-eq";  "(! (== x y))" => "!= y x" ),
     // rw!("not-dif";  "(! (!= x y))" => "<= y x" ),
+
+
+    // Equality RULES
+    rw!("comm-Eq";  "(== ?x ?y)"        => "(== ?y ?x)"),
+    rw!("one-Eq";  "(== ?x 1)"        => "(?x)"),
+    rw!("zero-Eq";  "(== ?x 0)"        => "(! ?x)"),
+    rw!("x-x-Eq";  "(== ?x ?x)"        => "1"),
+    // rw!("x-x-Eq";  "(== (* ?x ?y) 0)"        => "1"),
+    
 
 ]}
 
