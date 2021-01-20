@@ -40,8 +40,8 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let mut start = "(< ( max ( / ( + v0 3 ) 2 ) 0 ) ( + ( max ( / v0 2 ) -2 ) 1 ) )";
-    let end = "0";
+    let mut start = "(<= ( + ( / ( - v0 v1 ) 8 ) 96 ) ( max ( / ( + ( - v0 v1 ) 769 ) 8 ) 0 ))";
+    let end = "1";
     if args.len() > 1 {
         start = &args[1][..];
     }
