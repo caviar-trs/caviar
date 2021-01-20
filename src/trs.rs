@@ -225,14 +225,13 @@ fn rules() -> Vec<Rewrite> { vec![
     // ADD RULES
     rw!("comm-add";  "(+ ?a ?b)"        => "(+ ?b ?a)"),
     rw!("assoc-add"; "(+ ?a (+ ?b ?c))" => "(+ (+ ?a ?b) ?c)"),
-
     rw!("add-double"; "(+ ?a ?a)" => "(* 2 a)"),
     rw!("zero-add"; "(+ ?a 0)" => "?a"),
     rw!("add-zero"; "?a" => "(+ ?a 0)"),
-
     rw!("distribute"; "(* ?a (+ ?b ?c))"        => "(+ (* ?a ?b) (* ?a ?c))"),
     rw!("factor"    ; "(+ (* ?a ?b) (* ?a ?c))" => "(* ?a (+ ?b ?c))"),
     
+
 
     // SUB RULES
     rw!("sub-canon"; "(- ?a ?b)" => "(+ ?a (* -1 ?b))"),
@@ -242,6 +241,8 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("sub-zero"; "?a" => "(- ?a 0)"),
     rw!("zero-sub"; "(- ?a 0)" => "?a"),
 
+
+
     //MUL RULES
     rw!("comm-mul";  "(* ?a ?b)"        => "(* ?b ?a)"),
     rw!("assoc-mul"; "(* ?a (* ?b ?c))" => "(* (* ?a ?b) ?c)"),
@@ -250,12 +251,15 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("mul-one";  "?a" => "(* ?a 1)"),
     rw!("cancel-div-1surdiv"; "(* (/ 1 ?a) ?a)" => "1" if is_not_zero("?a")),
     rw!("cancel-mul-div"; "(/ (* ?y ?x) ?x)" => "?y"),
-
     rw!("mul-max-min"; "(* (max ?a ?b) (min ?a ?b))" => "(* ?a ?b)"),
+
+
 
     //DIV RULES
     rw!("div-to-mul"; "(/ ?x ?y)" => "(* ?x (/ 1 ?y))"),
     rw!("cancel-div"; "(/ ?a ?a)" => "1" if is_not_zero("?a")),
+
+
 
      //MOD RULES
     rw!("zero-mod"; "(% 0 ?x)" => "0"),
@@ -266,16 +270,17 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("mod-two"; "(% (- ?x ?y) 2)" => "(% (+ ?x ?y) 2)"),
 
 
+
     // LT RULES
     rw!("cancel-lt";  "(< ?a ?a)" => "0"),
     rw!("lt-x-xminus";  "(< (- ?a ?y) ?a )" => "1" if is_const_pos("?y")),
-    rw!("cancel-max-lt";  "(< (max ?a ?b) ?a)" => "0"),
-    rw!("cancel-min-lt";  "(< ?a (min ?a ?b))" => "0"),
+    // rw!("cancel-max-lt";  "(< (max ?a ?b) ?a)" => "0"), //adding it prevents proving
+    // rw!("cancel-min-lt";  "(< ?a (min ?a ?b))" => "0"), //adding it prevents proving
     rw!("cancel-min-max-lt";  "(< (max ?a ?c) (min ?a ?b))" => "0"),
     rw!("Gt-Lt";  "(> ?x ?z)" => "(< ?z ?x)"),
-    rw!("change-side-c-lt";  "(< (+ ?x ?y) ?z)" => "(< ?x (- ?z ?y))" ),
-    // rw!("change-side-c-lt";  "(< ?z (+ ?x ?y))" => "(< (- ?z ?y) ?x)" ),  //adding it causes an error
-    rw!("cancel-mul-pos-lt";  "(< (* ?x ?y) ?z)" => "(< ?x (/ ?z ?y))"  if is_const_pos("?y")),
+    // rw!("change-side-c-lt";  "(< (+ ?x ?y) ?z)" => "(< ?x (- ?z ?y))" ), //this
+    // rw!("change-side-c-lt-1";  "(< ?z (+ ?x ?y))" => "(< (- ?z ?y) ?x)" ),  //adding it causes an error
+    // rw!("cancel-mul-pos-lt";  "(< (* ?x ?y) ?z)" => "(< ?x (/ ?z ?y))"  if is_const_pos("?y")), //adding it causes an error
     rw!("cancel-mul-neg-lt";  "(< (* ?x ?y) ?z)" => "(< (/ ?z ?y) ?x)"  if is_const_neg("?y")),
 
 
@@ -285,10 +290,8 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("min-x-x";          "(min ?x ?x)"                   => "(?x)"),
     rw!("min-min";          "(min (min ?x ?y) ?x)"          => "(min ?x ?y)"),
     rw!("min-max";          "(min (max ?x ?y) ?x)"          => "(?x)"),
-    
     rw!("min-max-max-x";    "(min (max ?x ?y) (max ?x ?z))" => "(max (min ?y ?z) ?x)"),
     rw!("min-max-min2";     "(min (max (min ?x ?y) ?z) ?y)" => "(min (max ?x ?z) ?y)"),
-
     rw!("min-plus1";         "(+ (min ?x ?y) ?z)"           => "(min (+ ?x ?z) (+ ?y ?z))"),
     rw!("min-plus2";         "(min (+ ?x ?z) (+ ?y ?z))"    => "(+ (min ?x ?y) ?z)"),
     rw!("min-sub1";          "(- (min ?x ?y) ?z)"           => "(min (- ?x ?z) (- ?y ?z))"),
@@ -301,7 +304,6 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("min-div-pos2";      "(/ (min ?x ?y) ?z)"           => "(max (/ ?x ?z) (/ ?y ?z))" if is_const_pos("?z")),
     rw!("min-div-neg1";      "(max (/ ?x ?z) (/ ?y ?z))"    => "(/ (min ?x ?y) ?z)" if is_const_neg("?z")),
     rw!("min-div-neg2";      "(/ (min ?x ?y) ?z)"           => "(max (/ ?x ?z) (/ ?y ?z))"  if is_const_neg("?z")),
-
     rw!("min-ass1";          "(min (min ?x ?y) ?z)"         => "(min ?x (min ?y ?z))"),
     rw!("min-ass2";          "(min ?x (min ?y ?z))"         => "(min (min ?x ?y) ?z)"),
 
@@ -315,19 +317,19 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("not-not-x";  "(! (! ?x))" => "?x" ),
 
 
+
     // Equality RULES
     rw!("comm-Eq";  "(== ?x ?y)"        => "(== ?y ?x)"),
-
     rw!("other-side-Eq";  "(== (+ ?x ?y) ?z)"        => "(== ?x (- ?z ?y))"),
     // rw!("one-Eq";  "(== ?x 1)"        => "(?x)"),
     // rw!("zero-Eq";  "(== ?x 0)"        => "(! ?x)"),
     rw!("x-x-Eq";  "(== ?x ?x)"        => "1"),
-    // max(x, y) - y == 0
     rw!("sub-let-max-Eq";  "(- (max ?x ?y) ?y)"        => "(<= ?x ?y)"),
     rw!("sub-let-min-Eq";  "(- (min ?x ?y) ?y)"        => "(<= ?y ?x)"),
-
     rw!("sub-let-max-Eq-1";  "(- ?y (max ?x ?y))"        => "(<= ?x ?y)"),
     rw!("sub-let-min-Eq-1";  "(- ?y (min ?x ?y))"        => "(<= ?y ?x)"),
+
+
 
     // Inequality RULES
     rw!("comm-IEq";  "(!= ?x ?y)"      => "(!= ?y ?x)"),
@@ -342,12 +344,11 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("x-0-or";  "(|| 0 ?x)" => "?x"),
     rw!("x-x-or";  "(|| ?x ?x)" => "?x"),
     rw!("x-!x-or";  "(|| ?x (! ?x))" => "1"),
-    //x < y || x < z, x < max(y, z)
     rw!("max-or";  "(|| (< ?x ?y) (< ?x ?z))" => "(< ?x (max ?y ?z))"),
     rw!("or-max";  "(< ?x (max ?y ?z))" => "(|| (< ?x ?y) (< ?x ?z))"),
-    //rewrite(y < x || z < x, min(y, z) < x) ||
     rw!("min-or";  "(|| (< ?y ?x) (< ?z ?x))" => "(< (min ?y ?z) ?x)"),
     rw!("or-min";  "(< (min ?y ?z) ?x)" => "(|| (< ?y ?x) (< ?z ?x))"),
+
 
 
     // AND RULES
@@ -357,26 +358,22 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("x-0-and";  "(&& 0 ?x)"        => "0"),
     rw!("x-x-and";  "(&& ?x ?x)"        => "?x"),
     rw!("x-!x-and";  "(&& ?x (! ?x))" => "0"),
-    
     rw!("max-and";  "(&& (< ?x ?y) (< ?x ?z))" => "(< ?x (min ?y ?z))"),
     rw!("and-max";  "(< ?x (min ?y ?z))" => "(&& (< ?x ?y) (< ?x ?z))"),
     //rewrite(y < x || z < x, min(y, z) < x) ||
     rw!("min-and";  "(&& (< ?y ?x) (< ?z ?x))" => "(< (max ?y ?z) ?x)"),
     rw!("and-min";  "(< (max ?y ?z) ?x)" => "(&& (< ?y ?x) (< ?z ?x))"),
 
+
+
+
     // AND-OR RULES
     rw!("and-over-or";  "(&& ?a (|| ?b ?c))" => "(|| (&& ?a ?b) (&& ?a ?c))"),
     rw!("and-over-or-inv";  "(|| (&& ?a ?b) (&& ?a ?c))" => "(&& ?a (|| ?b ?c))" ),
-
     rw!("or-over-and";  "(|| ?a (&& ?b ?c))" => "(&& (|| ?a ?b) (|| ?a ?c))"),
     rw!("or-over-and-inv";  "(&& (|| ?a ?b) (|| ?a ?c))" => "(|| ?a (&& ?b ?c))" ),
-
-
     rw!("x-xandy-or";  "(|| ?x (&& ?x ?y))"        => "?x"),
     rw!("x-xory-and";  "(&& ?x (|| ?x ?y))"        => "?x"),
-
-
-
 
 
 
@@ -387,20 +384,17 @@ fn rules() -> Vec<Rewrite> { vec![
     rw!("max-max";      "(max (max ?x ?y) ?x)"          => "(max ?x ?y)"),
     rw!("max-min";      "(max (min ?x ?y) ?x)"          => "(?x)"),
     rw!("max-max-min";  "(max (max ?x ?y) (min ?x ?y))" => "(max ?x ?y)"),
-
     rw!("max-ass1";      "(max (max ?x ?y) ?z)"         => "(max ?x (max ?y ?z))"),
     rw!("max-ass2";      "(max ?x (max ?y ?z))"         => "(max (max ?x ?y) ?z)"),
-
     rw!("max-min-min";    "(max (min ?x ?y) (min ?x ?z))" => "(min ?x (max ?y ?z) )"),
     rw!("max-min-max";    "(max (min (max ?x ?y) ?z) ?y)" => "(max (min ?x ?z) ?y)"),
-
-    rw!("max-plus1";         "(+ (max ?x ?y) ?z)"           => "(max (+ ?x ?z) (+ ?y ?z))"),
+    // rw!("max-plus1";         "(+ (max ?x ?y) ?z)"           => "(max (+ ?x ?z) (+ ?y ?z))"), //this
     rw!("max-plus2";         "(max (+ ?x ?z) (+ ?y ?z))"    => "(+ (max ?x ?y) ?z)"),
-    rw!("max-sub1";          "(- (max ?x ?y) ?z)"           => "(max (- ?x ?z) (- ?y ?z))"),
+    // rw!("max-sub1";          "(- (max ?x ?y) ?z)"           => "(max (- ?x ?z) (- ?y ?z))"), //this
     rw!("max-sub2";          "(max (- ?x ?z) (- ?y ?z))"    => "(- (max ?x ?y) ?z)"),
     rw!("max-mul-pos1";      "(* (max ?x ?y) ?z)"           => "(max (* ?x ?z) (* ?y ?z))" if is_const_pos("?z")),
     rw!("max-mul-pos2";      "(max (* ?x ?z) (* ?y ?z))"    => "(* (max ?x ?y) ?z)"  if is_const_pos("?z")),
-    rw!("max-mul-neg1";      "(* (max ?x ?y) ?z)"           => "(min (* ?x ?z) (* ?y ?z))" if is_const_neg("?z")),
+    // rw!("max-mul-neg1";      "(* (max ?x ?y) ?z)"           => "(min (* ?x ?z) (* ?y ?z))" if is_const_neg("?z")), // this
     rw!("max-mul-neg2";      "(min (* ?x ?z) (* ?y ?z))"    => "(* (max ?x ?y) ?z)" if is_const_neg("?z")),
     rw!("max-div-pos1";      "(min (/ ?x ?z) (/ ?y ?z))"    => "(/ (max ?x ?y) ?z)" if is_const_pos("?z")),
     rw!("max-div-pos2";      "(/ (max ?x ?y) ?z)"           => "(min (/ ?x ?z) (/ ?y ?z))" if is_const_pos("?z")),
