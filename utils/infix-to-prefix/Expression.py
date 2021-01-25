@@ -7,7 +7,10 @@ class Expression:
             Expression.expr_str_to_arr(Expression.minus_plus(expr)))
 
     def print(self):
-        print('"(' + ' '.join(self.expr) + ')"\n')
+        print(self.toString() + "\n")
+
+    def toString(self):
+        return '"(' + ' '.join(self.expr) + ')"' if self.expr[0] != '(' else '"' + ' '.join(self.expr) + '"'
 
     def expr_str_to_arr(s):
         res = []

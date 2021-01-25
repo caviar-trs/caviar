@@ -31,6 +31,15 @@ class Rule:
             i += 1
         return (left, right)
 
+    def infix_rule(self):
+        left = Expression(self.left_side)
+        left.infixToPrefix()
+        right = Expression(self.right_side)
+        right.infixToPrefix()
+        return (left.toString(), right.toString())
+
 
 if __name__ == '__main__':
-    Rule('min(y - z, x) + z, min(y, x + z)').print()
+    rule = Rule('min(y - z, x) + z, min(y, x + z)')
+    rule.print()
+    print(*rule.infix_rule())

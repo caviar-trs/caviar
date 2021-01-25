@@ -41,9 +41,12 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
 fn main() {
     let args: Vec<String> = env::args().collect();
     let mut start = "(<= ( + ( / ( - v0 v1 ) 8 ) 96 ) ( max ( / ( + ( - v0 v1 ) 769 ) 8 ) 0 ))";
-    let end = "1";
+    let mut end = "1";
     if args.len() > 1 {
         start = &args[1][..];
+        if args.len() > 2 {
+            end = &args[2][..];
+        }
     }
     println!("Simplifying expression:\n {}\n", start);
     trs::prove_time(start, end);
