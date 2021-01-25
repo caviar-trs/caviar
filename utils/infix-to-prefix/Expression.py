@@ -1,10 +1,14 @@
 from Stack import Stack
+# from QuickSort import quickSort
 
 
 class Expression:
     def __init__(self, expr: str):
-        self.expr = Expression.fun_to_op(
-            Expression.expr_str_to_arr(Expression.minus_plus(expr)))
+        # self.expr = Expression.fun_to_op(
+        #     Expression.expr_str_to_arr(Expression.minus_plus(expr)))
+        # self.expr = Expression.fun_to_op(
+        #     Expression.expr_str_to_arr(Expression.minus_plus(expr)))
+        self.expr = Expression.expr_str_to_arr(Expression.minus_plus(expr))
 
     def print(self):
         print(self.toString() + "\n")
@@ -167,3 +171,117 @@ class Expression:
 
         # Return the reversed answer string
         self.expr = prefix[::-1]
+
+    @staticmethod
+    def partition(arr, low, high):
+        i = (low-1)		 # index of smaller element
+        pivot = arr[high]	 # pivot
+
+        for j in range(low, high):
+
+            # If current element is bigger than or
+            # equal to pivot
+            if Expression.priority(arr[j][0]) >= Expression.priority(pivot[0]):
+
+                # increment index of smaller element
+                i = i+1
+                arr[i], arr[j] = arr[j], arr[i]
+
+        arr[i+1], arr[high] = arr[high], arr[i+1]
+        return (i+1)
+
+    # The main function that implements QuickSort
+    # arr[] --> Array to be sorted,
+    # low --> Starting index,
+    # high --> Ending index
+
+    # Function to do Quick sort
+    @staticmethod
+    def quickSort(arr, low, high):
+        if len(arr) == 1:
+            return arr
+        if low < high:
+
+            # pi is partitioning index, arr[p] is now
+            # at right place
+            pi = Expression.partition(arr, low, high)
+
+            # Separately sort elements before
+            # partition and after partition
+            Expression.quickSort(arr, low, pi-1)
+            Expression.quickSort(arr, pi+1, high)
+
+    def add_parentheses(self):
+        expr = self.expr
+        i = 0
+        stack = Stack(len(expr))
+        while i < len(expr):
+            if expr[i] in ('+', '*', '%', '/', '<', '>', '&&', '||', '==', '!=', "<=", ">="):
+                stack.push([expr[i], i])
+                # if expr[i-1] != '(':
+                #     expr.insert(i-1, '(')
+            # elif(expr[i] == ','):
+            #     expr[i] = stack.pop()
+            i += 1
+        stack_operations = [i for i in stack.stack if i]
+        Expression.quickSort(stack_operations, 0, len(stack_operations)-1)
+        print(expr)
+        for op_index in range(len(stack_operations)):
+            position = stack_operations[op_index][1]
+            if expr[position-1] != ")":
+                if expr[position-2] != "(":
+                    expr.insert(position-1, "(")
+            else:
+                while expr[position] != "(" and position > 0:
+                    position -= 1
+                expr.insert(position, "(")
+
+            print("expr: ", expr)
+            print("position: ", position)
+            # update position of the operation after adding (
+            for i in range(len(stack_operations)):
+                if stack_operations[i][1] >= position:
+                    stack_operations[i][1] += 1
+
+            print(stack_operations)
+
+            position = stack_operations[op_index][1]
+            if expr[position+1] != "(":
+                if position+2 < len(expr):
+                    if expr[position+2] != ")":
+                        expr.insert(position+2, ")")
+                else:
+
+                    expr.insert(position, ")")
+            else:
+                while expr[position] != ")" and position < len(expr):
+                    position += 1
+                expr.insert(position, ")")
+
+            # update position of the operation after adding )
+            for i in range(len(stack_operations)):
+                if stack_operations[i][1] >= position:
+                    stack_operations[i][1] += 1
+            position += 1
+
+            print(stack_operations[op_index])
+
+        print(expr)
+
+        return stack.stack
+
+
+if __name__ == '__main__':
+    arr = [i for i in Expression("c1 + x * y + z").add_parentheses() if i]
+    print("\n\n")
+    arr = [i for i in Expression("(c1 + x) * y + z").add_parentheses() if i]
+    print("\n\n")
+    arr = [i for i in Expression(
+        "x2 + (c1 + x) * y + z").add_parentheses() if i]
+
+# # Driver code to test above
+# n = len(arr)
+# Expression.quickSort(arr, 0, n-1)
+# print("Sorted array is:")
+# for i in range(n):
+#     print(arr[i]),

@@ -19,6 +19,7 @@ class Rule:
         right = ""
         i = 0
         stack = Stack(len(rule))
+        print(rule)
         while i < len(rule):
             if rule[i] in ('min', 'max'):
                 stack.push(rule[i])
