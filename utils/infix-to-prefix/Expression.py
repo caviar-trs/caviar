@@ -1,11 +1,13 @@
 from Stack import Stack
 
+
 class Expression:
     def __init__(self, expr: str):
-        self.expr = Expression.fun_to_op(Expression.expr_str_to_arr(Expression.minus_plus(expr)))
+        self.expr = Expression.fun_to_op(
+            Expression.expr_str_to_arr(Expression.minus_plus(expr)))
 
     def print(self):
-        print('"(' + ' '.join(self.expr) + '")\n')
+        print('"(' + ' '.join(self.expr) + ')"\n')
 
     def expr_str_to_arr(s):
         res = []
@@ -57,10 +59,8 @@ class Expression:
     def minus_plus(s):
         return s.replace('+ -', '- ')
 
-
     def remove_space(s):
         return s.replace(' ', '')
-
 
     def fun_to_op(expr):
         i = 0
@@ -74,7 +74,7 @@ class Expression:
                 expr[i] = stack.pop()
             i += 1
         return expr
-    
+
     def priority(opr):
         if opr == '||':
             return 1
@@ -97,7 +97,6 @@ class Expression:
     def isOperator(char):
 
         return char in ('+', '-', '*', '/', '%', '<', '>', '<=', '>=', 'max', 'min', '&&', '||', '!', '==', '!=')
-
 
     def isVar(s):
 
@@ -165,4 +164,3 @@ class Expression:
 
         # Return the reversed answer string
         self.expr = prefix[::-1]
-

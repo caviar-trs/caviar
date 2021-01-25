@@ -3,7 +3,7 @@ import pandas as pd
 from Expression import Expression
 
 if __name__ == '__main__':
-    e = Expression('(3 % 2) + 1')
+    e = Expression('min(y - z, x) + z, min(y, x + z)')
     e.infixToPrefix()
     e.print()
     '''
