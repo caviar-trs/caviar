@@ -1,11 +1,13 @@
 import sys
 import pandas as pd
 from Expression import Expression
+from Rule import Rule
+from Extractor import Extractor
 
 if __name__ == '__main__':
-    e = Expression('min(y - z, x) + z, min(y, x + z)')
-    e.infixToPrefix()
-    e.print()
+    e = Expression('min(y - z, x) + z')
+    e = e.infixToPrefix()
+    
     '''
     data_path = sys.argv[1]
     df = pd.read_csv(data_path)
