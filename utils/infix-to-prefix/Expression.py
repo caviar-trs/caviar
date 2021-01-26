@@ -1,4 +1,6 @@
 from Stack import Stack
+
+
 # from QuickSort import quickSort
 
 
@@ -23,41 +25,41 @@ class Expression:
         while i < len(s):
             if s[i] == ' ':
                 pass
-            elif s[i:i+2] in ('&&', '||', '==', '!='):
-                res.append(s[i:i+2])
+            elif s[i:i + 2] in ('&&', '||', '==', '!='):
+                res.append(s[i:i + 2])
                 i += 1
             elif s[i] in ('+', '*', '%', '/', '(', ')', ',', '!'):
                 res.append(s[i])
             elif s[i] == '-':
-                if s[i+1].isdigit():
+                if s[i + 1].isdigit():
                     n = s[i]
-                    while i+1 < len(s) and s[i+1].isdigit():
+                    while i + 1 < len(s) and s[i + 1].isdigit():
                         i += 1
                         n += s[i]
                     res.append(n)
                 else:
                     res.append(s[i])
             elif s[i] in ('<', '>'):
-                if s[i+1] in ('='):
-                    res.append(s[i]+s[i+1])
+                if s[i + 1] in ('='):
+                    res.append(s[i] + s[i + 1])
                     i += 1
                 else:
                     res.append(s[i])
             elif s[i].isdigit():
                 n = s[i]
-                while i+1 < len(s) and s[i+1].isdigit():
+                while i + 1 < len(s) and s[i + 1].isdigit():
                     i += 1
                     n += s[i]
                 res.append(n)
-            elif s[i:i+3] in ('max', 'min'):
-                res.append(s[i:i+3])
+            elif s[i:i + 3] in ('max', 'min'):
+                res.append(s[i:i + 3])
                 i += 2
-            elif s[i:i+6] == 'select':
-                res.append(s[i:i+6])
+            elif s[i:i + 6] == 'select':
+                res.append(s[i:i + 6])
                 i += 5
             elif s[i].isalpha():
                 n = s[i]
-                while (i+1 < len(s)) and (s[i+1].isdigit() or s[i+1].isalpha()):
+                while (i + 1 < len(s)) and (s[i + 1].isdigit() or s[i + 1].isalpha()):
                     i += 1
                     n += s[i]
                 res.append(n)
@@ -118,7 +120,7 @@ class Expression:
 
         # Replacing '(' with ')' and
         # reversing the input string
-        for i in range(len(expr)-1, -1, -1):
+        for i in range(len(expr) - 1, -1, -1):
             ch = expr[i]
 
             if ch == '(':
@@ -177,21 +179,20 @@ class Expression:
 
     @staticmethod
     def partition(arr, low, high):
-        i = (low-1)		 # index of smaller element
-        pivot = arr[high]	 # pivot
+        i = (low - 1)  # index of smaller element
+        pivot = arr[high]  # pivot
 
         for j in range(low, high):
 
             # If current element is bigger than or
             # equal to pivot
             if Expression.priority(arr[j][0]) >= Expression.priority(pivot[0]):
-
                 # increment index of smaller element
-                i = i+1
+                i = i + 1
                 arr[i], arr[j] = arr[j], arr[i]
 
-        arr[i+1], arr[high] = arr[high], arr[i+1]
-        return (i+1)
+        arr[i + 1], arr[high] = arr[high], arr[i + 1]
+        return (i + 1)
 
     # The main function that implements QuickSort
     # arr[] --> Array to be sorted,
@@ -204,34 +205,37 @@ class Expression:
         if len(arr) == 1:
             return arr
         if low < high:
-
             # pi is partitioning index, arr[p] is now
             # at right place
             pi = Expression.partition(arr, low, high)
 
             # Separately sort elements before
             # partition and after partition
-            Expression.quickSort(arr, low, pi-1)
-            Expression.quickSort(arr, pi+1, high)
+            Expression.quickSort(arr, low, pi - 1)
+            Expression.quickSort(arr, pi + 1, high)
 
     def add_parentheses(self):
         expr = self.expr
         i = 0
         list_operations = []
         while i < len(expr):
-            if expr[i] in ('+', '*', '%', '/', '<', '>', '&&', '||', '==', '!=', "<=", ">="):
+            if expr[i] in ('+', '-', '*', '%', '/', '<', '>', '&&', '||', '==', '!=', "<=", ">="):
                 list_operations.append([expr[i], i])
                 # if expr[i-1] != '(':
                 #     expr.insert(i-1, '(')
             # elif(expr[i] == ','):
             #     expr[i] = stack.pop()
             i += 1
-        Expression.quickSort(list_operations, 0, len(list_operations)-1)
+        Expression.quickSort(list_operations, 0, len(list_operations) - 1)
         for op_index in range(len(list_operations)):
             position = list_operations[op_index][1]
             right_inserted = False
-            if expr[position-1] != ")":
-                if expr[position-2] != "(":
+            if expr[position - 1] != ")":
+                if expr[position - 2] != "(":
+                    position -= 1
+                    expr.insert(position, "(")
+                    right_inserted = True
+                elif expr[position - 3] in ["min", "max"]:
                     position -= 1
                     expr.insert(position, "(")
                     right_inserted = True
@@ -258,12 +262,11 @@ class Expression:
                     if list_operations[i][1] >= position:
                         list_operations[i][1] += 1
 
-
             position = list_operations[op_index][1]
             left_inserted = False
-            if expr[position+1] != "(":
+            if expr[position + 1] != "(":
                 if position + 2 < len(expr):
-                    if expr[position+2] != ")":
+                    if expr[position + 2] != ")":
                         position += 2
                         expr.insert(position, ")")
                         left_inserted = True
@@ -296,8 +299,9 @@ class Expression:
 
 if __name__ == '__main__':
     # arr = [i for i in Expression("c1 + x * y + z").add_parentheses() if i]
-    arr = Expression("(x/w)*w + (z + x%w)")
-    print(''.join(arr.infixToPrefix()))
+    arr = Expression("( min ( ( y - z ) , x ) + z )")
+    #                 ( min ( ( y - z ) , x ) + z )
+    print(' '.join(arr.infixToPrefix()))
     # arr = [i for i in Expression(
     #     "x2 + (c1 + x) * (y + z)").add_parentheses() if i]
 
