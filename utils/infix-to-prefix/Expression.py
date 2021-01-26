@@ -9,6 +9,7 @@ class Expression:
         # self.expr = Expression.fun_to_op(
         #     Expression.expr_str_to_arr(Expression.minus_plus(expr)))
         self.expr = Expression.expr_str_to_arr(Expression.minus_plus(expr))
+        Expression.add_parentheses(self)
 
     def print(self):
         print(self.toString() + "\n")
@@ -69,6 +70,7 @@ class Expression:
     def remove_space(s):
         return s.replace(' ', '')
 
+    @staticmethod
     def fun_to_op(expr):
         i = 0
         stack = Stack(len(expr))
@@ -77,7 +79,7 @@ class Expression:
                 stack.push(expr[i])
                 del expr[i]
                 i -= 1
-            elif(expr[i] == ','):
+            elif expr[i] == ',':
                 expr[i] = stack.pop()
             i += 1
         return expr
@@ -110,14 +112,14 @@ class Expression:
         return s[0].isalpha and s not in ('max', 'min', 'select')
 
     def infixToPrefix(self):
-
+        expr = Expression.fun_to_op(self.expr)
         prefix = []
         revInfix = []
 
         # Replacing '(' with ')' and
         # reversing the input string
-        for i in range(len(self.expr)-1, -1, -1):
-            ch = self.expr[i]
+        for i in range(len(expr)-1, -1, -1):
+            ch = expr[i]
 
             if ch == '(':
                 ch = ')'
@@ -126,12 +128,12 @@ class Expression:
 
             revInfix.append(ch)
         # print(revInfix)
-        self.expr = revInfix
+        expr = revInfix
 
         # Declaration of stack
-        stack = Stack(len(self.expr))
+        stack = Stack(len(expr))
 
-        for i in self.expr:
+        for i in expr:
             # If character is '(' push it to stack
             if i == '(':
                 stack.push(i)
@@ -170,7 +172,8 @@ class Expression:
             prefix.append(stack.pop())
 
         # Return the reversed answer string
-        self.expr = prefix[::-1]
+        expr = prefix[::-1]
+        return expr
 
     @staticmethod
     def partition(arr, low, high):
@@ -224,7 +227,6 @@ class Expression:
             #     expr[i] = stack.pop()
             i += 1
         Expression.quickSort(list_operations, 0, len(list_operations)-1)
-        print(expr)
         for op_index in range(len(list_operations)):
             position = list_operations[op_index][1]
             right_inserted = False
@@ -244,7 +246,8 @@ class Expression:
                     position -= 1
                     if paren_stack.top < 0:
                         break
-                # print(position, expr[position])
+                if expr[position] in ["min", "max"]:
+                    position -= 1
                 position += 1
                 expr.insert(position, "(")
                 right_inserted = True
@@ -255,7 +258,6 @@ class Expression:
                     if list_operations[i][1] >= position:
                         list_operations[i][1] += 1
 
-            # print(list_operations)
 
             position = list_operations[op_index][1]
             left_inserted = False
@@ -280,7 +282,6 @@ class Expression:
                     position += 1
                     if paren_stack.top < 0 or position == len(expr):
                         break
-                # print(position, expr[position])
                 expr.insert(position, ")")
                 left_inserted = True
 
@@ -290,20 +291,15 @@ class Expression:
                     if list_operations[i][1] >= position:
                         list_operations[i][1] += 1
 
-            # print(list_operations[op_index])
-
-        print(expr)
-
-        return list_operations
+        return expr
 
 
 if __name__ == '__main__':
     # arr = [i for i in Expression("c1 + x * y + z").add_parentheses() if i]
-    print("\n\n")
-    arr = [i for i in Expression("(c1 + x) * (y + z)").add_parentheses() if i]
-    print("\n\n")
-    arr = [i for i in Expression(
-        "x2 + (c1 + x) * (y + z)").add_parentheses() if i]
+    arr = Expression("(x/w)*w + (z + x%w)")
+    print(''.join(arr.infixToPrefix()))
+    # arr = [i for i in Expression(
+    #     "x2 + (c1 + x) * (y + z)").add_parentheses() if i]
 
 # # Driver code to test above
 # n = len(arr)
