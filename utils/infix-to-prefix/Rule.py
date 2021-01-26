@@ -19,6 +19,7 @@ class Rule:
         right = ""
         i = 0
         stack = Stack(len(rule))
+        print(rule)
         while i < len(rule):
             if rule[i] in ('min', 'max'):
                 stack.push(rule[i])
@@ -33,13 +34,16 @@ class Rule:
 
     def infix_rule(self):
         left = Expression(self.left_side)
-        left.infixToPrefix()
+        print("left: ", left.toString())
+        left = left.infixToPrefix()
         right = Expression(self.right_side)
-        right.infixToPrefix()
-        return (left.toString(), right.toString())
+        print("right: ", right.toString())
+        right = right.infixToPrefix()
+
+        return ' '.join(left), ' '.join(right)
 
 
 if __name__ == '__main__':
     rule = Rule('min(y - z, x) + z, min(y, x + z)')
     rule.print()
-    print(*rule.infix_rule())
+    print(rule.infix_rule())

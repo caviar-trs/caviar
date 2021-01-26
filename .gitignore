@@ -1,2 +1,5 @@
 /target
 .gitignore
+.idea
+.vscode
+utils/infix-to-prefix/__pycache__
