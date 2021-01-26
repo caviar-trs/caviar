@@ -4,7 +4,7 @@ use std::error::Error;
 use std::ffi::OsString;
 use std::fs::File;
 use std::panic;
-use std::process;
+mod rules;
 
 fn run() -> Result<(), Box<dyn Error>> {
     let file_path = get_first_arg()?;
@@ -50,7 +50,6 @@ fn main() {
     }
     println!("Simplifying expression:\n {}\n", start);
     trs::prove_time(start, end);
-
     // if let Err(err) = run() {
     //     println!("{}", err);
     //     process::exit(1);
