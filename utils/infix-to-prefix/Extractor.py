@@ -3,7 +3,7 @@ import re
 from Rule import Rule
 from Expression import Expression
 from Stack import Stack
-import pandas as pd
+import csv
 
 
 def extract(path):
@@ -37,11 +37,11 @@ def remove_condition(rule):
     while i < len(rule):
         if rule[i] in ('min', 'max'):
             stack.push(rule[i])
-        elif(rule[i] == ','):
+        elif (rule[i] == ','):
             if stack.top == -1 and additional_comma > 0:
                 additional_comma += 1
                 sides = ''.join(rule[:i])
-                condition = ''.join(rule[i+1:])
+                condition = ''.join(rule[i + 1:])
             elif stack.top == -1 and additional_comma == 0:
                 additional_comma += 1
             else:
@@ -55,12 +55,15 @@ def remove_condition(rule):
 
 def main(params):
     rules = extract(params[0])
-    # rules = pd.DataFrame(rules)
+    rules_trs = []
     for i, rule in enumerate(rules):
-        print(str(i + 1) + " " + rule)
-        if i+1 == 10:
-            break
-        # print(Rule(rule).infix_rule())
+        rul = Rule(rule)
+        rules_trs.append([rul.toString(), *rul.infix_rule()])
+    print(rules_trs)
+    with open('rules_egg.csv', 'w') as f:
+        # using csv.writer method from CSV package
+        write = csv.writer(f)
+        write.writerows(rules_trs)
 
 
 if __name__ == '__main__':

@@ -12,7 +12,7 @@ class Rule:
         print(self.toString())
 
     def toString(self):
-        return '"(' + self.left_side + ')"' + " => " + '"(' + self.right_side + ')"'
+        return '(' + self.left_side + ')"' + " => " + '"(' + self.right_side + ')"'
 
     def extract_sides(self, rule):
         left = ""

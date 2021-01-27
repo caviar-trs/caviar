@@ -2,9 +2,24 @@ use colored::*;
 use egg::{*};
 use ordered_float::NotNan;
 use std::{cmp::Ordering, time::Instant};
+use serde::{Serialize, Deserialize};
+
+
+#[derive(Serialize)]
+#[derive(Debug)]
+pub struct ResultStructure {
+    start_expression: String,
+    end_expressions: String,
+    result : bool,
+    best_expr: String,
+    total_time: f64
+}
+
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
 pub type Rewrite = egg::Rewrite<Math, ConstantFold>;
 pub type Constant = NotNan<f64>;
+
+
 
 
 define_language! {
@@ -224,33 +239,33 @@ pub fn is_not_zero(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 #[rustfmt::skip]
 fn rules() -> Vec<Rewrite> { 
     let add_rules = crate::rules::add::add();
-    let and_rules = crate::rules::and::and();
-    let andor_rules = crate::rules::andor::andor();
-    let div_rules = crate::rules::div::div();
-    let eq_rules = crate::rules::eq::eq();
-    let ineq_rules = crate::rules::ineq::ineq();
-    let lt_rules = crate::rules::lt::lt();
-    let max_rules = crate::rules::max::max();
-    let min_rules = crate::rules::min::min();
-    let modulo_rules = crate::rules::modulo::modulo();
-    let mul_rules = crate::rules::mul::mul();
-    let not_rules = crate::rules::not::not();
-    let or_rules = crate::rules::or::or();
-    let sub_rules = crate::rules::sub::sub();
+    // let and_rules = crate::rules::and::and();
+    // let andor_rules = crate::rules::andor::andor();
+    // let div_rules = crate::rules::div::div();
+    // let eq_rules = crate::rules::eq::eq();
+    // let ineq_rules = crate::rules::ineq::ineq();
+    // let lt_rules = crate::rules::lt::lt();
+    // let max_rules = crate::rules::max::max();
+    // let min_rules = crate::rules::min::min();
+    // let modulo_rules = crate::rules::modulo::modulo();
+    // let mul_rules = crate::rules::mul::mul();
+    // let not_rules = crate::rules::not::not();
+    // let or_rules = crate::rules::or::or();
+    // let sub_rules = crate::rules::sub::sub();
     return [        &add_rules[..], 
-                    &and_rules[..],
-                    &andor_rules[..],
-                    &div_rules[..],
-                    &eq_rules[..],
-                    &ineq_rules[..],
-                    &lt_rules[..],
-                    &max_rules[..],
-                    &min_rules[..],
-                    &modulo_rules[..],
-                    &mul_rules[..],
-                    &not_rules[..],
-                    &or_rules[..],
-                    &sub_rules[..],
+                    // &and_rules[..],
+                    // &andor_rules[..],
+                    // &div_rules[..],
+                    // &eq_rules[..],
+                    // &ineq_rules[..],
+                    // &lt_rules[..],
+                    // &max_rules[..],
+                    // &min_rules[..],
+                    // &modulo_rules[..],
+                    // &mul_rules[..],
+                    // &not_rules[..],
+                    // &or_rules[..],
+                    // &sub_rules[..],
     ].concat();
 }
 
@@ -390,6 +405,52 @@ pub fn prove_time(start_expression: &str, end_expressions: &str) -> bool {
     result
 }
 
+
+#[allow(dead_code)]
+pub fn prove_for_csv(start_expression: &str, end_expression: &str) -> ResultStructure {
+    let start: RecExpr<Math> = start_expression.parse().unwrap();
+    let end: Pattern<Math> = end_expression.parse().unwrap();
+    let result: bool;
+    let mut best_expr = "";
+    // That's it! We can run equality saturation now.
+    let runner = Runner::default().with_expr(&start).run(rules().iter());
+    let id = runner.egraph.find(*runner.roots.last().unwrap());
+    let matches = end.search_eclass(&runner.egraph, id);
+    if matches.is_none() {
+        println!(
+            "{}\n{}\n",
+            "Could not prove goal:".bright_red().bold(),
+            end.pretty(40),
+        );
+
+        let mut extractor = Extractor::new(&runner.egraph, AstDepth);
+        // We want to extract the best expression represented in the
+        // same e-class as our initial expression, not from the whole e-graph.
+        // Luckily the runner stores the eclass Id where we put the initial expression.
+        let (_, best_expr) = extractor.find_best(id);
+
+
+        println!(
+            "Best Expr: {}",
+            format!("{}", best_expr).bright_green().bold()
+        );
+        result = false;
+    } else {
+        println!(
+            "{}\n{}\n",
+            "Proved goal:".bright_green().bold(),
+            end.pretty(40)
+        );
+        result = true;
+        best_expr = end_expression;
+    }
+    let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
+    println!(
+        "Execution took: {}\n",
+        format!("{} s", total_time).bright_green().bold()
+    );
+    ResultStructure{start_expression: String::from(start_expression), end_expressions: String::from(end_expression), result, best_expr: String::from(best_expr), total_time}
+}
 // fn main() {
 //     prove_time("(min (- x z) (- y z))", "(- (min x y) z)");
 // }

@@ -266,15 +266,9 @@ class Expression:
                 position = list_operations[op_index][1]
                 left_inserted = False
                 if expr[position + 1] != "(":
-                    if position + 2 < len(expr):
-                        if expr[position + 2] != ")":
-                            position += 2
-                            expr.insert(position, ")")
-                            left_inserted = True
-                    else:
-                        position += 2
-                        expr.insert(position, ")")
-                        left_inserted = True
+                    position += 2
+                    expr.insert(position, ")")
+                    left_inserted = True
                 else:
                     paren_stack = Stack(len(expr))
                     position += 1
@@ -300,7 +294,7 @@ class Expression:
 
 if __name__ == '__main__':
     # arr = [i for i in Expression("c1 + x * y + z").add_parentheses() if i]
-    arr = Expression("((max((v0/2), -2) + 1) <= max(((v0 + 3)/2), 0))")
+    arr = Expression("(x + ( y + ( c0 - x ) / c1 ) * c1)")
     #                 ( min ( ( y - z ) , x ) + z )
     print(' '.join(arr.infixToPrefix()))
     # arr = [i for i in Expression(
