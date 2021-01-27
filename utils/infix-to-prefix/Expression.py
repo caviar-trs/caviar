@@ -252,9 +252,10 @@ class Expression:
                         break
                 if expr[position] in ["min", "max"]:
                     position -= 1
-                position += 1
-                expr.insert(position, "(")
-                right_inserted = True
+                elif expr[position] != "(":
+                    position += 1
+                    expr.insert(position, "(")
+                    right_inserted = True
 
             # update position of the operation after adding (
             if right_inserted:
@@ -262,7 +263,6 @@ class Expression:
                     if list_operations[i][1] >= position:
                         list_operations[i][1] += 1
 
-                # insert left only ig right is inserted
                 position = list_operations[op_index][1]
                 left_inserted = False
                 if expr[position + 1] != "(":
@@ -278,20 +278,16 @@ class Expression:
                 else:
                     paren_stack = Stack(len(expr))
                     position += 1
-                    pop_neg = 0
                     while True:
                         if expr[position] == "(":
                             paren_stack.push("(")
                         elif expr[position] == ")":
-                            pop_neg = paren_stack.pop()
+                            paren_stack.pop()
                         position += 1
-                        if paren_stack.top < 0 or position > len(expr):
+                        if paren_stack.top < 0 or position == len(expr):
                             break
-                    if pop_neg != -999:
-                        if position > len(expr):
-                            position -= 1
-                        expr.insert(position, ")")
-                        left_inserted = True
+                    expr.insert(position, ")")
+                    left_inserted = True
 
                 # update position of the operation after adding (
                 if left_inserted:
@@ -304,7 +300,7 @@ class Expression:
 
 if __name__ == '__main__':
     # arr = [i for i in Expression("c1 + x * y + z").add_parentheses() if i]
-    arr = Expression(" ( min ( ( y - z ) , x ) + z )")
+    arr = Expression("((max((v0/2), -2) + 1) <= max(((v0 + 3)/2), 0))")
     #                 ( min ( ( y - z ) , x ) + z )
     print(' '.join(arr.infixToPrefix()))
     # arr = [i for i in Expression(
