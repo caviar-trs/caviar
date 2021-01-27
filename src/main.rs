@@ -7,6 +7,7 @@ use std::panic;
 use std::process;
 mod rules;
 use csv::Writer;
+use crate::trs::ResultStructure;
 
 fn run() -> Result<(), Box<dyn Error>> {
     let file_path = get_first_arg()?;
@@ -20,18 +21,20 @@ fn run() -> Result<(), Box<dyn Error>> {
         let end = &record[2];
         panic::set_hook(Box::new(|_info| {
             // do nothing
+            println!("{:?}", _info);
         }));
-        let result = panic::catch_unwind(|| {
+        let result = panic::catch_unwind(||-> ResultStructure {
             println!("Simplifying expression:\n {}\n", start);
-            wtr.serialize(trs::prove_for_csv(start, end))?;
+            let result_record = trs::prove_for_csv(start, end);
+            result_record
         });
 
         match result {
-            Ok(res) => res,
-            Err(_) => println!("Error at expression: {}!", start),
+            Ok(res) => wtr.serialize(res)?,
+            Err(_) => println!("Error at expression: {}", start),
         }
     }
-    wtr.flush()?;
+    wtr.flush();
     Ok(())
 }
 
@@ -46,7 +49,7 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
 
 fn main() {
     // let args: Vec<String> = env::args().collect();
-    // let mut start = "( + x x )";
+    // let mut start = "( + x ( * ( + y ( / ( - c0 x ) c1 ) ) c1 ) )";
     // let mut end = "(* 2 x)";
     // if args.len() > 1 {
     //     start = &args[1][..];

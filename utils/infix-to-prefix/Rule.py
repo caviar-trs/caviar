@@ -34,6 +34,7 @@ class Rule:
 
     def infix_rule(self):
         left = Expression(self.left_side)
+        print(left.toString())
         left = left.infixToPrefix()
         right = Expression(self.right_side)
         right = right.infixToPrefix()
@@ -42,6 +43,6 @@ class Rule:
 
 
 if __name__ == '__main__':
-    rule = Rule('min(y - z, x) + z, min(y, x + z)')
+    rule = Rule('max(x*c0, y) + (x*c1), max((x*c1) + y, 0)')
     # rule.print()
     print(rule.infix_rule())
