@@ -19,7 +19,7 @@ class Rule:
         right = ""
         i = 0
         stack = Stack(len(rule))
-        print(rule)
+        # print(rule)
         while i < len(rule):
             if rule[i] in ('min', 'max'):
                 stack.push(rule[i])
@@ -37,7 +37,7 @@ class Rule:
         left = left.infixToPrefix()
         right = Expression(self.right_side)
         right = right.infixToPrefix()
-        print(' '.join(left), ' '.join(right))
+        # print(' '.join(left), ' '.join(right))
         return ' '.join(left), ' '.join(right)
 
 

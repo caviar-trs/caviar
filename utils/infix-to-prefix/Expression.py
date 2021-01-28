@@ -11,7 +11,9 @@ class Expression:
         # self.expr = Expression.fun_to_op(
         #     Expression.expr_str_to_arr(Expression.minus_plus(expr)))
         self.expr = Expression.expr_str_to_arr(Expression.minus_plus(expr))
+        print(self.toString())
         Expression.add_parentheses(self)
+        print(self.toString())
 
     def print(self):
         print(self.toString() + "\n")
@@ -176,7 +178,7 @@ class Expression:
         # Return the reversed answer string
         expr = prefix[::-1]
 
-        print(expr)
+        # print(expr)
         if expr[0] == expr[1] == "(" and expr[len(expr) - 1] == expr[len(expr) - 2] == ")":
             return expr[1:-1]
         return expr
@@ -225,10 +227,6 @@ class Expression:
         while i < len(expr):
             if expr[i] in ('+', '-', '*', '%', '/', '<', '>', '&&', '||', '==', '!=', "<=", ">="):
                 list_operations.append([expr[i], i])
-                # if expr[i-1] != '(':
-                #     expr.insert(i-1, '(')
-            # elif(expr[i] == ','):
-            #     expr[i] = stack.pop()
             i += 1
         Expression.quickSort(list_operations, 0, len(list_operations) - 1)
         for op_index in range(len(list_operations)):
@@ -268,11 +266,9 @@ class Expression:
                         list_operations[i][1] += 1
 
                 position = list_operations[op_index][1]
-                left_inserted = False
                 if expr[position + 1] != "(":
                     position += 2
                     expr.insert(position, ")")
-                    left_inserted = True
                 else:
                     paren_stack = Stack(len(expr))
                     position += 1
@@ -288,18 +284,74 @@ class Expression:
                     left_inserted = True
 
                 # update position of the operation after adding (
+                for i in range(len(list_operations)):
+                    if list_operations[i][1] >= position:
+                        list_operations[i][1] += 1
+
+            else:
+                position = list_operations[op_index][1]
+                left_inserted = False
+                if expr[position + 1] != "(" and not (expr[position + 1] in ["min", "max"]):
+                    if expr[position+2] != ")":
+                        position += 2
+                        expr.insert(position, ")")
+                        left_inserted = True
+                else:
+                    if expr[position+1] in ["min", "max"]:
+                        position += 1
+                    paren_stack = Stack(len(expr))
+                    position += 1
+                    while True:
+                        if expr[position] == "(":
+                            paren_stack.push("(")
+                        elif expr[position] == ")":
+                            paren_stack.pop()
+                        position += 1
+                        if paren_stack.top < 0 or position == len(expr):
+                            break
+                    if expr[position] != ")":
+                        expr.insert(position, ")")
+                        left_inserted = True
+
+                # update position of the operation after adding (
                 if left_inserted:
                     for i in range(len(list_operations)):
                         if list_operations[i][1] >= position:
                             list_operations[i][1] += 1
+
+                    if not right_inserted:
+                        position = list_operations[op_index][1]
+                        if expr[position - 1] != ")":
+                            position -= 1
+                            expr.insert(position, "(")
+                        else:
+                            paren_stack = Stack(len(expr))
+                            position -= 1
+                            while True:
+                                if expr[position] == ")":
+                                    paren_stack.push(")")
+                                elif expr[position] == "(":
+                                    paren_stack.pop()
+                                position -= 1
+                                if paren_stack.top < 0:
+                                    break
+                            if expr[position] in ["min", "max"]:
+                                position -= 1
+                            position += 1
+                            expr.insert(position, "(")
+
+                        # update position of the operation after adding (
+                        for i in range(len(list_operations)):
+                            if list_operations[i][1] >= position:
+                                list_operations[i][1] += 1
 
         return expr
 
 
 if __name__ == '__main__':
     # arr = [i for i in Expression("c1 + x * y + z").add_parentheses() if i]
-    arr = Expression("(max ( ( x * c1 ) + y , 0 ))")
-    print(arr.toString())
+    arr = Expression("(z + min ( x , y - z ))")
+    # print(arr.toString())
     #                 ( min ( ( y - z ) , x ) + z )
     print(' '.join(arr.infixToPrefix()))
     # (max(+ ((*x c1)) y)0 )
