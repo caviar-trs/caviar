@@ -13,7 +13,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let file_path = get_first_arg()?;
     let file = File::open(file_path)?;
     let mut rdr = csv::Reader::from_reader(file);
-    let mut wtr = Writer::from_path("results_rules_egg.csv")?;
+    let mut wtr = Writer::from_path("results/results_rules_egg.csv")?;
     for result in rdr.records() {
         let record = result?;
         // println!("{:?}", &record[1]);
