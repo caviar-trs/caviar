@@ -11,5 +11,5 @@ pub fn mul() -> Vec<Rewrite> { vec![
     rw!("mul-one";  "?a" => "(* ?a 1)"),
     rw!("cancel-div-1surdiv"; "(* (/ 1 ?a) ?a)" => "1" if crate::trs::is_not_zero("?a")),
     rw!("cancel-mul-div"; "(/ (* ?y ?x) ?x)" => "?y"),
-    rw!("mul-max-min"; "(* (max ?a ?b) (min ?a ?b))" => "(* ?a ?b)"),
+    // rw!("mul-max-min"; "(* (max ?a ?b) (min ?a ?b))" => "(* ?a ?b)"),
 ]}

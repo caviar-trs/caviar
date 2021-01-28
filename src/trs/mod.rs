@@ -249,10 +249,10 @@ fn rules() -> Vec<Rewrite> {
     // let max_rules = crate::rules::max::max();
     // let min_rules = crate::rules::min::min();
     // let modulo_rules = crate::rules::modulo::modulo();
-    // let mul_rules = crate::rules::mul::mul();
+    let mul_rules = crate::rules::mul::mul();
     // let not_rules = crate::rules::not::not();
     // let or_rules = crate::rules::or::or();
-    // let sub_rules = crate::rules::sub::sub();
+    let sub_rules = crate::rules::sub::sub();
     return [        &add_rules[..], 
                     // &and_rules[..],
                     // &andor_rules[..],
@@ -263,10 +263,10 @@ fn rules() -> Vec<Rewrite> {
                     // &max_rules[..],
                     // &min_rules[..],
                     // &modulo_rules[..],
-                    // &mul_rules[..],
+                    &mul_rules[..],
                     // &not_rules[..],
                     // &or_rules[..],
-                    // &sub_rules[..],
+                    &sub_rules[..],
     ].concat();
 }
 
