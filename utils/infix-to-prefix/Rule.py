@@ -12,7 +12,7 @@ class Rule:
         print(self.toString())
 
     def toString(self):
-        return '(' + self.left_side + ')"' + " => " + '"(' + self.right_side + ')"'
+        return self.left_side + " => " + self.right_side
 
     def extract_sides(self, rule):
         left = ""
@@ -25,20 +25,19 @@ class Rule:
                 stack.push(rule[i])
             elif(rule[i] == ','):
                 if stack.top == -1:
-                    left = ' '.join(rule[:i])
-                    right = ' '.join(rule[i+1:])
+                    left = "(" + ' '.join(rule[:i]) + ")"
+                    right = "(" + ' '.join(rule[i+1:]) + ")"
                 else:
                     stack.pop()
             i += 1
-        return (left, right)
+        return left, right
 
     def infix_rule(self):
         left = Expression(self.left_side)
-        print(left.toString())
         left = left.infixToPrefix()
         right = Expression(self.right_side)
         right = right.infixToPrefix()
-
+        print(' '.join(left), ' '.join(right))
         return ' '.join(left), ' '.join(right)
 
 

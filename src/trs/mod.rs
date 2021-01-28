@@ -8,6 +8,7 @@ use serde::{Serialize, Deserialize};
 #[derive(Serialize)]
 #[derive(Debug)]
 pub struct ResultStructure {
+    index: i16,
     start_expression: String,
     end_expressions: String,
     result : bool,
@@ -407,7 +408,7 @@ pub fn prove_time(start_expression: &str, end_expressions: &str) -> bool {
 
 
 #[allow(dead_code)]
-pub fn prove_for_csv(start_expression: &str, end_expression: &str) -> ResultStructure {
+pub fn prove_for_csv(index: i16, start_expression: &str, end_expression: &str) -> ResultStructure {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end: Pattern<Math> = end_expression.parse().unwrap();
     let result: bool;
@@ -449,7 +450,7 @@ pub fn prove_for_csv(start_expression: &str, end_expression: &str) -> ResultStru
         "Execution took: {}\n",
         format!("{} s", total_time).bright_green().bold()
     );
-    ResultStructure{start_expression: String::from(start_expression), end_expressions: String::from(end_expression), result, best_expr: String::from(best_expr), total_time}
+    ResultStructure{index: index, start_expression: String::from(start_expression), end_expressions: String::from(end_expression), result, best_expr: String::from(best_expr), total_time}
 }
 // fn main() {
 //     prove_time("(min (- x z) (- y z))", "(- (min x y) z)");

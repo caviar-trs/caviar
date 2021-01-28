@@ -175,6 +175,10 @@ class Expression:
 
         # Return the reversed answer string
         expr = prefix[::-1]
+
+        print(expr)
+        if expr[0] == expr[1] == "(" and expr[len(expr) - 1] == expr[len(expr) - 2] == ")":
+            return expr[1:-1]
         return expr
 
     @staticmethod
@@ -252,7 +256,7 @@ class Expression:
                         break
                 if expr[position] in ["min", "max"]:
                     position -= 1
-                if expr[position] != "(":
+                if expr[position] != "(" or expr[position - 1] in ["min", "max"]:
                     position += 1
                     expr.insert(position, "(")
                     right_inserted = True
@@ -263,38 +267,38 @@ class Expression:
                     if list_operations[i][1] >= position:
                         list_operations[i][1] += 1
 
-            position = list_operations[op_index][1]
-            left_inserted = False
-            if expr[position + 1] != "(":
-                position += 2
-                expr.insert(position, ")")
-                left_inserted = True
-            else:
-                paren_stack = Stack(len(expr))
-                position += 1
-                while True:
-                    if expr[position] == "(":
-                        paren_stack.push("(")
-                    elif expr[position] == ")":
-                        paren_stack.pop()
+                position = list_operations[op_index][1]
+                left_inserted = False
+                if expr[position + 1] != "(":
+                    position += 2
+                    expr.insert(position, ")")
+                    left_inserted = True
+                else:
+                    paren_stack = Stack(len(expr))
                     position += 1
-                    if paren_stack.top < 0 or position == len(expr):
-                        break
-                expr.insert(position, ")")
-                left_inserted = True
+                    while True:
+                        if expr[position] == "(":
+                            paren_stack.push("(")
+                        elif expr[position] == ")":
+                            paren_stack.pop()
+                        position += 1
+                        if paren_stack.top < 0 or position == len(expr):
+                            break
+                    expr.insert(position, ")")
+                    left_inserted = True
 
-            # update position of the operation after adding (
-            if left_inserted:
-                for i in range(len(list_operations)):
-                    if list_operations[i][1] >= position:
-                        list_operations[i][1] += 1
+                # update position of the operation after adding (
+                if left_inserted:
+                    for i in range(len(list_operations)):
+                        if list_operations[i][1] >= position:
+                            list_operations[i][1] += 1
 
         return expr
 
 
 if __name__ == '__main__':
     # arr = [i for i in Expression("c1 + x * y + z").add_parentheses() if i]
-    arr = Expression("(( x + c0 ) + y)")
+    arr = Expression("(max ( ( x * c1 ) + y , 0 ))")
     print(arr.toString())
     #                 ( min ( ( y - z ) , x ) + z )
     print(' '.join(arr.infixToPrefix()))

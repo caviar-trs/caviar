@@ -58,11 +58,12 @@ def main(params):
     rules_trs = []
     for i, rule in enumerate(rules):
         rul = Rule(rule)
-        rules_trs.append([rul.toString(), *rul.infix_rule()])
+        rules_trs.append([i+1, rul.toString(), *rul.infix_rule()])
     print(rules_trs)
     with open('rules_egg.csv', 'w') as f:
         # using csv.writer method from CSV package
         write = csv.writer(f)
+        write.writerow(['index', 'rule', 'LHS', 'RHS'])
         write.writerows(rules_trs)
 
 

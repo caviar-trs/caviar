@@ -16,16 +16,18 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut wtr = Writer::from_path("results_rules_egg.csv")?;
     for result in rdr.records() {
         let record = result?;
-        // println!("{:?}", record);
-        let start = &record[1];
-        let end = &record[2];
+        // println!("{:?}", &record[1]);
+        let index: i16 = record[0].parse::<i16>().unwrap();
+        let start = &record[2];
+        let end = &record[3];
+        println!("{:?}", index);
         panic::set_hook(Box::new(|_info| {
             // do nothing
             println!("{:?}", _info);
         }));
         let result = panic::catch_unwind(||-> ResultStructure {
             println!("Simplifying expression:\n {}\n", start);
-            let result_record = trs::prove_for_csv(start, end);
+            let result_record = trs::prove_for_csv(index, start, end);
             result_record
         });
 
