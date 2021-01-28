@@ -11,9 +11,9 @@ class Expression:
         # self.expr = Expression.fun_to_op(
         #     Expression.expr_str_to_arr(Expression.minus_plus(expr)))
         self.expr = Expression.expr_str_to_arr(Expression.minus_plus(expr))
-        print(self.toString())
+        #print(self.toString())
         Expression.add_parentheses(self)
-        print(self.toString())
+        #print(self.toString())
 
     def print(self):
         print(self.toString() + "\n")

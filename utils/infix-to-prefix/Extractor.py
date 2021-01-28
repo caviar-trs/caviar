@@ -9,7 +9,7 @@ import csv
 def extract(path):
     txtfile = open(path, 'r')
     remove = ['int32', 'float32', 'select',
-              'broadcast', 'ramp', 'fold', 'Overflow']
+              'broadcast', 'ramp', 'fold', 'Overflow', 'can_prove', 'canprove']
     rules = []
     for line in txtfile:
         rule = re.search('rewrite\((.*)\) *\|\|$', line)
@@ -59,7 +59,7 @@ def main(params):
     for i, rule in enumerate(rules):
         rul = Rule(rule)
         rules_trs.append([i+1, rul.toString(), *rul.infix_rule()])
-    print(rules_trs)
+    #print(rules_trs)
     with open('results/rules_egg.csv', 'w') as f:
         # using csv.writer method from CSV package
         write = csv.writer(f)
