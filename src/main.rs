@@ -20,6 +20,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         let index: i16 = record[0].parse::<i16>().unwrap();
         let start = &record[2];
         let end = &record[3];
+        let condition = &record[4];
         println!("{:?}", index);
         panic::set_hook(Box::new(|_info| {
             // do nothing
@@ -27,7 +28,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         }));
         let result = panic::catch_unwind(||-> ResultStructure {
             println!("Simplifying expression:\n {}\n", start);
-            let result_record = trs::prove_for_csv(index, start, end);
+            let result_record = trs::prove_for_csv(index, start, end,condition);
             result_record
         });
 
@@ -50,23 +51,23 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
 }
 
 fn main() {
-    // let args: Vec<String> = env::args().collect();
-    // let mut start = "( + x x )";
-    // let mut end = "( * 2 x )";
-    // if args.len() > 1 {
-    //     start = &args[1][..];
-    //     if args.len() > 2 {
-    //         end = &args[2][..];
-    //     }
-    // }
-    // println!("Simplifying expression:\n {}\n", start);
-    // trs::prove_time(start, end);
-
-
-
-
-    if let Err(err) = run() {
-        println!("{}", err);
-        process::exit(1);
+    let args: Vec<String> = env::args().collect();
+    let mut start = " ( + ( / x 2 ) ( % x 2 ) )";
+    let mut end = "(+ c0 (* y c1))";
+    if args.len() > 1 {
+        start = &args[1][..];
+        if args.len() > 2 {
+            end = &args[2][..];
+        }
     }
+    println!("Simplifying expression:\n {}\n", start);
+    trs::prove_time(start, end);
+
+
+
+
+    // if let Err(err) = run() {
+    //     println!("{}", err);
+    //     process::exit(1);
+    // }
 }

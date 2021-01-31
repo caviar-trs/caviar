@@ -11,4 +11,8 @@ pub fn add() -> Vec<Rewrite> { vec![
     rw!("add-zero"; "?a" => "(+ ?a 0)"),
     rw!("distribute"; "(* ?a (+ ?b ?c))"        => "(+ (* ?a ?b) (* ?a ?c))"),
     rw!("factor"    ; "(+ (* ?a ?b) (* ?a ?c))" => "(* ?a (+ ?b ?c))"),
+    rw!("plus-max-min"    ; "(+ (min ?a ?b) (max ?a ?b))" => "(+ ?a ?b)"),
+
+    // rw!("add-div-mod"    ; "( + ( / ?x 2 ) ( % ?x 2 ) )" => "( / ( + ?x 1 ) 2 )"),
+
 ]}
