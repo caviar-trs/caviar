@@ -1,6 +1,6 @@
 from Stack import Stack
 from Expression import Expression
-
+import re
 
 class Rule:
     def __init__(self, rule: str):
@@ -37,8 +37,12 @@ class Rule:
         left = left.infixToPrefix()
         right = Expression(self.right_side)
         right = right.infixToPrefix()
+        s_right = ' '.join(right)
+        s_left = ' '.join(left)
+        # s_left = re.sub("\( \- (?P<var>[a-zA-Z_$][a-zA-Z_$0-9]*) \)", r'(* \1 -1)', s_left)
+        # s_right = re.sub("\( \- (?P<var>[a-zA-Z_$][a-zA-Z_$0-9]*) \)", r'(* \1 -1)', s_right)
         # print(' '.join(left), ' '.join(right))
-        return ' '.join(left), ' '.join(right)
+        return s_left, s_right
 
 
 if __name__ == '__main__':

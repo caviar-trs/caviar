@@ -4,3 +4,4 @@
 .vscode
 utils/infix-to-prefix/__pycache__
 results/*.csv
+halide_rules/*.cpp
