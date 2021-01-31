@@ -111,6 +111,7 @@ dependencies = [
  "csv",
  "egg",
  "env_logger",
+ "num-traits",
  "ordered-float",
  "serde",
 ]

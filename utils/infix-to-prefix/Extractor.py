@@ -16,14 +16,14 @@ def extract(path):
         if rule:
             formated_rule = [r for r in rule.group(1)]
             formated_rule = ''.join(formated_rule)
-            sides, _ = remove_condition(formated_rule)
+            sides, condition = remove_condition(formated_rule)
             sides = ''.join(sides)
             ok = True
             for f in remove:
                 if f in sides:
                     ok = False
             if ok:
-                rules.append(sides)
+                rules.append([sides, condition if condition else " "])
     return rules
 
 
@@ -57,13 +57,13 @@ def main(params):
     rules = extract(params[0])
     rules_trs = []
     for i, rule in enumerate(rules):
-        rul = Rule(rule)
-        rules_trs.append([i+1, rul.toString(), *rul.infix_rule()])
+        rul = Rule(rule[0])
+        rules_trs.append([i+1, rul.toString(), *rul.infix_rule(), rule[1]])
     #print(rules_trs)
     with open('results/rules_egg.csv', 'w') as f:
         # using csv.writer method from CSV package
         write = csv.writer(f)
-        write.writerow(['index', 'rule', 'LHS', 'RHS'])
+        write.writerow(['index', 'rule', 'LHS', 'RHS', 'Condition'])
         write.writerows(rules_trs)
 
 
