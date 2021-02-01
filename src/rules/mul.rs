@@ -6,7 +6,7 @@ pub fn mul() -> Vec<Rewrite> { vec![
     //MUL RULES
     rw!("comm-mul";  "(* ?a ?b)"        => "(* ?b ?a)"),
     rw!("assoc-mul"; "(* ?a (* ?b ?c))" => "(* (* ?a ?b) ?c)"),
-    // rw!("zero-mul"; "(* ?a 0)" => "0"),
+    rw!("zero-mul"; "(* ?a 0)" => "0"),
     rw!("one-mul";  "(* ?a 1)" => "?a"),
     rw!("mul-one";  "?a" => "(* ?a 1)"),
     rw!("cancel-div-1surdiv"; "(* (/ 1 ?a) ?a)" => "1" if crate::trs::is_not_zero("?a")),

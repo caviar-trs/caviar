@@ -12,6 +12,7 @@ pub fn add() -> Vec<Rewrite> { vec![
     rw!("distribute"; "(* ?a (+ ?b ?c))"        => "(+ (* ?a ?b) (* ?a ?c))"),
     rw!("factor"    ; "(+ (* ?a ?b) (* ?a ?c))" => "(* ?a (+ ?b ?c))"),
     rw!("plus-max-min"    ; "(+ (min ?a ?b) (max ?a ?b))" => "(+ ?a ?b)"),
-    rw!("denominator"; "(+ (/ ?a ?b) ?c)" => "(/ (+ ?a (* ?b ?c)) ?b)")
+    rw!("denominator1"; "(+ (/ ?a ?b) ?c)" => "(/ (+ ?a (* ?b ?c)) ?b)"),
+    rw!("denominator2"; "(/ (+ ?a (* ?b ?c)) ?b)" => "(+ (/ ?a ?b) ?c)"),
     // rw!("add-div-mod"    ; "( + ( / ?x 2 ) ( % ?x 2 ) )" => "( / ( + ?x 1 ) 2 )"),
 ]}
