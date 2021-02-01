@@ -52,8 +52,8 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let mut start = " ( + ( / x 2 ) ( % x 2 ) )";
-    let mut end = "(+ c0 (* y c1))";
+    let mut start = "( - ( / ( + ( min ( + ( * x 6 ) y ) z ) w ) 2 ) ( * x 3 ) )";
+    let mut end = "( / ( + ( min y ( - z ( * x 6 ) ) ) w ) 2 )";
     if args.len() > 1 {
         start = &args[1][..];
         if args.len() > 2 {

@@ -3,5 +3,7 @@
 .idea
 .vscode
 utils/infix-to-prefix/__pycache__
-results/*.csv
-halide_rules/*.cpp
+results/*
+halide_rules/*
+!results/.gitkeep
+!halide_rules/.gitkeep
