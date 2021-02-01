@@ -189,13 +189,19 @@ class Expression:
         pivot = arr[high]  # pivot
 
         for j in range(low, high):
-
+            print(arr[i], arr[j])
             # If current element is bigger than or
             # equal to pivot
-            if Expression.priority(arr[j][0]) >= Expression.priority(pivot[0]):
+            if Expression.priority(arr[j][0]) > Expression.priority(pivot[0]):
                 # increment index of smaller element
                 i = i + 1
                 arr[i], arr[j] = arr[j], arr[i]
+            elif Expression.priority(arr[j][0]) == Expression.priority(pivot[0]):
+                if arr[j][1] < pivot[1]:
+                    i = i + 1
+                    arr[i], arr[j] = arr[j], arr[i]
+
+
 
         arr[i + 1], arr[high] = arr[high], arr[i + 1]
         return (i + 1)
@@ -350,7 +356,7 @@ class Expression:
 
 if __name__ == '__main__':
     # arr = [i for i in Expression("c1 + x * y + z").add_parentheses() if i]
-    arr = Expression("(z + min ( x , y - z ))")
+    arr = Expression("(( 0 - y - z ) / c0 - x)")
     # print(arr.toString())
     #                 ( min ( ( y - z ) , x ) + z )
     print(' '.join(arr.infixToPrefix()))
