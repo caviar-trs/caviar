@@ -11,20 +11,20 @@ def extract(path):
     remove = ['int32', 'float32', 'select',
               'broadcast', 'ramp', 'fold', 
               'Overflow', 'can_prove', 'canprove'
-              'op->type', 'Call']
+              'op->type', 'Call', 'this']
     rules = []
     for line in txtfile:
         rule = re.search('rewrite\((.*)\) *\|\|$', line)
         if rule:
             formated_rule = [r for r in rule.group(1)]
             formated_rule = ''.join(formated_rule)
-            sides, condition = remove_condition(formated_rule)
-            sides = ''.join(sides)
             ok = True
             for f in remove:
-                if f in sides:
+                if f in formated_rule:
                     ok = False
             if ok:
+                sides, condition = remove_condition(formated_rule)
+                sides = ''.join(sides)
                 rules.append([sides, condition if condition else " "])
     return rules
 
@@ -89,7 +89,7 @@ def main(params):
 
 
 if __name__ == '__main__':
-    #main(sys.argv[1:])
-    l, r = extract_min_max_params(sys.argv[1])
-    print(l)
-    print(r)
+    main(sys.argv[1:])
+    # l, r = extract_min_max_params(sys.argv[1])
+    # print(l)
+    # print(r)

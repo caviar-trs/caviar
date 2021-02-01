@@ -189,7 +189,6 @@ class Expression:
         pivot = arr[high]  # pivot
 
         for j in range(low, high):
-            print(arr[i], arr[j])
             # If current element is bigger than or
             # equal to pivot
             if Expression.priority(arr[j][0]) > Expression.priority(pivot[0]):
