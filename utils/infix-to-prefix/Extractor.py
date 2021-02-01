@@ -11,7 +11,7 @@ def extract(path):
     remove = ['int32', 'float32', 'select',
               'broadcast', 'ramp', 'fold', 
               'Overflow', 'can_prove', 'canprove'
-              'op->type', 'Call', 'this']
+              'op->type', 'op->type', 'Call', 'this', 'IRMatcher']
     rules = []
     for line in txtfile:
         rule = re.search('rewrite\((.*)\) *\|\|$', line)
@@ -53,25 +53,6 @@ def remove_condition(rule):
         sides = ''.join(rule)
         condition = ''
     return (sides, condition)
-
-
-def extract_min_max_params(expr):
-    expr = Expression.expr_str_to_arr(Expression.minus_plus(expr))
-    left = ""
-    right = ""
-    i = 2
-    stack = Stack(len(expr))
-    while i < len(expr):
-            if expr[i] in ('min', 'max'):
-                stack.push(expr[i])
-            elif(expr[i] == ','):
-                if stack.top == -1:
-                    left = ' '.join(expr[2:i]) 
-                    right = ' '.join(expr[i+1:len(expr)-1]) 
-                else:
-                    stack.pop()
-            i += 1
-    return left, right
 
 
 def main(params):
