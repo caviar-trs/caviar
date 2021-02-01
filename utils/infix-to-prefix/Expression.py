@@ -179,7 +179,7 @@ class Expression:
         expr = prefix[::-1]
 
         # print(expr)
-        if expr[0] == expr[1] == "(" and expr[len(expr) - 1] == expr[len(expr) - 2] == ")":
+        if len(expr) > 3 and expr[0] == expr[1] == "(" and expr[len(expr) - 1] == expr[len(expr) - 2] == ")":
             return expr[1:-1]
         return expr
 

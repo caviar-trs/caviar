@@ -9,7 +9,9 @@ import csv
 def extract(path):
     txtfile = open(path, 'r')
     remove = ['int32', 'float32', 'select',
-              'broadcast', 'ramp', 'fold', 'Overflow', 'can_prove', 'canprove']
+              'broadcast', 'ramp', 'fold', 
+              'Overflow', 'can_prove', 'canprove'
+              'op->type', 'Call']
     rules = []
     for line in txtfile:
         rule = re.search('rewrite\((.*)\) *\|\|$', line)
@@ -53,6 +55,25 @@ def remove_condition(rule):
     return (sides, condition)
 
 
+def extract_min_max_params(expr):
+    expr = Expression.expr_str_to_arr(Expression.minus_plus(expr))
+    left = ""
+    right = ""
+    i = 2
+    stack = Stack(len(expr))
+    while i < len(expr):
+            if expr[i] in ('min', 'max'):
+                stack.push(expr[i])
+            elif(expr[i] == ','):
+                if stack.top == -1:
+                    left = ' '.join(expr[2:i]) 
+                    right = ' '.join(expr[i+1:len(expr)-1]) 
+                else:
+                    stack.pop()
+            i += 1
+    return left, right
+
+
 def main(params):
     rules = extract(params[0])
     rules_trs = []
@@ -68,4 +89,7 @@ def main(params):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    #main(sys.argv[1:])
+    l, r = extract_min_max_params(sys.argv[1])
+    print(l)
+    print(r)

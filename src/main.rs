@@ -51,23 +51,23 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
 }
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    let mut start = "( / ( - ( - ( * x 2 ) y ) z ) -2 )";
-    let mut end = "( - ( / ( * -1 ( + y z ) ) -2 ) x )";
-    if args.len() > 1 {
-        start = &args[1][..];
-        if args.len() > 2 {
-            end = &args[2][..];
-        }
-    }
-    println!("Simplifying expression:\n {}\n", start);
-    trs::prove_time(start, end);
-
-
-
-
-    // if let Err(err) = run() {
-    //     println!("{}", err);
-    //     process::exit(1);
+    // let args: Vec<String> = env::args().collect();
+    // let mut start = "( / ( - ( - ( * x 2 ) y ) z ) -2 )";
+    // let mut end = "( - ( / ( * -1 ( + y z ) ) -2 ) x )";
+    // if args.len() > 1 {
+    //     start = &args[1][..];
+    //     if args.len() > 2 {
+    //         end = &args[2][..];
+    //     }
     // }
+    // println!("Simplifying expression:\n {}\n", start);
+    // trs::prove_time(start, end);
+
+
+
+
+    if let Err(err) = run() {
+        println!("{}", err);
+        process::exit(1);
+    }
 }
