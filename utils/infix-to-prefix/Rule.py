@@ -10,9 +10,9 @@ class Rule:
 
         if "(a)" in self.right_side:
             # print(self.left_side)
-            self.right_side = Rule.extract_min_max_params(self.left_side)[1]
-        if "(b)" in self.right_side:
             self.right_side = Rule.extract_min_max_params(self.left_side)[0]
+        if "(b)" in self.right_side:
+            self.right_side = Rule.extract_min_max_params(self.left_side)[1]
         # elif "(b)" in right:
         #     right = Rule.extract_min_max_params(left)[0]
 

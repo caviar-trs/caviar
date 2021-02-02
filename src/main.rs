@@ -1,11 +1,14 @@
 mod trs;
+
 use std::env;
 use std::error::Error;
 use std::ffi::OsString;
 use std::fs::File;
 use std::panic;
 use std::process;
+
 mod rules;
+
 use csv::Writer;
 use crate::trs::ResultStructure;
 
@@ -26,9 +29,9 @@ fn run() -> Result<(), Box<dyn Error>> {
             // do nothing
             println!("{:?}", _info);
         }));
-        let result = panic::catch_unwind(||-> ResultStructure {
+        let result = panic::catch_unwind(|| -> ResultStructure {
             println!("Simplifying expression:\n {}\n", start);
-            let result_record = trs::prove_for_csv(index, start, end,condition);
+            let result_record = trs::prove_for_csv(index, start, end, condition);
             result_record
         });
 
@@ -51,23 +54,24 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
 }
 
 fn main() {
-    // let args: Vec<String> = env::args().collect();
-    // let mut start = "( / ( - ( - ( * x 2 ) y ) z ) -2 )";
-    // let mut end = "( - ( / ( * -1 ( + y z ) ) -2 ) x )";
+    let args: Vec<String> = env::args().collect();
+    let mut start = "( min ( + ( min y x ) 2 ) x )";
+    let mut end = "( min ( + y 2 ) x )";
+
     // if args.len() > 1 {
     //     start = &args[1][..];
     //     if args.len() > 2 {
     //         end = &args[2][..];
     //     }
     // }
-    // println!("Simplifying expression:\n {}\n", start);
-    // trs::prove_time(start, end);
 
-
-
-
-    if let Err(err) = run() {
-        println!("{}", err);
-        process::exit(1);
+    if args.len() > 1 {
+        if let Err(err) = run() {
+            println!("{}", err);
+            process::exit(1);
+        }
+    } else {
+        println!("Simplifying expression:\n {}\n", start);
+        trs::prove_time(start, end);
     }
 }
