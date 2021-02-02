@@ -1,6 +1,7 @@
 from Stack import Stack
 from Expression import Expression
 import re
+import sys
 
 class Rule:
     def __init__(self, rule: str):
@@ -80,9 +81,31 @@ class Rule:
                 i += 1
         return left, right
 
+    @staticmethod
+    def extract_and_or_params(expr):
+        expr = Expression.expr_str_to_arr(Expression.minus_plus(expr))
+        left = ""
+        right = ""
+        i = 0
+        stack = Stack(len(expr))
+        while i < len(expr):
+                if expr[i] in ('&&', '||'):
+                    if stack.top == -1:
+                        left = ' '.join(expr[:i])
+                        right = ' '.join(expr[i+1:])
+                elif(expr[i] == '('):
+                    stack.push(expr[i])
+                elif(expr[i] == ')'):
+                    stack.pop()
+                i += 1
+        return left, right
+
 
 
 if __name__ == '__main__':
-    rule = Rule('max(x*c0, y) + (x*c1), max((x*c1) + y, 0)')
+    # rule = Rule('max(x*c0, y) + (x*c1), max((x*c1) + y, 0)')
     # rule.print()
-    print(rule.infix_rule())
+    # print(rule.infix_rule())
+    l, r = Rule.extract_and_or_params(sys.argv[1])
+    print(l)
+    print(r)
