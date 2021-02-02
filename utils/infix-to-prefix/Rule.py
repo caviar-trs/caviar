@@ -3,6 +3,7 @@ from Expression import Expression
 import re
 import sys
 
+
 class Rule:
     def __init__(self, rule: str):
         (self.left_side, self.right_side) = self.extract_sides(
@@ -10,10 +11,22 @@ class Rule:
         )
 
         if "(a)" in self.right_side:
-            # print(self.left_side)
-            self.right_side = Rule.extract_min_max_params(self.left_side)[0]
+            is_and_or = False
+            for andor in ["&&", "||"]:
+                if andor in self.left_side:
+                    is_and_or = True
+                    self.right_side = Rule.extract_and_or_params(self.left_side)[0]
+            if not is_and_or:
+                self.right_side = Rule.extract_min_max_params(self.left_side)[0]
         if "(b)" in self.right_side:
-            self.right_side = Rule.extract_min_max_params(self.left_side)[1]
+            is_and_or = False
+            for andor in ["&&", "||"]:
+                if andor in self.left_side:
+                    is_and_or = True
+                    self.right_side = Rule.extract_and_or_params(self.left_side)[1]
+                    print(Rule.extract_and_or_params(self.left_side)[1])
+            if not is_and_or:
+                self.right_side = Rule.extract_min_max_params(self.left_side)[1]
         # elif "(b)" in right:
         #     right = Rule.extract_min_max_params(left)[0]
 
@@ -32,14 +45,13 @@ class Rule:
         while i < len(rule):
             if rule[i] in ('min', 'max'):
                 stack.push(rule[i])
-            elif(rule[i] == ','):
+            elif rule[i] == ',':
                 if stack.top == -1:
                     left = "(" + ' '.join(rule[:i]) + ")"
-                    right = "(" + ' '.join(rule[i+1:]) + ")"
+                    right = "(" + ' '.join(rule[i + 1:]) + ")"
                 else:
                     stack.pop()
             i += 1
-
 
         return left, right
 
@@ -70,42 +82,43 @@ class Rule:
         i = 2
         stack = Stack(len(expr))
         while i < len(expr):
-                if expr[i] in ('min', 'max'):
-                    stack.push(expr[i])
-                elif(expr[i] == ','):
-                    if stack.top == -1:
-                        left = ' '.join(expr[3:i])
-                        right = ' '.join(expr[i+1:len(expr)-2])
-                    else:
-                        stack.pop()
-                i += 1
+            if expr[i] in ('min', 'max'):
+                stack.push(expr[i])
+            elif (expr[i] == ','):
+                if stack.top == -1:
+                    left = ' '.join(expr[3:i])
+                    right = ' '.join(expr[i + 1:len(expr) - 2])
+                else:
+                    stack.pop()
+            i += 1
         return left, right
 
     @staticmethod
     def extract_and_or_params(expr):
+        if expr[0] == "(" and expr[len(expr)-1] == ")":
+            expr = expr[1:-1]
         expr = Expression.expr_str_to_arr(Expression.minus_plus(expr))
         left = ""
         right = ""
         i = 0
         stack = Stack(len(expr))
         while i < len(expr):
-                if expr[i] in ('&&', '||'):
-                    if stack.top == -1:
-                        left = ' '.join(expr[:i])
-                        right = ' '.join(expr[i+1:])
-                elif(expr[i] == '('):
-                    stack.push(expr[i])
-                elif(expr[i] == ')'):
-                    stack.pop()
-                i += 1
+            if expr[i] in ('&&', '||'):
+                if stack.top == -1:
+                    left = ' '.join(expr[:i])
+                    right = ' '.join(expr[i + 1:])
+            elif expr[i] == '(':
+                stack.push(expr[i])
+            elif expr[i] == ')':
+                stack.pop()
+            i += 1
         return left, right
-
 
 
 if __name__ == '__main__':
     # rule = Rule('max(x*c0, y) + (x*c1), max((x*c1) + y, 0)')
     # rule.print()
     # print(rule.infix_rule())
-    l, r = Rule.extract_and_or_params(sys.argv[1])
-    print(l)
-    print(r)
+    rule = Rule("!x && x, false")
+    rule.print()
+    print(rule.infix_rule())

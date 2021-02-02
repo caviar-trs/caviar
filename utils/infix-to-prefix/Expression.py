@@ -229,16 +229,110 @@ class Expression:
         expr = self.expr
         i = 0
         list_operations = []
+        not_list = []
         while i < len(expr):
             if expr[i] in ('+', '-', '*', '%', '/', '<', '>', '&&', '||', '==', '!=', "<=", ">="):
                 list_operations.append([expr[i], i])
+            elif expr[i] == "!":
+                not_list.append([expr[i], i])
             i += 1
         Expression.quickSort(list_operations, 0, len(list_operations) - 1)
+        for not_op_index in range(len(not_list)):
+            position = not_list[not_op_index][1]
+            right_inserted = False
+            left_inserted = False
+            if expr[position - 1] != "(":
+                expr.insert(position, "(")
+
+                for i in range(len(list_operations)):
+                    if list_operations[i][1] >= position:
+                        list_operations[i][1] += 1
+
+                for i in range(len(not_list)):
+                    if not_list[i][1] >= position:
+                        not_list[i][1] += 1
+
+                position += 1
+                if expr[position+1] != "(":
+                    position += 3
+                    expr.insert(position, ")")
+                    left_inserted = True
+                else:
+                    paren_stack = Stack(len(expr))
+                    position += 1
+                    while True:
+                        if expr[position] == "(":
+                            paren_stack.push("(")
+                        elif expr[position] == ")":
+                            paren_stack.pop()
+                        position += 1
+                        if paren_stack.top < 0 or position == len(expr):
+                            break
+                    expr.insert(position, ")")
+                    for i in range(len(list_operations)):
+                        if list_operations[i][1] >= position:
+                            list_operations[i][1] += 1
+
+                    for i in range(len(not_list)):
+                        if not_list[i][1] >= position:
+                            not_list[i][1] += 1
+            else:
+                left_inserted = False
+                if expr[position+1] != "(":
+                    position += 1
+                    if expr[position + 1] != ")":
+                        position += 1
+                        expr.insert(position, ")")
+                        for i in range(len(list_operations)):
+                            if list_operations[i][1] >= position:
+                                list_operations[i][1] += 1
+
+                        for i in range(len(not_list)):
+                            if not_list[i][1] >= position:
+                                not_list[i][1] += 1
+                        left_inserted = True
+                else:
+                    paren_stack = Stack(len(expr))
+                    position += 1
+                    while True:
+                        if expr[position] == "(":
+                            paren_stack.push("(")
+                        elif expr[position] == ")":
+                            paren_stack.pop()
+                        position += 1
+                        if paren_stack.top < 0 or position == len(expr):
+                            break
+                    if expr[position + 1] != ")":
+                        expr.insert(position, ")")
+                        left_inserted = True
+                        for i in range(len(list_operations)):
+                            if list_operations[i][1] >= position:
+                                list_operations[i][1] += 1
+
+                        for i in range(len(not_list)):
+                            if not_list[i][1] >= position:
+                                not_list[i][1] += 1
+
+                if left_inserted:
+                    position = not_list[not_op_index][1]
+                    expr.insert(position, "(")
+                    right_inserted = True
+                    for i in range(len(list_operations)):
+                        if list_operations[i][1] >= position:
+                            list_operations[i][1] += 1
+
+                    for i in range(len(not_list)):
+                        if not_list[i][1] >= position:
+                            not_list[i][1] += 1
+
+
         for op_index in range(len(list_operations)):
             position = list_operations[op_index][1]
             right_inserted = False
             if expr[position - 1] != ")":
                 if expr[position - 2] != "(":
+                    if expr[position - 2] == "!":
+                        position -= 1
                     position -= 1
                     expr.insert(position, "(")
                     right_inserted = True
