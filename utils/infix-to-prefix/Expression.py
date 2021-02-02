@@ -271,6 +271,8 @@ class Expression:
                         list_operations[i][1] += 1
 
                 position = list_operations[op_index][1]
+                if expr[position + 1] in ["min", "max"]:
+                    position += 1
                 if expr[position + 1] != "(":
                     position += 2
                     expr.insert(position, ")")
@@ -355,7 +357,7 @@ class Expression:
 
 if __name__ == '__main__':
     # arr = [i for i in Expression("c1 + x * y + z").add_parentheses() if i]
-    arr = Expression("(( 0 - y - z ) / c0 - x)")
+    arr = Expression("(min ( x + min ( y , w ) , z ))")
     # print(arr.toString())
     #                 ( min ( ( y - z ) , x ) + z )
     print(' '.join(arr.infixToPrefix()))

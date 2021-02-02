@@ -15,6 +15,9 @@ pub fn min() -> Vec<Rewrite> { vec![
     rw!("min-sub1";          "(- (min ?x ?y) ?z)"           => "(min (- ?x ?z) (- ?y ?z))"),
     rw!("min-sub2";          "(min (- ?x ?z) (- ?y ?z))"    => "(- (min ?x ?y) ?z)"),
 
+    rw!("min-x-xsuby";          "(min ?x (+ ?x ?a))"                   => "?x" if crate::trs::is_const_pos("?a") ),
+    rw!("min-x-xsuby-neg";      "(min ?x (+ ?x ?a))"                   => "(+ ?x ?a)" if crate::trs::is_const_neg("?a") ),
+
     rw!("min-mul-pos1";      "(* (min ?x ?y) ?z)"           => "(min (* ?x ?z) (* ?y ?z))" if crate::trs::is_const_pos("?z")),
     rw!("min-mul-pos2";      "(min (* ?x ?z) (* ?y ?z))"    => "(* (min ?x ?y) ?z)"  if crate::trs::is_const_pos("?z")),
 
