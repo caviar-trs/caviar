@@ -11,10 +11,10 @@ pub struct ResultStructure {
     index: i16,
     start_expression: String,
     end_expressions: String,
-    result : bool,
+    result: bool,
     best_expr: String,
     total_time: f64,
-    condition: String
+    condition: String,
 }
 
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
@@ -50,6 +50,7 @@ define_language! {
 #[derive(Default)]
 #[derive(Clone)]
 pub struct ConstantFold;
+
 impl Analysis<Math> for ConstantFold {
     type Data = Option<Constant>;
 
@@ -76,21 +77,21 @@ impl Analysis<Math> for ConstantFold {
             } else {
                 0.0
             })
-            .unwrap(),
+                .unwrap(),
 
             Math::Lt([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Less {
                 1.0
             } else {
                 0.0
             })
-            .unwrap(),
+                .unwrap(),
 
             Math::Gt([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Greater {
                 1.0
             } else {
                 0.0
             })
-            .unwrap(),
+                .unwrap(),
 
             Math::Let([a, b]) => NotNan::new(
                 if x(a)?.cmp(&x(b)?) == Ordering::Less || x(a)?.cmp(&x(b)?) == Ordering::Equal {
@@ -99,7 +100,7 @@ impl Analysis<Math> for ConstantFold {
                     0.0
                 },
             )
-            .unwrap(),
+                .unwrap(),
 
             Math::Get([a, b]) => NotNan::new(
                 if x(a)?.cmp(&x(b)?) == Ordering::Greater || x(a)?.cmp(&x(b)?) == Ordering::Equal {
@@ -108,7 +109,7 @@ impl Analysis<Math> for ConstantFold {
                     0.0
                 },
             )
-            .unwrap(),
+                .unwrap(),
 
             Math::Mod([a, b]) => {
                 if x(b)? == NotNan::from(0.0) {
@@ -123,14 +124,14 @@ impl Analysis<Math> for ConstantFold {
             } else {
                 0.0
             })
-            .unwrap(),
+                .unwrap(),
 
             Math::IEq([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Equal {
                 0.0
             } else {
                 1.0
             })
-            .unwrap(),
+                .unwrap(),
 
             Math::And([a, b]) => NotNan::new(
                 if x(a)?.cmp(&NotNan::from(0.0)) == Ordering::Equal
@@ -141,7 +142,7 @@ impl Analysis<Math> for ConstantFold {
                     1.0
                 },
             )
-            .unwrap(),
+                .unwrap(),
 
             Math::Or([a, b]) => NotNan::new(
                 if x(a)?.cmp(&NotNan::from(1.0)) == Ordering::Equal
@@ -152,7 +153,7 @@ impl Analysis<Math> for ConstantFold {
                     0.0
                 },
             )
-            .unwrap(),
+                .unwrap(),
 
             _ => return None,
         })
@@ -172,7 +173,7 @@ impl Analysis<Math> for ConstantFold {
                 egraph[id]
             );
             #[cfg(debug_assertions)]
-            egraph[id].assert_unique_leaves();
+                egraph[id].assert_unique_leaves();
         }
     }
 }
@@ -184,9 +185,9 @@ pub fn is_const_or_distinct_var(v: &str, w: &str) -> impl Fn(&mut EGraph, Id, &S
     move |egraph, _, subst| {
         egraph.find(subst[v]) != egraph.find(subst[w])
             && egraph[subst[v]]
-                .nodes
-                .iter()
-                .any(|n| matches!(n, Math::Constant(..) | Math::Symbol(..)))
+            .nodes
+            .iter()
+            .any(|n| matches!(n, Math::Constant(..) | Math::Symbol(..)))
     }
 }
 
@@ -200,6 +201,7 @@ pub fn is_const_pos(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
         })
     }
 }
+
 pub fn is_const_neg(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
     let zero = NotNan::from(0.0);
@@ -239,8 +241,24 @@ pub fn is_not_zero(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     move |egraph, _, subst| !egraph[subst[var]].nodes.contains(&zero)
 }
 
+pub fn are_less_eq(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+    let var: Var = var.parse().unwrap();
+    let var1: Var = var1.parse().unwrap();
+    move |egraph, _, subst| {
+        egraph[subst[var1]].nodes.iter().any(|n| match n {
+            Math::Constant(c) => {
+                egraph[subst[var]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(c1) => (c1.cmp(c) == Ordering::Less) || (c1.cmp(c) == Ordering::Equal),
+                    _ => return false,
+                })
+            }
+            _ => return false,
+        })
+    }
+}
+
 #[rustfmt::skip]
-fn rules() -> Vec<Rewrite> { 
+fn rules() -> Vec<Rewrite> {
     let add_rules = crate::rules::add::add();
     // let and_rules = crate::rules::and::and();
     // let andor_rules = crate::rules::andor::andor();
@@ -255,20 +273,20 @@ fn rules() -> Vec<Rewrite> {
     // let not_rules = crate::rules::not::not();
     // let or_rules = crate::rules::or::or();
     let sub_rules = crate::rules::sub::sub();
-    return [        &add_rules[..], 
-                    // &and_rules[..],
-                    // &andor_rules[..],
-                    &div_rules[..],
-                    // &eq_rules[..],
-                    // &ineq_rules[..],
-                    // &lt_rules[..],
-                    &max_rules[..],
-                    &min_rules[..],
-                    // &modulo_rules[..],
-                    &mul_rules[..],
-                    // &not_rules[..],
-                    // &or_rules[..],
-                    &sub_rules[..],
+    return [&add_rules[..],
+        // &and_rules[..],
+        // &andor_rules[..],
+        &div_rules[..],
+        // &eq_rules[..],
+        // &ineq_rules[..],
+        // &lt_rules[..],
+        &max_rules[..],
+        &min_rules[..],
+        // &modulo_rules[..],
+        &mul_rules[..],
+        // &not_rules[..],
+        // &or_rules[..],
+        &sub_rules[..],
     ].concat();
 }
 
@@ -414,7 +432,7 @@ pub fn prove_for_csv(index: i16, start_expression: &str, end_expression: &str, c
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end: Pattern<Math> = end_expression.parse().unwrap();
     let result: bool;
-    let mut best_expr =String::from("");
+    let mut best_expr = String::from("");
     // That's it! We can run equality saturation now.
     let runner = Runner::default().with_expr(&start).run(rules().iter());
     let id = runner.egraph.find(*runner.roots.last().unwrap());
@@ -445,7 +463,7 @@ pub fn prove_for_csv(index: i16, start_expression: &str, end_expression: &str, c
             end.pretty(40)
         );
         result = true;
-         let mut extractor = Extractor::new(&runner.egraph, AstDepth);
+        let mut extractor = Extractor::new(&runner.egraph, AstDepth);
         // We want to extract the best expression represented in the
         // same e-class as our initial expression, not from the whole e-graph.
         // Luckily the runner stores the eclass Id where we put the initial expression.
@@ -457,7 +475,7 @@ pub fn prove_for_csv(index: i16, start_expression: &str, end_expression: &str, c
         "Execution took: {}\n",
         format!("{} s", total_time).bright_green().bold()
     );
-    ResultStructure{index, start_expression: String::from(start_expression), end_expressions: String::from(end_expression), result, best_expr: String::from(best_expr), total_time, condition: String::from(condition)}
+    ResultStructure { index, start_expression: String::from(start_expression), end_expressions: String::from(end_expression), result, best_expr: String::from(best_expr), total_time, condition: String::from(condition) }
 }
 // fn main() {
 //     prove_time("(min (- x z) (- y z))", "(- (min x y) z)");

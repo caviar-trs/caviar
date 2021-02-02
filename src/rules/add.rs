@@ -14,5 +14,10 @@ pub fn add() -> Vec<Rewrite> { vec![
     rw!("plus-max-min"    ; "(+ (min ?a ?b) (max ?a ?b))" => "(+ ?a ?b)"),
     rw!("denominator1"; "(+ (/ ?a ?b) ?c)" => "(/ (+ ?a (* ?b ?c)) ?b)"),
     rw!("denominator2"; "(/ (+ ?a (* ?b ?c)) ?b)" => "(+ (/ ?a ?b) ?c)"),
-    // rw!("add-div-mod"    ; "( + ( / ?x 2 ) ( % ?x 2 ) )" => "( / ( + ?x 1 ) 2 )"),
+    rw!("add-div-mod"    ; "( + ( / ?x 2 ) ( % ?x 2 ) )" => "( / ( + ?x 1 ) 2 )"),
+
+
+
+    // !!!!RULE IS NOT VALID testing conditions !!!!
+    // rw!("testing_are_less_eq"; "(+ ?b (+ ?a ?x))" => "2" if crate::trs::are_less_eq("?a","?b"))
 ]}
