@@ -265,7 +265,7 @@ fn rules() -> Vec<Rewrite> {
     let and_rules = crate::rules::and::and();
     let andor_rules = crate::rules::andor::andor();
     let div_rules = crate::rules::div::div();
-    // let eq_rules = crate::rules::eq::eq();
+    let eq_rules = crate::rules::eq::eq();
     // let ineq_rules = crate::rules::ineq::ineq();
     // let lt_rules = crate::rules::lt::lt();
     let max_rules = crate::rules::max::max();
@@ -279,7 +279,7 @@ fn rules() -> Vec<Rewrite> {
         &and_rules[..],
         &andor_rules[..],
         &div_rules[..],
-        // &eq_rules[..],
+        &eq_rules[..],
         // &ineq_rules[..],
         // &lt_rules[..],
         &max_rules[..],
