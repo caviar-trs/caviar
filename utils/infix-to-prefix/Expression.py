@@ -68,6 +68,7 @@ class Expression:
             i += 1
         return res
 
+    @staticmethod
     def minus_plus(s):
         return s.replace('+ -', '- ')
 
@@ -302,7 +303,7 @@ class Expression:
                         position += 1
                         if paren_stack.top < 0 or position == len(expr):
                             break
-                    if expr[position + 1] != ")":
+                    if position + 1 == len(expr) or expr[position + 1] != ")":
                         expr.insert(position, ")")
                         left_inserted = True
                         for i in range(len(list_operations)):

@@ -7,7 +7,7 @@ import sys
 class Rule:
     def __init__(self, rule: str):
         (self.left_side, self.right_side) = self.extract_sides(
-            Expression.expr_str_to_arr(Expression.minus_plus(rule))
+            Expression.expr_str_to_arr(Expression.minus_plus(rule.replace("false", "0").replace("true", "1")))
         )
 
         if "(a)" in self.right_side:
@@ -29,6 +29,7 @@ class Rule:
                 self.right_side = Rule.extract_min_max_params(self.left_side)[1]
         # elif "(b)" in right:
         #     right = Rule.extract_min_max_params(left)[0]
+
 
     def print(self):
         print(self.toString())
@@ -119,6 +120,6 @@ if __name__ == '__main__':
     # rule = Rule('max(x*c0, y) + (x*c1), max((x*c1) + y, 0)')
     # rule.print()
     # print(rule.infix_rule())
-    rule = Rule("!x && x, false")
+    rule = Rule("!(x < y), y <= x")
     rule.print()
     print(rule.infix_rule())

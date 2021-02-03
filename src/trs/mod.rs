@@ -20,6 +20,7 @@ pub struct ResultStructure {
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
 pub type Rewrite = egg::Rewrite<Math, ConstantFold>;
 pub type Constant = NotNan<f64>;
+pub type Boolean = bool;
 
 
 
@@ -43,6 +44,7 @@ define_language! {
         "||" = Or([Id; 2]),
         "&&" = And([Id; 2]),
         Constant(Constant),
+        Boolean(Boolean),
         Symbol(Symbol),
     }
 }
@@ -260,7 +262,7 @@ pub fn are_less_eq(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) ->
 #[rustfmt::skip]
 fn rules() -> Vec<Rewrite> {
     let add_rules = crate::rules::add::add();
-    // let and_rules = crate::rules::and::and();
+    let and_rules = crate::rules::and::and();
     // let andor_rules = crate::rules::andor::andor();
     let div_rules = crate::rules::div::div();
     // let eq_rules = crate::rules::eq::eq();
@@ -270,7 +272,7 @@ fn rules() -> Vec<Rewrite> {
     let min_rules = crate::rules::min::min();
     // let modulo_rules = crate::rules::modulo::modulo();
     let mul_rules = crate::rules::mul::mul();
-    // let not_rules = crate::rules::not::not();
+    let not_rules = crate::rules::not::not();
     // let or_rules = crate::rules::or::or();
     let sub_rules = crate::rules::sub::sub();
     return [&add_rules[..],
@@ -284,7 +286,7 @@ fn rules() -> Vec<Rewrite> {
         &min_rules[..],
         // &modulo_rules[..],
         &mul_rules[..],
-        // &not_rules[..],
+        &not_rules[..],
         // &or_rules[..],
         &sub_rules[..],
     ].concat();
