@@ -56,8 +56,8 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let mut start = "(|| x (! x))";
-    let mut end = "(! (&& (! x) (! (! x))))";
+    let mut start = "( && ( && x ( || z y ) ) y )";
+    let mut end = "(&& x y)";
      
 
     // if args.len() > 1 {
