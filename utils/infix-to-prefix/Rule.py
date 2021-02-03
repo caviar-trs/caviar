@@ -24,7 +24,6 @@ class Rule:
                 if andor in self.left_side:
                     is_and_or = True
                     self.right_side = Rule.extract_and_or_params(self.left_side)[1]
-                    print(Rule.extract_and_or_params(self.left_side)[1])
             if not is_and_or:
                 self.right_side = Rule.extract_min_max_params(self.left_side)[1]
         # elif "(b)" in right:

@@ -263,7 +263,7 @@ pub fn are_less_eq(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) ->
 fn rules() -> Vec<Rewrite> {
     let add_rules = crate::rules::add::add();
     let and_rules = crate::rules::and::and();
-    // let andor_rules = crate::rules::andor::andor();
+    let andor_rules = crate::rules::andor::andor();
     let div_rules = crate::rules::div::div();
     // let eq_rules = crate::rules::eq::eq();
     // let ineq_rules = crate::rules::ineq::ineq();
@@ -273,11 +273,11 @@ fn rules() -> Vec<Rewrite> {
     // let modulo_rules = crate::rules::modulo::modulo();
     let mul_rules = crate::rules::mul::mul();
     let not_rules = crate::rules::not::not();
-    // let or_rules = crate::rules::or::or();
+    let or_rules = crate::rules::or::or();
     let sub_rules = crate::rules::sub::sub();
     return [&add_rules[..],
-        // &and_rules[..],
-        // &andor_rules[..],
+        &and_rules[..],
+        &andor_rules[..],
         &div_rules[..],
         // &eq_rules[..],
         // &ineq_rules[..],
@@ -287,7 +287,7 @@ fn rules() -> Vec<Rewrite> {
         // &modulo_rules[..],
         &mul_rules[..],
         &not_rules[..],
-        // &or_rules[..],
+        &or_rules[..],
         &sub_rules[..],
     ].concat();
 }
