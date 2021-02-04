@@ -56,11 +56,13 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let mut start = "( < ( / ( + x 10 ) 2 ) ( + ( max ( / x 2 ) y ) 40 ) )";
+    let mut start = "( < ( / ( + x 5 ) 2 ) ( + ( max y ( / x 2 ) ) 100 ) )";
     // let mut start = "( == ( max x 2 ) 0 )";
-    let mut end = "0";
+
+    //                "( < ( min ?z ( + ?y ?c0 ) ) ( min ?x ?y ) )" => "( < ( min ?z ( + ?y ?c0 ) ) ?x )" if crate::trs::is_const_neg("?c0")),
+    let mut end = "1";
     // let mut end = "( == ( max (+ x 3) 5) 0)";
-     
+    //  (<  (min (* -1 x)  (+ (* -1 y) 2) )     (min (* -1 z) (* -1 y)) )
 
     // if args.len() > 1 {
     //     start = &args[1][..];

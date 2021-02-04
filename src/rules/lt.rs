@@ -22,6 +22,8 @@ pub fn lt() -> Vec<Rewrite> { vec![
 
     rw!("term+neg-term-min-lt"; "( < ( min ?z ( + ?y ?c0 ) ) ( min ?x ?y ) )" => "( < ( min ?z ( + ?y ?c0 ) ) ?x )" if crate::trs::is_const_neg("?c0")),
 
+    rw!("min-term+cpos-lt";  "( < ( min ?x ?y ) (+ ?x ?c0) )" => "1" if crate::trs::is_const_pos("?c0")),
+    // rw!("change-side-const-lt"; "( < ( min ?x (+ ?y ?c) ) ( min ?z ?g ) )" => "( < ( min (- ?x ?c) ?y ) ( min (- ?z ?c) (- ?g ?c) ) )"),
     // rw!("cancel-max-lt";  "(< (max ?a ?b) ?a)" => "0"), //adding it prevents proving
     // rw!("cancel-min-lt";  "(< ?a (min ?a ?b))" => "0"), //adding it prevents proving
     rw!("cancel-min-max-lt";  "(< (max ?a ?c) (min ?a ?b))" => "0"),
