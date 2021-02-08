@@ -267,7 +267,13 @@ pub fn are_less_eq_absolute(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &
         egraph[subst[var1]].nodes.iter().any(|n| match n {
             Math::Constant(c) => {
                 egraph[subst[var]].nodes.iter().any(|n1| match n1 {
-                    Math::Constant(c1) => (c1.cmp(c) == Ordering::Less) || (c1.cmp(c) == Ordering::Equal),
+                    Math::Constant(c1) =>
+                        {
+                            println!("{:?}", [c1,c]);
+                        (c1.abs() <= c.abs())
+                        }
+
+                    ,
                     _ => return false,
                 })
             }
@@ -279,33 +285,33 @@ pub fn are_less_eq_absolute(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &
 #[rustfmt::skip]
 fn rules() -> Vec<Rewrite> {
     let add_rules = crate::rules::add::add();
-    let and_rules = crate::rules::and::and();
-    let andor_rules = crate::rules::andor::andor();
-    let div_rules = crate::rules::div::div();
-    let eq_rules = crate::rules::eq::eq();
-    let ineq_rules = crate::rules::ineq::ineq();
-    let lt_rules = crate::rules::lt::lt();
-    let max_rules = crate::rules::max::max();
-    let min_rules = crate::rules::min::min();
-    let modulo_rules = crate::rules::modulo::modulo();
-    let mul_rules = crate::rules::mul::mul();
-    let not_rules = crate::rules::not::not();
-    let or_rules = crate::rules::or::or();
-    let sub_rules = crate::rules::sub::sub();
+    // let and_rules = crate::rules::and::and();
+    // let andor_rules = crate::rules::andor::andor();
+    // let div_rules = crate::rules::div::div();
+    // let eq_rules = crate::rules::eq::eq();
+    // let ineq_rules = crate::rules::ineq::ineq();
+    // let lt_rules = crate::rules::lt::lt();
+    // let max_rules = crate::rules::max::max();
+    // let min_rules = crate::rules::min::min();
+    // let modulo_rules = crate::rules::modulo::modulo();
+    // let mul_rules = crate::rules::mul::mul();
+    // let not_rules = crate::rules::not::not();
+    // let or_rules = crate::rules::or::or();
+    // let sub_rules = crate::rules::sub::sub();
     return [&add_rules[..],
-        &and_rules[..],
-        &andor_rules[..],
-        &div_rules[..],
-        &eq_rules[..],
-        &ineq_rules[..],
-        &lt_rules[..],
-        &max_rules[..],
-        &min_rules[..],
-        &modulo_rules[..],
-        &mul_rules[..],
-        &not_rules[..],
-        &or_rules[..],
-        &sub_rules[..],
+        // &and_rules[..],
+        // &andor_rules[..],
+        // &div_rules[..],
+        // &eq_rules[..],
+        // &ineq_rules[..],
+        // &lt_rules[..],
+        // &max_rules[..],
+        // &min_rules[..],
+        // &modulo_rules[..],
+        // &mul_rules[..],
+        // &not_rules[..],
+        // &or_rules[..],
+        // &sub_rules[..],
     ].concat();
 }
 

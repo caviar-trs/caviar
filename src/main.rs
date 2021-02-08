@@ -11,6 +11,8 @@ mod rules;
 
 use csv::Writer;
 use crate::trs::ResultStructure;
+use ordered_float::NotNan;
+use num_traits::ToPrimitive;
 
 fn run() -> Result<(), Box<dyn Error>> {
     let file_path = get_first_arg()?;
@@ -56,19 +58,22 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let start = "( + x ( * ( + ( / ( - 2 x ) 5 ) y ) 5 ) )";
-    //let end = "( + ( - ( * y 5 ) ( % ( - 2 x ) 5 ) ) 2 )";
+    let start = "(+  (+ -4 x)  3)";
+    let end = "x";
 
     //let start = "(% (+ x -5) 3)";
     // let end = "( + x ( + ( * ( / ( - 2 x ) 5 ) 5 ) (* y 5) ) )";
     // let end = "( + x ( + (- ( - 2 x ) (% ( - 2 x ) 5)) (* y 5) ) )";
     //let end = "( + (- 2 (% ( - 2 x ) 5 ) ) (* y 5) )";
-    let end = "( + (- (* y 5) (% ( - 2 x ) 5 ) ) 2 )"; // MAFIHACH
+    // let end = "( + (- (* y 5) (% ( - 2 x ) 5 ) ) 2 )"; // MAFIHACH
     //let end = "(% x 2)";
 
     // let start = "( + ( - 2 (% ( - 2 x ) 5)) (* y 5))";
     // let end = "( + ( - (* y 5) (% ( - 2 x ) 5)) 2)"; // WORKS!!!
-    
+
+    // let i:NotNan<f64> = NotNan::from(-5.0);
+    // println!("{:?}", i.abs());
+
     if args.len() > 1 {
         if let Err(err) = run() {
             println!("{}", err);
