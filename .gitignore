@@ -5,5 +5,7 @@
 utils/infix-to-prefix/__pycache__
 results/*
 halide_rules/*
+tmp/*
 !results/.gitkeep
 !halide_rules/.gitkeep
+!tmp/.gitkeep

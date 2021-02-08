@@ -7,6 +7,8 @@ use std::fs::File;
 use std::panic;
 use std::process;
 
+use std::io::prelude::*;
+
 mod rules;
 
 use csv::Writer;
@@ -55,24 +57,17 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
     }
 }
 
+fn get_start_end() -> Result<(String, String), Box<dyn Error>>{
+    let mut file = File::open("./tmp/exprs.txt")?;
+    let mut s = String::new();
+    file.read_to_string(&mut s)?;
+    let v: Vec<&str> = s.split("\n").collect();
+    return  Ok((v[0].to_string(), v[1].to_string()));
+} 
+
 fn main() {
     let args: Vec<String> = env::args().collect();
-
-    let start = "(+  (+ -4 x)  3)";
-    let end = "x";
-
-    //let start = "(% (+ x -5) 3)";
-    // let end = "( + x ( + ( * ( / ( - 2 x ) 5 ) 5 ) (* y 5) ) )";
-    // let end = "( + x ( + (- ( - 2 x ) (% ( - 2 x ) 5)) (* y 5) ) )";
-    //let end = "( + (- 2 (% ( - 2 x ) 5 ) ) (* y 5) )";
-    // let end = "( + (- (* y 5) (% ( - 2 x ) 5 ) ) 2 )"; // MAFIHACH
-    //let end = "(% x 2)";
-
-    // let start = "( + ( - 2 (% ( - 2 x ) 5)) (* y 5))";
-    // let end = "( + ( - (* y 5) (% ( - 2 x ) 5)) 2)"; // WORKS!!!
-
-    // let i:NotNan<f64> = NotNan::from(-5.0);
-    // println!("{:?}", i.abs());
+    let (start, end) = get_start_end().unwrap();
 
     if args.len() > 1 {
         if let Err(err) = run() {
@@ -81,6 +76,6 @@ fn main() {
         }
     } else {
         println!("Simplifying expression:\n {}\n", start);
-        trs::prove_time(start, end);
+        trs::prove_time(&start, &end);
     }
 }
