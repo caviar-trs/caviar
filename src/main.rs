@@ -56,21 +56,19 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let mut start = "( < ( / ( + x 40 ) 5 ) ( min y ( / ( + x 10 ) 5 ) ) )";
-    // let mut start = "( == ( max x 2 ) 0 )";
+    let start = "( + x ( * ( + ( / ( - 2 x ) 5 ) y ) 5 ) )";
+    //let end = "( + ( - ( * y 5 ) ( % ( - 2 x ) 5 ) ) 2 )";
 
-    //                "( < ( min ?z ( + ?y ?c0 ) ) ( min ?x ?y ) )" => "( < ( min ?z ( + ?y ?c0 ) ) ?x )" if crate::trs::is_const_neg("?c0")),
-    let mut end = "0";
-    // let mut end = "( == ( max (+ x 3) 5) 0)";
-    //  (<  (min (* -1 x)  (+ (* -1 y) 2) )     (min (* -1 z) (* -1 y)) )
+    //let start = "(% (+ x -5) 3)";
+    // let end = "( + x ( + ( * ( / ( - 2 x ) 5 ) 5 ) (* y 5) ) )";
+    // let end = "( + x ( + (- ( - 2 x ) (% ( - 2 x ) 5)) (* y 5) ) )";
+    //let end = "( + (- 2 (% ( - 2 x ) 5 ) ) (* y 5) )";
+    let end = "( + (- (* y 5) (% ( - 2 x ) 5 ) ) 2 )"; // MAFIHACH
+    //let end = "(% x 2)";
 
-    // if args.len() > 1 {
-    //     start = &args[1][..];
-    //     if args.len() > 2 {
-    //         end = &args[2][..];
-    //     }
-    // }
-
+    // let start = "( + ( - 2 (% ( - 2 x ) 5)) (* y 5))";
+    // let end = "( + ( - (* y 5) (% ( - 2 x ) 5)) 2)"; // WORKS!!!
+    
     if args.len() > 1 {
         if let Err(err) = run() {
             println!("{}", err);

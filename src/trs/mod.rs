@@ -70,8 +70,8 @@ impl Analysis<Math> for ConstantFold {
             Math::Add([a, b]) => x(a)? + x(b)?,
             Math::Sub([a, b]) => x(a)? - x(b)?,
             Math::Mul([a, b]) => x(a)? * x(b)?,
-            //Math::Div([a, b]) if x(b) != Some(0.0.into()) => NotNan::from((x(a)?.to_i64().unwrap() / x(b)?.to_i64().unwrap()) as f64),
-            Math::Div([a, b]) if x(b) != Some(0.0.into()) => x(a)? / x(b)?,
+            Math::Div([a, b]) if x(b) != Some(0.0.into()) => NotNan::from((x(a)?.to_i64().unwrap() / x(b)?.to_i64().unwrap()) as f64),
+            //Math::Div([a, b]) if x(b) != Some(0.0.into()) => x(a)? / x(b)?,
             Math::Max([a, b]) => std::cmp::max(x(a)?, x(b)?),
             Math::Min([a, b]) => std::cmp::min(x(a)?, x(b)?),
             Math::Not(a) => NotNan::new(if x(a)?.cmp(&NotNan::from(0.0)) == Ordering::Equal {
@@ -259,6 +259,23 @@ pub fn are_less_eq(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) ->
     }
 }
 
+// return true if v <= | v1 |
+pub fn are_less_eq_absolute(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool { 
+    let var: Var = var.parse().unwrap();
+    let var1: Var = var1.parse().unwrap();
+    move |egraph, _, subst| {
+        egraph[subst[var1]].nodes.iter().any(|n| match n {
+            Math::Constant(c) => {
+                egraph[subst[var]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(c1) => (c1.cmp(c) == Ordering::Less) || (c1.cmp(c) == Ordering::Equal),
+                    _ => return false,
+                })
+            }
+            _ => return false,
+        })
+    }
+}
+
 #[rustfmt::skip]
 fn rules() -> Vec<Rewrite> {
     let add_rules = crate::rules::add::add();
@@ -270,7 +287,7 @@ fn rules() -> Vec<Rewrite> {
     let lt_rules = crate::rules::lt::lt();
     let max_rules = crate::rules::max::max();
     let min_rules = crate::rules::min::min();
-    // let modulo_rules = crate::rules::modulo::modulo();
+    let modulo_rules = crate::rules::modulo::modulo();
     let mul_rules = crate::rules::mul::mul();
     let not_rules = crate::rules::not::not();
     let or_rules = crate::rules::or::or();
@@ -284,7 +301,7 @@ fn rules() -> Vec<Rewrite> {
         &lt_rules[..],
         &max_rules[..],
         &min_rules[..],
-        // &modulo_rules[..],
+        &modulo_rules[..],
         &mul_rules[..],
         &not_rules[..],
         &or_rules[..],
