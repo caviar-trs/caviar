@@ -67,7 +67,6 @@ fn get_start_end() -> Result<(String, String), Box<dyn Error>>{
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let (start, end) = get_start_end().unwrap();
 
     if args.len() > 1 {
         if let Err(err) = run() {
@@ -75,6 +74,7 @@ fn main() {
             process::exit(1);
         }
     } else {
+        let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n", start);
         trs::prove_time(&start, &end);
     }

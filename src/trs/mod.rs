@@ -260,20 +260,50 @@ pub fn are_less_eq(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) ->
 }
 
 // return true if v <= | v1 |
-pub fn are_less_eq_absolute(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool { 
+pub fn are_less_eq_absolute(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var: Var = var.parse().unwrap();
     let var1: Var = var1.parse().unwrap();
     move |egraph, _, subst| {
         egraph[subst[var1]].nodes.iter().any(|n| match n {
             Math::Constant(c) => {
                 egraph[subst[var]].nodes.iter().any(|n1| match n1 {
-                    Math::Constant(c1) =>
-                        {
-                            println!("{:?}", [c1,c]);
-                        (c1.abs() <= c.abs())
-                        }
+                    Math::Constant(c1) => (c1.abs() <= c.abs()),
+                    _ => return false,
+                })
+            }
+            _ => return false,
+        })
+    }
+}
 
-                    ,
+
+pub fn sum_is_less_zero(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+    let var: Var = var.parse().unwrap();
+    let var1: Var = var1.parse().unwrap();
+    move |egraph, _, subst| {
+        egraph[subst[var1]].nodes.iter().any(|n| match n {
+            Math::Constant(c) => {
+                egraph[subst[var]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(c1) => {
+                        println!("{:?} | {:?}", [c.to_f64().unwrap(), c1.to_f64().unwrap()], ((c.to_f64().unwrap() + c1.to_f64().unwrap()) <= 0.0));
+                        ((c.to_f64().unwrap() + c1.to_f64().unwrap()) <= 0.0)
+                    }
+                    _ => return false,
+                })
+            }
+            _ => return false,
+        })
+    }
+}
+
+pub fn sum_is_great_zero_c0_abs(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+    let var: Var = var.parse().unwrap();
+    let var1: Var = var1.parse().unwrap();
+    move |egraph, _, subst| {
+        egraph[subst[var1]].nodes.iter().any(|n| match n {
+            Math::Constant(c) => {
+                egraph[subst[var]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(c1) => (c.to_f64().unwrap() >= c1.abs()),
                     _ => return false,
                 })
             }
@@ -298,7 +328,8 @@ fn rules() -> Vec<Rewrite> {
     let not_rules = crate::rules::not::not();
     let or_rules = crate::rules::or::or();
     let sub_rules = crate::rules::sub::sub();
-    return [&add_rules[..],
+    return [
+        &add_rules[..],
         &and_rules[..],
         &andor_rules[..],
         &div_rules[..],
