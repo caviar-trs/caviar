@@ -31,10 +31,10 @@ pub fn min() -> Vec<Rewrite> {
         rw!("min-max-const";     "( min ( max ?x ?c0 ) ?c1 )"          => "?c1" if crate::trs::are_less_eq("?c1","?c0")),
 
         // TO VERIFY WITH ADEL
-        // rw!("div-min-int"; "( min ( * ( / ?x ?c0 ) ?c0 ) ?x )" => "( * ( / ?x ?c0 ) ?c0 )" if crate::trs::is_const_pos("?c0")),
-        // rw!("extract-x-2sides-min-add"; "(min ?x (+ ?x ?y))" => "(+ ?x (min 0 ?y))"),
-        // rw!("extract-x-2sides-mul-min"; "(min ?x (* ?x ?y))" => "(* ?x (min 1 ?y))"),
-         rw!("min-0-x-mod-plus-min"; "(min 0 (+ (% ?x ?c0) ?c1) )" => "0" if crate::trs::sum_is_great_zero_c0_abs("?c0", "?c1")),
+        //  rw!("min-0-x-mod-plus-min"; "(min 0 (+ (% ?x ?c0) ?c1) )" => "0" if crate::trs::compare_c0_c1("?c1", "?c0",">=a")),
+         rw!("div-mul-inf-x-min"; "( min ( * ( / ?x ?c0 ) ?c0 ) ?x )" => "( * ( / ?x ?c0 ) ?c0 )" if  crate::trs::is_const_pos("?c0")),
+        rw!("mod-c-min"; "(min (% ?x ?c0) ?c1)" => "(% ?x ?c0)" if crate::trs::compare_c0_c1("?c1","?c0",">=a")),
+        // rw!("mod-c-min-1"; "(min (% ?x ?c0) ?c1)" => "?c1" if crate::trs::compare_c0_c1("?c1","?c0","<=-a")), // c1 <= - |c0|
         // rw!("div-remove-min"; "(min ?x (+ (% ?x ?c1) (+ ?x ?c0)))" => "?x" if crate::trs::is_const_pos("?c0")),
     ]
 }

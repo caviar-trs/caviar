@@ -267,7 +267,7 @@ pub fn are_less_eq_absolute(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &
         egraph[subst[var1]].nodes.iter().any(|n| match n {
             Math::Constant(c) => {
                 egraph[subst[var]].nodes.iter().any(|n1| match n1 {
-                    Math::Constant(c1) => (c1.abs() <= c.abs()),
+                    Math::Constant(c1) => (c1.to_f64().unwrap() <= c.abs()),
                     _ => return false,
                 })
             }
@@ -276,18 +276,46 @@ pub fn are_less_eq_absolute(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &
     }
 }
 
-
-pub fn sum_is_less_zero(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+pub fn compare_c0_c1(var: &str, var1: &str, comp: &'static str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var: Var = var.parse().unwrap();
     let var1: Var = var1.parse().unwrap();
     move |egraph, _, subst| {
-        egraph[subst[var1]].nodes.iter().any(|n| match n {
-            Math::Constant(c) => {
-                egraph[subst[var]].nodes.iter().any(|n1| match n1 {
-                    Math::Constant(c1) => {
-                        println!("{:?} | {:?}", [c.to_f64().unwrap(), c1.to_f64().unwrap()], ((c.to_f64().unwrap() + c1.to_f64().unwrap()) <= 0.0));
-                        ((c.to_f64().unwrap() + c1.to_f64().unwrap()) <= 0.0)
-                    }
+        egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
+            Math::Constant(c1) => {
+                egraph[subst[var]].nodes.iter().any(|n| match n {
+                    Math::Constant(c) => {
+                        match comp {
+                            "<" =>{
+                                (c.to_f64().unwrap() < c1.to_f64().unwrap())
+                            }
+                            "<a" =>{
+                                (c.to_f64().unwrap() < c1.abs())
+                            }
+                            "<=" =>{
+                                (c.to_f64().unwrap() <= c1.to_f64().unwrap())
+                            }
+                            "<=a" =>{
+                                (c.to_f64().unwrap() <= c1.abs())
+                            }
+                            "<=-a" =>{
+                                println!("here: {:?}", [c.to_f64().unwrap() ,(- c1.abs())]);
+                                (c.to_f64().unwrap() <= (- c1.abs()))
+                            }
+                            ">" =>{
+                                (c.to_f64().unwrap() > c1.to_f64().unwrap())
+                            }
+                            ">a" =>{
+                                (c.to_f64().unwrap() > c1.abs())
+                            }
+                            ">=" =>{
+                                (c.to_f64().unwrap() >= c1.to_f64().unwrap())
+                            }
+                            ">=a" =>{
+                                (c.to_f64().unwrap() >= c1.abs())
+                            }
+                            _ => false
+                        }
+                    },
                     _ => return false,
                 })
             }
@@ -295,6 +323,7 @@ pub fn sum_is_less_zero(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subs
         })
     }
 }
+
 
 pub fn sum_is_great_zero_c0_abs(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var: Var = var.parse().unwrap();
