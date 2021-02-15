@@ -8,7 +8,7 @@ pub fn sub() -> Vec<Rewrite> { vec![
     rw!("canon-sub"; "(+ ?a (* -1 ?b))"   => "(- ?a ?b)"),
     rw!("canon-sub-const"; "(+ ?a ?b)"   => "(- ?a (* -1 ?b))"),
     rw!("cancel-sub"; "(- ?a ?a)" => "0"),
-    rw!("sub-zero"; "?a" => "(- ?a 0)"),
+    // rw!("sub-zero"; "?a" => "(- ?a 0)"),
     rw!("zero-sub"; "(- ?a 0)" => "?a"),
     rw!("minus-max"; "(* -1 (max ?x ?y))" => "(min (* -1 ?x) (* -1 ?y))"),
 ]}
