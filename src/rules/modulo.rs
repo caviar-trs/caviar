@@ -16,5 +16,5 @@ pub fn modulo() -> Vec<Rewrite> { vec![
      rw!("mod-minus-2"; "(* -1 (% ?x ?c))" => "(% (* ?x -1) ?c)"),
 
      rw!("mod-two"; "(% (- ?x ?y) 2)" => "(% (+ ?x ?y) 2)"),
-     rw!("mod-add-const"; "(+ ?a ( % (+ ?x ?b) ?c))" => "(% (+ ?x (+ ?a ?b)) ?c)" if crate::trs::are_less_eq("?a", "?c"))
+     //rw!("mod-add-const"; "(+ ?a ( % (+ ?x ?b) ?c))" => "(% (+ ?x (+ ?a ?b)) ?c)" if crate::trs::are_less_eq("?a", "?c"))
 ]}

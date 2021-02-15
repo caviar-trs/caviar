@@ -13,12 +13,16 @@ pub fn min() -> Vec<Rewrite> {
         rw!("min-max";           "(min (max ?x ?y) ?x)"          => "?x"),
         rw!("min-max-max-x";     "(min (max ?x ?y) (max ?x ?z))" => "(max (min ?y ?z) ?x)"),
         rw!("min-max-min2";      "(min (max (min ?x ?y) ?z) ?y)" => "(min (max ?x ?z) ?y)"),
+
+        rw!("min-a-plus-b";     "(min (+ ?a ?b) ?c)"            => "(+ (min ?b (- ?c ?a)) ?a)"),
+
         rw!("min-plus1";         "(+ (min ?x ?y) ?z)"           => "(min (+ ?x ?z) (+ ?y ?z))"),
         rw!("min-plus2";         "(min (+ ?x ?z) (+ ?y ?z))"    => "(+ (min ?x ?y) ?z)"),
         rw!("min-sub1";          "(- (min ?x ?y) ?z)"           => "(min (- ?x ?z) (- ?y ?z))"),
         rw!("min-sub2";          "(min (- ?x ?z) (- ?y ?z))"    => "(- (min ?x ?y) ?z)"),
-        rw!("min-x-xsuby";       "(min ?x (+ ?x ?a))"                   => "?x" if crate::trs::is_const_pos("?a") ),
-        rw!("min-x-xsuby-neg";   "(min ?x (+ ?x ?a))"                   => "(+ ?x ?a)" if crate::trs::is_const_neg("?a") ),
+
+        rw!("min-x-xsuby";       "(min ?x (+ ?x ?a))"           => "?x" if crate::trs::is_const_pos("?a") ),
+        rw!("min-x-xsuby-neg";   "(min ?x (+ ?x ?a))"           => "(+ ?x ?a)" if crate::trs::is_const_neg("?a") ),
         rw!("min-mul-pos1";      "(* (min ?x ?y) ?z)"           => "(min (* ?x ?z) (* ?y ?z))" if crate::trs::is_const_pos("?z")),
         rw!("min-mul-pos2";      "(min (* ?x ?z) (* ?y ?z))"    => "(* (min ?x ?y) ?z)"  if crate::trs::is_const_pos("?z")),
         rw!("min-mul-neg1";      "(* (min ?x ?y) ?z)"           => "(max (* ?x ?z) (* ?y ?z))" if crate::trs::is_const_neg("?z")),
@@ -32,9 +36,11 @@ pub fn min() -> Vec<Rewrite> {
 
         // TO VERIFY WITH ADEL
         //  rw!("min-0-x-mod-plus-min"; "(min 0 (+ (% ?x ?c0) ?c1) )" => "0" if crate::trs::compare_c0_c1("?c1", "?c0",">=a")),
-         rw!("div-mul-inf-x-min"; "( min ( * ( / ?x ?c0 ) ?c0 ) ?x )" => "( * ( / ?x ?c0 ) ?c0 )" if  crate::trs::is_const_pos("?c0")),
-        rw!("mod-c-min"; "(min (% ?x ?c0) ?c1)" => "(% ?x ?c0)" if crate::trs::compare_c0_c1("?c1","?c0",">=a")),
-        // rw!("mod-c-min-1"; "(min (% ?x ?c0) ?c1)" => "?c1" if crate::trs::compare_c0_c1("?c1","?c0","<=-a")), // c1 <= - |c0|
+
+        rw!("div-mul-inf-x-min"; "( min ( * ( / ?x ?c0 ) ?c0 ) ?x )" => "( * ( / ?x ?c0 ) ?c0 )" if  crate::trs::is_const_pos("?c0")),
+        rw!("mod-c-min"; "(min (% ?x ?c0) ?c1)" => "(% ?x ?c0)" if crate::trs::compare_c0_c1("?c1","?c0",">=a-1")),
+        rw!("mod-c-min-1"; "(min (% ?x ?c0) ?c1)" => "?c1" if crate::trs::compare_c0_c1("?c1","?c0","<=-a+1")), // c1 <= - |c0| + 1
+        
         // rw!("div-remove-min"; "(min ?x (+ (% ?x ?c1) (+ ?x ?c0)))" => "?x" if crate::trs::is_const_pos("?c0")),
     ]
 }
