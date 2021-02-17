@@ -10,8 +10,25 @@ pub fn and() -> Vec<Rewrite> { vec![
     rw!("x-0-and";  "(&& 0 ?x)"        => "0"),
     rw!("x-x-and";  "(&& ?x ?x)"        => "?x"),
     rw!("x-!x-and";  "(&& ?x (! ?x))" => "0"),
+
+    rw!("and-eq";  "( && ( == ?x ?c0 ) ( == ?x ?c1 ) )" => "0" if crate::trs::compare_c0_c1("?c1", "?c0", "!=")),
+    rw!("and-eq-not";  "( && ( != ?x ?c0 ) ( == ?x ?c1 ) )" => "( == ?x ?c1 )" if crate::trs::compare_c0_c1("?c1", "?c0", "!=")),
+    
+
     rw!("min-and";  "(&& (< ?x ?y) (< ?x ?z))" => "(< ?x (min ?y ?z))"),
     rw!("and-min";  "(< ?x (min ?y ?z))" => "(&& (< ?x ?y) (< ?x ?z))"),
-    // rw!("min-and";  "(&& (< ?y ?x) (< ?z ?x))" => "(< (max ?y ?z) ?x)"), //this
-    // rw!("and-max";  "(> ?x (max ?y ?z))" => "(&& (< ?z ?x) (< ?y ?x))"),
+
+    rw!("min-and-eq";  "(&& (<= ?x ?y) (<= ?x ?z))" => "(<= ?x (min ?y ?z))"),
+    rw!("and-min-eq";  "(<= ?x (min ?y ?z))" => "(&& (<= ?x ?y) (<= ?x ?z))"),
+
+    rw!("max-and";  "(&& (< ?y ?x) (< ?z ?x))" => "(< (max ?y ?z) ?x)"),
+    rw!("and-max";  "(> ?x (max ?y ?z))" => "(&& (< ?z ?x) (< ?y ?x))"),
+
+    rw!("max-and-eq";  "(&& (<= ?y ?x) (<= ?z ?x))" => "(<= (max ?y ?z) ?x)"),
+    rw!("and-max-eq";  "(>= ?x (max ?y ?z))" => "(&& (<= ?z ?x) (<= ?y ?x))"),
+
+    rw!("and-lt-gt"; "( && ( < ?c0 ?x ) ( < ?x ?c1 ) )" => "(0)" if crate::trs::compare_c0_c1("?c1", "?c0", "<=+1")),
+    rw!("and-lt-gt-eq"; "( && ( <= ?c0 ?x ) ( <= ?x ?c1 ) )" => "(0)" if crate::trs::compare_c0_c1("?c1", "?c0", "<")),
+    rw!("and-lt-gt-eq-not"; "( && ( <= ?c0 ?x ) ( < ?x ?c1 ) )" => "(0)" if crate::trs::compare_c0_c1("?c1", "?c0", "<=")),
+
 ]}
