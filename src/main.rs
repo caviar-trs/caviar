@@ -63,7 +63,9 @@ fn get_start_end() -> Result<(String, String), Box<dyn Error>>{
     file.read_to_string(&mut s)?;
     let v: Vec<&str> = s.split("\n").collect();
     return  Ok((v[0].to_string(), v[1].to_string()));
-} 
+}
+
+
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -76,6 +78,10 @@ fn main() {
     } else {
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n", start);
-        trs::prove_time(&start, &end);
+        // trs::prove_report(&start, &end, -2);
+        // trs::prove_report(&start, &end, 1);
+        // trs::prove_report(&start, &end, 2);
+        trs::prove_report_all_classes(&start, &end, 1);
+        trs::prove_report(&start, &end, 2);
     }
 }

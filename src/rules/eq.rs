@@ -15,7 +15,7 @@ pub fn eq() -> Vec<Rewrite> { vec![
      
      rw!("Eq-max-c-1"; "(== (max ?x ?c) 0)" => "0" if crate::trs::is_const_pos("?c")),
      rw!("Eq-max-c-2"; "(== (max ?x ?c) 0)" => "(== ?x 0)" if crate::trs::is_const_neg("?c")),
-     
+
      rw!("Eq-min-c-1"; "(== (min ?x ?c) 0)" => "0" if crate::trs::is_const_neg("?c")),
      rw!("Eq-min-c-2"; "(== (min ?x ?c) 0)" => "(== ?x 0)" if crate::trs::is_const_pos("?c")),
 

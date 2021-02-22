@@ -42,7 +42,7 @@ pub fn min() -> Vec<Rewrite> {
         rw!("mod-c-min-1"; "(min (% ?x ?c0) ?c1)" => "?c1" if crate::trs::compare_c0_c1("?c1","?c0","<=-a+1")), // c1 <= - |c0| + 1
         rw!("min-max-switch-min-1"; "( min ( max ?x ?c0 ) ?c1 )" => "( max ( min ?x ?c1 ) ?c0 )" if crate::trs::compare_c0_c1("?c0","?c1","<=") ),
         rw!("min-max-switch-min-2"; "( max ( min ?x ?c1 ) ?c0 )" => "( min ( max ?x ?c0 ) ?c1 )" if crate::trs::compare_c0_c1("?c0","?c1","<=") ),
-        
+
         // rw!("div-remove-min"; "(min ?x (+ (% ?x ?c1) (+ ?x ?c0)))" => "?x" if crate::trs::is_const_pos("?c0")),
     ]
 }
