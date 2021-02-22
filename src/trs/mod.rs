@@ -375,7 +375,7 @@ fn rules(ruleset_class: i8) -> Vec<Rewrite> {
     return match ruleset_class {
         -2 => [
             &demo_rules[..],
-           ].concat(),
+        ].concat(),
         0 =>
             [
                 &add_rules[..],
@@ -555,7 +555,11 @@ pub fn prove_report(start_expression: &str, end_expressions: &str, ruleset_class
     let end: Pattern<Math> = end_expressions.parse().unwrap();
     let result: bool;
     // That's it! We can run equality saturation now.
+    let start_t = Instant::now();
     let runner = Runner::default().with_expr(&start).run(rules(ruleset_class).iter());
+    let duration = start_t.elapsed();
+    println!("Time elapsed in expensive_function() is: {:?}", duration);
+
     let id = runner.egraph.find(*runner.roots.last().unwrap());
     let matches = end.search_eclass(&runner.egraph, id);
     if matches.is_none() {
@@ -585,6 +589,71 @@ pub fn prove_report(start_expression: &str, end_expressions: &str, ruleset_class
         );
         result = true;
     }
+    runner.print_report();
+    // let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
+    // println!(
+    //     "Execution took: {}\n",
+    //     format!("{} s", total_time).bright_green().bold()
+    // );
+    result
+}
+
+#[allow(dead_code)]
+pub fn prove_report_all_classes(start_expression: &str, end_expressions: &str, start_class: i8) -> bool {
+    let start: RecExpr<Math> = start_expression.parse().unwrap();
+    let end: Pattern<Math> = end_expressions.parse().unwrap();
+    let mut result: bool = false;
+    let mut i = start_class;
+    // That's it! We can run equality saturation now.
+    let start_t = Instant::now();
+    let runner = Runner::default().with_expr(&start).run(rules(start_class).iter());
+    let id = runner.egraph.find(*runner.roots.last().unwrap());
+        let matches = end.search_eclass(&runner.egraph, id);
+    if matches.is_none() {
+            println!("class {:?} didn't work \n", i);
+            i += 1;
+        } else {
+            println!(
+                "{}\n{}\n",
+                "Proved goal:".bright_green().bold(),
+                end.pretty(40)
+            );
+            result = true;
+        }
+    while (!result) && (i < 2) {
+        let start_t1 = Instant::now();
+        runner.run(rules(start_class).iter());
+        println!("Time elapsed from start is: {:?}, just for this class: {:?}", start_t.elapsed(),start_t1.elapsed());
+
+        let id = runner.egraph.find(*runner.roots.last().unwrap());
+        let matches = end.search_eclass(&runner.egraph, id);
+        if matches.is_none() {
+            println!("class {:?} didn't work \n", i);
+            i += 1;
+        } else {
+            println!(
+                "{}\n{}\n",
+                "Proved goal:".bright_green().bold(),
+                end.pretty(40)
+            );
+            result = true;
+        }
+    }
+    // if matches.is_none() {
+    //     println!(
+    //         "{}\n{}\n",
+    //         "Could not prove goal:".bright_red().bold(),
+    //         end.pretty(40),
+    //     );
+    //     result = false;
+    // } else {
+    //     println!(
+    //         "{}\n{}\n",
+    //         "Proved goal:".bright_green().bold(),
+    //         end.pretty(40)
+    //     );
+    //     result = true;
+    // }
     runner.print_report();
     // let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
     // println!(

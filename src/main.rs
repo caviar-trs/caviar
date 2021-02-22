@@ -78,8 +78,9 @@ fn main() {
     } else {
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n", start);
-        trs::prove_report(&start, &end, -2);
+        // trs::prove_report(&start, &end, -2);
         // trs::prove_report(&start, &end, 1);
-        trs::prove_report(&start, &end, 2);
+        // trs::prove_report(&start, &end, 2);
+        trs::prove_report_all_classes(&start, &end, 0);
     }
 }
