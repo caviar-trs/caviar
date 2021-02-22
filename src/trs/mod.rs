@@ -604,30 +604,36 @@ pub fn prove_report_all_classes(start_expression: &str, end_expressions: &str, s
     let end: Pattern<Math> = end_expressions.parse().unwrap();
     let mut result: bool = false;
     let mut i = start_class;
-    let runner;
+
     // That's it! We can run equality saturation now.
     let start_t = Instant::now();
+    let mut runner  = Runner::default().with_expr(&start).run(rules(start_class).iter());
+    let id = runner.egraph.find(*runner.roots.last().unwrap());
 
-
-    while (!result) && (i < 2) {
+    while (!result) && (i < 3) {
         let start_t1 = Instant::now();
-        if i == start_class {
-            runner  = Runner::default().with_expr(&start).run(rules(start_class).iter());
+        if i > start_class {
+            runner = Runner::default().with_egraph(runner.egraph).run(rules(i).iter());
         }
         println!("Time elapsed from start is: {:?}, just for this class: {:?}", start_t.elapsed(),start_t1.elapsed());
 
-        let id = runner.egraph.find(*runner.roots.last().unwrap());
+
         let matches = end.search_eclass(&runner.egraph, id);
         if matches.is_none() {
-            println!("class {:?} didn't work \n", i);
+            println!("{} {} {}","Class".bright_red(), i, "didn't work".bright_red() );
+            runner.print_report();
+            println!("======================\n\n");
             i += 1;
         } else {
             println!(
-                "{}\n{}\n",
+                "{}\n{}\n{}",
                 "Proved goal:".bright_green().bold(),
-                end.pretty(40)
+                end.pretty(40),
+                format!("Class {} worked", i).bright_green().bold()
             );
-            result = true;
+            runner.print_report();
+            i += 1;
+            // result = true;
         }
     }
     // if matches.is_none() {
@@ -645,7 +651,7 @@ pub fn prove_report_all_classes(start_expression: &str, end_expressions: &str, s
     //     );
     //     result = true;
     // }
-    runner.print_report();
+    // runner.print_report();
     // let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
     // println!(
     //     "Execution took: {}\n",
