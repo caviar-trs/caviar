@@ -296,17 +296,17 @@ pub fn compare_c0_c1(var: &str, var1: &str, comp: &'static str) -> impl Fn(&mut 
                             "<=" => {
                                 c.to_f64().unwrap() <= c1.to_f64().unwrap()
                             }
-                            "<=a" => {
+                            "<=+1" =>{
+                                c.to_f64().unwrap() <= c1.to_f64().unwrap() + 1.0
+                            }
+                            "<=a" =>{
                                 c.to_f64().unwrap() <= c1.abs()
                             }
                             "<=-a" => {
                                 c.to_f64().unwrap() <= (-c1.abs())
                             }
-                            "<=-a+1" => {
-                                // if c.to_f64().unwrap() <= (- c1.abs() + 1.0) {
-                                //     println!("{} <= {}", c.to_f64().unwrap() , (- c1.abs() + 1.0));
-                                // }
-                                c.to_f64().unwrap() <= (-c1.abs() + 1.0)
+                            "<=-a+1" =>{
+                                c.to_f64().unwrap() <= (- c1.abs() + 1.0)
                             }
                             ">" => {
                                 c.to_f64().unwrap() > c1.to_f64().unwrap()
@@ -320,11 +320,11 @@ pub fn compare_c0_c1(var: &str, var1: &str, comp: &'static str) -> impl Fn(&mut 
                             ">=a" => {
                                 c.to_f64().unwrap() >= c1.abs()
                             }
-                            ">=a-1" => {
-                                // if c.to_f64().unwrap() >= (c1.abs() - 1.0){
-                                //     println!("{} >= {}", c.to_f64().unwrap() , (c1.abs() - 1.0) );
-                                // }
+                            ">=a-1" =>{
                                 c.to_f64().unwrap() >= (c1.abs() - 1.0)
+                            }
+                            "!=" => {
+                                c.to_f64().unwrap() != c1.to_f64().unwrap()
                             }
                             _ => false
                         }
