@@ -386,12 +386,20 @@ fn rules(ruleset_class: i8) -> Vec<Rewrite> {
             ].concat(),
 
         1 => [
+            &add_rules[..],
             &and_rules[..],
-            &or_rules[..],
             &andor_rules[..],
-            &not_rules[..],
+            &div_rules[..],
             &eq_rules[..],
             &ineq_rules[..],
+            &lt_rules[..],
+            &max_rules[..],
+            &min_rules[..],
+            &modulo_rules[..],
+            &mul_rules[..],
+            &not_rules[..],
+            // &or_rules[..],
+            &sub_rules[..],
         ].concat(),
         _ => [
             &add_rules[..],
@@ -714,3 +722,32 @@ pub fn prove_for_csv(index: i16, start_expression: &str, end_expression: &str, c
 // fn main() {
 //     prove_time("(min (- x z) (- y z))", "(- (min x y) z)");
 // }
+
+pub fn prove_exprs_for_csv(index: i16, start_expression: &str) -> ResultStructure {
+    let start: RecExpr<Math> = start_expression.parse().unwrap();
+    // let end_1: Pattern<Math> = end_expression.parse().unwrap();
+    let result: bool;
+    let mut best_expr = String::from("");
+    // That's it! We can run equality saturation now.
+    let runner = Runner::default().with_expr(&start).run(rules(-1).iter());
+    let id = runner.egraph.find(*runner.roots.last().unwrap());
+    let mut extractor = Extractor::new(&runner.egraph, AstDepth);
+        // We want to extract the best expression represented in the
+        // same e-class as our initial expression, not from the whole e-graph.
+        // Luckily the runner stores the eclass Id where we put the initial expression.
+        let (_, best_expr_temp) = extractor.find_best(id);
+        best_expr = best_expr_temp.to_string();
+
+        println!(
+            "Best Expr: {}",
+            format!("{}", best_expr).bright_green().bold()
+        );
+    let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
+    println!(
+        "Execution took: {}\n",
+        format!("{} s", total_time).bright_green().bold()
+    );
+    result = true;
+    let condition = "";
+    ResultStructure { index, start_expression: String::from(start_expression), end_expressions: String::from(best_expr.clone()), result, best_expr: String::from(best_expr), total_time, condition: String::from(condition) }
+}

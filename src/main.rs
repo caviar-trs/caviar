@@ -48,6 +48,39 @@ fn run() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
+
+fn run_expressions() -> Result<(), Box<dyn Error>> {
+    let file_path = get_first_arg()?;
+    let file = File::open(file_path)?;
+    let mut rdr = csv::Reader::from_reader(file);
+    let mut wtr = Writer::from_path("results/results_expressions_egg.csv")?;
+    for result in rdr.records() {
+        let record = result?;
+        // println!("{:?}", &record[1]);
+        let index: i16 = record[0].parse::<i16>().unwrap();
+        let start = &record[1];
+        // let end = &record[3];
+        // let condition = &record[4];
+        // println!("{:?}", index);
+        panic::set_hook(Box::new(|_info| {
+            // do nothing
+            println!("{:?}", _info);
+        }));
+        let result = panic::catch_unwind(|| -> ResultStructure {
+            println!("Simplifying expression:\n {}\n", start);
+            let result_record = trs::prove_exprs_for_csv(index, start);
+            result_record
+        });
+
+        match result {
+            Ok(res) => wtr.serialize(res)?,
+            Err(_) => println!("Error at expression: {}", start),
+        }
+    }
+    wtr.flush();
+    Ok(())
+}
+
 /// Returns the first positional argument sent to this process. If there are no
 /// positional arguments, then this returns an error.
 fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
@@ -71,7 +104,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     if args.len() > 1 {
-        if let Err(err) = run() {
+        if let Err(err) = run_expressions() {
             println!("{}", err);
             process::exit(1);
         }
