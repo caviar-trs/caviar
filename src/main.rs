@@ -114,7 +114,7 @@ fn main() {
         // trs::prove_report(&start, &end, -2);
         // trs::prove_report(&start, &end, 1);
         // trs::prove_report(&start, &end, 2);
-        trs::prove_report_all_classes(&start, &end, 1);
+        //trs::prove_report_all_classes(&start, &end, 1);
         trs::prove_report(&start, &end, 2);
     }
 }

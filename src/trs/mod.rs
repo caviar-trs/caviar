@@ -7,6 +7,7 @@ use ordered_float::NotNan;
 use std::{cmp::Ordering, time::Instant};
 use serde::{Serialize, Deserialize};
 use num_traits::cast::ToPrimitive;
+use std::time::Duration;
 
 #[derive(Serialize)]
 #[derive(Debug)]
@@ -557,6 +558,22 @@ pub fn prove_time(start_expression: &str, end_expressions: &str) -> bool {
 }
 
 
+
+
+pub struct MyIterData {
+    smallest_so_far: usize,
+}
+type MyRunner = Runner<Math, ConstantFold, MyIterData>;
+impl IterationData<Math, ConstantFold> for MyIterData {
+    fn make(runner: &MyRunner) -> Self {
+        let root = runner.roots[0];
+        let mut extractor = Extractor::new(&runner.egraph, AstSize);
+        MyIterData {
+            smallest_so_far: extractor.find_best(root).0,
+        }
+    }
+}
+
 #[allow(dead_code)]
 pub fn prove_report(start_expression: &str, end_expressions: &str, ruleset_class: i8) -> bool {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
@@ -564,7 +581,14 @@ pub fn prove_report(start_expression: &str, end_expressions: &str, ruleset_class
     let result: bool;
     // That's it! We can run equality saturation now.
     let start_t = Instant::now();
-    let runner = Runner::default().with_expr(&start).run(rules(ruleset_class).iter());
+    // let runner = Runner::default().with_expr(&start).run(rules(ruleset_class).iter());
+    let runner = MyRunner::new(Default::default())
+                .with_iter_limit(10)
+                .with_node_limit(10000)
+                .with_time_limit(Duration::new(5, 0))
+                .with_expr(&start)
+                //.with_scheduler(SimpleScheduler)
+                .run(rules(ruleset_class).iter());
     let duration = start_t.elapsed();
     println!("Time elapsed in expensive_function() is: {:?}", duration);
 
@@ -597,7 +621,7 @@ pub fn prove_report(start_expression: &str, end_expressions: &str, ruleset_class
         );
         result = true;
     }
-    runner.print_report();
+    //runner.print_report();
     // let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
     // println!(
     //     "Execution took: {}\n",
@@ -729,7 +753,14 @@ pub fn prove_exprs_for_csv(index: i16, start_expression: &str) -> ResultStructur
     let result: bool;
     let mut best_expr = String::from("");
     // That's it! We can run equality saturation now.
-    let runner = Runner::default().with_expr(&start).run(rules(-1).iter());
+    //let runner = Runner::default().with_expr(&start).run(rules(-1).iter());
+    let runner = MyRunner::new(Default::default())
+                .with_iter_limit(10)
+                .with_node_limit(10000)
+                .with_time_limit(Duration::new(5, 0))
+                .with_expr(&start)
+                //.with_scheduler(SimpleScheduler)
+                .run(rules(-1).iter());
     let id = runner.egraph.find(*runner.roots.last().unwrap());
     let mut extractor = Extractor::new(&runner.egraph, AstDepth);
         // We want to extract the best expression represented in the
