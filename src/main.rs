@@ -93,7 +93,7 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
 
 fn get_runner_iter_limit() -> Result<usize, Box<dyn Error>>{
     match env::args_os().nth(2) {
-        None => Ok(10),
+        None => Ok(30),
         Some(i) => Ok(i.into_string().unwrap().parse::<usize>().unwrap()),
     }
 }
