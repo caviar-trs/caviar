@@ -747,7 +747,7 @@ pub fn prove_for_csv(index: i16, start_expression: &str, end_expression: &str, c
 //     prove_time("(min (- x z) (- y z))", "(- (min x y) z)");
 // }
 
-pub fn prove_exprs_for_csv(index: i16, start_expression: &str) -> ResultStructure {
+pub fn prove_exprs_for_csv(index: i16, start_expression: &str, params: (usize, usize, u64)) -> ResultStructure {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     // let end_1: Pattern<Math> = end_expression.parse().unwrap();
     let result: bool;
@@ -755,9 +755,9 @@ pub fn prove_exprs_for_csv(index: i16, start_expression: &str) -> ResultStructur
     // That's it! We can run equality saturation now.
     //let runner = Runner::default().with_expr(&start).run(rules(-1).iter());
     let runner = MyRunner::new(Default::default())
-                .with_iter_limit(10)
-                .with_node_limit(10000)
-                .with_time_limit(Duration::new(5, 0))
+                .with_iter_limit(params.0)
+                .with_node_limit(params.1)
+                .with_time_limit(Duration::new(params.2, 0))
                 .with_expr(&start)
                 //.with_scheduler(SimpleScheduler)
                 .run(rules(-1).iter());
