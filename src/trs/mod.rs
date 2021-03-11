@@ -8,6 +8,16 @@ use std::{cmp::Ordering, time::Instant};
 use serde::{Serialize, Deserialize};
 use num_traits::cast::ToPrimitive;
 use std::time::Duration;
+use rand::seq::SliceRandom;
+use rand::thread_rng;
+use std::fs::File;
+use std::io::prelude::*;
+
+#[macro_use]
+use json;
+use json::JsonValue;
+use crate::trs::json::object;
+
 
 #[derive(Serialize)]
 #[derive(Debug)]
@@ -782,3 +792,64 @@ pub fn prove_exprs_for_csv(index: i16, start_expression: &str, params: (usize, u
     let condition = "";
     ResultStructure { index, start_expression: String::from(start_expression), end_expressions: String::from(best_expr.clone()), result, best_expr: String::from(best_expr), total_time, condition: String::from(condition) }
 }
+
+pub fn generate_dataset(expressions: Vec<(&str, &str)>, params: (usize, usize, u64), ruleset_id: i8){
+    let mut rng = thread_rng();
+    let mut dataset = File::create("results/dataset.json").unwrap();
+    let mut start: RecExpr<Math>;
+    let mut end: Pattern<Math>;
+    let mut runner;
+    let mut id;
+    let mut matches;
+    let mut i: usize;
+    let mut rule;
+    let mut ruleset = rules(ruleset_id);
+    let mut data_object;
+    let mut data: Vec<JsonValue> = Vec::new();
+    ruleset.shuffle(&mut rng);
+    println!("Ruleset size == {}", ruleset.len());
+    let mut ruleset_copy : Vec<egg::Rewrite<Math, ConstantFold>>;
+    let mut ruleset_copy_names : Vec<String>;
+    for expression in expressions{
+        ruleset_copy = ruleset.clone();
+        i = 0;
+        while i < ruleset_copy.len(){
+            rule = ruleset_copy.remove(i);
+            start = expression.0.parse().unwrap();
+            end = expression.1.parse().unwrap();
+            runner = MyRunner::new(Default::default())
+                    .with_iter_limit(params.0)
+                    .with_node_limit(params.1)
+                    .with_time_limit(Duration::new(params.2, 0))
+                    .with_expr(&start)
+                    .run(ruleset_copy.iter());
+            id = runner.egraph.find(*runner.roots.last().unwrap());
+            matches = end.search_eclass(&runner.egraph, id);
+            if matches.is_none() {
+                ruleset_copy.insert(i, rule);
+                i += 1;
+            }
+        }
+        ruleset_copy_names = ruleset_copy.clone().into_iter().map( |rule| rule.name().to_string()).rev().collect();
+        data_object = object!{
+            expression: object!{
+                start: expression.0,
+                end: expression.1,
+            },
+            rules: ruleset_copy_names
+        };
+        data.push(data_object);
+        println!(
+            "{0} rules are needed to prove: {1}",
+            format!("{0}", ruleset_copy.len()).red().bold(),
+            format!("{0}", expression.0.to_string()).bright_green().bold(),
+        );
+        // for r in ruleset_copy{
+        //     println!(
+        //         "{}",format!("{}", r.name()).blue().bold()
+        //     );
+        // }
+    }
+    dataset.write_all(json::stringify(data).as_bytes());
+}
+
