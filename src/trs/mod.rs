@@ -71,11 +71,20 @@ pub struct ConstantFold;
 impl Analysis<Math> for ConstantFold {
     type Data = Option<Constant>;
 
-    fn merge(&self, to: &mut Self::Data, from: Self::Data) -> bool {
-        if let (Some(c1), Some(c2)) = (to.as_ref(), from.as_ref()) {
-            assert_eq!(c1, c2);
+    fn merge(&self, a: &mut Self::Data, b: Self::Data) -> Option<Ordering> {
+        match (a.as_mut(), b) {
+            (None, None) => Some(Ordering::Equal),
+            (None, Some(_)) => {
+                *a = b;
+                Some(Ordering::Less)
+            }
+            (Some(_), None) => Some(Ordering::Greater),
+            (Some(_), Some(_)) => Some(Ordering::Equal),
         }
-        merge_if_different(to, to.or(from))
+        // if a.is_none() && b.is_some() {
+        //     *a = b
+        // }
+        // cmp
     }
 
     fn make(egraph: &EGraph, enode: &Math) -> Self::Data {

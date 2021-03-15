@@ -136,10 +136,10 @@ dependencies = [
 
 [[package]]
 name = "egg"
-version = "0.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "05a6c0bbc92278f84e742f08c0ab9cb16a987376cd2bc39d228ef9c74d98d6f7"
+version = "0.6.1-dev"
+source = "git+https://github.com/skourta/egg.git?branch=main#55e47a754f1214e142c71f44166dc29adb36ec90"
 dependencies = [
+ "fxhash",
  "indexmap",
  "instant",
  "log",
@@ -181,6 +181,15 @@ dependencies = [
  "log",
  "regex",
  "termcolor",
+]
+
+[[package]]
+name = "fxhash"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c31b6d751ae2c7f11320402d34e41349dd1016f8d5d45e48c4312bc8625af50c"
+dependencies = [
+ "byteorder",
 ]
 
 [[package]]

@@ -124,15 +124,15 @@ fn get_start_end() -> Result<(String, String), Box<dyn Error>>{
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let expressions = vec![
-        ("( <= ( - v0 11 ) ( + ( * ( / ( - v0 v1 ) 12 ) 12 ) v1 ) )","1"),
-        ("( <= ( + ( / ( - v0 v1 ) 8 ) 32 ) ( max ( / ( + ( - v0 v1 ) 257 ) 8 ) 0 ) )","1"),
-        ("( <= ( min ( + ( * ( + v0 v1 ) 161 ) ( + ( min v2 v3 ) v4 ) ) v5 ) ( + ( * ( + v0 v1 ) 161 ) ( + v2 v4 ) ) )","1"),
-        ("( == (+ a b) (+ b a) )","1"),
-        ("( == (min a a) (a))","1"),
-    ];
+    // let expressions = vec![
+    //     ("( <= ( - v0 11 ) ( + ( * ( / ( - v0 v1 ) 12 ) 12 ) v1 ) )","1"),
+    //     ("( <= ( + ( / ( - v0 v1 ) 8 ) 32 ) ( max ( / ( + ( - v0 v1 ) 257 ) 8 ) 0 ) )","1"),
+    //     ("( <= ( min ( + ( * ( + v0 v1 ) 161 ) ( + ( min v2 v3 ) v4 ) ) v5 ) ( + ( * ( + v0 v1 ) 161 ) ( + v2 v4 ) ) )","1"),
+    //     ("( == (+ a b) (+ b a) )","1"),
+    //     ("( == (min a a) (a))","1"),
+    // ];
     //trs::generate_dataset(expressions,(30, 10000, 5), 2, 2);
-    trs::generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
+    // trs::generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
     
     if args.len() > 1 {
         if let Err(err) = run_expressions() {
