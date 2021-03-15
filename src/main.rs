@@ -96,7 +96,7 @@ fn main() {
     } else {
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n", start);
-        trs::prove_report(&start, &end, 2, false);
-        trs::prove_report(&start, &end, 2, true);
+        trs::prove(&start,  -1, true,true);
+        // trs::prove_expr(&start, &end, 2, true);
     }
 }
