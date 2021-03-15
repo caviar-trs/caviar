@@ -131,7 +131,8 @@ fn main() {
         ("( == (+ a b) (+ b a) )","1"),
         ("( == (min a a) (a))","1"),
     ];
-    //trs::generate_dataset(expressions,(30, 10000, 5), 2);
+    //trs::generate_dataset(expressions,(30, 10000, 5), 2, 2);
+    trs::generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
     
     if args.len() > 1 {
         if let Err(err) = run_expressions() {
