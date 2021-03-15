@@ -35,8 +35,8 @@ impl ResultStructure{
 #[derive(Serialize)]
 #[derive(Debug)]
 pub struct ExpressionStruct{
-    index: i16,
-    expression: String,
+    pub index: i16,
+    pub expression: String,
 }
 
 impl ExpressionStruct{

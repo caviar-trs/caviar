@@ -8,6 +8,7 @@ mod io;
 mod structs;
 
 use crate::io::reader::{read_expressions,get_start_end};
+use crate::structs::{ResultStructure, ExpressionStruct};
 
 // fn run() -> Result<(), Box<dyn Error>> {
 //     let file_path = get_first_arg()?;
@@ -96,7 +97,7 @@ fn main() {
     } else {
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n", start);
-        trs::prove(&start,  -1, true,true);
+        trs::prove_equiv(&start,&end,  -1,(10,10000,5), true,true);
         // trs::prove_expr(&start, &end, 2, true);
     }
 }

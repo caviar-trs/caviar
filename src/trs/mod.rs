@@ -16,7 +16,7 @@ use json;
 use json::JsonValue;
 use crate::trs::json::object;
 
-use crate::structs::ResultStructure;
+use crate::structs::{ResultStructure, ExpressionStruct};
 
 
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
@@ -462,13 +462,14 @@ impl IterationData<Math, ConstantFold> for MyIterData {
 }
 
 #[allow(dead_code)]
-pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class: i8, use_iteration_check: bool, report: bool) -> bool {
+pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool, report: bool) -> (bool, f64, Option<String>) {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end: Pattern<Math> = end_expressions.parse().unwrap();
     let result: bool;
     // That's it! We can run equality saturation now.
     // let runner = Runner::default().with_expr(&start).run(rules(ruleset_class).iter());
     let runner;
+    let best_expr_string;
     if use_iteration_check {
         runner = MyRunner::new(Default::default())
             .with_iter_limit(10)
@@ -480,9 +481,9 @@ pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class:
         // .run(rules(ruleset_class).iter());
     } else {
         runner = MyRunner::new(Default::default())
-            .with_iter_limit(10)
-            .with_node_limit(10000)
-            .with_time_limit(Duration::new(5, 0))
+            .with_iter_limit(params.0)
+            .with_node_limit(params.1)
+            .with_time_limit(Duration::new(params.2, 0))
             .with_expr(&start)
             //.with_scheduler(SimpleScheduler)
             // .run_check_iteration(rules(ruleset_class).iter(), &end);
@@ -503,7 +504,7 @@ pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class:
         // same e-class as our initial expression, not from the whole e-graph.
         // Luckily the runner stores the eclass Id where we put the initial expression.
         let (_, best_expr) = extractor.find_best(id);
-
+        best_expr_string  = Some(best_expr.to_string());
         println!(
             "Best Expr: {}",
             format!("{}", best_expr).bright_green().bold()
@@ -517,23 +518,23 @@ pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class:
             end.pretty(40)
         );
         result = true;
+        best_expr_string = Some(end.to_string())
     }
+    let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
     if report {
         runner.print_report();
-        let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
         println!(
             "Execution took: {}\n",
             format!("{} s", total_time).bright_green().bold()
         );
     }
 
-    result
+    (result,total_time,best_expr_string)
 }
 
 #[allow(dead_code)]
-pub fn prove(start_expression: &str, ruleset_class: i8, use_iteration_check: bool, report: bool) -> bool {
+pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool, report: bool) -> (bool, f64, Option<String>) {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
-
     let end_1: Pattern<Math> = "1".parse().unwrap();
     let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
@@ -542,12 +543,13 @@ pub fn prove(start_expression: &str, ruleset_class: i8, use_iteration_check: boo
     let runner: Runner<Math, ConstantFold, MyIterData>;
     let mut result = false;
     let mut proved_goal_index = 0;
-    let id ;
+    let id;
+    let mut best_expr = None;
     if use_iteration_check {
         runner = MyRunner::new(Default::default())
-            .with_iter_limit(10)
-            .with_node_limit(10000)
-            .with_time_limit(Duration::new(5, 0))
+            .with_iter_limit(params.0)
+            .with_node_limit(params.1)
+            .with_time_limit(Duration::new(params.2, 0))
             .with_expr(&start)
             .run_check_iteration(rules(ruleset_class).iter(), &goals);
 
@@ -585,25 +587,27 @@ pub fn prove(start_expression: &str, ruleset_class: i8, use_iteration_check: boo
         // We want to extract the best expression represented in the
         // same e-class as our initial expression, not from the whole e-graph.
         // Luckily the runner stores the eclass Id where we put the initial expression.
-        let (_, best_expr) = extractor.find_best(id);
+        let (_, best_exprr) = extractor.find_best(id);
+        best_expr = Some(best_exprr.to_string());
 
         println!(
             "Best Expr: {}",
-            format!("{}", best_expr).bright_green().bold()
+            format!("{}", best_exprr).bright_green().bold()
         );
     }
+    let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
     if report {
         runner.print_report();
-        let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
         println!(
             "Execution took: {}\n",
             format!("{} s", total_time).bright_green().bold()
         );
     }
 
-    result
+    (result,total_time,best_expr)
 }
 
+//Not yet refactored
 #[allow(dead_code)]
 pub fn prove_all_classes(start_expression: &str, end_expressions: &str, start_class: i8, report:bool) -> bool {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
@@ -648,7 +652,7 @@ pub fn prove_all_classes(start_expression: &str, end_expressions: &str, start_cl
     result
 }
 
-
+//Not yet refactored
 #[allow(dead_code)]
 pub fn prove_rule(index: i16, start_expression: &str, end_expression: &str, condition: &str) -> ResultStructure {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
@@ -699,66 +703,14 @@ pub fn prove_rule(index: i16, start_expression: &str, end_expression: &str, cond
     ResultStructure::new(index, String::from(start_expression), String::from(end_expression), result, String::from(best_expr), total_time, String::from(condition))
 }
 
-// pub fn prove_expr(index: i16, start_expression: &str, params: (usize, usize, u64), use_iteration_check: bool) -> ResultStructure {
-//     let start: RecExpr<Math> = start_expression.parse().unwrap();
-//     let end_1: Pattern<Math> = "1".parse().unwrap();
-//     let end_0: Pattern<Math> = "1".parse().unwrap();
-//     let result: bool;
-//
-//     let runner;
-//     if use_iteration_check {
-//         runner = MyRunner::new(Default::default())
-//             .with_iter_limit(params.0)
-//             .with_node_limit(params.1)
-//             .with_time_limit(Duration::new(params.2, 0))
-//             .with_expr(&start)
-//             //.with_scheduler(SimpleScheduler)
-//             .run_check_iteration(rules(-1).iter(), &[&end, &end_0]);
-//     } else {
-//         runner = MyRunner::new(Default::default())
-//             .with_iter_limit(params.0)
-//             .with_node_limit(params.1)
-//             .with_time_limit(Duration::new(params.2, 0))
-//             .with_expr(&start)
-//             //.with_scheduler(SimpleScheduler)
-//             .run(rules(-1).iter());
-//     }
-//     let id = runner.egraph.find(*runner.roots.last().unwrap());
-//     let matches = end.search_eclass(&runner.egraph, id);
-//     let best_expr;
-//     if matches.is_none() {
-//         println!(
-//             "{}\n{}\n",
-//             "Could not prove goal:".bright_red().bold(),
-//             end.pretty(40),
-//         );
-//
-//         let mut extractor = Extractor::new(&runner.egraph, AstDepth);
-//         // We want to extract the best expression represented in the
-//         // same e-class as our initial expression, not from the whole e-graph.
-//         // Luckily the runner stores the eclass Id where we put the initial expression.
-//         let (_, best_exprr) = extractor.find_best(id);
-//         best_expr = best_exprr.to_string();
-//
-//         println!(
-//             "Best Expr: {}",
-//             format!("{}", best_expr).bright_green().bold()
-//         );
-//
-//         result = false;
-//     } else {
-//         println!(
-//             "{}\n{}\n",
-//             "Proved goal:".bright_green().bold(),
-//             end.pretty(40)
-//         );
-//         best_expr = "1".to_string();
-//         result = true;
-//     }
-//
-//     runner.print_report();
-//     ResultStructure::new(index, String::from(start_expression), String::from(best_expr.clone()), result, String::from(best_expr), total_time, "".to_string())
-// }
+pub fn prove_expr(expression: ExpressionStruct,ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool,report: bool) -> ResultStructure {
+    let (result, total_time,best_expr) = prove(&(expression.expression)[..], ruleset_class,params, use_iteration_check, report);
+    let best_expr_string = match best_expr {
+        Some(expr)=> expr,
+        None => "".to_string()
+    };
+    ResultStructure::new(expression.index, expression.expression.clone(), "1/0".to_string(), result, best_expr_string, total_time, "".to_string())
+}
 
 pub fn generate_dataset(expressions: Vec<(&str, &str)>, params: (usize, usize, u64), ruleset_id: i8, reorder_count: usize) {
     let mut dataset = File::create("results/dataset.json").unwrap();
