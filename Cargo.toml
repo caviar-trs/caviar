@@ -7,7 +7,7 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-egg = { git = "https://github.com/skourta/egg.git", branch="main" }
+egg = { path="../egg", branch="check_equivalence_iteration_level" }
 ordered-float = "1"
 env_logger = "0.8.2"
 colored = "2"

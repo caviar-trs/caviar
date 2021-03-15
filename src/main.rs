@@ -15,6 +15,7 @@ use csv::Writer;
 use crate::trs::ResultStructure;
 use ordered_float::NotNan;
 use num_traits::ToPrimitive;
+use std::time::Instant;
 
 fn run() -> Result<(), Box<dyn Error>> {
     let file_path = get_first_arg()?;
@@ -55,6 +56,7 @@ fn run_expressions() -> Result<(), Box<dyn Error>> {
     let file = File::open(file_path)?;
     let mut rdr = csv::Reader::from_reader(file);
     let mut wtr = Writer::from_path("results/results_expressions_egg.csv")?;
+    let start_t = Instant::now();
     for result in rdr.records() {
         let record = result?;
         // println!("{:?}", &record[1]);
@@ -69,7 +71,7 @@ fn run_expressions() -> Result<(), Box<dyn Error>> {
         }));
         let result = panic::catch_unwind(|| -> ResultStructure {
             println!("Simplifying expression:\n {}\n", start);
-            let result_record = trs::prove_exprs_for_csv(index, start, params);
+            let result_record = trs::prove_exprs_for_csv_check(index, start, params, true);
             result_record
         });
 
@@ -78,6 +80,7 @@ fn run_expressions() -> Result<(), Box<dyn Error>> {
             Err(_) => println!("Error at expression: {}", start),
         }
     }
+    println!("Time elapsed in simplifying expressions is: {:?}", start_t.elapsed());
     wtr.flush();
     Ok(())
 }
@@ -142,6 +145,7 @@ fn main() {
     } else {
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n", start);
-        trs::prove_report(&start, &end, 2);
+        trs::prove_report(&start, &end, 2, false);
+        trs::prove_report(&start, &end, 2, true);
     }
 }

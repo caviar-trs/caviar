@@ -596,22 +596,36 @@ impl IterationData<Math, ConstantFold> for MyIterData {
 }
 
 #[allow(dead_code)]
-pub fn prove_report(start_expression: &str, end_expressions: &str, ruleset_class: i8) -> bool {
+pub fn prove_report(start_expression: &str, end_expressions: &str, ruleset_class: i8, useIterationCheck: bool) -> bool {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end: Pattern<Math> = end_expressions.parse().unwrap();
     let result: bool;
     // That's it! We can run equality saturation now.
     let start_t = Instant::now();
     // let runner = Runner::default().with_expr(&start).run(rules(ruleset_class).iter());
-    let runner = MyRunner::new(Default::default())
+    let runner;
+    if useIterationCheck{
+        runner = MyRunner::new(Default::default())
+            .with_iter_limit(10)
+            .with_node_limit(10000)
+            .with_time_limit(Duration::new(5, 0))
+            .with_expr(&start)
+            //.with_scheduler(SimpleScheduler)
+            .run_check_iteration(rules(ruleset_class).iter(), &start, &end);
+        // .run(rules(ruleset_class).iter());
+    }else{
+    runner = MyRunner::new(Default::default())
                 .with_iter_limit(10)
                 .with_node_limit(10000)
                 .with_time_limit(Duration::new(5, 0))
                 .with_expr(&start)
                 //.with_scheduler(SimpleScheduler)
+                // .run_check_iteration(rules(ruleset_class).iter(), &start, &end);
                 .run(rules(ruleset_class).iter());
+    }
     let duration = start_t.elapsed();
     println!("Time elapsed in expensive_function() is: {:?}", duration);
+    runner.print_report();
 
     let id = runner.egraph.find(*runner.roots.last().unwrap());
     let matches = end.search_eclass(&runner.egraph, id);
@@ -642,12 +656,6 @@ pub fn prove_report(start_expression: &str, end_expressions: &str, ruleset_class
         );
         result = true;
     }
-    //runner.print_report();
-    // let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
-    // println!(
-    //     "Execution took: {}\n",
-    //     format!("{} s", total_time).bright_green().bold()
-    // );
     result
 }
 
@@ -801,6 +809,74 @@ pub fn prove_exprs_for_csv(index: i16, start_expression: &str, params: (usize, u
     );
     result = true;
     let condition = "";
+    ResultStructure { index, start_expression: String::from(start_expression), end_expressions: String::from(best_expr.clone()), result, best_expr: String::from(best_expr), total_time, condition: String::from(condition) }
+}
+
+pub fn prove_exprs_for_csv_check(index: i16, start_expression: &str, params: (usize, usize, u64), useIterationCheck: bool) -> ResultStructure {
+    let start: RecExpr<Math> = start_expression.parse().unwrap();
+    let end: Pattern<Math> = "1".parse().unwrap();
+    let result: bool;
+    let mut best_expr = String::from("");
+    // That's it! We can run equality saturation now.
+    //let runner = Runner::default().with_expr(&start).run(rules(-1).iter());
+    let runner;
+    if useIterationCheck{
+    runner = MyRunner::new(Default::default())
+        .with_iter_limit(params.0)
+        .with_node_limit(params.1)
+        .with_time_limit(Duration::new(params.2, 0))
+        .with_expr(&start)
+        //.with_scheduler(SimpleScheduler)
+        .run_check_iteration(rules(-1).iter(), &start, &end);
+    }else{
+        runner = MyRunner::new(Default::default())
+            .with_iter_limit(params.0)
+            .with_node_limit(params.1)
+            .with_time_limit(Duration::new(params.2, 0))
+            .with_expr(&start)
+            //.with_scheduler(SimpleScheduler)
+            .run(rules(-1).iter());
+    }
+    let id = runner.egraph.find(*runner.roots.last().unwrap());
+    let matches = end.search_eclass(&runner.egraph, id);
+    let best_expr;
+    if matches.is_none() {
+        println!(
+            "{}\n{}\n",
+            "Could not prove goal:".bright_red().bold(),
+            end.pretty(40),
+        );
+
+        let mut extractor = Extractor::new(&runner.egraph, AstDepth);
+        // We want to extract the best expression represented in the
+        // same e-class as our initial expression, not from the whole e-graph.
+        // Luckily the runner stores the eclass Id where we put the initial expression.
+        let (_, best_exprr) = extractor.find_best(id);
+        best_expr = best_exprr.to_string();
+
+        println!(
+            "Best Expr: {}",
+            format!("{}", best_expr).bright_green().bold()
+        );
+
+        result = false;
+    } else {
+        println!(
+            "{}\n{}\n",
+            "Proved goal:".bright_green().bold(),
+            end.pretty(40)
+        );
+        best_expr = "1".to_string();
+        result = true;
+    }
+
+    let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
+    println!(
+        "Execution took: {}\n",
+        format!("{} s", total_time).bright_green().bold()
+    );
+    let condition = "";
+    runner.print_report();
     ResultStructure { index, start_expression: String::from(start_expression), end_expressions: String::from(best_expr.clone()), result, best_expr: String::from(best_expr), total_time, condition: String::from(condition) }
 }
 
