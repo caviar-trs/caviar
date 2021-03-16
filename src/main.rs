@@ -12,9 +12,9 @@ mod io;
 mod structs;
 mod dataset;
 
-fn simplify_expressions(exprs_vect: Vec<ExpressionStruct>,ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool,report: bool) -> Vec<ResultStructure> {
+fn simplify_expressions(exprs_vect: &Vec<ExpressionStruct>,ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool,report: bool) -> Vec<ResultStructure> {
     let mut results = Vec::new();
-    for expression in exprs_vect {
+    for expression in exprs_vect.iter() {
         results.push(prove_expr(expression, ruleset_class, params, use_iteration_check,report));
     }
     results
@@ -37,12 +37,12 @@ fn main() {
     if args.len() > 1 {
         let file_path = get_first_arg().unwrap();
         let params = (get_runner_iter_limit().unwrap(), get_runner_node_limit().unwrap(), get_runner_time_limit().unwrap());
-        let expression_vect = read_expressions(file_path).unwrap();
-        write_results("results/results_expressions_egg.csv",simplify_expressions(expression_vect, -1, params, true, true) ).unwrap();
+        let expression_vect = read_expressions(&file_path).unwrap();
+        write_results("results/results_expressions_egg.csv",&simplify_expressions(&expression_vect, -1, params, true, true) ).unwrap();
     } else {
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start,end);
-        trs::prove_rule(Rule::new(1, "(== a a)".to_string(), "0".to_string(), None), -1, (10, 10000, 5), true, true);
+        trs::prove_rule(&Rule::new(1, "(== a a)".to_string(), "0".to_string(), None), -1, (10, 10000, 5), true, true);
         // trs::prove_expr(&start, &end, 2, true);
     }
 }

@@ -635,16 +635,16 @@ pub fn prove_all_classes(start_expression: &str, end_expressions: &str, start_cl
 }
 
 #[allow(dead_code)]
-pub fn prove_rule(rule: Rule, ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool, report: bool) -> ResultStructure {
+pub fn prove_rule(rule: &Rule, ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool, report: bool) -> ResultStructure {
     let (result, total_time, best_expr) = prove_equiv(&rule.lhs, &rule.rhs, ruleset_class, params, use_iteration_check, report);
     let best_expr_string = match best_expr {
         Some(expr)=> expr,
         None => "".to_string()
     };
-    ResultStructure::new(rule.index, rule.lhs, rule.rhs, result, best_expr_string, total_time, rule.condition)
+    ResultStructure::new(rule.index, rule.lhs.clone(), rule.rhs.clone(), result, best_expr_string, total_time, rule.condition.clone())
 }
 
-pub fn prove_expr(expression: ExpressionStruct,ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool,report: bool) -> ResultStructure {
+pub fn prove_expr(expression: &ExpressionStruct,ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool,report: bool) -> ResultStructure {
     let (result, total_time,best_expr) = prove(&(expression.expression)[..], ruleset_class,params, use_iteration_check, report);
     let best_expr_string = match best_expr {
         Some(expr)=> expr,
