@@ -6,9 +6,8 @@ use std::ffi::OsString;
 use std::io::Read;
 
 
-pub fn read_expressions() -> Result<Vec<ExpressionStruct>, Box<dyn Error>> {
+pub fn read_expressions(file_path:OsString) -> Result<Vec<ExpressionStruct>, Box<dyn Error>> {
     let mut expressions_vect  = Vec::new();
-    let file_path = get_first_arg()?;
     let file = File::open(file_path)?;
     let mut rdr = csv::Reader::from_reader(file);
     for result in rdr.records() {
@@ -17,8 +16,10 @@ pub fn read_expressions() -> Result<Vec<ExpressionStruct>, Box<dyn Error>> {
         let expression = &record[1];
         expressions_vect.push(ExpressionStruct::new(index, expression.to_string()))
     }
-    Ok(expressions_vect)
+    return Ok(expressions_vect)
 }
+
+
 
 
 pub fn get_first_arg() -> Result<OsString, Box<dyn Error>> {

@@ -1,17 +1,24 @@
-mod trs;
-
 use std::env;
 
+use crate::io::reader::{get_start_end, read_expressions, get_first_arg, get_runner_iter_limit, get_runner_node_limit, get_runner_time_limit};
+use crate::structs::{ExpressionStruct, ResultStructure, Rule};
+use crate::trs::prove_expr;
+use crate::io::writer::write_results;
+
+mod trs;
 
 mod rules;
 mod io;
 mod structs;
 mod dataset;
 
-use crate::io::reader::{read_expressions,get_start_end};
-use crate::structs::Rule;
-
-fn simplify_expressions()
+fn simplify_expressions(exprs_vect: Vec<ExpressionStruct>,ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool,report: bool) -> Vec<ResultStructure> {
+    let mut results = Vec::new();
+    for expression in exprs_vect {
+        results.push(prove_expr(expression, ruleset_class, params, use_iteration_check,report));
+    }
+    results
+}
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -24,14 +31,16 @@ fn main() {
     // ];
     //trs::generate_dataset(expressions,(30, 10000, 5), 2, 2);
     // trs::generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
-    
+
     if args.len() > 1 {
-        let expression_vect = read_expressions()?;
-        println!("{:?}",expression_vect);
+        let file_path = get_first_arg().unwrap();
+        let params = (get_runner_iter_limit().unwrap(), get_runner_node_limit().unwrap(), get_runner_time_limit().unwrap());
+        let expression_vect = read_expressions(file_path).unwrap();
+        write_results("results/results_rules_egg.csv",simplify_expressions(expression_vect, -1, params, true, true) );
     } else {
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n", start);
-        trs::prove_rule(Rule::new(1,"(== a a)".to_string(), "0".to_string(), None),  -1,(10,10000,5), true,true);
+        trs::prove_rule(Rule::new(1, "(== a a)".to_string(), "0".to_string(), None), -1, (10, 10000, 5), true, true);
         // trs::prove_expr(&start, &end, 2, true);
     }
 }

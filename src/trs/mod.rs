@@ -471,11 +471,7 @@ pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class:
     let id = runner.egraph.find(*runner.roots.last().unwrap());
     let matches = end.search_eclass(&runner.egraph, id);
     if matches.is_none() {
-        println!(
-            "{}\n{}\n",
-            "Could not prove goal:".bright_red().bold(),
-            end.pretty(40),
-        );
+
 
         let mut extractor = Extractor::new(&runner.egraph, AstDepth);
         // We want to extract the best expression represented in the
@@ -483,18 +479,28 @@ pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class:
         // Luckily the runner stores the eclass Id where we put the initial expression.
         let (_, best_expr) = extractor.find_best(id);
         best_expr_string  = Some(best_expr.to_string());
-        println!(
-            "Best Expr: {}",
-            format!("{}", best_expr).bright_green().bold()
-        );
+
+        if report {
+            println!(
+                "{}\n{}\n",
+                "Could not prove goal:".bright_red().bold(),
+                end.pretty(40),
+            );
+            println!(
+                "Best Expr: {}",
+                format!("{}", best_expr).bright_green().bold()
+            );
+        }
 
         result = false;
     } else {
-        println!(
-            "{}\n{}\n",
-            "Proved goal:".bright_green().bold(),
-            end.pretty(40)
-        );
+        if report {
+            println!(
+                "{}\n{}\n",
+                "Proved goal:".bright_green().bold(),
+                end.pretty(40)
+            );
+        }
         result = true;
         best_expr_string = Some(end.to_string())
     }
@@ -552,15 +558,14 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
     }
 
     if result {
-        println!(
-            "{}\n{:?}",
-            "Proved goal:".bright_green().bold(),goals[proved_goal_index].to_string()
-        );
+        if report{
+            println!(
+                "{}\n{:?}",
+                "Proved goal:".bright_green().bold(),goals[proved_goal_index].to_string()
+            );
+        }
     } else {
-        println!(
-            "{}\n",
-            "Could not prove any goal:".bright_red().bold(),
-        );
+
         let mut extractor = Extractor::new(&runner.egraph, AstDepth);
         // We want to extract the best expression represented in the
         // same e-class as our initial expression, not from the whole e-graph.
@@ -568,10 +573,16 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
         let (_, best_exprr) = extractor.find_best(id);
         best_expr = Some(best_exprr.to_string());
 
-        println!(
-            "Best Expr: {}",
-            format!("{}", best_exprr).bright_green().bold()
-        );
+        if report {
+            println!(
+                "{}\n",
+                "Could not prove any goal:".bright_red().bold(),
+            );
+            println!(
+                "Best Expr: {}",
+                format!("{}", best_exprr).bright_green().bold()
+            );
+        }
     }
     let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
     if report {
