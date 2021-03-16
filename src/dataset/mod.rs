@@ -11,6 +11,7 @@ use std::sync::{Arc, Mutex};
 use rayon::prelude::*;
 use json::object;
 
+#[allow(dead_code)]
 pub fn generate_dataset(expressions: Vec<(&str, &str)>, params: (usize, usize, u64), ruleset_id: i8, reorder_count: usize) {
     let mut dataset = File::create("results/dataset.json").unwrap();
     let mut rng = thread_rng();
@@ -80,18 +81,21 @@ pub fn generate_dataset(expressions: Vec<(&str, &str)>, params: (usize, usize, u
         //     );
         // }
     }
-    dataset.write_all(json::stringify(data).as_bytes());
+    dataset.write_all(json::stringify(data).as_bytes()).unwrap();
 }
 
+
+#[allow(dead_code)]
 pub fn generate_dataset_par(expressions: &Vec<(&str, &str)>, params: (usize, usize, u64), ruleset_id: i8, reorder_count: usize) {
     let mut dataset = File::create("results/dataset.json").unwrap();
     let data = Arc::new(Mutex::new(Vec::new()));
     expressions
         .par_iter()
         .for_each(|&expression| minimal_set_to_prove(expression, params, ruleset_id, reorder_count, &data));
-    dataset.write_all(json::stringify(Arc::try_unwrap(data).unwrap().into_inner().unwrap()).as_bytes());
+    dataset.write_all(json::stringify(Arc::try_unwrap(data).unwrap().into_inner().unwrap()).as_bytes()).unwrap();
 }
 
+#[allow(dead_code)]
 pub fn minimal_set_to_prove(expression: (&str, &str), params: (usize, usize, u64), ruleset_id: i8, reorder_count: usize, data: &Arc<Mutex<Vec<JsonValue>>>) {
     let mut rng = thread_rng();
     let mut start: RecExpr<Math>;

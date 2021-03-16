@@ -1,6 +1,5 @@
 use csv::Writer;
 use std::error::Error;
-use serde::Serialize;
 use crate::structs::ResultStructure;
 
 pub fn write_results(path: &str, results: Vec<ResultStructure>) -> Result<(), Box<dyn Error>> {

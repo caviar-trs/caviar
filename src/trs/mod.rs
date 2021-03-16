@@ -4,18 +4,6 @@ use ordered_float::NotNan;
 use std::{cmp::Ordering, time::Instant};
 use num_traits::cast::ToPrimitive;
 use std::time::Duration;
-use rand::seq::SliceRandom;
-use rand::thread_rng;
-use std::fs::File;
-use std::io::prelude::*;
-use rayon::prelude::*;
-use std::sync::{Arc, Mutex};
-
-// #[macro_use]
-use json;
-use json::JsonValue;
-use crate::trs::json::object;
-
 use crate::structs::{ResultStructure, ExpressionStruct, Rule};
 
 
@@ -528,7 +516,7 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
     let mut result = false;
     let mut proved_goal_index = 0;
     let id;
-    let mut best_expr = None;
+    let best_expr;
 
     if report{
         println!("\n==================================\nProving Expression:\n {}\n",start_expression)
