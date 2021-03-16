@@ -11,6 +11,8 @@ mod dataset;
 use crate::io::reader::{read_expressions,get_start_end};
 use crate::structs::Rule;
 
+fn simplify_expressions()
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     // let expressions = vec![
@@ -24,7 +26,7 @@ fn main() {
     // trs::generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
     
     if args.len() > 1 {
-        let expression_vect = read_expressions();
+        let expression_vect = read_expressions()?;
         println!("{:?}",expression_vect);
     } else {
         let (start, end) = get_start_end().unwrap();
