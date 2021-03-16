@@ -9,7 +9,7 @@ pub fn min() -> Vec<Rewrite> {
         // MIN RULES
         rw!("comm-min";          "(min ?a ?b)"                   => "(min ?b ?a)"),
         rw!("min-x-x";           "(min ?x ?x)"                   => "?x"),
-        rw!("min-min";           "(min (min ?x ?y) ?x)"          => "(min ?x ?y)"),
+        // rw!("min-min";           "(min (min ?x ?y) ?x)"          => "(min ?x ?y)"),//NOTAXIOM
         rw!("min-max";           "(min (max ?x ?y) ?x)"          => "?x"),
         rw!("min-max-max-x";     "(min (max ?x ?y) (max ?x ?z))" => "(max (min ?y ?z) ?x)"),
         rw!("min-max-min2";      "(min (max (min ?x ?y) ?z) ?y)" => "(min (max ?x ?z) ?y)"),
@@ -17,9 +17,9 @@ pub fn min() -> Vec<Rewrite> {
         rw!("min-a-plus-b";     "(min (+ ?a ?b) ?c)"            => "(+ (min ?b (- ?c ?a)) ?a)"),
 
         rw!("min-plus1";         "(+ (min ?x ?y) ?z)"           => "(min (+ ?x ?z) (+ ?y ?z))"),
-        rw!("min-plus2";         "(min (+ ?x ?z) (+ ?y ?z))"    => "(+ (min ?x ?y) ?z)"),
-        rw!("min-sub1";          "(- (min ?x ?y) ?z)"           => "(min (- ?x ?z) (- ?y ?z))"),
-        rw!("min-sub2";          "(min (- ?x ?z) (- ?y ?z))"    => "(- (min ?x ?y) ?z)"),
+        // rw!("min-plus2";         "(min (+ ?x ?z) (+ ?y ?z))"    => "(+ (min ?x ?y) ?z)"),//NOTAXIOM
+        // rw!("min-sub1";          "(- (min ?x ?y) ?z)"           => "(min (- ?x ?z) (- ?y ?z))"),//NOTAXIOM
+        // rw!("min-sub2";          "(min (- ?x ?z) (- ?y ?z))"    => "(- (min ?x ?y) ?z)"),//NOTAXIOM
 
         rw!("min-x-xsuby";       "(min ?x (+ ?x ?a))"           => "?x" if crate::trs::is_const_pos("?a") ),
         rw!("min-x-xsuby-neg";   "(min ?x (+ ?x ?a))"           => "(+ ?x ?a)" if crate::trs::is_const_neg("?a") ),

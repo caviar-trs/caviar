@@ -9,7 +9,7 @@ pub fn eq() -> Vec<Rewrite> { vec![
      rw!("x-x-Eq";  "(== ?x ?x)"        => "1"),
      rw!("x-y-0";  "(== (* ?x ?y) 0)"        => "(|| (== ?x 0) (== ?y 0))"),
      rw!("Eq-max-1"; "( == (max ?x ?y) ?y)" => "(<= ?x ?y)"),
-     rw!("Eq-max-2"; "(<= ?x ?y)" => "( == (max ?x ?y) ?y)"),
+     // rw!("Eq-max-2"; "(<= ?x ?y)" => "( == (max ?x ?y) ?y)"),//NOTAXIOM
      rw!("Eq-min-1"; "( == (min ?x ?y) ?y)" => "(<= ?y ?x)"),
      rw!("Eq-min-2"; "(<= ?y ?x)" => "( == (min ?x ?y) ?y)"),
      

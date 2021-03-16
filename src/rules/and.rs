@@ -7,7 +7,7 @@ pub fn and() -> Vec<Rewrite> { vec![
     rw!("comm-and";  "(&& ?y ?x)"        => "(&& ?x ?y)"),
     rw!("assoc-and"; "(&& ?a (&& ?b ?c))" => "(&& (&& ?a ?b) ?c)"),
     rw!("x-1-and";  "(&& 1 ?x)"        => "?x"),
-    rw!("x-0-and";  "(&& 0 ?x)"        => "0"),
+    // rw!("x-0-and";  "(&& 0 ?x)"        => "0"), //NOTAXIOM
     rw!("x-x-and";  "(&& ?x ?x)"        => "?x"),
     rw!("x-!x-and";  "(&& ?x (! ?x))" => "0"),
 
