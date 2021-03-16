@@ -36,7 +36,7 @@ fn main() {
         let file_path = get_first_arg().unwrap();
         let params = (get_runner_iter_limit().unwrap(), get_runner_node_limit().unwrap(), get_runner_time_limit().unwrap());
         let expression_vect = read_expressions(file_path).unwrap();
-        write_results("results/results_rules_egg.csv",simplify_expressions(expression_vect, -1, params, true, true) );
+        write_results("results/results_expressions_egg.csv",simplify_expressions(expression_vect, -1, params, true, true) );
     } else {
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n", start);

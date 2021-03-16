@@ -529,6 +529,10 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
     let mut proved_goal_index = 0;
     let id;
     let mut best_expr = None;
+
+    if report{
+        println!("\n==================================\nProving Expression:\n {}\n",start_expression)
+    }
     if use_iteration_check {
         runner = Runner::default()
             .with_iter_limit(params.0)
