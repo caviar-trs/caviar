@@ -564,6 +564,7 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
                 "Proved goal:".bright_green().bold(),goals[proved_goal_index].to_string()
             );
         }
+        best_expr = Some(goals[proved_goal_index].to_string())
     } else {
 
         let mut extractor = Extractor::new(&runner.egraph, AstDepth);
