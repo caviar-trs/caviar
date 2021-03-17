@@ -42,7 +42,7 @@ fn main() {
     } else {
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start,end);
-        trs::prove_rule(&Rule::new(1, "(== a a)".to_string(), "0".to_string(), None), -1, (10, 10000, 5), true, true);
+        trs::prove_equiv(&start, &end, -1, (10, 10000, 5), true, true);
         // trs::prove_expr(&start, &end, 2, true);
     }
 }
