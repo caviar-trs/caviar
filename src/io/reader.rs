@@ -6,7 +6,7 @@ use std::ffi::OsString;
 use std::io::Read;
 
 
-pub fn read_expressions(file_path:OsString) -> Result<Vec<ExpressionStruct>, Box<dyn Error>> {
+pub fn read_expressions(file_path:&OsString) -> Result<Vec<ExpressionStruct>, Box<dyn Error>> {
     let mut expressions_vect  = Vec::new();
     let file = File::open(file_path)?;
     let mut rdr = csv::Reader::from_reader(file);
