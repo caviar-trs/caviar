@@ -15,7 +15,7 @@ pub fn eq() -> Vec<Rewrite> { vec![
      rw!("Eq-max-c-neg"  ; "(== (max ?x ?c) 0)"   => "(== ?x 0)" if crate::trs::is_const_neg("?c")),
      rw!("Eq-min-c-pos"  ; "(== (min ?x ?c) 0)"   => "0" if crate::trs::is_const_neg("?c")),
      rw!("Eq-min-c-neg"  ; "(== (min ?x ?c) 0)"   => "(== ?x 0)" if crate::trs::is_const_pos("?c")),
-     
+     rw!("Eq-modulo-pos"     ; "(% (* ?c1 ?x) ?c0)" => "0" if crate::trs::c1_multiple_c0("?c1","?c0")),
      // rw!("Eq-max-2"; "(<= ?x ?y)" => "( == (max ?x ?y) ?y)"),//NOTAXIOM
      // OLD RULES ( NOT SURE IF NEEDED OR NOT )
      // rw!("one-Eq";  "(== ?x 1)"        => "(?x)"),

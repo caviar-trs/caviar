@@ -333,7 +333,21 @@ pub fn compare_c0_c1(var: &str, var1: &str, comp: &'static str) -> impl Fn(&mut 
     }
 }
 
-
+pub fn c1_multiple_c0(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool{
+    let var: Var = var.parse().unwrap();
+    let var1: Var = var1.parse().unwrap();
+    move |egraph, _, subst| {
+        egraph[subst[var1]].nodes.iter().any(|n| match n {
+            Math::Constant(c0) => {
+                egraph[subst[var]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(c1) => (c1.to_f64().unwrap() % c0.to_f64().unwrap()) == 0.0,
+                    _ => return false,
+                })
+            }
+            _ => return false,
+        })
+    }
+}
 // pub fn sum_is_great_zero_c0_abs(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 //     let var: Var = var.parse().unwrap();
 //     let var1: Var = var1.parse().unwrap();
