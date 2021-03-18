@@ -442,9 +442,9 @@ pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class:
     let best_expr_string;
     if use_iteration_check {
         runner = Runner::default()
-            .with_iter_limit(10)
-            .with_node_limit(10000)
-            .with_time_limit(Duration::new(5, 0))
+            .with_iter_limit(params.0)
+            .with_node_limit(params.1)
+            .with_time_limit(Duration::new(params.2, 0))
             .with_expr(&start)
             .run_check_iteration(rules(ruleset_class).iter(), &[end.clone()]);
     } else {

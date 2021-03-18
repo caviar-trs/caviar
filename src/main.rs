@@ -1,7 +1,7 @@
 use std::env;
 
-use crate::io::reader::{get_start_end, read_expressions, get_first_arg, get_runner_iter_limit, get_runner_node_limit, get_runner_time_limit};
-use crate::structs::{ExpressionStruct, ResultStructure, Rule};
+use crate::io::reader::{get_start_end, read_expressions, get_first_arg, get_runner_params};
+use crate::structs::{ExpressionStruct, ResultStructure};
 use crate::trs::prove_expr;
 use crate::io::writer::write_results;
 
@@ -34,15 +34,17 @@ fn main() {
 
 
 
-    if args.len() > 1 {
+    if args.len() > 4 {
         let file_path = get_first_arg().unwrap();
-        let params = (get_runner_iter_limit().unwrap(), get_runner_node_limit().unwrap(), get_runner_time_limit().unwrap());
+        let params = get_runner_params(2).unwrap();
         let expression_vect = read_expressions(&file_path).unwrap();
         write_results("results/results_expressions_egg.csv",&simplify_expressions(&expression_vect, -1, params, true, true) ).unwrap();
     } else {
+        let params = get_runner_params(1).unwrap();
+        println!("{:?}", params);
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start,end);
-        trs::prove_equiv(&start,&end, -1, (10, 10000, 5), true, true);
+        trs::prove_equiv(&start,&end, -1, params, true, true);
         // trs::prove_expr(&start, &end, 2, true);
     }
 }

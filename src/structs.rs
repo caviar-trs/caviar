@@ -58,6 +58,7 @@ pub struct Rule {
 }
 
 impl Rule {
+    #[allow(dead_code)]
     pub fn new(index: i16, lhs: String, rhs: String, condition: Option<String>) -> Self {
         Self {
             index,

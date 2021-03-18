@@ -1,13 +1,13 @@
-use crate::structs::{ExpressionStruct};
+use std::env;
 use std::error::Error;
-use std::fs::File;
-use std::{env};
 use std::ffi::OsString;
+use std::fs::File;
 use std::io::Read;
 
+use crate::structs::ExpressionStruct;
 
-pub fn read_expressions(file_path:&OsString) -> Result<Vec<ExpressionStruct>, Box<dyn Error>> {
-    let mut expressions_vect  = Vec::new();
+pub fn read_expressions(file_path: &OsString) -> Result<Vec<ExpressionStruct>, Box<dyn Error>> {
+    let mut expressions_vect = Vec::new();
     let file = File::open(file_path)?;
     let mut rdr = csv::Reader::from_reader(file);
     for result in rdr.records() {
@@ -16,10 +16,8 @@ pub fn read_expressions(file_path:&OsString) -> Result<Vec<ExpressionStruct>, Bo
         let expression = &record[1];
         expressions_vect.push(ExpressionStruct::new(index, expression.to_string()))
     }
-    return Ok(expressions_vect)
+    return Ok(expressions_vect);
 }
-
-
 
 
 pub fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
@@ -29,31 +27,55 @@ pub fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
     }
 }
 
-pub fn get_runner_iter_limit() -> Result<usize, Box<dyn Error>>{
+pub fn get_runner_params(start: usize) -> Result<(usize, usize, u64), Box<dyn Error>> {
+    let iter =
+        match env::args_os().nth(start) {
+            None => 30,
+            Some(i) => i.into_string().unwrap().parse::<usize>().unwrap(),
+        };
+
+    let nodes =
+    match env::args_os().nth(start + 1) {
+        None => 10000,
+        Some(i) => i.into_string().unwrap().parse::<usize>().unwrap(),
+    };
+    let time =
+    match env::args_os().nth(start + 2) {
+        None => 5,
+        Some(i) => i.into_string().unwrap().parse::<u64>().unwrap(),
+    };
+
+    return Ok((iter, nodes, time));
+}
+
+#[allow(dead_code)]
+pub fn get_runner_iter_limit() -> Result<usize, Box<dyn Error>> {
     match env::args_os().nth(2) {
         None => Ok(30),
         Some(i) => Ok(i.into_string().unwrap().parse::<usize>().unwrap()),
     }
 }
 
-pub fn get_runner_node_limit() -> Result<usize, Box<dyn Error>>{
+#[allow(dead_code)]
+pub fn get_runner_node_limit() -> Result<usize, Box<dyn Error>> {
     match env::args_os().nth(3) {
         None => Ok(10000),
         Some(i) => Ok(i.into_string().unwrap().parse::<usize>().unwrap()),
     }
 }
 
-pub fn get_runner_time_limit() -> Result<u64, Box<dyn Error>>{
+#[allow(dead_code)]
+pub fn get_runner_time_limit() -> Result<u64, Box<dyn Error>> {
     match env::args_os().nth(4) {
         None => Ok(5),
         Some(i) => Ok(i.into_string().unwrap().parse::<u64>().unwrap()),
     }
 }
 
-pub fn get_start_end() -> Result<(String, String), Box<dyn Error>>{
+pub fn get_start_end() -> Result<(String, String), Box<dyn Error>> {
     let mut file = File::open("./tmp/exprs.txt")?;
     let mut s = String::new();
     file.read_to_string(&mut s)?;
     let v: Vec<&str> = s.split("\n").collect();
-    return  Ok((v[0].to_string(), v[1].to_string()));
+    return Ok((v[0].to_string(), v[1].to_string()));
 }
