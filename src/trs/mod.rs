@@ -5,6 +5,7 @@ use std::{cmp::Ordering, time::Instant};
 use num_traits::cast::ToPrimitive;
 use std::time::Duration;
 use crate::structs::{ResultStructure, ExpressionStruct, Rule};
+use std::panic::resume_unwind;
 
 
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
@@ -386,7 +387,7 @@ pub fn rules(ruleset_class: i8) -> Vec<Rewrite> {
             &lt_rules[..],
             &max_rules[..],
             &min_rules[..],
-            &modulo_rules[..],
+            // &modulo_rules[..],
             &mul_rules[..],
             &not_rules[..],
             &or_rules[..],
@@ -510,8 +511,6 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
     let end_1: Pattern<Math> = "1".parse().unwrap();
     let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
-    // That's it! We can run equality saturation now.
-    // let runner = Runner::default().with_expr(&start).run(rules(ruleset_class).iter());
     let runner: Runner<Math, ConstantFold>;
     let mut result = false;
     let mut proved_goal_index = 0;
@@ -531,9 +530,9 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
 
     } else {
         runner = Runner::default()
-            .with_iter_limit(10)
-            .with_node_limit(10000)
-            .with_time_limit(Duration::new(5, 0))
+            .with_iter_limit(params.0)
+            .with_node_limit(params.1)
+            .with_time_limit(Duration::new(params.2, 0))
             .with_expr(&start)
             .run(rules(ruleset_class).iter());
     }
@@ -588,6 +587,45 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
 
     (result,total_time,best_expr)
 }
+
+#[allow(dead_code)]
+pub fn check_egraph_operation(start_expression: &str) -> bool {
+    println!("{}", start_expression);
+    let start: RecExpr<Math> = start_expression.parse().unwrap();
+
+    let runner = Runner::default()
+            .with_expr(&start)
+        .run(rules(-1).iter());
+
+    // let id = runner.egraph.find(*runner.roots.last().unwrap());
+    let time = Instant::now();
+    let bool = runner.egraph.classes().any(|eclass|{
+        eclass.iter().any(|enode| match enode {
+            Math::Max(_) => {
+                println!("{:?}", enode);
+                true
+            }
+            Math::Min(_) => {
+                println!("{:?}", enode);
+                true
+            }
+            _ => false
+        })
+    });
+    println!("{} in {:?}",bool, time.elapsed());
+    // runner.egraph.classes().for_each(|eclass| println!("{:?}", eclass.nodes));
+    // runner.print_report();
+    return bool
+
+
+    // for eclass in runner.egraph.classes() {
+    //     for enode in eclass.iter(){
+    //         println!("{:?}", enode);
+    //     }
+    // }
+}
+
+
 
 //Not yet refactored should be refactored when needed, as their argument might change
 #[allow(dead_code)]

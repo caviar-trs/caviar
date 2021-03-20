@@ -2,7 +2,7 @@ use std::env;
 
 use crate::io::reader::{get_start_end, read_expressions, get_first_arg, get_runner_params};
 use crate::structs::{ExpressionStruct, ResultStructure};
-use crate::trs::prove_expr;
+use crate::trs::{prove_expr, check_egraph_operation};
 use crate::io::writer::write_results;
 
 mod trs;
@@ -41,10 +41,12 @@ fn main() {
         write_results("results/results_expressions_egg.csv",&simplify_expressions(&expression_vect, -1, params, true, true) ).unwrap();
     } else {
         let params = get_runner_params(1).unwrap();
-        println!("{:?}", params);
+        // println!("{:?}", params);
         let (start, end) = get_start_end().unwrap();
-        println!("Simplifying expression:\n {}\n to {}", start,end);
-        trs::prove_equiv(&start,&end, -1, params, true, true);
+        // println!("Simplifying expression:\n {}\n to {}", start,end);
+        trs::prove(&start, -1, params, true, true);
         // trs::prove_expr(&start, &end, 2, true);
+
+        check_egraph_operation(&start);
     }
 }
