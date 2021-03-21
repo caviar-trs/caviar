@@ -105,6 +105,7 @@ pub fn minimal_set_to_prove(expression: (&str, &str), params: (usize, usize, u64
     let mut matches;
     let mut i: usize;
     let mut counter: usize;
+    let mut provedOnce: bool = false;
     // let mut minimal_ruleset_len: usize;
     let mut rule;
     let mut ruleset = rules(ruleset_id);
@@ -135,6 +136,8 @@ pub fn minimal_set_to_prove(expression: (&str, &str), params: (usize, usize, u64
             if matches.is_none() {
                 ruleset_copy.insert(i, rule);
                 i += 1;
+            } else {
+                provedOnce = true;
             }
         }
         if ruleset_copy.len() < ruleset_minimal.len() {
@@ -142,25 +145,27 @@ pub fn minimal_set_to_prove(expression: (&str, &str), params: (usize, usize, u64
         }
         counter += 1;
     }
-    ruleset_copy_names = ruleset_minimal.clone().into_iter().map(|rule| rule.name().to_string()).rev().collect();
-    data_object = object! {
-            expression: object!{
-                start: expression.0,
-                end: expression.1,
-            },
-            rules: ruleset_copy_names
-        };
-    data.lock().unwrap().push(data_object);
-    println!(
-        "{0} rules are needed to prove: {1}",
-        format!("{0}", ruleset_minimal.len()).red().bold(),
-        format!("{0}", expression.0.to_string()).bright_green().bold(),
-    );
-    // for r in ruleset_copy{
-    //     println!(
-    //         "{}",format!("{}", r.name()).blue().bold()
-    //     );
-    // }
+    if provedOnce{
+        ruleset_copy_names = ruleset_minimal.clone().into_iter().map(|rule| rule.name().to_string()).rev().collect();
+        data_object = object! {
+                expression: object!{
+                    start: expression.0,
+                    end: expression.1,
+                },
+                rules: ruleset_copy_names
+            };
+        data.lock().unwrap().push(data_object);
+        println!(
+            "{0} rules are needed to prove: {1}",
+            format!("{0}", ruleset_minimal.len()).red().bold(),
+            format!("{0}", expression.0.to_string()).bright_green().bold(),
+        );
+        // for r in ruleset_minimal{
+        //     println!(
+        //         "{}",format!("{}", r.name()).blue().bold()
+        //     );
+        // }
+    }  
 }
 
 
@@ -184,6 +189,7 @@ pub fn minimal_set_to_prove_0_1(expression: &str, ruleset_id:i8, params: (usize,
     let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
     let mut proved_goal= "0/1".to_string();
+    let mut provedOnce: bool = false;
     let mut runner;
     let mut id;
     let mut matches;
@@ -231,30 +237,34 @@ pub fn minimal_set_to_prove_0_1(expression: &str, ruleset_id:i8, params: (usize,
             if matches {
                 ruleset_copy.insert(i, rule);
                 i += 1;
+            } else {
+                provedOnce = true;
             }
         }
         if ruleset_copy.len() < ruleset_minimal.len() {
             ruleset_minimal = ruleset_copy.clone();
         }
         counter += 1;
+    } 
+    if provedOnce {
+        ruleset_copy_names = ruleset_minimal.clone().into_iter().map(|rule| rule.name().to_string()).rev().collect();
+        data_object = object! {
+                expression: object!{
+                    start: expression,
+                    end: proved_goal,
+                },
+                rules: ruleset_copy_names
+            };
+        data.lock().unwrap().push(data_object);
+        println!(
+            "{0} rules are needed to prove: {1}",
+            format!("{0}", ruleset_minimal.len()).red().bold(),
+            format!("{0}", expression.to_string()).bright_green().bold(),
+        );
+        // for r in ruleset_copy{
+        //     println!(
+        //         "{}",format!("{}", r.name()).blue().bold()
+        //     );
+        // }
     }
-    ruleset_copy_names = ruleset_minimal.clone().into_iter().map(|rule| rule.name().to_string()).rev().collect();
-    data_object = object! {
-            expression: object!{
-                start: expression,
-                end: proved_goal,
-            },
-            rules: ruleset_copy_names
-        };
-    data.lock().unwrap().push(data_object);
-    println!(
-        "{0} rules are needed to prove: {1}",
-        format!("{0}", ruleset_minimal.len()).red().bold(),
-        format!("{0}", expression.to_string()).bright_green().bold(),
-    );
-    // for r in ruleset_copy{
-    //     println!(
-    //         "{}",format!("{}", r.name()).blue().bold()
-    //     );
-    // }
 }
