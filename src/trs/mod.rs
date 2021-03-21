@@ -398,7 +398,7 @@ pub fn rules(ruleset_class: i8) -> Vec<Rewrite> {
 #[allow(dead_code)]
 pub fn print_graph(egraph: &EGraph) {
     println!("printing graph to svg");
-    egraph.dot().to_svg("target/foo.svg").unwrap();
+    egraph.dot().to_svg("foo.svg").unwrap();
     println!("done printing graph to svg");
 }
 

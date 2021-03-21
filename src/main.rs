@@ -32,7 +32,7 @@ fn main() {
         ("( == (min a b) (a))","1"),
     ];
     // generate_dataset(expressions,(30, 10000, 5), 2, 2);
-    generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
+    //generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
 
 
 
@@ -48,11 +48,10 @@ fn main() {
         generate_dataset_0_1_par(&expression_str_vct, -1,params,true, 10);
         // prove_expressions(&expression_vect,-1,params,true,true);
     } else {
-        // let params = get_runner_params(1).unwrap();
-        // println!("{:?}", params);
-        // let (start, end) = get_start_end().unwrap();
-        // println!("Simplifying expression:\n {}\n to {}", start,end);
-        // trs::prove_equiv(&start,&end, -1, params, false, true);
+        let params = get_runner_params(1).unwrap();
+        let (start, end) = get_start_end().unwrap();
+        println!("Simplifying expression:\n {}\n to {}", start,end);
+        trs::prove_equiv(&start,&end, -1, params, false, true);
         // trs::prove_expr(&start, &end, 2, true);
     }
 }
