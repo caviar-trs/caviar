@@ -4,6 +4,7 @@ use crate::io::reader::{get_start_end, read_expressions, get_first_arg, get_runn
 use crate::structs::{ExpressionStruct, ResultStructure};
 use crate::trs::prove_expr;
 use crate::io::writer::write_results;
+use crate::dataset::{generate_dataset_par, minimal_set_to_prove_0_1, generate_dataset_0_1_par};
 
 mod trs;
 
@@ -12,7 +13,7 @@ mod io;
 mod structs;
 mod dataset;
 
-fn simplify_expressions(exprs_vect: &Vec<ExpressionStruct>,ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool,report: bool) -> Vec<ResultStructure> {
+fn prove_expressions(exprs_vect: &Vec<ExpressionStruct>,ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool,report: bool) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
         results.push(prove_expr(expression, ruleset_class, params, use_iteration_check,report));
@@ -38,7 +39,13 @@ fn main() {
         let file_path = get_first_arg().unwrap();
         let params = get_runner_params(2).unwrap();
         let expression_vect = read_expressions(&file_path).unwrap();
-        write_results("results/results_expressions_egg.csv",&simplify_expressions(&expression_vect, -1, params, true, true) ).unwrap();
+        let mut expression_str_vct = Vec::new();
+
+        for expressionStruct in expression_vect.iter() {
+            expression_str_vct.push( expressionStruct.expression.clone());
+        }
+        generate_dataset_0_1_par(&expression_str_vct, -1,params,true, 10);
+        // prove_expressions(&expression_vect,-1,params,true,true);
     } else {
         let params = get_runner_params(1).unwrap();
         println!("{:?}", params);
