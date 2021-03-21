@@ -200,7 +200,7 @@ pub fn minimal_set_to_prove_0_1(expression: &str, ruleset_id:i8, params: (usize,
     let mut ruleset = rules(ruleset_id);
     let data_object;
     ruleset.shuffle(&mut rng);
-    println!("Ruleset size == {}", ruleset.len());
+    //println!("Ruleset size == {}", ruleset.len());
     let mut ruleset_copy: Vec<egg::Rewrite<Math, ConstantFold>>;
     let mut ruleset_minimal: Vec<egg::Rewrite<Math, ConstantFold>>;
     let ruleset_copy_names: Vec<String>;
