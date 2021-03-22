@@ -305,7 +305,7 @@ pub fn compare_c0_c1(var: &str, var1: &str, comp: &'static str) -> impl Fn(&mut 
                                 *c >= (c1.abs() - 1)
                             }
                             "!=" => {
-                                *c != c1
+                                *c != *c1
                             }
                             _ => false
                         }
