@@ -269,43 +269,43 @@ pub fn compare_c0_c1(var: &str, var1: &str, comp: &'static str) -> impl Fn(&mut 
                     Math::Constant(c) => {
                         match comp {
                             "<" => {
-                                c < c1
+                                *c < *c1
                             }
                             "<a" => {
-                                c < &(c1.abs())
+                                *c < c1.abs()
                             }
                             "<=" => {
-                                c <= c1
+                                *c <= *c1
                             }
                             "<=+1" => {
-                                c <= &(c1 + 1)
+                                *c <= c1 + 1
                             }
                             "<=a" => {
-                                c <= &(c1.abs())
+                                *c <= c1.abs()
                             }
                             "<=-a" => {
-                                c <= &(-c1.abs())
+                                *c <= -c1.abs()
                             }
                             "<=-a+1" => {
-                                c <= &(1 - &c1.abs())
+                                *c <= 1 - c1.abs()
                             }
                             ">" => {
-                                c > c1
+                                *c > *c1
                             }
                             ">a" => {
-                                c > &(c1.abs())
+                                *c > c1.abs()
                             }
                             ">=" => {
-                                c >= c1
+                                *c >= *c1
                             }
                             ">=a" => {
-                                c >= &(c1.abs())
+                                *c >= (c1.abs())
                             }
                             ">=a-1" => {
-                                c >= &(c1.abs() - 1)
+                                *c >= (c1.abs() - 1)
                             }
                             "!=" => {
-                                c != c1
+                                *c != c1
                             }
                             _ => false
                         }
