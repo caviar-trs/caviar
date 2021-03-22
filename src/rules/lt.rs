@@ -22,8 +22,9 @@ pub fn lt() -> Vec<Rewrite> { vec![
     rw!("lt-max-term+neg-term"  ; "( < ( max ?z ?y ) ( max ?x ( + ?y ?c0 ) ) )" => "( < ( max ?z ?y ) ?x )" if crate::trs::is_const_neg("?c0")),
     rw!("lt-min-term+cpos"      ; "( < ( min ?x ?y ) (+ ?x ?c0) )"              => "1" if crate::trs::is_const_pos("?c0")),
     rw!("lt-min-max-cancel"     ; "(< (max ?a ?c) (min ?a ?b))"                 => "0"),
-    rw!("lt-mul-pos-cancel"     ; "(< (* ?x ?y) ?z)"                            => "(< (/ (* ?x ?y) ?y) (/ ?z ?y))"  if crate::trs::is_const_pos("?y")), //adding it causes an error
-    rw!("lt-mul-div-cancel"     ; "(< ?x (/ ?z ?y))"                            => "(< (* ?x ?y) (* (/ ?z ?y) ?y))"  if crate::trs::is_const_pos("?y")), //adding it causes an error
+    
+    rw!("lt-mul-pos-cancel"     ; "(< (* ?x ?y) ?z)"                            => "(< ?x (/ ?z ?y))"  if crate::trs::is_const_pos("?y")), //adding it causes an error
+    rw!("lt-mul-div-cancel"     ; "(< ?x (/ ?z ?y))"                            => "(< (* ?x ?y) ?z))"  if crate::trs::is_const_pos("?y")), //adding it causes an error
     
     // VERIFY WITH ADEL
     // rw!("cancel-mul-pos-lt";  "(< (* ?x ?y) ?z)" => "(< ?x (/ ?z ?y))"  if crate::trs::is_const_pos("?y")), //adding it causes an error
