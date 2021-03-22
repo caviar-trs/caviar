@@ -1,6 +1,6 @@
 use colored::*;
 use egg::{*};
-use ordered_float::NotNan;
+// use ordered_float::NotNan;
 use std::{cmp::Ordering, time::Instant};
 use num_traits::cast::ToPrimitive;
 use std::time::Duration;
@@ -9,7 +9,7 @@ use crate::structs::{ResultStructure, ExpressionStruct, Rule};
 
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
 pub type Rewrite = egg::Rewrite<Math, ConstantFold>;
-pub type Constant = NotNan<f64>;
+pub type Constant = i64;
 pub type Boolean = bool;
 
 
@@ -68,92 +68,77 @@ impl Analysis<Math> for ConstantFold {
             Math::Add([a, b]) => x(a)? + x(b)?,
             Math::Sub([a, b]) => x(a)? - x(b)?,
             Math::Mul([a, b]) => x(a)? * x(b)?,
-            Math::Div([a, b]) if x(b) != Some(0.0.into()) => NotNan::from((x(a)?.to_i64().unwrap() / x(b)?.to_i64().unwrap()) as f64),
+            Math::Div([a, b]) if x(b) != Some(0) => (x(a)?.to_i64().unwrap() / x(b)?.to_i64().unwrap()),
             //Math::Div([a, b]) if x(b) != Some(0.0.into()) => x(a)? / x(b)?,
             Math::Max([a, b]) => std::cmp::max(x(a)?, x(b)?),
             Math::Min([a, b]) => std::cmp::min(x(a)?, x(b)?),
-            Math::Not(a) => NotNan::new(if x(a)?.cmp(&NotNan::from(0.0)) == Ordering::Equal {
-                1.0
+            Math::Not(a) => if x(a)? == 0  {
+                1
             } else {
-                0.0
-            })
-                .unwrap(),
+                0
+            },
 
-            Math::Lt([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Less {
-                1.0
+            Math::Lt([a, b]) => if x(a)? < x(b)?  {
+                1
             } else {
-                0.0
-            })
-                .unwrap(),
+                0
+            },
 
-            Math::Gt([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Greater {
-                1.0
+            Math::Gt([a, b]) => if x(a)? > x(b)?  {
+                1
             } else {
-                0.0
-            })
-                .unwrap(),
+                0
+            },
 
-            Math::Let([a, b]) => NotNan::new(
-                if x(a)?.cmp(&x(b)?) == Ordering::Less || x(a)?.cmp(&x(b)?) == Ordering::Equal {
-                    1.0
-                } else {
-                    0.0
-                },
-            )
-                .unwrap(),
+            Math::Let([a, b]) => if x(a)? <= x(b)?  {
+                1
+            } else {
+                0
+            },
 
-            Math::Get([a, b]) => NotNan::new(
-                if x(a)?.cmp(&x(b)?) == Ordering::Greater || x(a)?.cmp(&x(b)?) == Ordering::Equal {
-                    1.0
-                } else {
-                    0.0
-                },
-            )
-                .unwrap(),
+            Math::Get([a, b]) => if x(a)? >= x(b)?  {
+                1
+            } else {
+                0
+            },
 
             Math::Mod([a, b]) => {
-                if x(b)? == NotNan::from(0.0) {
-                    NotNan::from(0.0)
+                if x(b)? == 0 {
+                    0
                 } else {
                     x(a)? % x(b)?
                 }
             }
 
-            Math::Eq([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Equal {
-                1.0
+            Math::Eq([a, b]) => if x(a)? == x(b)? {
+                1
             } else {
-                0.0
-            })
-                .unwrap(),
+                0
+            },
 
-            Math::IEq([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Equal {
-                0.0
+            Math::IEq([a, b]) => if x(a)? == x(b)? {
+                0
             } else {
-                1.0
-            })
-                .unwrap(),
+                1
+            },
 
-            Math::And([a, b]) => NotNan::new(
-                if x(a)?.cmp(&NotNan::from(0.0)) == Ordering::Equal
-                    || x(b)?.cmp(&NotNan::from(0.0)) == Ordering::Equal
+            Math::And([a, b]) =>
+                if x(a)? == 0
+                    || x(b)? == 0
                 {
-                    0.0
+                    0
                 } else {
-                    1.0
+                    1
                 },
-            )
-                .unwrap(),
 
-            Math::Or([a, b]) => NotNan::new(
-                if x(a)?.cmp(&NotNan::from(1.0)) == Ordering::Equal
-                    || x(b)?.cmp(&NotNan::from(1.0)) == Ordering::Equal
+            Math::Or([a, b]) =>
+                if x(a)? == 1
+                    || x(b)? == 1
                 {
-                    1.0
+                    1
                 } else {
-                    0.0
+                    0
                 },
-            )
-                .unwrap(),
 
             _ => return None,
         })
@@ -193,7 +178,7 @@ pub fn is_const_or_distinct_var(v: &str, w: &str) -> impl Fn(&mut EGraph, Id, &S
 
 pub fn is_const_pos(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
-    let zero = NotNan::from(0.0);
+    let zero = 0;
     move |egraph, _, subst| {
         egraph[subst[var]].nodes.iter().any(|n| match n {
             Math::Constant(c) => c.cmp(&zero) == Ordering::Greater,
@@ -204,7 +189,7 @@ pub fn is_const_pos(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 
 pub fn is_const_neg(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
-    let zero = NotNan::from(0.0);
+    let zero = 0;
     move |egraph, _, subst| {
         egraph[subst[var]].nodes.iter().any(|n| match n {
             Math::Constant(c) => c.cmp(&zero) == Ordering::Less,
@@ -237,7 +222,7 @@ pub fn is_sym(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 
 pub fn is_not_zero(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
-    let zero = Math::Constant(0.0.into());
+    let zero = Math::Constant(0);
     move |egraph, _, subst| !egraph[subst[var]].nodes.contains(&zero)
 }
 
@@ -265,7 +250,7 @@ pub fn are_less_eq_absolute(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &
         egraph[subst[var1]].nodes.iter().any(|n| match n {
             Math::Constant(c) => {
                 egraph[subst[var]].nodes.iter().any(|n1| match n1 {
-                    Math::Constant(c1) => (c1.to_f64().unwrap() <= c.abs()),
+                    Math::Constant(c1) => (c1 <= &c.abs()),
                     _ => return false,
                 })
             }
@@ -284,43 +269,43 @@ pub fn compare_c0_c1(var: &str, var1: &str, comp: &'static str) -> impl Fn(&mut 
                     Math::Constant(c) => {
                         match comp {
                             "<" => {
-                                c.to_f64().unwrap() < c1.to_f64().unwrap()
+                                c < c1
                             }
                             "<a" => {
-                                c.to_f64().unwrap() < c1.abs()
+                                c < &(c1.abs())
                             }
                             "<=" => {
-                                c.to_f64().unwrap() <= c1.to_f64().unwrap()
+                                c <= c1
                             }
                             "<=+1" => {
-                                c.to_f64().unwrap() <= c1.to_f64().unwrap() + 1.0
+                                c <= &(c1 + 1)
                             }
                             "<=a" => {
-                                c.to_f64().unwrap() <= c1.abs()
+                                c <= &(c1.abs())
                             }
                             "<=-a" => {
-                                c.to_f64().unwrap() <= (-c1.abs())
+                                c <= &(-c1.abs())
                             }
                             "<=-a+1" => {
-                                c.to_f64().unwrap() <= (-c1.abs() + 1.0)
+                                c <= &(1 - &c1.abs())
                             }
                             ">" => {
-                                c.to_f64().unwrap() > c1.to_f64().unwrap()
+                                c > c1
                             }
                             ">a" => {
-                                c.to_f64().unwrap() > c1.abs()
+                                c > &(c1.abs())
                             }
                             ">=" => {
-                                c.to_f64().unwrap() >= c1.to_f64().unwrap()
+                                c >= c1
                             }
                             ">=a" => {
-                                c.to_f64().unwrap() >= c1.abs()
+                                c >= &(c1.abs())
                             }
                             ">=a-1" => {
-                                c.to_f64().unwrap() >= (c1.abs() - 1.0)
+                                c >= &(c1.abs() - 1)
                             }
                             "!=" => {
-                                c.to_f64().unwrap() != c1.to_f64().unwrap()
+                                c != c1
                             }
                             _ => false
                         }
