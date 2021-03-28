@@ -2,7 +2,7 @@ use std::env;
 
 use crate::io::reader::{get_start_end, read_expressions, get_first_arg, get_runner_params};
 use crate::structs::{ExpressionStruct, ResultStructure};
-use crate::trs::prove_expr;
+use crate::trs::{prove_expr, filtered_rules, prove_expression_with_file_classes};
 use crate::io::writer::write_results;
 use crate::dataset::{generate_dataset_par, minimal_set_to_prove_0_1, generate_dataset_0_1_par};
 
@@ -32,26 +32,37 @@ fn main() {
     //     ("( == (min a b) (a))","1"),
     // ];
     // generate_dataset(expressions,(30, 10000, 5), 2, 2);
-    //generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
+    // generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
+    // println!("Printing rules ...");
+    // let arr = filteredRules(&get_first_arg().unwrap(), 1).unwrap();
+    // for rule in arr{
+    //     println!("{}", rule.name());
+    // }
+    // println!("End.");
 
+    // if args.len() > 4 {
+    //     let file_path = get_first_arg().unwrap();
+    //     let params = get_runner_params(2).unwrap();
+    //     let expression_vect = read_expressions(&file_path).unwrap();
+    //     let mut expression_str_vct = Vec::new();
 
+    //     for expressionStruct in expression_vect.iter() {
+    //         expression_str_vct.push( expressionStruct.expression.clone());
+    //     }
+    //     generate_dataset_0_1_par(&expression_str_vct, -1,params,true, 10);
+    //     prove_expressions(&expression_vect,-1,params,true,true);
+    // } else {
+    //     let params = get_runner_params(1).unwrap();
+    //     let (start, end) = get_start_end().unwrap();
+    //     println!("Simplifying expression:\n {}\n to {}", start,end);
+    //     trs::prove(&start, -1, params, false, true);
+    //     trs::prove_expr(&start, &end, 2, true);
+    // }
 
-    if args.len() > 4 {
-        let file_path = get_first_arg().unwrap();
-        let params = get_runner_params(2).unwrap();
-        let expression_vect = read_expressions(&file_path).unwrap();
-        let mut expression_str_vct = Vec::new();
-
-        for expressionStruct in expression_vect.iter() {
-            expression_str_vct.push( expressionStruct.expression.clone());
-        }
-        generate_dataset_0_1_par(&expression_str_vct, -1,params,true, 10);
-        // prove_expressions(&expression_vect,-1,params,true,true);
-    } else {
-        let params = get_runner_params(1).unwrap();
-        let (start, end) = get_start_end().unwrap();
-        println!("Simplifying expression:\n {}\n to {}", start,end);
-        trs::prove(&start, -1, params, false, true);
-        // trs::prove_expr(&start, &end, 2, true);
-    }
+    let file_path = get_first_arg().unwrap();
+    let params = get_runner_params(2).unwrap();
+    let (start, end) = get_start_end().unwrap();
+    println!("Simplifying expression:\n {}\n to {}", start,end);
+    let result: ResultStructure = trs::prove_expression_with_file_classes(params, 1, &start, &end, &file_path, true).unwrap();
+    println!("Total time = {}", result.total_time);
 }
