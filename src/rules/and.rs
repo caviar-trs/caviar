@@ -22,6 +22,6 @@ pub fn and() -> Vec<Rewrite> { vec![
     rw!("and-lt-gt-to-0"    ; "( && ( < ?c0 ?x ) ( < ?x ?c1 ) )"    => "(0)" if crate::trs::compare_c0_c1("?c1", "?c0", "<=+1")),
     rw!("and-eqlt-eqgt-to-0"; "( && ( <= ?c0 ?x ) ( <= ?x ?c1 ) )"  => "(0)" if crate::trs::compare_c0_c1("?c1", "?c0", "<")),
     rw!("and-eqlt-gt-to-0"  ; "( && ( <= ?c0 ?x ) ( < ?x ?c1 ) )"   => "(0)" if crate::trs::compare_c0_c1("?c1", "?c0", "<=")),
-    
+
     // rw!("x-0-and";  "(&& 0 ?x)"        => "0"), //NOTAXIOM
 ]}

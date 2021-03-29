@@ -1,3 +1,4 @@
+use egg::{rewrite as rw};
 use colored::*;
 use egg::{*};
 // use ordered_float::NotNan;
@@ -353,6 +354,15 @@ pub fn rules(ruleset_class: i8) -> Vec<Rewrite> {
     let sub_rules = crate::rules::sub::sub();
 
     return match ruleset_class {
+        -2 =>vec![
+            rw!("add-comm"      ; "(+ ?a ?b)"                   => "(+ ?b ?a)"),
+            rw!("add-assoc"     ; "(+ ?a (+ ?b ?c))"            => "(+ (+ ?a ?b) ?c)"),
+            // rw!("add-zero"      ; "(+ ?a 0)"                    => "?a"),
+
+            rw!("eq-x-x"        ; "(== ?x ?x)"           => "1"),
+            rw!("sub-to-add"; "(- ?a ?b)"   => "(+ ?a (* -1 ?b))"),
+
+        ],
         0 =>
             [
                 &add_rules[..],
@@ -381,9 +391,9 @@ pub fn rules(ruleset_class: i8) -> Vec<Rewrite> {
 }
 
 #[allow(dead_code)]
-pub fn print_graph(egraph: &EGraph) {
+pub fn print_graph(name: &str, egraph: &EGraph) {
     println!("printing graph to svg");
-    egraph.dot().to_svg("foo.svg").unwrap();
+    egraph.dot().to_svg("results/".to_string() + name + ".svg").unwrap();
     println!("done printing graph to svg");
 }
 
@@ -497,7 +507,7 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
     let goals = [end_0.clone(), end_1.clone()];
     // That's it! We can run equality saturation now.
     // let runner = Runner::default().with_expr(&start).run(rules(ruleset_class).iter());
-    let runner: Runner<Math, ConstantFold>;
+    let mut runner: Runner<Math, ConstantFold>;
     let mut result = false;
     let mut proved_goal_index = 0;
     let id;
@@ -519,8 +529,10 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
             .with_iter_limit(params.0)
             .with_node_limit(params.1)
             .with_time_limit(Duration::new(params.2, 0))
-            .with_expr(&start)
-            .run(rules(ruleset_class).iter());
+            .with_expr(&start);
+        print_graph("start", &runner.egraph);
+        runner = runner.run(rules(ruleset_class).iter());
+        print_graph(&format!("iter{}",params.0), &runner.egraph);
     }
 
     id = runner.egraph.find(*runner.roots.last().unwrap());
