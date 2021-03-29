@@ -67,31 +67,18 @@ impl Analysis<Math> for ConstantFold {
         let x = |i: &Id| egraph[*i].data.as_ref();
         Some(match enode {
             Math::Constant(c) => (*c).clone(),
-            Math::Add([a, b]) => (x(a)? + x(b)?).unwrap(),
-            Math::Sub([a, b]) => (x(a)? - x(b)?).unwrap(),
-            // Math::Mul([a, b]) => x(a)? * x(b)?,
-            // Math::Div([a, b]) if x(b) != Some(0) => (x(a)?.to_i64().unwrap() / x(b)?.to_i64().unwrap()),
-            // //Math::Div([a, b]) if x(b) != Some(0.0.into()) => x(a)? / x(b)?,
-            // Math::Max([a, b]) => std::cmp::max(x(a)?, x(b)?),
-            // Math::Min([a, b]) => std::cmp::min(x(a)?, x(b)?),
-            // Math::Not(a) => if x(a)? == 0  {
-            //     1
-            // } else {
-            //     0
-            // },
-            //
-            // Math::Lt([a, b]) => if x(a)? < x(b)?  {
-            //     1
-            // } else {
-            //     0
-            // },
-            //
-            // Math::Gt([a, b]) => if x(a)? > x(b)?  {
-            //     1
-            // } else {
-            //     0
-            // },
-            //
+            Math::Add([a, b]) => (x(a)? + x(b)?)?,
+            Math::Sub([a, b]) => (x(a)? - x(b)?)?,
+            Math::Mul([a, b]) => (x(a)? * x(b)?)?,
+            Math::Div([a, b]) if x(b) != Some(&TRSDATA::Constant(0)) => (x(a)? / x(b)?)?,
+            Math::Max([a, b]) => std::cmp::max(x(a)?.clone(), x(b)?.clone()),
+            Math::Min([a, b]) => std::cmp::min(x(a)?.clone(), x(b)?.clone()),
+            Math::Not(a) => (!x(a)?)?,
+            Math::Lt([a, b]) => TRSDATA::Boolean(x(a)? < x(b)?),
+            // Math::Gt([a, b]) => TRSDATA::Boolean(x(a)? > x(b)?),
+            // Math::Let([a, b]) => TRSDATA::Boolean(x(a)? <= x(b)?),
+            // Math::Get([a, b]) => TRSDATA::Boolean(x(a)? >= x(b)?),
+
             // Math::Let([a, b]) => if x(a)? <= x(b)?  {
             //     1
             // } else {

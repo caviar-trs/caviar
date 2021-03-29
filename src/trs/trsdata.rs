@@ -1,3 +1,11 @@
+use std::{
+    cmp::Ordering,
+    fmt,
+    num::ParseIntError,
+    ops::{Add, Div, Mul, Not, Sub},
+    str::FromStr,
+};
+
 #[derive(Debug, Clone, Eq, Ord, Hash)]
 pub enum TRSDATA {
     Constant(i64),
@@ -27,6 +35,59 @@ impl Add for &TRSDATA {
                 TRSDATA::Constant(b) => Some(TRSDATA::Constant(*a + *b)),
                 _ => None,
             },
+            _ => None,
+        }
+    }
+}
+
+impl Sub for &TRSDATA {
+    type Output = Option<TRSDATA>;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        match self {
+            TRSDATA::Constant(a) => match rhs {
+                TRSDATA::Constant(b) => Some(TRSDATA::Constant(*a - *b)),
+                _ => None,
+            },
+            _ => None,
+        }
+    }
+}
+
+impl Mul for &TRSDATA {
+    type Output = Option<TRSDATA>;
+
+    fn mul(self, rhs: Self) -> Self::Output {
+        match self {
+            TRSDATA::Constant(a) => match rhs {
+                TRSDATA::Constant(b) => Some(TRSDATA::Constant(*a * *b)),
+                _ => None,
+            },
+            _ => None,
+        }
+    }
+}
+
+impl Div for &TRSDATA {
+    type Output = Option<TRSDATA>;
+
+    fn div(self, rhs: Self) -> Self::Output {
+        match self {
+            TRSDATA::Constant(a) => match rhs {
+                TRSDATA::Constant(b) => Some(TRSDATA::Constant(*a / *b)),
+                _ => None,
+            },
+            _ => None,
+        }
+    }
+}
+
+impl Not for &TRSDATA {
+    type Output = Option<TRSDATA>;
+
+    fn not(self) -> Self::Output {
+        match self {
+            TRSDATA::Boolean(a) => Some(TRSDATA::Boolean(!(*a))),
             _ => None,
         }
     }
