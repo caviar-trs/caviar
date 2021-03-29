@@ -13,6 +13,8 @@ use std::str::FromStr;
 
 use trsdata::TRSDATA;
 
+use self::trsdata::{and, or};
+
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
 pub type Rewrite = egg::Rewrite<Math, ConstantFold>;
 pub type Constant = i64;
@@ -32,7 +34,7 @@ define_language! {
         "!" = Not(Id),
         "<=" = Let([Id;2]),
         ">=" = Get([Id;2]),
-        "==" = Equ([Id; 2]),
+        "==" = Eq([Id; 2]),
         "!=" = IEq([Id; 2]),
         "||" = Or([Id; 2]),
         "&&" = And([Id; 2]),
@@ -75,59 +77,14 @@ impl Analysis<Math> for ConstantFold {
             Math::Min([a, b]) => std::cmp::min(x(a)?.clone(), x(b)?.clone()),
             Math::Not(a) => (!x(a)?)?,
             Math::Lt([a, b]) => TRSDATA::Boolean(x(a)? < x(b)?),
-            // Math::Gt([a, b]) => TRSDATA::Boolean(x(a)? > x(b)?),
-            // Math::Let([a, b]) => TRSDATA::Boolean(x(a)? <= x(b)?),
-            // Math::Get([a, b]) => TRSDATA::Boolean(x(a)? >= x(b)?),
-
-            // Math::Let([a, b]) => if x(a)? <= x(b)?  {
-            //     1
-            // } else {
-            //     0
-            // },
-            //
-            // Math::Get([a, b]) => if x(a)? >= x(b)?  {
-            //     1
-            // } else {
-            //     0
-            // },
-            //
-            // Math::Mod([a, b]) => {
-            //     if x(b)? == 0 {
-            //         0
-            //     } else {
-            //         x(a)? % x(b)?
-            //     }
-            // }
-            //
-            // Math::Eq([a, b]) => if x(a)? == x(b)? {
-            //     1
-            // } else {
-            //     0
-            // },
-            //
-            // Math::IEq([a, b]) => if x(a)? == x(b)? {
-            //     0
-            // } else {
-            //     1
-            // },
-            //
-            // Math::And([a, b]) =>
-            //     if x(a)? == 0
-            //         || x(b)? == 0
-            //     {
-            //         0
-            //     } else {
-            //         1
-            //     },
-            //
-            // Math::Or([a, b]) =>
-            //     if x(a)? == 1
-            //         || x(b)? == 1
-            //     {
-            //         1
-            //     } else {
-            //         0
-            //     },
+            Math::Gt([a, b]) => TRSDATA::Boolean(x(a)? > x(b)?),
+            Math::Let([a, b]) => TRSDATA::Boolean(x(a)? <= x(b)?),
+            Math::Get([a, b]) => TRSDATA::Boolean(x(a)? >= x(b)?),
+            Math::Mod([a, b]) => (x(a)? % x(b)?)?,
+            Math::Eq([a, b]) => TRSDATA::Boolean(x(a)? == x(b)?),
+            Math::IEq([a, b]) => TRSDATA::Boolean(x(a)? != x(b)?),
+            Math::And([a, b]) => and(x(a)?, x(b)?)?,
+            Math::Or([a, b]) => or(x(a)?, x(b)?)?,
             _ => return None,
         })
     }

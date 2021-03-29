@@ -2,7 +2,7 @@ use std::{
     cmp::Ordering,
     fmt,
     num::ParseIntError,
-    ops::{Add, Div, Mul, Not, Sub},
+    ops::{Add, Div, Mul, Not, Rem, Sub},
     str::FromStr,
 };
 
@@ -90,6 +90,40 @@ impl Not for &TRSDATA {
             TRSDATA::Boolean(a) => Some(TRSDATA::Boolean(!(*a))),
             _ => None,
         }
+    }
+}
+
+impl Rem for &TRSDATA {
+    type Output = Option<TRSDATA>;
+
+    fn rem(self, rhs: Self) -> Self::Output {
+        match self {
+            TRSDATA::Constant(a) => match rhs {
+                TRSDATA::Constant(b) => Some(TRSDATA::Constant(*a % *b)),
+                _ => None,
+            },
+            _ => None,
+        }
+    }
+}
+
+pub fn and(var1: &TRSDATA, var2: &TRSDATA) -> Option<TRSDATA> {
+    match *var1 {
+        TRSDATA::Boolean(a) => match *var2 {
+            TRSDATA::Boolean(b) => Some(TRSDATA::Boolean(a && b)),
+            _ => None,
+        },
+        _ => None,
+    }
+}
+
+pub fn or(var1: &TRSDATA, var2: &TRSDATA) -> Option<TRSDATA> {
+    match *var1 {
+        TRSDATA::Boolean(a) => match *var2 {
+            TRSDATA::Boolean(b) => Some(TRSDATA::Boolean(a || b)),
+            _ => None,
+        },
+        _ => None,
     }
 }
 
