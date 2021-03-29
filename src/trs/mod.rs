@@ -1,188 +1,22 @@
 // use ordered_float::NotNan;
-use std::{cmp::Ordering, time::Instant, fmt};
 use std::ops::Add;
 use std::time::Duration;
+use std::{cmp::Ordering, fmt, time::Instant};
 
 use colored::*;
-use egg::{*};
-use num_traits::cast::ToPrimitive;
+use egg::*;
+pub mod trsdata;
 
 use crate::structs::{ExpressionStruct, ResultStructure, Rule};
 use std::num::ParseIntError;
 use std::str::FromStr;
 
+use trsdata::TRSDATA;
+
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
 pub type Rewrite = egg::Rewrite<Math, ConstantFold>;
 pub type Constant = i64;
 pub type Boolean = bool;
-
-
-#[derive(Debug, Clone, Eq, Ord, Hash)]
-pub enum TRSDATA {
-    Constant(i64),
-    Boolean(bool),
-}
-
-impl Add for TRSDATA {
-    type Output = Option<TRSDATA>;
-
-    fn add(self, rhs: Self) -> Self::Output {
-        match self {
-            TRSDATA::Constant(a) => {
-                match rhs {
-                    TRSDATA::Constant(b) => {
-                        Some(TRSDATA::Constant(a + b))
-                    }
-                    _ => None
-                }
-            }
-            _ => None
-        }
-    }
-}
-
-impl Add for &TRSDATA {
-    type Output = Option<TRSDATA>;
-
-    fn add(self, rhs: Self) -> Self::Output {
-        match self {
-            TRSDATA::Constant(a) => {
-                match rhs {
-                    TRSDATA::Constant(b) => {
-                        Some(TRSDATA::Constant(*a + *b))
-                    }
-                    _ => None
-                }
-            }
-            _ => None
-        }
-    }
-}
-
-impl PartialEq for TRSDATA {
-    fn eq(&self, other: &Self) -> bool {
-        match self {
-            TRSDATA::Constant(a) => {
-                match other {
-                    TRSDATA::Constant(b) => a == b,
-                    TRSDATA::Boolean(_) => false
-                }
-            }
-            TRSDATA::Boolean(a) => {
-                match other {
-                    TRSDATA::Constant(_) => false,
-                    TRSDATA::Boolean(b) => a == b
-                }
-            }
-        }
-    }
-
-    fn ne(&self, other: &Self) -> bool {
-        match self {
-            TRSDATA::Constant(a) => {
-                match other {
-                    TRSDATA::Constant(b) => a != b,
-                    TRSDATA::Boolean(_) => false
-                }
-            }
-            TRSDATA::Boolean(a) => {
-                match other {
-                    TRSDATA::Constant(_) => false,
-                    TRSDATA::Boolean(b) => a != b
-                }
-            }
-        }
-    }
-}
-
-impl PartialOrd for TRSDATA{
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        match self {
-            TRSDATA::Constant(a) => {
-                match other {
-                    TRSDATA::Constant(b) => a.partial_cmp(b),
-                    TRSDATA::Boolean(_) => None
-                }
-            }
-            TRSDATA::Boolean(a) => {
-                match other {
-                    TRSDATA::Constant(_) => None,
-                    TRSDATA::Boolean(b) => a.partial_cmp(b)
-                }
-            }
-        }
-    }
-
-    fn lt(&self, other: &Self) -> bool {
-        match self {
-            TRSDATA::Constant(a) => {
-                match other {
-                    TRSDATA::Constant(b) => a < b,
-                    _ => false
-                }
-            },
-            _ => false
-        }
-    }
-
-    fn le(&self, other: &Self) -> bool {
-        match self {
-            TRSDATA::Constant(a) => {
-                match other {
-                    TRSDATA::Constant(b) => a <= b,
-                    _ => false
-                }
-            },
-            _ => false
-        }
-    }
-
-    fn gt(&self, other: &Self) -> bool {
-        match self {
-            TRSDATA::Constant(a) => {
-                match other {
-                    TRSDATA::Constant(b) => a > b,
-                    _ => false
-                }
-            },
-            _ => false
-        }
-    }
-
-    fn ge(&self, other: &Self) -> bool {
-        match self {
-            TRSDATA::Constant(a) => {
-                match other {
-                    TRSDATA::Constant(b) => a >= b,
-                    _ => false
-                }
-            },
-            _ => false
-        }
-    }
-}
-
-impl fmt::Display for TRSDATA {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self{
-            TRSDATA::Boolean(b) => write!(f, "{:?}", b),
-            TRSDATA::Constant(constant) => write!(f, "{:?}", constant)
-        }
-    }
-}
-
-impl FromStr for TRSDATA {
-    type Err = ParseIntError;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-
-        match s {
-            "true" => Ok(TRSDATA::Boolean(true)),
-            "false" => Ok(TRSDATA::Boolean(false)),
-            _ => Ok(TRSDATA::Constant(s.parse::<i64>()?))
-        }
-    }
-}
 
 define_language! {
     pub enum Math {
@@ -207,8 +41,7 @@ define_language! {
     }
 }
 
-#[derive(Default)]
-#[derive(Clone)]
+#[derive(Default, Clone)]
 pub struct ConstantFold;
 
 impl Analysis<Math> for ConstantFold {
@@ -235,7 +68,7 @@ impl Analysis<Math> for ConstantFold {
         Some(match enode {
             Math::Constant(c) => (*c).clone(),
             Math::Add([a, b]) => (x(a)? + x(b)?).unwrap(),
-            // Math::Sub([a, b]) => x(a)? - x(b)?,
+            Math::Sub([a, b]) => (x(a)? - x(b)?).unwrap(),
             // Math::Mul([a, b]) => x(a)? * x(b)?,
             // Math::Div([a, b]) if x(b) != Some(0) => (x(a)?.to_i64().unwrap() / x(b)?.to_i64().unwrap()),
             // //Math::Div([a, b]) if x(b) != Some(0.0.into()) => x(a)? / x(b)?,
@@ -308,7 +141,6 @@ impl Analysis<Math> for ConstantFold {
             //     } else {
             //         0
             //     },
-
             _ => return None,
         })
     }
@@ -327,7 +159,7 @@ impl Analysis<Math> for ConstantFold {
                 egraph[id]
             );
             #[cfg(debug_assertions)]
-                egraph[id].assert_unique_leaves();
+            egraph[id].assert_unique_leaves();
         }
     }
 }
@@ -339,9 +171,9 @@ pub fn is_const_or_distinct_var(v: &str, w: &str) -> impl Fn(&mut EGraph, Id, &S
     move |egraph, _, subst| {
         egraph.find(subst[v]) != egraph.find(subst[w])
             && egraph[subst[v]]
-            .nodes
-            .iter()
-            .any(|n| matches!(n, Math::Constant(..) | Math::Symbol(..)))
+                .nodes
+                .iter()
+                .any(|n| matches!(n, Math::Constant(..) | Math::Symbol(..)))
     }
 }
 
@@ -351,7 +183,7 @@ pub fn is_const_pos(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
         egraph[subst[var]].nodes.iter().any(|n| match n {
             Math::Constant(c) => match *c {
                 TRSDATA::Constant(c_v) => c_v > 0,
-                _ => false
+                _ => false,
             },
             _ => return false,
         })
@@ -364,7 +196,7 @@ pub fn is_const_neg(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
         egraph[subst[var]].nodes.iter().any(|n| match n {
             Math::Constant(c) => match *c {
                 TRSDATA::Constant(c_v) => c_v < 0,
-                _ => false
+                _ => false,
             },
             _ => return false,
         })
@@ -432,71 +264,44 @@ pub fn is_not_zero(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 //     }
 // }
 
-pub fn compare_c0_c1(var: &str, var1: &str, comp: &'static str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+pub fn compare_c0_c1(
+    var: &str,
+    var1: &str,
+    comp: &'static str,
+) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var: Var = var.parse().unwrap();
     let var1: Var = var1.parse().unwrap();
     move |egraph, _, subst| {
         egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
-            Math::Constant(c1_d) => {
-                match *c1_d {
-                    TRSDATA::Constant(c1) => egraph[subst[var]].nodes.iter().any(|n| match n {
-                        Math::Constant(c_d) => {
-                            match *c_d {
-                                TRSDATA::Constant(c) => match comp {
-                                    "<" => {
-                                        c < c1
-                                    }
-                                    "<a" => {
-                                        c < c1.abs()
-                                    }
-                                    "<=" => {
-                                        c <= c1
-                                    }
-                                    "<=+1" => {
-                                        c <= c1 + 1
-                                    }
-                                    "<=a" => {
-                                        c <= c1.abs()
-                                    }
-                                    "<=-a" => {
-                                        c <= -c1.abs()
-                                    }
-                                    "<=-a+1" => {
-                                        c <= 1 - c1.abs()
-                                    }
-                                    ">" => {
-                                        c > c1
-                                    }
-                                    ">a" => {
-                                        c > c1.abs()
-                                    }
-                                    ">=" => {
-                                        c >= c1
-                                    }
-                                    ">=a" => {
-                                        c >= (c1.abs())
-                                    }
-                                    ">=a-1" => {
-                                        c >= (c1.abs() - 1)
-                                    }
-                                    "!=" => {
-                                        c != c1
-                                    }
-                                    _ => false
-                                },
-                                _ => false
-                            }
-                        }
-                        _ => return false,
-                    }),
-                    _ => false
-                }
-            }
+            Math::Constant(c1_d) => match *c1_d {
+                TRSDATA::Constant(c1) => egraph[subst[var]].nodes.iter().any(|n| match n {
+                    Math::Constant(c_d) => match *c_d {
+                        TRSDATA::Constant(c) => match comp {
+                            "<" => c < c1,
+                            "<a" => c < c1.abs(),
+                            "<=" => c <= c1,
+                            "<=+1" => c <= c1 + 1,
+                            "<=a" => c <= c1.abs(),
+                            "<=-a" => c <= -c1.abs(),
+                            "<=-a+1" => c <= 1 - c1.abs(),
+                            ">" => c > c1,
+                            ">a" => c > c1.abs(),
+                            ">=" => c >= c1,
+                            ">=a" => c >= (c1.abs()),
+                            ">=a-1" => c >= (c1.abs() - 1),
+                            "!=" => c != c1,
+                            _ => false,
+                        },
+                        _ => false,
+                    },
+                    _ => return false,
+                }),
+                _ => false,
+            },
             _ => return false,
         })
     }
 }
-
 
 // pub fn sum_is_great_zero_c0_abs(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 //     let var: Var = var.parse().unwrap();
@@ -598,7 +403,14 @@ pub fn simplify_time(start_expression: &str) {
 }
 
 #[allow(dead_code)]
-pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool, report: bool) -> (bool, f64, Option<String>) {
+pub fn prove_equiv(
+    start_expression: &str,
+    end_expressions: &str,
+    ruleset_class: i8,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> (bool, f64, Option<String>) {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end: Pattern<Math> = end_expressions.parse().unwrap();
     let result: bool;
@@ -667,7 +479,13 @@ pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class:
 }
 
 #[allow(dead_code)]
-pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool, report: bool) -> (bool, f64, Option<String>) {
+pub fn prove(
+    start_expression: &str,
+    ruleset_class: i8,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> (bool, f64, Option<String>) {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end_1: Pattern<Math> = "1".parse().unwrap();
     let end_0: Pattern<Math> = "0".parse().unwrap();
@@ -681,7 +499,10 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
     let best_expr;
 
     if report {
-        println!("\n==================================\nProving Expression:\n {}\n", start_expression)
+        println!(
+            "\n==================================\nProving Expression:\n {}\n",
+            start_expression
+        )
     }
     if use_iteration_check {
         runner = Runner::default()
@@ -713,7 +534,8 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
         if report {
             println!(
                 "{}\n{:?}",
-                "Proved goal:".bright_green().bold(), goals[proved_goal_index].to_string()
+                "Proved goal:".bright_green().bold(),
+                goals[proved_goal_index].to_string()
             );
         }
         best_expr = Some(goals[proved_goal_index].to_string())
@@ -726,10 +548,7 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
         best_expr = Some(best_exprr.to_string());
 
         if report {
-            println!(
-                "{}\n",
-                "Could not prove any goal:".bright_red().bold(),
-            );
+            println!("{}\n", "Could not prove any goal:".bright_red().bold(),);
             println!(
                 "Best Expr: {}",
                 format!("{}", best_exprr).bright_green().bold()
@@ -750,27 +569,45 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
 
 //Not yet refactored should be refactored when needed, as their argument might change
 #[allow(dead_code)]
-pub fn prove_all_classes(start_expression: &str, end_expressions: &str, start_class: i8, report: bool) -> bool {
+pub fn prove_all_classes(
+    start_expression: &str,
+    end_expressions: &str,
+    start_class: i8,
+    report: bool,
+) -> bool {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end: Pattern<Math> = end_expressions.parse().unwrap();
     let result: bool = false;
     let mut i = start_class;
 
     let start_t = Instant::now();
-    let mut runner = Runner::default().with_expr(&start).run(rules(start_class).iter());
+    let mut runner = Runner::default()
+        .with_expr(&start)
+        .run(rules(start_class).iter());
     let id = runner.egraph.find(*runner.roots.last().unwrap());
 
     while (!result) && (i < 3) {
         let start_t1 = Instant::now();
         if i > start_class {
-            runner = Runner::default().with_egraph(runner.egraph).run(rules(i).iter());
+            runner = Runner::default()
+                .with_egraph(runner.egraph)
+                .run(rules(i).iter());
         }
         if report {
-            println!("Time elapsed from start is: {:?}, just for this class: {:?}", start_t.elapsed(), start_t1.elapsed());
+            println!(
+                "Time elapsed from start is: {:?}, just for this class: {:?}",
+                start_t.elapsed(),
+                start_t1.elapsed()
+            );
         }
         let matches = end.search_eclass(&runner.egraph, id);
         if matches.is_none() {
-            println!("{} {} {}", "Class".bright_red(), i, "didn't work".bright_red());
+            println!(
+                "{} {} {}",
+                "Class".bright_red(),
+                i,
+                "didn't work".bright_red()
+            );
             if report {
                 runner.print_report();
             }
@@ -794,20 +631,61 @@ pub fn prove_all_classes(start_expression: &str, end_expressions: &str, start_cl
 }
 
 #[allow(dead_code)]
-pub fn prove_rule(rule: &Rule, ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool, report: bool) -> ResultStructure {
-    let (result, total_time, best_expr) = prove_equiv(&rule.lhs, &rule.rhs, ruleset_class, params, use_iteration_check, report);
+pub fn prove_rule(
+    rule: &Rule,
+    ruleset_class: i8,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> ResultStructure {
+    let (result, total_time, best_expr) = prove_equiv(
+        &rule.lhs,
+        &rule.rhs,
+        ruleset_class,
+        params,
+        use_iteration_check,
+        report,
+    );
     let best_expr_string = match best_expr {
         Some(expr) => expr,
-        None => "".to_string()
+        None => "".to_string(),
     };
-    ResultStructure::new(rule.index, rule.lhs.clone(), rule.rhs.clone(), result, best_expr_string, total_time, rule.condition.clone())
+    ResultStructure::new(
+        rule.index,
+        rule.lhs.clone(),
+        rule.rhs.clone(),
+        result,
+        best_expr_string,
+        total_time,
+        rule.condition.clone(),
+    )
 }
 
-pub fn prove_expr(expression: &ExpressionStruct, ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool, report: bool) -> ResultStructure {
-    let (result, total_time, best_expr) = prove(&(expression.expression)[..], ruleset_class, params, use_iteration_check, report);
+pub fn prove_expr(
+    expression: &ExpressionStruct,
+    ruleset_class: i8,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> ResultStructure {
+    let (result, total_time, best_expr) = prove(
+        &(expression.expression)[..],
+        ruleset_class,
+        params,
+        use_iteration_check,
+        report,
+    );
     let best_expr_string = match best_expr {
         Some(expr) => expr,
-        None => "".to_string()
+        None => "".to_string(),
     };
-    ResultStructure::new(expression.index, expression.expression.clone(), "1/0".to_string(), result, best_expr_string, total_time, None)
+    ResultStructure::new(
+        expression.index,
+        expression.expression.clone(),
+        "1/0".to_string(),
+        result,
+        best_expr_string,
+        total_time,
+        None,
+    )
 }
