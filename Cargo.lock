@@ -137,7 +137,6 @@ dependencies = [
 [[package]]
 name = "egg"
 version = "0.6.1-dev"
-source = "git+https://github.com/namani-kourta-pfe/egg?branch=check_equivalence_iteration_level#1b5bbb42b25188fd8ebace8a6814f0ac157a636e"
 dependencies = [
  "fxhash",
  "indexmap",

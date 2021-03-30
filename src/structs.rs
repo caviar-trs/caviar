@@ -1,25 +1,30 @@
+use std::usize;
+
 use serde::Serialize;
 
-#[derive(Serialize)]
-#[derive(Debug)]
+#[derive(Serialize, Debug)]
 pub struct ResultStructure {
     index: i16,
     start_expression: String,
     end_expression: String,
-    result: bool,
+    pub result: bool,
     best_expr: String,
     pub total_time: f64,
+    class: i64,
     condition: Option<String>,
 }
 
 impl ResultStructure {
-    pub fn new(index: i16,
-               start_expression: String,
-               end_expression: String,
-               result: bool,
-               best_expr: String,
-               total_time: f64,
-               condition: Option<String>) -> Self {
+    pub fn new(
+        index: i16,
+        start_expression: String,
+        end_expression: String,
+        result: bool,
+        best_expr: String,
+        total_time: f64,
+        class: i64,
+        condition: Option<String>,
+    ) -> Self {
         Self {
             index,
             start_expression,
@@ -27,13 +32,13 @@ impl ResultStructure {
             result,
             best_expr,
             total_time,
+            class,
             condition,
         }
     }
 }
 
-#[derive(Serialize)]
-#[derive(Debug)]
+#[derive(Serialize, Debug)]
 pub struct ExpressionStruct {
     pub index: i16,
     pub expression: String,
@@ -41,15 +46,11 @@ pub struct ExpressionStruct {
 
 impl ExpressionStruct {
     pub fn new(index: i16, expression: String) -> Self {
-        Self {
-            index,
-            expression,
-        }
+        Self { index, expression }
     }
 }
 
-#[derive(Serialize)]
-#[derive(Debug)]
+#[derive(Serialize, Debug)]
 pub struct Rule {
     pub index: i16,
     pub lhs: String,

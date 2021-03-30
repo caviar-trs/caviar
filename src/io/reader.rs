@@ -1,11 +1,12 @@
-use std::env;
 use std::error::Error;
 use std::ffi::OsString;
 use std::fs::File;
 use std::io::Read;
+use std::{env, usize};
 
 use crate::structs::ExpressionStruct;
 
+#[allow(dead_code)]
 pub fn read_expressions(file_path: &OsString) -> Result<Vec<ExpressionStruct>, Box<dyn Error>> {
     let mut expressions_vect = Vec::new();
     let file = File::open(file_path)?;
@@ -19,28 +20,24 @@ pub fn read_expressions(file_path: &OsString) -> Result<Vec<ExpressionStruct>, B
     return Ok(expressions_vect);
 }
 
-
-pub fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
-    match env::args_os().nth(1) {
+pub fn get_nth_arg(n: usize) -> Result<OsString, Box<dyn Error>> {
+    match env::args_os().nth(n) {
         None => Err(From::from("expected 1 argument, but got none")),
         Some(file_path) => Ok(file_path),
     }
 }
 
 pub fn get_runner_params(start: usize) -> Result<(usize, usize, u64), Box<dyn Error>> {
-    let iter =
-        match env::args_os().nth(start) {
-            None => 30,
-            Some(i) => i.into_string().unwrap().parse::<usize>().unwrap(),
-        };
+    let iter = match env::args_os().nth(start) {
+        None => 30,
+        Some(i) => i.into_string().unwrap().parse::<usize>().unwrap(),
+    };
 
-    let nodes =
-    match env::args_os().nth(start + 1) {
+    let nodes = match env::args_os().nth(start + 1) {
         None => 10000,
         Some(i) => i.into_string().unwrap().parse::<usize>().unwrap(),
     };
-    let time =
-    match env::args_os().nth(start + 2) {
+    let time = match env::args_os().nth(start + 2) {
         None => 5,
         Some(i) => i.into_string().unwrap().parse::<u64>().unwrap(),
     };
