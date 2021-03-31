@@ -5,7 +5,7 @@ import sys
 
 if __name__ == "__main__":
     k = int(sys.argv[1])
-    df = pd.read_json('../dataset.json')
+    df = pd.read_json('../dataset.json', orient=str)
     df = df.join(df['expression'].apply(pd.Series))
     df = df.drop(columns="expression")
     df1 = df.join(df['rules'].apply(lambda x: pd.Series(1, index=x)).fillna(0))
