@@ -71,7 +71,11 @@ fn test_classes(
     let duration = start_t.elapsed().as_secs();
     let exec_time: f64 = results_exec_time.iter().map(|i| i.as_secs() as f64).sum();
     println!("Execution time : |{}| |{}|", duration, exec_time);
-    write_results("results/class_analysis_results.csv", &results_structs).unwrap();
+    write_results(
+        &format!("results/k_{}_class_analysis_results.csv", classes[0].len()),
+        &results_structs,
+    )
+    .unwrap();
 }
 
 fn main() {
