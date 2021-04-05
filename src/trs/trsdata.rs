@@ -99,7 +99,13 @@ impl Rem for &TRSDATA {
     fn rem(self, rhs: Self) -> Self::Output {
         match self {
             TRSDATA::Constant(a) => match rhs {
-                TRSDATA::Constant(b) => Some(TRSDATA::Constant(*a % *b)),
+                TRSDATA::Constant(b) => {
+                    if *b == 0 {
+                        Some(TRSDATA::Constant(0))
+                    } else {
+                        Some(TRSDATA::Constant(*a % *b))
+                    }
+                }
                 _ => None,
             },
             _ => None,
