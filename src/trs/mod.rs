@@ -1,9 +1,8 @@
-
 use json::JsonValue;
 // use ordered_float::NotNan;
-use std::ops::Add;
 use std::time::Duration;
 use std::{cmp::Ordering, fmt, time::Instant};
+use std::{error::Error, ops::Add};
 
 use colored::*;
 use egg::*;
