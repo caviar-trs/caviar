@@ -1,19 +1,25 @@
-use crate::structs::{ExpressionStruct, ResultStructure, Rule};
+
+use json::JsonValue;
+// use ordered_float::NotNan;
+use std::ops::Add;
+use std::time::Duration;
+use std::{cmp::Ordering, fmt, time::Instant};
+
 use colored::*;
 use egg::*;
-use json::JsonValue;
-use num_traits::cast::ToPrimitive;
-use ordered_float::NotNan;
-use std::error::Error;
-use std::ffi::OsString;
-use std::fs::File;
-use std::io::Read;
-use std::time::Duration;
-use std::{cmp::Ordering, time::Instant};
+pub mod trsdata;
+
+use crate::structs::{ExpressionStruct, ResultStructure, Rule};
+use std::num::ParseIntError;
+use std::str::FromStr;
+
+use trsdata::TRSDATA;
+
+use self::trsdata::{and, or};
 
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
 pub type Rewrite = egg::Rewrite<Math, ConstantFold>;
-pub type Constant = NotNan<f64>;
+pub type Constant = i64;
 pub type Boolean = bool;
 
 define_language! {
@@ -34,8 +40,7 @@ define_language! {
         "!=" = IEq([Id; 2]),
         "||" = Or([Id; 2]),
         "&&" = And([Id; 2]),
-        Constant(Constant),
-        Boolean(Boolean),
+        Constant(TRSDATA),
         Symbol(Symbol),
     }
 }
@@ -44,10 +49,10 @@ define_language! {
 pub struct ConstantFold;
 
 impl Analysis<Math> for ConstantFold {
-    type Data = Option<Constant>;
+    type Data = Option<TRSDATA>;
 
     fn merge(&self, a: &mut Self::Data, b: Self::Data) -> Option<Ordering> {
-        match (a.as_mut(), b) {
+        match (a.as_mut(), &b) {
             (None, None) => Some(Ordering::Equal),
             (None, Some(_)) => {
                 *a = b;
@@ -63,100 +68,25 @@ impl Analysis<Math> for ConstantFold {
     }
 
     fn make(egraph: &EGraph, enode: &Math) -> Self::Data {
-        let x = |i: &Id| egraph[*i].data;
+        let x = |i: &Id| egraph[*i].data.as_ref();
         Some(match enode {
-            Math::Constant(c) => *c,
-            Math::Add([a, b]) => x(a)? + x(b)?,
-            Math::Sub([a, b]) => x(a)? - x(b)?,
-            Math::Mul([a, b]) => x(a)? * x(b)?,
-            Math::Div([a, b]) if x(b) != Some(0.0.into()) => {
-                NotNan::from((x(a)?.to_i64().unwrap() / x(b)?.to_i64().unwrap()) as f64)
-            }
-            //Math::Div([a, b]) if x(b) != Some(0.0.into()) => x(a)? / x(b)?,
-            Math::Max([a, b]) => std::cmp::max(x(a)?, x(b)?),
-            Math::Min([a, b]) => std::cmp::min(x(a)?, x(b)?),
-            Math::Not(a) => NotNan::new(if x(a)?.cmp(&NotNan::from(0.0)) == Ordering::Equal {
-                1.0
-            } else {
-                0.0
-            })
-            .unwrap(),
-
-            Math::Lt([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Less {
-                1.0
-            } else {
-                0.0
-            })
-            .unwrap(),
-
-            Math::Gt([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Greater {
-                1.0
-            } else {
-                0.0
-            })
-            .unwrap(),
-
-            Math::Let([a, b]) => NotNan::new(
-                if x(a)?.cmp(&x(b)?) == Ordering::Less || x(a)?.cmp(&x(b)?) == Ordering::Equal {
-                    1.0
-                } else {
-                    0.0
-                },
-            )
-            .unwrap(),
-
-            Math::Get([a, b]) => NotNan::new(
-                if x(a)?.cmp(&x(b)?) == Ordering::Greater || x(a)?.cmp(&x(b)?) == Ordering::Equal {
-                    1.0
-                } else {
-                    0.0
-                },
-            )
-            .unwrap(),
-
-            Math::Mod([a, b]) => {
-                if x(b)? == NotNan::from(0.0) {
-                    NotNan::from(0.0)
-                } else {
-                    x(a)? % x(b)?
-                }
-            }
-
-            Math::Eq([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Equal {
-                1.0
-            } else {
-                0.0
-            })
-            .unwrap(),
-
-            Math::IEq([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Equal {
-                0.0
-            } else {
-                1.0
-            })
-            .unwrap(),
-
-            Math::And([a, b]) => NotNan::new(
-                if x(a)?.cmp(&NotNan::from(0.0)) == Ordering::Equal
-                    || x(b)?.cmp(&NotNan::from(0.0)) == Ordering::Equal
-                {
-                    0.0
-                } else {
-                    1.0
-                },
-            )
-            .unwrap(),
-
-            Math::Or([a, b]) => NotNan::new(
-                if x(a)?.cmp(&NotNan::from(1.0)) == Ordering::Equal
-                    || x(b)?.cmp(&NotNan::from(1.0)) == Ordering::Equal
-                {
-                    1.0
-                } else {
-                    0.0
-                },
-            )
-            .unwrap(),
+            Math::Constant(c) => (*c).clone(),
+            Math::Add([a, b]) => (x(a)? + x(b)?)?,
+            Math::Sub([a, b]) => (x(a)? - x(b)?)?,
+            Math::Mul([a, b]) => (x(a)? * x(b)?)?,
+            Math::Div([a, b]) if x(b) != Some(&TRSDATA::Constant(0)) => (x(a)? / x(b)?)?,
+            Math::Max([a, b]) => std::cmp::max(x(a)?.clone(), x(b)?.clone()),
+            Math::Min([a, b]) => std::cmp::min(x(a)?.clone(), x(b)?.clone()),
+            Math::Not(a) => (!x(a)?)?,
+            Math::Lt([a, b]) => TRSDATA::Boolean(x(a)? < x(b)?),
+            Math::Gt([a, b]) => TRSDATA::Boolean(x(a)? > x(b)?),
+            Math::Let([a, b]) => TRSDATA::Boolean(x(a)? <= x(b)?),
+            Math::Get([a, b]) => TRSDATA::Boolean(x(a)? >= x(b)?),
+            Math::Mod([a, b]) => (x(a)? % x(b)?)?,
+            Math::Eq([a, b]) => TRSDATA::Boolean(x(a)? == x(b)?),
+            Math::IEq([a, b]) => TRSDATA::Boolean(x(a)? != x(b)?),
+            Math::And([a, b]) => and(x(a)?, x(b)?)?,
+            Math::Or([a, b]) => or(x(a)?, x(b)?)?,
 
             _ => return None,
         })
@@ -164,8 +94,8 @@ impl Analysis<Math> for ConstantFold {
 
     fn modify(egraph: &mut EGraph, id: Id) {
         let class = &mut egraph[id];
-        if let Some(c) = class.data {
-            let added = egraph.add(Math::Constant(c));
+        if let Some(c) = class.data.clone() {
+            let added = egraph.add(Math::Constant(c.clone()));
             let (id, _did_something) = egraph.union(id, added);
             // to not prune, comment this out
             egraph[id].nodes.retain(|n| n.is_leaf());
@@ -196,10 +126,12 @@ pub fn is_const_or_distinct_var(v: &str, w: &str) -> impl Fn(&mut EGraph, Id, &S
 
 pub fn is_const_pos(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
-    let zero = NotNan::from(0.0);
     move |egraph, _, subst| {
         egraph[subst[var]].nodes.iter().any(|n| match n {
-            Math::Constant(c) => c.cmp(&zero) == Ordering::Greater,
+            Math::Constant(c) => match *c {
+                TRSDATA::Constant(c_v) => c_v > 0,
+                _ => false,
+            },
             _ => return false,
         })
     }
@@ -207,10 +139,12 @@ pub fn is_const_pos(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 
 pub fn is_const_neg(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
-    let zero = NotNan::from(0.0);
     move |egraph, _, subst| {
         egraph[subst[var]].nodes.iter().any(|n| match n {
-            Math::Constant(c) => c.cmp(&zero) == Ordering::Less,
+            Math::Constant(c) => match *c {
+                TRSDATA::Constant(c_v) => c_v < 0,
+                _ => false,
+            },
             _ => return false,
         })
     }
@@ -240,40 +174,42 @@ pub fn is_sym(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 
 pub fn is_not_zero(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
-    let zero = Math::Constant(0.0.into());
+    let zero = Math::Constant(TRSDATA::Constant(0));
     move |egraph, _, subst| !egraph[subst[var]].nodes.contains(&zero)
 }
 
-pub fn are_less_eq(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
-    let var: Var = var.parse().unwrap();
-    let var1: Var = var1.parse().unwrap();
-    move |egraph, _, subst| {
-        egraph[subst[var1]].nodes.iter().any(|n| match n {
-            Math::Constant(c) => egraph[subst[var]].nodes.iter().any(|n1| match n1 {
-                Math::Constant(c1) => {
-                    (c1.cmp(c) == Ordering::Less) || (c1.cmp(c) == Ordering::Equal)
-                }
-                _ => return false,
-            }),
-            _ => return false,
-        })
-    }
-}
-
-// return true if v <= | v1 |
-pub fn are_less_eq_absolute(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
-    let var: Var = var.parse().unwrap();
-    let var1: Var = var1.parse().unwrap();
-    move |egraph, _, subst| {
-        egraph[subst[var1]].nodes.iter().any(|n| match n {
-            Math::Constant(c) => egraph[subst[var]].nodes.iter().any(|n1| match n1 {
-                Math::Constant(c1) => (c1.to_f64().unwrap() <= c.abs()),
-                _ => return false,
-            }),
-            _ => return false,
-        })
-    }
-}
+// pub fn are_less_eq(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+//     let var: Var = var.parse().unwrap();
+//     let var1: Var = var1.parse().unwrap();
+//     move |egraph, _, subst| {
+//         egraph[subst[var1]].nodes.iter().any(|n| match n {
+//             Math::Constant(c) => {
+//                 egraph[subst[var]].nodes.iter().any(|n1| match n1 {
+//                     Math::Constant(c1) => (c1.cmp(c) == Ordering::Less) || (c1.cmp(c) == Ordering::Equal),
+//                     _ => return false,
+//                 })
+//             }
+//             _ => return false,
+//         })
+//     }
+// }
+//
+// // return true if v <= | v1 |
+// pub fn are_less_eq_absolute(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+//     let var: Var = var.parse().unwrap();
+//     let var1: Var = var1.parse().unwrap();
+//     move |egraph, _, subst| {
+//         egraph[subst[var1]].nodes.iter().any(|n| match n {
+//             Math::Constant(c) => {
+//                 egraph[subst[var]].nodes.iter().any(|n1| match n1 {
+//                     Math::Constant(c1) => (c1 <= &c.abs()),
+//                     _ => return false,
+//                 })
+//             }
+//             _ => return false,
+//         })
+//     }
+// }
 
 pub fn compare_c0_c1(
     var: &str,
@@ -284,25 +220,31 @@ pub fn compare_c0_c1(
     let var1: Var = var1.parse().unwrap();
     move |egraph, _, subst| {
         egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
-            Math::Constant(c1) => egraph[subst[var]].nodes.iter().any(|n| match n {
-                Math::Constant(c) => match comp {
-                    "<" => c.to_f64().unwrap() < c1.to_f64().unwrap(),
-                    "<a" => c.to_f64().unwrap() < c1.abs(),
-                    "<=" => c.to_f64().unwrap() <= c1.to_f64().unwrap(),
-                    "<=+1" => c.to_f64().unwrap() <= c1.to_f64().unwrap() + 1.0,
-                    "<=a" => c.to_f64().unwrap() <= c1.abs(),
-                    "<=-a" => c.to_f64().unwrap() <= (-c1.abs()),
-                    "<=-a+1" => c.to_f64().unwrap() <= (-c1.abs() + 1.0),
-                    ">" => c.to_f64().unwrap() > c1.to_f64().unwrap(),
-                    ">a" => c.to_f64().unwrap() > c1.abs(),
-                    ">=" => c.to_f64().unwrap() >= c1.to_f64().unwrap(),
-                    ">=a" => c.to_f64().unwrap() >= c1.abs(),
-                    ">=a-1" => c.to_f64().unwrap() >= (c1.abs() - 1.0),
-                    "!=" => c.to_f64().unwrap() != c1.to_f64().unwrap(),
-                    _ => false,
-                },
-                _ => return false,
-            }),
+            Math::Constant(c1_d) => match *c1_d {
+                TRSDATA::Constant(c1) => egraph[subst[var]].nodes.iter().any(|n| match n {
+                    Math::Constant(c_d) => match *c_d {
+                        TRSDATA::Constant(c) => match comp {
+                            "<" => c < c1,
+                            "<a" => c < c1.abs(),
+                            "<=" => c <= c1,
+                            "<=+1" => c <= c1 + 1,
+                            "<=a" => c <= c1.abs(),
+                            "<=-a" => c <= -c1.abs(),
+                            "<=-a+1" => c <= 1 - c1.abs(),
+                            ">" => c > c1,
+                            ">a" => c > c1.abs(),
+                            ">=" => c >= c1,
+                            ">=a" => c >= (c1.abs()),
+                            ">=a-1" => c >= (c1.abs() - 1),
+                            "!=" => c != c1,
+                            _ => false,
+                        },
+                        _ => false,
+                    },
+                    _ => return false,
+                }),
+                _ => false,
+            },
             _ => return false,
         })
     }
