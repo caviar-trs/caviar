@@ -1,18 +1,24 @@
-use colored::*;
-use egg::{*};
-use ordered_float::NotNan;
-use std::{cmp::Ordering, time::Instant};
-use num_traits::cast::ToPrimitive;
+// use ordered_float::NotNan;
+use std::ops::Add;
 use std::time::Duration;
-use crate::structs::{ResultStructure, ExpressionStruct, Rule};
+use std::{cmp::Ordering, fmt, time::Instant};
 
+use colored::*;
+use egg::*;
+pub mod trsdata;
+
+use crate::structs::{ExpressionStruct, ResultStructure, Rule};
+use std::num::ParseIntError;
+use std::str::FromStr;
+
+use trsdata::TRSDATA;
+
+use self::trsdata::{and, or};
 
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
 pub type Rewrite = egg::Rewrite<Math, ConstantFold>;
-pub type Constant = NotNan<f64>;
+pub type Constant = i64;
 pub type Boolean = bool;
-
-
 
 define_language! {
     pub enum Math {
@@ -32,21 +38,19 @@ define_language! {
         "!=" = IEq([Id; 2]),
         "||" = Or([Id; 2]),
         "&&" = And([Id; 2]),
-        Constant(Constant),
-        Boolean(Boolean),
+        Constant(TRSDATA),
         Symbol(Symbol),
     }
 }
 
-#[derive(Default)]
-#[derive(Clone)]
+#[derive(Default, Clone)]
 pub struct ConstantFold;
 
 impl Analysis<Math> for ConstantFold {
-    type Data = Option<Constant>;
+    type Data = Option<TRSDATA>;
 
     fn merge(&self, a: &mut Self::Data, b: Self::Data) -> Option<Ordering> {
-        match (a.as_mut(), b) {
+        match (a.as_mut(), &b) {
             (None, None) => Some(Ordering::Equal),
             (None, Some(_)) => {
                 *a = b;
@@ -62,107 +66,33 @@ impl Analysis<Math> for ConstantFold {
     }
 
     fn make(egraph: &EGraph, enode: &Math) -> Self::Data {
-        let x = |i: &Id| egraph[*i].data;
+        let x = |i: &Id| egraph[*i].data.as_ref();
         Some(match enode {
-            Math::Constant(c) => *c,
-            Math::Add([a, b]) => x(a)? + x(b)?,
-            Math::Sub([a, b]) => x(a)? - x(b)?,
-            Math::Mul([a, b]) => x(a)? * x(b)?,
-            Math::Div([a, b]) if x(b) != Some(0.0.into()) => NotNan::from((x(a)?.to_i64().unwrap() / x(b)?.to_i64().unwrap()) as f64),
-            //Math::Div([a, b]) if x(b) != Some(0.0.into()) => x(a)? / x(b)?,
-            Math::Max([a, b]) => std::cmp::max(x(a)?, x(b)?),
-            Math::Min([a, b]) => std::cmp::min(x(a)?, x(b)?),
-            Math::Not(a) => NotNan::new(if x(a)?.cmp(&NotNan::from(0.0)) == Ordering::Equal {
-                1.0
-            } else {
-                0.0
-            })
-                .unwrap(),
-
-            Math::Lt([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Less {
-                1.0
-            } else {
-                0.0
-            })
-                .unwrap(),
-
-            Math::Gt([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Greater {
-                1.0
-            } else {
-                0.0
-            })
-                .unwrap(),
-
-            Math::Let([a, b]) => NotNan::new(
-                if x(a)?.cmp(&x(b)?) == Ordering::Less || x(a)?.cmp(&x(b)?) == Ordering::Equal {
-                    1.0
-                } else {
-                    0.0
-                },
-            )
-                .unwrap(),
-
-            Math::Get([a, b]) => NotNan::new(
-                if x(a)?.cmp(&x(b)?) == Ordering::Greater || x(a)?.cmp(&x(b)?) == Ordering::Equal {
-                    1.0
-                } else {
-                    0.0
-                },
-            )
-                .unwrap(),
-
-            Math::Mod([a, b]) => {
-                if x(b)? == NotNan::from(0.0) {
-                    NotNan::from(0.0)
-                } else {
-                    x(a)? % x(b)?
-                }
-            }
-
-            Math::Eq([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Equal {
-                1.0
-            } else {
-                0.0
-            })
-                .unwrap(),
-
-            Math::IEq([a, b]) => NotNan::new(if x(a)?.cmp(&x(b)?) == Ordering::Equal {
-                0.0
-            } else {
-                1.0
-            })
-                .unwrap(),
-
-            Math::And([a, b]) => NotNan::new(
-                if x(a)?.cmp(&NotNan::from(0.0)) == Ordering::Equal
-                    || x(b)?.cmp(&NotNan::from(0.0)) == Ordering::Equal
-                {
-                    0.0
-                } else {
-                    1.0
-                },
-            )
-                .unwrap(),
-
-            Math::Or([a, b]) => NotNan::new(
-                if x(a)?.cmp(&NotNan::from(1.0)) == Ordering::Equal
-                    || x(b)?.cmp(&NotNan::from(1.0)) == Ordering::Equal
-                {
-                    1.0
-                } else {
-                    0.0
-                },
-            )
-                .unwrap(),
-
+            Math::Constant(c) => (*c).clone(),
+            Math::Add([a, b]) => (x(a)? + x(b)?)?,
+            Math::Sub([a, b]) => (x(a)? - x(b)?)?,
+            Math::Mul([a, b]) => (x(a)? * x(b)?)?,
+            Math::Div([a, b]) if x(b) != Some(&TRSDATA::Constant(0)) => (x(a)? / x(b)?)?,
+            Math::Max([a, b]) => std::cmp::max(x(a)?.clone(), x(b)?.clone()),
+            Math::Min([a, b]) => std::cmp::min(x(a)?.clone(), x(b)?.clone()),
+            Math::Not(a) => (!x(a)?)?,
+            Math::Lt([a, b]) => TRSDATA::Boolean(x(a)? < x(b)?),
+            Math::Gt([a, b]) => TRSDATA::Boolean(x(a)? > x(b)?),
+            Math::Let([a, b]) => TRSDATA::Boolean(x(a)? <= x(b)?),
+            Math::Get([a, b]) => TRSDATA::Boolean(x(a)? >= x(b)?),
+            Math::Mod([a, b]) => (x(a)? % x(b)?)?,
+            Math::Eq([a, b]) => TRSDATA::Boolean(x(a)? == x(b)?),
+            Math::IEq([a, b]) => TRSDATA::Boolean(x(a)? != x(b)?),
+            Math::And([a, b]) => and(x(a)?, x(b)?)?,
+            Math::Or([a, b]) => or(x(a)?, x(b)?)?,
             _ => return None,
         })
     }
 
     fn modify(egraph: &mut EGraph, id: Id) {
         let class = &mut egraph[id];
-        if let Some(c) = class.data {
-            let added = egraph.add(Math::Constant(c));
+        if let Some(c) = class.data.clone() {
+            let added = egraph.add(Math::Constant(c.clone()));
             let (id, _did_something) = egraph.union(id, added);
             // to not prune, comment this out
             egraph[id].nodes.retain(|n| n.is_leaf());
@@ -173,7 +103,7 @@ impl Analysis<Math> for ConstantFold {
                 egraph[id]
             );
             #[cfg(debug_assertions)]
-                egraph[id].assert_unique_leaves();
+            egraph[id].assert_unique_leaves();
         }
     }
 }
@@ -185,18 +115,20 @@ pub fn is_const_or_distinct_var(v: &str, w: &str) -> impl Fn(&mut EGraph, Id, &S
     move |egraph, _, subst| {
         egraph.find(subst[v]) != egraph.find(subst[w])
             && egraph[subst[v]]
-            .nodes
-            .iter()
-            .any(|n| matches!(n, Math::Constant(..) | Math::Symbol(..)))
+                .nodes
+                .iter()
+                .any(|n| matches!(n, Math::Constant(..) | Math::Symbol(..)))
     }
 }
 
 pub fn is_const_pos(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
-    let zero = NotNan::from(0.0);
     move |egraph, _, subst| {
         egraph[subst[var]].nodes.iter().any(|n| match n {
-            Math::Constant(c) => c.cmp(&zero) == Ordering::Greater,
+            Math::Constant(c) => match *c {
+                TRSDATA::Constant(c_v) => c_v > 0,
+                _ => false,
+            },
             _ => return false,
         })
     }
@@ -204,10 +136,12 @@ pub fn is_const_pos(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 
 pub fn is_const_neg(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
-    let zero = NotNan::from(0.0);
     move |egraph, _, subst| {
         egraph[subst[var]].nodes.iter().any(|n| match n {
-            Math::Constant(c) => c.cmp(&zero) == Ordering::Less,
+            Math::Constant(c) => match *c {
+                TRSDATA::Constant(c_v) => c_v < 0,
+                _ => false,
+            },
             _ => return false,
         })
     }
@@ -237,102 +171,81 @@ pub fn is_sym(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 
 pub fn is_not_zero(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
-    let zero = Math::Constant(0.0.into());
+    let zero = Math::Constant(TRSDATA::Constant(0));
     move |egraph, _, subst| !egraph[subst[var]].nodes.contains(&zero)
 }
 
-pub fn are_less_eq(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
-    let var: Var = var.parse().unwrap();
-    let var1: Var = var1.parse().unwrap();
-    move |egraph, _, subst| {
-        egraph[subst[var1]].nodes.iter().any(|n| match n {
-            Math::Constant(c) => {
-                egraph[subst[var]].nodes.iter().any(|n1| match n1 {
-                    Math::Constant(c1) => (c1.cmp(c) == Ordering::Less) || (c1.cmp(c) == Ordering::Equal),
-                    _ => return false,
-                })
-            }
-            _ => return false,
-        })
-    }
-}
+// pub fn are_less_eq(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+//     let var: Var = var.parse().unwrap();
+//     let var1: Var = var1.parse().unwrap();
+//     move |egraph, _, subst| {
+//         egraph[subst[var1]].nodes.iter().any(|n| match n {
+//             Math::Constant(c) => {
+//                 egraph[subst[var]].nodes.iter().any(|n1| match n1 {
+//                     Math::Constant(c1) => (c1.cmp(c) == Ordering::Less) || (c1.cmp(c) == Ordering::Equal),
+//                     _ => return false,
+//                 })
+//             }
+//             _ => return false,
+//         })
+//     }
+// }
+//
+// // return true if v <= | v1 |
+// pub fn are_less_eq_absolute(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+//     let var: Var = var.parse().unwrap();
+//     let var1: Var = var1.parse().unwrap();
+//     move |egraph, _, subst| {
+//         egraph[subst[var1]].nodes.iter().any(|n| match n {
+//             Math::Constant(c) => {
+//                 egraph[subst[var]].nodes.iter().any(|n1| match n1 {
+//                     Math::Constant(c1) => (c1 <= &c.abs()),
+//                     _ => return false,
+//                 })
+//             }
+//             _ => return false,
+//         })
+//     }
+// }
 
-// return true if v <= | v1 |
-pub fn are_less_eq_absolute(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
-    let var: Var = var.parse().unwrap();
-    let var1: Var = var1.parse().unwrap();
-    move |egraph, _, subst| {
-        egraph[subst[var1]].nodes.iter().any(|n| match n {
-            Math::Constant(c) => {
-                egraph[subst[var]].nodes.iter().any(|n1| match n1 {
-                    Math::Constant(c1) => (c1.to_f64().unwrap() <= c.abs()),
-                    _ => return false,
-                })
-            }
-            _ => return false,
-        })
-    }
-}
-
-pub fn compare_c0_c1(var: &str, var1: &str, comp: &'static str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+pub fn compare_c0_c1(
+    var: &str,
+    var1: &str,
+    comp: &'static str,
+) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var: Var = var.parse().unwrap();
     let var1: Var = var1.parse().unwrap();
     move |egraph, _, subst| {
         egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
-            Math::Constant(c1) => {
-                egraph[subst[var]].nodes.iter().any(|n| match n {
-                    Math::Constant(c) => {
-                        match comp {
-                            "<" => {
-                                c.to_f64().unwrap() < c1.to_f64().unwrap()
-                            }
-                            "<a" => {
-                                c.to_f64().unwrap() < c1.abs()
-                            }
-                            "<=" => {
-                                c.to_f64().unwrap() <= c1.to_f64().unwrap()
-                            }
-                            "<=+1" => {
-                                c.to_f64().unwrap() <= c1.to_f64().unwrap() + 1.0
-                            }
-                            "<=a" => {
-                                c.to_f64().unwrap() <= c1.abs()
-                            }
-                            "<=-a" => {
-                                c.to_f64().unwrap() <= (-c1.abs())
-                            }
-                            "<=-a+1" => {
-                                c.to_f64().unwrap() <= (-c1.abs() + 1.0)
-                            }
-                            ">" => {
-                                c.to_f64().unwrap() > c1.to_f64().unwrap()
-                            }
-                            ">a" => {
-                                c.to_f64().unwrap() > c1.abs()
-                            }
-                            ">=" => {
-                                c.to_f64().unwrap() >= c1.to_f64().unwrap()
-                            }
-                            ">=a" => {
-                                c.to_f64().unwrap() >= c1.abs()
-                            }
-                            ">=a-1" => {
-                                c.to_f64().unwrap() >= (c1.abs() - 1.0)
-                            }
-                            "!=" => {
-                                c.to_f64().unwrap() != c1.to_f64().unwrap()
-                            }
-                            _ => false
-                        }
-                    }
+            Math::Constant(c1_d) => match *c1_d {
+                TRSDATA::Constant(c1) => egraph[subst[var]].nodes.iter().any(|n| match n {
+                    Math::Constant(c_d) => match *c_d {
+                        TRSDATA::Constant(c) => match comp {
+                            "<" => c < c1,
+                            "<a" => c < c1.abs(),
+                            "<=" => c <= c1,
+                            "<=+1" => c <= c1 + 1,
+                            "<=a" => c <= c1.abs(),
+                            "<=-a" => c <= -c1.abs(),
+                            "<=-a+1" => c <= 1 - c1.abs(),
+                            ">" => c > c1,
+                            ">a" => c > c1.abs(),
+                            ">=" => c >= c1,
+                            ">=a" => c >= (c1.abs()),
+                            ">=a-1" => c >= (c1.abs() - 1),
+                            "!=" => c != c1,
+                            _ => false,
+                        },
+                        _ => false,
+                    },
                     _ => return false,
-                })
-            }
+                }),
+                _ => false,
+            },
             _ => return false,
         })
     }
 }
-
 
 // pub fn sum_is_great_zero_c0_abs(var: &str, var1: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 //     let var: Var = var.parse().unwrap();
@@ -434,7 +347,14 @@ pub fn simplify_time(start_expression: &str) {
 }
 
 #[allow(dead_code)]
-pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool, report: bool) -> (bool, f64, Option<String>) {
+pub fn prove_equiv(
+    start_expression: &str,
+    end_expressions: &str,
+    ruleset_class: i8,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> (bool, f64, Option<String>) {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end: Pattern<Math> = end_expressions.parse().unwrap();
     let result: bool;
@@ -459,14 +379,12 @@ pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class:
     let id = runner.egraph.find(*runner.roots.last().unwrap());
     let matches = end.search_eclass(&runner.egraph, id);
     if matches.is_none() {
-
-
         let mut extractor = Extractor::new(&runner.egraph, AstDepth);
         // We want to extract the best expression represented in the
         // same e-class as our initial expression, not from the whole e-graph.
         // Luckily the runner stores the eclass Id where we put the initial expression.
         let (_, best_expr) = extractor.find_best(id);
-        best_expr_string  = Some(best_expr.to_string());
+        best_expr_string = Some(best_expr.to_string());
 
         if report {
             println!(
@@ -501,11 +419,17 @@ pub fn prove_equiv(start_expression: &str, end_expressions: &str, ruleset_class:
         );
     }
 
-    (result,total_time,best_expr_string)
+    (result, total_time, best_expr_string)
 }
 
 #[allow(dead_code)]
-pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool, report: bool) -> (bool, f64, Option<String>) {
+pub fn prove(
+    start_expression: &str,
+    ruleset_class: i8,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> (bool, f64, Option<String>) {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end_1: Pattern<Math> = "1".parse().unwrap();
     let end_0: Pattern<Math> = "0".parse().unwrap();
@@ -518,8 +442,11 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
     let id;
     let best_expr;
 
-    if report{
-        println!("\n==================================\nProving Expression:\n {}\n",start_expression)
+    if report {
+        println!(
+            "\n==================================\nProving Expression:\n {}\n",
+            start_expression
+        )
     }
     if use_iteration_check {
         runner = Runner::default()
@@ -528,7 +455,6 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
             .with_time_limit(Duration::new(params.2, 0))
             .with_expr(&start)
             .run_check_iteration(rules(ruleset_class).iter(), &goals);
-
     } else {
         runner = Runner::default()
             .with_iter_limit(params.0)
@@ -540,9 +466,8 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
 
     id = runner.egraph.find(*runner.roots.last().unwrap());
     for (goal_index, goal) in goals.iter().enumerate() {
-
         let boolean = (goal.search_eclass(&runner.egraph, id)).is_none();
-        if !boolean{
+        if !boolean {
             result = true;
             proved_goal_index = goal_index;
             break;
@@ -550,15 +475,15 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
     }
 
     if result {
-        if report{
+        if report {
             println!(
                 "{}\n{:?}",
-                "Proved goal:".bright_green().bold(),goals[proved_goal_index].to_string()
+                "Proved goal:".bright_green().bold(),
+                goals[proved_goal_index].to_string()
             );
         }
         best_expr = Some(goals[proved_goal_index].to_string())
     } else {
-
         let mut extractor = Extractor::new(&runner.egraph, AstDepth);
         // We want to extract the best expression represented in the
         // same e-class as our initial expression, not from the whole e-graph.
@@ -567,10 +492,7 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
         best_expr = Some(best_exprr.to_string());
 
         if report {
-            println!(
-                "{}\n",
-                "Could not prove any goal:".bright_red().bold(),
-            );
+            println!("{}\n", "Could not prove any goal:".bright_red().bold(),);
             println!(
                 "Best Expr: {}",
                 format!("{}", best_exprr).bright_green().bold()
@@ -586,33 +508,51 @@ pub fn prove(start_expression: &str, ruleset_class: i8, params: (usize, usize, u
         );
     }
 
-    (result,total_time,best_expr)
+    (result, total_time, best_expr)
 }
 
 //Not yet refactored should be refactored when needed, as their argument might change
 #[allow(dead_code)]
-pub fn prove_all_classes(start_expression: &str, end_expressions: &str, start_class: i8, report:bool) -> bool {
+pub fn prove_all_classes(
+    start_expression: &str,
+    end_expressions: &str,
+    start_class: i8,
+    report: bool,
+) -> bool {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end: Pattern<Math> = end_expressions.parse().unwrap();
     let result: bool = false;
     let mut i = start_class;
 
     let start_t = Instant::now();
-    let mut runner = Runner::default().with_expr(&start).run(rules(start_class).iter());
+    let mut runner = Runner::default()
+        .with_expr(&start)
+        .run(rules(start_class).iter());
     let id = runner.egraph.find(*runner.roots.last().unwrap());
 
     while (!result) && (i < 3) {
         let start_t1 = Instant::now();
         if i > start_class {
-            runner = Runner::default().with_egraph(runner.egraph).run(rules(i).iter());
+            runner = Runner::default()
+                .with_egraph(runner.egraph)
+                .run(rules(i).iter());
         }
-        if report{
-        println!("Time elapsed from start is: {:?}, just for this class: {:?}", start_t.elapsed(), start_t1.elapsed());
+        if report {
+            println!(
+                "Time elapsed from start is: {:?}, just for this class: {:?}",
+                start_t.elapsed(),
+                start_t1.elapsed()
+            );
         }
         let matches = end.search_eclass(&runner.egraph, id);
         if matches.is_none() {
-            println!("{} {} {}", "Class".bright_red(), i, "didn't work".bright_red());
-            if report{
+            println!(
+                "{} {} {}",
+                "Class".bright_red(),
+                i,
+                "didn't work".bright_red()
+            );
+            if report {
                 runner.print_report();
             }
             println!("======================\n\n");
@@ -624,8 +564,8 @@ pub fn prove_all_classes(start_expression: &str, end_expressions: &str, start_cl
                 end.pretty(40),
                 format!("Class {} worked", i).bright_green().bold()
             );
-            if report{
-            runner.print_report();
+            if report {
+                runner.print_report();
             }
             i += 1;
             // result = true;
@@ -635,20 +575,61 @@ pub fn prove_all_classes(start_expression: &str, end_expressions: &str, start_cl
 }
 
 #[allow(dead_code)]
-pub fn prove_rule(rule: &Rule, ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool, report: bool) -> ResultStructure {
-    let (result, total_time, best_expr) = prove_equiv(&rule.lhs, &rule.rhs, ruleset_class, params, use_iteration_check, report);
+pub fn prove_rule(
+    rule: &Rule,
+    ruleset_class: i8,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> ResultStructure {
+    let (result, total_time, best_expr) = prove_equiv(
+        &rule.lhs,
+        &rule.rhs,
+        ruleset_class,
+        params,
+        use_iteration_check,
+        report,
+    );
     let best_expr_string = match best_expr {
-        Some(expr)=> expr,
-        None => "".to_string()
+        Some(expr) => expr,
+        None => "".to_string(),
     };
-    ResultStructure::new(rule.index, rule.lhs.clone(), rule.rhs.clone(), result, best_expr_string, total_time, rule.condition.clone())
+    ResultStructure::new(
+        rule.index,
+        rule.lhs.clone(),
+        rule.rhs.clone(),
+        result,
+        best_expr_string,
+        total_time,
+        rule.condition.clone(),
+    )
 }
 
-pub fn prove_expr(expression: &ExpressionStruct,ruleset_class: i8, params: (usize, usize, u64), use_iteration_check: bool,report: bool) -> ResultStructure {
-    let (result, total_time,best_expr) = prove(&(expression.expression)[..], ruleset_class,params, use_iteration_check, report);
+pub fn prove_expr(
+    expression: &ExpressionStruct,
+    ruleset_class: i8,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> ResultStructure {
+    let (result, total_time, best_expr) = prove(
+        &(expression.expression)[..],
+        ruleset_class,
+        params,
+        use_iteration_check,
+        report,
+    );
     let best_expr_string = match best_expr {
-        Some(expr)=> expr,
-        None => "".to_string()
+        Some(expr) => expr,
+        None => "".to_string(),
     };
-    ResultStructure::new(expression.index, expression.expression.clone(), "1/0".to_string(), result, best_expr_string, total_time, None)
+    ResultStructure::new(
+        expression.index,
+        expression.expression.clone(),
+        "1/0".to_string(),
+        result,
+        best_expr_string,
+        total_time,
+        None,
+    )
 }

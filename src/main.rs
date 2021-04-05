@@ -51,7 +51,7 @@ fn main() {
         let params = get_runner_params(1).unwrap();
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start,end);
-        trs::prove(&start, -1, params, false, true);
+        trs::prove(&start, -1, params, true, true);
         // trs::prove_expr(&start, &end, 2, true);
     }
 }
