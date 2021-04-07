@@ -323,8 +323,8 @@ pub fn prove_expression_with_file_classes(
     let mut best_expr;
     let mut proving_class = -1;
     // First iter
-    let end_1: Pattern<Math> = "1".parse().unwrap();
-    let end_0: Pattern<Math> = "0".parse().unwrap();
+    let end_1: Pattern<Math> = "true".parse().unwrap();
+    let end_0: Pattern<Math> = "false".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
 
     // rules = filtered_rules(&classes[0])?;
@@ -581,8 +581,8 @@ pub fn prove(
     report: bool,
 ) -> (bool, f64, Option<String>) {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
-    let end_1: Pattern<Math> = "1".parse().unwrap();
-    let end_0: Pattern<Math> = "0".parse().unwrap();
+    let end_1: Pattern<Math> = "true".parse().unwrap();
+    let end_0: Pattern<Math> = "false".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
     // That's it! We can run equality saturation now.
     // let runner = Runner::default().with_expr(&start).run(rules(ruleset_class).iter());
@@ -778,7 +778,7 @@ pub fn prove_expr(
     ResultStructure::new(
         expression.index,
         expression.expression.clone(),
-        "1/0".to_string(),
+        "true/false".to_string(),
         result,
         best_expr_string,
         total_time,
