@@ -452,7 +452,7 @@ class Expression:
 
 if __name__ == '__main__':
     # arr = [i for i in Expression("c1 + x * y + z").add_parentheses() if i]
-    arr = Expression("(min ( x + min ( y , w ) , z ))")
+    arr = Expression("(( ( c0 * c2 - c1 + c2 -1 ) + x ) / c2)")
     # print(arr.toString())
     #                 ( min ( ( y - z ) , x ) + z )
     print(' '.join(arr.infixToPrefix()))

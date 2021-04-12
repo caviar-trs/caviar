@@ -4,7 +4,8 @@ use std::fs::File;
 use std::io::Read;
 use std::{env, usize};
 
-use crate::structs::ExpressionStruct;
+use crate::structs::ExpressionStruct; 
+use crate::structs::Rule; 
 
 #[allow(dead_code)]
 pub fn read_expressions(file_path: &OsString) -> Result<Vec<ExpressionStruct>, Box<dyn Error>> {
@@ -18,6 +19,21 @@ pub fn read_expressions(file_path: &OsString) -> Result<Vec<ExpressionStruct>, B
         expressions_vect.push(ExpressionStruct::new(index, expression.to_string()))
     }
     return Ok(expressions_vect);
+}
+
+pub fn read_rules(file_path: &OsString) -> Result<Vec<Rule>, Box<dyn Error>> {
+    let mut rules_vect: Vec<Rule> = Vec::new();
+    let file = File::open(file_path)?;
+    let mut rdr = csv::Reader::from_reader(file);
+    for result in rdr.records() {
+        let record = result?;
+        let index: i16 = record[0].parse::<i16>().unwrap();
+        let lhs = (&record[2]).to_string();
+        let rhs = (&record[3]).to_string();
+        let condition = (&record[4]).to_string();
+        rules_vect.push(Rule::new(index, lhs, rhs, Some(condition)))
+    }
+    return Ok(rules_vect);
 }
 
 pub fn get_nth_arg(n: usize) -> Result<OsString, Box<dyn Error>> {
