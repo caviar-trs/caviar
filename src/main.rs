@@ -123,12 +123,9 @@ fn main() {
         }
     } else {
         // let file_path = get_first_arg().unwrap();
-        // let params = get_runner_params(2).unwrap();
-        // let (start, end) = get_start_end().unwrap();
-        // println!("Simplifying expression:\n {}\n to {}", start, end);
-        // let result: ResultStructure =
-        //     trs::prove_expression_with_file_classes(params, 1, &start, &end, &file_path, true)
-        //         .unwrap();
-        // println!("Total time = {}", result.total_time);
+        let params = get_runner_params(1).unwrap();
+        let (start, end) = get_start_end().unwrap();
+        println!("Simplifying expression:\n {}\n to {}", start, end);
+        println!("{:?}", trs::prove(&start, -1, params, true, true));
     }
 }
