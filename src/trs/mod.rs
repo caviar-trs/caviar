@@ -264,9 +264,12 @@ pub fn rules(ruleset_class: i8) -> Vec<Rewrite> {
 }
 
 #[allow(dead_code)]
-pub fn print_graph(egraph: &EGraph) {
+pub fn print_graph(egraph: &EGraph, name: &str) {
     println!("printing graph to svg");
-    egraph.dot().to_svg("foo.svg").unwrap();
+    egraph
+        .dot()
+        .to_svg("results/".to_owned() + name + ".svg")
+        .unwrap();
     println!("done printing graph to svg");
 }
 
@@ -412,8 +415,15 @@ pub fn prove(
             .with_node_limit(params.1)
             .with_time_limit(Duration::new(params.2, 0))
             .with_expr(&start)
+            .with_scheduler(
+                BackoffScheduler::default()
+                    .with_initial_match_limit(1)
+                    .with_ban_length(10000000),
+            )
             .run(rules(ruleset_class).iter());
     }
+
+    print_graph(&runner.egraph, &runner.iterations.len().to_string());
 
     id = runner.egraph.find(*runner.roots.last().unwrap());
     for (goal_index, goal) in goals.iter().enumerate() {
@@ -425,6 +435,10 @@ pub fn prove(
         }
     }
 
+    let class = runner.egraph.classes().find(|class| class.id == id);
+
+    println!("{:?} and root Id = {}", class, id);
+
     if result {
         if report {
             println!(
@@ -433,7 +447,7 @@ pub fn prove(
                 goals[proved_goal_index].to_string()
             );
         }
-        best_expr = Some(goals[proved_goal_index].to_string())
+        best_expr = Some(goals[proved_goal_index].to_string());
     } else {
         let mut extractor = Extractor::new(&runner.egraph, AstDepth);
         let (_, best_exprr) = extractor.find_best(id);
