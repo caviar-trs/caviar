@@ -529,7 +529,6 @@ pub fn prove_expression_with_file_classes(
     let goals = [end_0.clone(), end_1.clone()];
 
     let time_per_class = (params.2 as f64) / (classes.len() as f64);
-    println!("{}", time_per_class);
 
     // rules = filtered_rules(&classes[0])?;
     let start_t = Instant::now();
