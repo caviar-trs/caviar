@@ -519,9 +519,8 @@ pub fn prove_expression_with_file_classes(
     let mut result: bool = false;
     let mut runner: egg::Runner<Math, ConstantFold>;
     let mut rules: Vec<Rewrite>;
-    let mut matches: Option<egg::SearchMatches>;
     let mut proved_goal_index = 0;
-    let mut id;
+    let id;
     let mut best_expr = Some("".to_string());
     let mut proving_class = -1;
     // First iter
@@ -529,12 +528,15 @@ pub fn prove_expression_with_file_classes(
     let end_0: Pattern<Math> = "false".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
 
+    let time_per_class = (params.2 as f64) / (classes.len() as f64);
+    println!("{}", time_per_class);
+
     // rules = filtered_rules(&classes[0])?;
     let start_t = Instant::now();
     runner = Runner::default()
         .with_iter_limit(params.0)
         .with_node_limit(params.1)
-        .with_time_limit(Duration::new(params.2, 0))
+        .with_time_limit(Duration::from_secs_f64(time_per_class))
         .with_expr(&start);
     id = runner.egraph.find(*runner.roots.last().unwrap());
     // End first iter
@@ -544,7 +546,7 @@ pub fn prove_expression_with_file_classes(
             runner = Runner::default()
                 .with_iter_limit(params.0)
                 .with_node_limit(params.1)
-                .with_time_limit(Duration::new(params.2, 0))
+                .with_time_limit(Duration::from_secs_f64(time_per_class))
                 .with_egraph(runner.egraph)
         }
 
