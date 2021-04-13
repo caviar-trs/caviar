@@ -1,13 +1,12 @@
 use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 
 use io::reader::get_nth_arg;
-use json::{parse, JsonValue};
-use serde::de::Expected;
+use json::parse;
 
 use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::io::writer::write_results;
 use crate::structs::{ExpressionStruct, ResultStructure};
-use crate::trs::{filtered_rules, prove_expr, prove_expression_with_file_classes};
+use trs::{prove, prove_expression_with_file_classes};
 
 mod trs;
 
@@ -26,8 +25,8 @@ fn prove_expressions(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
-        results.push(prove_expr(
-            expression,
+        results.push(prove(
+            &expression.expression,
             ruleset_class,
             params,
             use_iteration_check,
@@ -122,10 +121,9 @@ fn main() {
             _ => {}
         }
     } else {
-        // let file_path = get_first_arg().unwrap();
         let params = get_runner_params(1).unwrap();
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start, end);
-        println!("{:?}", trs::prove(&start, -1, params, true, true));
+        println!("{:?}", prove(&start, -1, params, true, true));
     }
 }
