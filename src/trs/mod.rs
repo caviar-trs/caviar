@@ -102,7 +102,13 @@ impl Analysis<Math> for ConstantFold {
                     0
                 }
             }
-            Math::Mod([a, b]) => x(a)? % x(b)?,
+            Math::Mod([a, b]) => {
+                if *x(b)? == 0 {
+                    0
+                } else {
+                    x(a)? % x(b)?
+                }
+            }
             Math::Eq([a, b]) => {
                 if x(a)? == x(b)? {
                     1
