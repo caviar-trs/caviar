@@ -9,8 +9,8 @@ pub fn and() -> Vec<Rewrite> {
         rw!("and-assoc"         ;  "(&& ?a (&& ?b ?c))"                 => "(&& (&& ?a ?b) ?c)"),
         rw!("and-x-1"           ;  "(&& 1 ?x)"                          => "?x"),
         rw!("and-x-x"           ;  "(&& ?x ?x)"                         => "?x"),
-        rw!("and-x-not-x"       ;  "(&& ?x (! ?x))"                     => "false"),
-        rw!("and-eq-eq"         ;  "( && ( == ?x ?c0 ) ( == ?x ?c1 ) )" => "false" if crate::trs::compare_c0_c1("?c1", "?c0", "!=")),
+        rw!("and-x-not-x"       ;  "(&& ?x (! ?x))"                     => "0"),
+        rw!("and-eq-eq"         ;  "( && ( == ?x ?c0 ) ( == ?x ?c1 ) )" => "0" if crate::trs::compare_c0_c1("?c1", "?c0", "!=")),
         rw!("and-ineq-eq"       ;  "( && ( != ?x ?c0 ) ( == ?x ?c1 ) )" => "( == ?x ?c1 )" if crate::trs::compare_c0_c1("?c1", "?c0", "!=")),
         rw!("and-lt-to-min"     ;  "(&& (< ?x ?y) (< ?x ?z))"           => "(< ?x (min ?y ?z))"),
         rw!("and-min-to-lt"     ;  "(< ?x (min ?y ?z))"                 => "(&& (< ?x ?y) (< ?x ?z))"),
@@ -20,9 +20,8 @@ pub fn and() -> Vec<Rewrite> {
         rw!("and-max-to-lt"     ;  "(> ?x (max ?y ?z))"                 => "(&& (< ?z ?x) (< ?y ?x))"),
         rw!("and-eqlt-to-max"   ;  "(&& (<= ?y ?x) (<= ?z ?x))"         => "(<= (max ?y ?z) ?x)"),
         rw!("and-max-to-eqlt"   ;  "(>= ?x (max ?y ?z))"                => "(&& (<= ?z ?x) (<= ?y ?x))"),
-        rw!("and-lt-gt-to-0"    ; "( && ( < ?c0 ?x ) ( < ?x ?c1 ) )"    => "false" if crate::trs::compare_c0_c1("?c1", "?c0", "<=+1")),
-        rw!("and-eqlt-eqgt-to-0"; "( && ( <= ?c0 ?x ) ( <= ?x ?c1 ) )"  => "false" if crate::trs::compare_c0_c1("?c1", "?c0", "<")),
-        rw!("and-eqlt-gt-to-0"  ; "( && ( <= ?c0 ?x ) ( < ?x ?c1 ) )"   => "false" if crate::trs::compare_c0_c1("?c1", "?c0", "<=")),
-        // rw!("x-0-and";  "(&& 0 ?x)"        => "0"), //NOTAXIOM
+        rw!("and-lt-gt-to-0"    ; "( && ( < ?c0 ?x ) ( < ?x ?c1 ) )"    => "0" if crate::trs::compare_c0_c1("?c1", "?c0", "<=+1")),
+        rw!("and-eqlt-eqgt-to-0"; "( && ( <= ?c0 ?x ) ( <= ?x ?c1 ) )"  => "0" if crate::trs::compare_c0_c1("?c1", "?c0", "<")),
+        rw!("and-eqlt-gt-to-0"  ; "( && ( <= ?c0 ?x ) ( < ?x ?c1 ) )"   => "0" if crate::trs::compare_c0_c1("?c1", "?c0", "<=")),
     ]
 }
