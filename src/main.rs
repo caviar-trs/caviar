@@ -1,13 +1,12 @@
 use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 
 use io::reader::get_nth_arg;
-use json::{parse, JsonValue};
-use serde::de::Expected;
+use json::parse;
 
 use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::io::writer::write_results;
 use crate::structs::{ExpressionStruct, ResultStructure};
-use crate::trs::{filtered_rules, prove_expr, prove_expression_with_file_classes};
+use trs::{prove, prove_expression_with_file_classes};
 
 mod trs;
 
@@ -26,8 +25,8 @@ fn prove_expressions(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
-        results.push(prove_expr(
-            expression,
+        results.push(prove(
+            &expression.expression,
             ruleset_class,
             params,
             use_iteration_check,
@@ -119,16 +118,31 @@ fn main() {
                 let classes_file = get_nth_arg(6).unwrap();
                 test_classes(classes_file, &expression_vect, params, true, false);
             }
+            "prove_one_expr" => {
+                let classes_file = get_nth_arg(6).unwrap();
+                let mut file = File::open(classes_file).unwrap();
+                let mut s = String::new();
+                file.read_to_string(&mut s).unwrap();
+                let classes = parse(&s).unwrap();
+                let start_t = Instant::now();
+
+                let (strct, class, exec_time) = prove_expression_with_file_classes(
+                    &classes,
+                    params,
+                    expression_vect[0].index,
+                    &expression_vect[0].expression.clone(),
+                    true,
+                    true,
+                )
+                .unwrap();
+                println!("{}", start_t.elapsed().as_secs_f64());
+            }
             _ => {}
         }
     } else {
-        // let file_path = get_first_arg().unwrap();
-        // let params = get_runner_params(2).unwrap();
-        // let (start, end) = get_start_end().unwrap();
-        // println!("Simplifying expression:\n {}\n to {}", start, end);
-        // let result: ResultStructure =
-        //     trs::prove_expression_with_file_classes(params, 1, &start, &end, &file_path, true)
-        //         .unwrap();
-        // println!("Total time = {}", result.total_time);
+        let params = get_runner_params(1).unwrap();
+        let (start, end) = get_start_end().unwrap();
+        println!("Simplifying expression:\n {}\n to {}", start, end);
+        println!("{:?}", prove(&start, -1, params, false, true));
     }
 }
