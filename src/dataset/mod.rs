@@ -10,6 +10,8 @@ use std::fs::File;
 use std::io::Write;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
+use std::ffi::OsString;
+use csv::ReaderBuilder;
 
 #[allow(dead_code)]
 pub fn generate_dataset(
@@ -199,6 +201,27 @@ pub fn minimal_set_to_prove(
     }
 }
 
+pub fn generation_execution(file_path: &OsString,reorder_count: usize, batch_size: usize, params: (usize, usize, u64)){
+    let mut expressions_vect = Vec::new();
+    let file = File::open(file_path).unwrap();
+    //let mut rdr = csv::Reader::from_reader(file);
+    let mut rdr = ReaderBuilder::new()
+        .delimiter(b',')
+        .from_reader(file);
+    let mut i = 0;
+    for result in rdr.records() {
+        i += 1;
+        let record = result.unwrap();
+        let expression = &record[1];
+        expressions_vect.push(expression.to_string());
+        if i % batch_size == 0{
+            generate_dataset_0_1_par(&expressions_vect, -2, params, true, reorder_count, i/batch_size);
+            println!("{} expressions processed!", i);
+            expressions_vect = Vec::new();
+        }
+    }
+}
+
 #[allow(dead_code)]
 pub fn generate_dataset_0_1_par(
     expressions: &Vec<String>,
@@ -206,8 +229,10 @@ pub fn generate_dataset_0_1_par(
     params: (usize, usize, u64),
     use_iteration_check: bool,
     reorder_count: usize,
+    batch_number: usize
 ) {
-    let mut dataset = File::create("results/dataset.json").unwrap();
+    let results_file_name = format!("results/dataset-batch-{}.json",batch_number);
+    let mut dataset = File::create(results_file_name).unwrap();
     let data = Arc::new(Mutex::new(Vec::new()));
     expressions.par_iter().for_each(|expression| {
         minimal_set_to_prove_0_1(
