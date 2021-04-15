@@ -115,7 +115,8 @@ fn main() {
                 //     expression_str_vct.push( expressionStruct.expression.clone());
                 // }
                 // generate_dataset_0_1_par(&expression_str_vct, -1,params,true, 10);
-                prove_expressions(&expression_vect, -1, params, true, true);
+                let results = prove_expressions(&expression_vect, -1, params, true, false);
+                write_results("tmp/generated_expressions_results.csv", &results).unwrap();
             }
             "test_classes" => {
                 let classes_file = get_nth_arg(6).unwrap();
