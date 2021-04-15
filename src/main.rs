@@ -72,8 +72,11 @@ fn test_classes(
     println!("Execution time : |{}| |{}|", duration, exec_time);
     write_results(
         &format!(
-            "results/k_{}_class_analysis_results_exec_{}.csv",
+            "results/k_{}_class_analysis_results_params_{}_{}_{}_exec_{}.csv",
             classes[0].len(),
+            params.0,
+            params.1,
+            params.2,
             duration
         ),
         &results_structs,
