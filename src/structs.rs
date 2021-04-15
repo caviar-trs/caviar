@@ -8,7 +8,7 @@ pub struct ResultStructure {
     start_expression: String,
     end_expression: String,
     pub result: bool,
-    best_expr: String,
+    pub best_expr: String,
     pub total_time: f64,
     class: i64,
     condition: Option<String>,
