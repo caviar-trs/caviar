@@ -106,12 +106,10 @@ fn main() {
         let params = get_runner_params(3).unwrap();
         let expression_vect = read_expressions(&expressions_file).unwrap();
         match operation.to_str().unwrap() {
+            "dataset" => {
+                dataset::generation_execution(&expressions_file, params, 5, 500);
+            }
             "prove_exprs" => {
-                // let mut expression_str_vct = Vec::new();
-                // for expressionStruct in expression_vect.iter() {
-                //     expression_str_vct.push( expressionStruct.expression.clone());
-                // }
-                // generate_dataset_0_1_par(&expression_str_vct, -1,params,true, 10);
                 prove_expressions(&expression_vect, -1, params, true, true);
             }
             "test_classes" => {

@@ -201,7 +201,7 @@ pub fn minimal_set_to_prove(
     }
 }
 
-pub fn generation_execution(file_path: &OsString,reorder_count: usize, batch_size: usize, params: (usize, usize, u64)){
+pub fn generation_execution(file_path: &OsString, params: (usize, usize, u64),reorder_count: usize, batch_size: usize){
     let mut expressions_vect = Vec::new();
     let file = File::open(file_path).unwrap();
     //let mut rdr = csv::Reader::from_reader(file);
@@ -234,6 +234,7 @@ pub fn generate_dataset_0_1_par(
     let results_file_name = format!("results/dataset-batch-{}.json",batch_number);
     let mut dataset = File::create(results_file_name).unwrap();
     let data = Arc::new(Mutex::new(Vec::new()));
+    println!("Generating batch #{0} with params iter_limit={1} nodes_limit={2} time_limit={3}", batch_number, params.0, params.1, params.2);
     expressions.par_iter().for_each(|expression| {
         minimal_set_to_prove_0_1(
             &expression,
@@ -347,5 +348,7 @@ pub fn minimal_set_to_prove_0_1(
         //         "{}",format!("{}", r.name()).blue().bold()
         //     );
         // }
+    } else {
+        println!("Could not prove {0}", format!("{0}", expression.to_string()).red().bold());
     }
 }
