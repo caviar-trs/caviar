@@ -6,18 +6,11 @@ use std::{cmp::Ordering, time::Instant};
 
 use colored::*;
 use egg::*;
-pub mod trsdata;
 
 use crate::structs::{ResultStructure, Rule};
 
-use trsdata::TRSDATA;
-
-use self::trsdata::{and, or};
-
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
 pub type Rewrite = egg::Rewrite<Math, ConstantFold>;
-pub type Constant = i64;
-pub type Boolean = bool;
 
 define_language! {
     pub enum Math {
@@ -37,7 +30,7 @@ define_language! {
         "!=" = IEq([Id; 2]),
         "||" = Or([Id; 2]),
         "&&" = And([Id; 2]),
-        Constant(TRSDATA),
+        Constant(i64),
         Symbol(Symbol),
     }
 }
@@ -46,7 +39,7 @@ define_language! {
 pub struct ConstantFold;
 
 impl Analysis<Math> for ConstantFold {
-    type Data = Option<TRSDATA>;
+    type Data = Option<i64>;
 
     fn merge(&self, a: &mut Self::Data, b: Self::Data) -> Option<Ordering> {
         match (a.as_mut(), &b) {
@@ -67,23 +60,83 @@ impl Analysis<Math> for ConstantFold {
     fn make(egraph: &EGraph, enode: &Math) -> Self::Data {
         let x = |i: &Id| egraph[*i].data.as_ref();
         Some(match enode {
-            Math::Constant(c) => (*c).clone(),
-            Math::Add([a, b]) => (x(a)? + x(b)?)?,
-            Math::Sub([a, b]) => (x(a)? - x(b)?)?,
-            Math::Mul([a, b]) => (x(a)? * x(b)?)?,
-            Math::Div([a, b]) if x(b) != Some(&TRSDATA::Constant(0)) => (x(a)? / x(b)?)?,
-            Math::Max([a, b]) => std::cmp::max(x(a)?.clone(), x(b)?.clone()),
-            Math::Min([a, b]) => std::cmp::min(x(a)?.clone(), x(b)?.clone()),
-            Math::Not(a) => (!x(a)?)?,
-            Math::Lt([a, b]) => TRSDATA::Boolean(x(a)? < x(b)?),
-            Math::Gt([a, b]) => TRSDATA::Boolean(x(a)? > x(b)?),
-            Math::Let([a, b]) => TRSDATA::Boolean(x(a)? <= x(b)?),
-            Math::Get([a, b]) => TRSDATA::Boolean(x(a)? >= x(b)?),
-            Math::Mod([a, b]) => (x(a)? % x(b)?)?,
-            Math::Eq([a, b]) => TRSDATA::Boolean(x(a)? == x(b)?),
-            Math::IEq([a, b]) => TRSDATA::Boolean(x(a)? != x(b)?),
-            Math::And([a, b]) => and(x(a)?, x(b)?)?,
-            Math::Or([a, b]) => or(x(a)?, x(b)?)?,
+            Math::Constant(c) => (*c),
+            Math::Add([a, b]) => (x(a)? + x(b)?),
+            Math::Sub([a, b]) => (x(a)? - x(b)?),
+            Math::Mul([a, b]) => (x(a)? * x(b)?),
+            Math::Div([a, b]) if *x(b)? != 0 => (x(a)? / x(b)?),
+            Math::Max([a, b]) => std::cmp::max(*x(a)?, *x(b)?),
+            Math::Min([a, b]) => std::cmp::min(*x(a)?, *x(b)?),
+            Math::Not(a) => {
+                if *x(a)? == 0 {
+                    1
+                } else {
+                    0
+                }
+            }
+            Math::Lt([a, b]) => {
+                if x(a)? < x(b)? {
+                    1
+                } else {
+                    0
+                }
+            }
+            Math::Gt([a, b]) => {
+                if x(a)? > x(b)? {
+                    1
+                } else {
+                    0
+                }
+            }
+            Math::Let([a, b]) => {
+                if x(a)? <= x(b)? {
+                    1
+                } else {
+                    0
+                }
+            }
+            Math::Get([a, b]) => {
+                if x(a)? >= x(b)? {
+                    1
+                } else {
+                    0
+                }
+            }
+            Math::Mod([a, b]) => {
+                if *x(b)? == 0 {
+                    0
+                } else {
+                    x(a)? % x(b)?
+                }
+            }
+            Math::Eq([a, b]) => {
+                if x(a)? == x(b)? {
+                    1
+                } else {
+                    0
+                }
+            }
+            Math::IEq([a, b]) => {
+                if x(a)? != x(b)? {
+                    1
+                } else {
+                    0
+                }
+            }
+            Math::And([a, b]) => {
+                if *x(a)? == 0 || *x(b)? == 0 {
+                    0
+                } else {
+                    1
+                }
+            }
+            Math::Or([a, b]) => {
+                if *x(a)? == 1 || *x(b)? == 1 {
+                    1
+                } else {
+                    0
+                }
+            }
 
             _ => return None,
         })
@@ -112,10 +165,7 @@ pub fn is_const_pos(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
     move |egraph, _, subst| {
         egraph[subst[var]].nodes.iter().any(|n| match n {
-            Math::Constant(c) => match *c {
-                TRSDATA::Constant(c_v) => c_v > 0,
-                _ => false,
-            },
+            Math::Constant(c) => c > &0,
             _ => return false,
         })
     }
@@ -125,10 +175,7 @@ pub fn is_const_neg(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
     move |egraph, _, subst| {
         egraph[subst[var]].nodes.iter().any(|n| match n {
-            Math::Constant(c) => match *c {
-                TRSDATA::Constant(c_v) => c_v < 0,
-                _ => false,
-            },
+            Math::Constant(c) => c < &0,
             _ => return false,
         })
     }
@@ -136,7 +183,7 @@ pub fn is_const_neg(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
 
 pub fn is_not_zero(var: &str) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
     let var = var.parse().unwrap();
-    let zero = Math::Constant(TRSDATA::Constant(0));
+    let zero = Math::Constant(0);
     move |egraph, _, subst| !egraph[subst[var]].nodes.contains(&zero)
 }
 
@@ -149,31 +196,25 @@ pub fn compare_c0_c1(
     let var1: Var = var1.parse().unwrap();
     move |egraph, _, subst| {
         egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
-            Math::Constant(c1_d) => match *c1_d {
-                TRSDATA::Constant(c1) => egraph[subst[var]].nodes.iter().any(|n| match n {
-                    Math::Constant(c_d) => match *c_d {
-                        TRSDATA::Constant(c) => match comp {
-                            "<" => c < c1,
-                            "<a" => c < c1.abs(),
-                            "<=" => c <= c1,
-                            "<=+1" => c <= c1 + 1,
-                            "<=a" => c <= c1.abs(),
-                            "<=-a" => c <= -c1.abs(),
-                            "<=-a+1" => c <= 1 - c1.abs(),
-                            ">" => c > c1,
-                            ">a" => c > c1.abs(),
-                            ">=" => c >= c1,
-                            ">=a" => c >= (c1.abs()),
-                            ">=a-1" => c >= (c1.abs() - 1),
-                            "!=" => c != c1,
-                            _ => false,
-                        },
-                        _ => false,
-                    },
-                    _ => return false,
-                }),
-                _ => false,
-            },
+            Math::Constant(c1) => egraph[subst[var]].nodes.iter().any(|n| match n {
+                Math::Constant(c) => match comp {
+                    "<" => c < c1,
+                    "<a" => c < &c1.abs(),
+                    "<=" => c <= c1,
+                    "<=+1" => c <= &(c1 + 1),
+                    "<=a" => c <= &c1.abs(),
+                    "<=-a" => c <= &(-c1.abs()),
+                    "<=-a+1" => c <= &(1 - c1.abs()),
+                    ">" => c > c1,
+                    ">a" => c > &c1.abs(),
+                    ">=" => c >= c1,
+                    ">=a" => c >= &(c1.abs()),
+                    ">=a-1" => c >= &(c1.abs() - 1),
+                    "!=" => c != c1,
+                    _ => false,
+                },
+                _ => return false,
+            }),
             _ => return false,
         })
     }
@@ -387,8 +428,8 @@ pub fn prove(
     report: bool,
 ) -> ResultStructure {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
-    let end_1: Pattern<Math> = "true".parse().unwrap();
-    let end_0: Pattern<Math> = "false".parse().unwrap();
+    let end_1: Pattern<Math> = "1".parse().unwrap();
+    let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
     let runner: Runner<Math, ConstantFold>;
     let mut result = false;
@@ -415,15 +456,8 @@ pub fn prove(
             .with_node_limit(params.1)
             .with_time_limit(Duration::new(params.2, 0))
             .with_expr(&start)
-            .with_scheduler(
-                BackoffScheduler::default()
-                    .with_initial_match_limit(1)
-                    .with_ban_length(10000000),
-            )
             .run(rules(ruleset_class).iter());
     }
-
-    print_graph(&runner.egraph, &runner.iterations.len().to_string());
 
     id = runner.egraph.find(*runner.roots.last().unwrap());
     for (goal_index, goal) in goals.iter().enumerate() {
@@ -436,8 +470,6 @@ pub fn prove(
     }
 
     let class = runner.egraph.classes().find(|class| class.id == id);
-
-    println!("{:?} and root Id = {}", class, id);
 
     if result {
         if report {
@@ -469,7 +501,7 @@ pub fn prove(
     ResultStructure::new(
         -1,
         start_expression.to_string(),
-        "true/false".to_string(),
+        "1/0".to_string(),
         result,
         best_expr.unwrap_or_default(),
         total_time,
@@ -524,8 +556,8 @@ pub fn prove_expression_with_file_classes(
     let mut best_expr = Some("".to_string());
     let mut proving_class = -1;
     // First iter
-    let end_1: Pattern<Math> = "true".parse().unwrap();
-    let end_0: Pattern<Math> = "false".parse().unwrap();
+    let end_1: Pattern<Math> = "1".parse().unwrap();
+    let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
 
     let time_per_class = (params.2 as f64) / (classes.len() as f64);
