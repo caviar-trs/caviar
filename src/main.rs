@@ -72,8 +72,11 @@ fn test_classes(
     println!("Execution time : |{}| |{}|", duration, exec_time);
     write_results(
         &format!(
-            "results/k_{}_class_analysis_results_exec_{}.csv",
+            "results/k_{}_class_analysis_results_params_{}_{}_{}_exec_{}.csv",
             classes[0].len(),
+            params.0,
+            params.1,
+            params.2,
             duration
         ),
         &results_structs,
@@ -110,7 +113,8 @@ fn main() {
                 dataset::generation_execution(&expressions_file, params, 5, 500);
             }
             "prove_exprs" => {
-                prove_expressions(&expression_vect, -1, params, true, true);
+                let results = prove_expressions(&expression_vect, -1, params, true, true);
+                write_results("tmp/generated_expressions_results.csv", &results).unwrap();
             }
             "test_classes" => {
                 let classes_file = get_nth_arg(6).unwrap();
@@ -141,6 +145,6 @@ fn main() {
         let params = get_runner_params(1).unwrap();
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start, end);
-        println!("{:?}", prove(&start, -1, params, false, true));
+        println!("{:?}", prove(&start, -1, params, true, true));
     }
 }

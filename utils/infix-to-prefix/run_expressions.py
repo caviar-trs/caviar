@@ -25,28 +25,17 @@ def extract(path):
             if next_expr:
                 # print("Skipped row :", i)
                 continue
-
+            row[0] = row[0].replace("(uint1)", "")
             right = Expression(row[0])
             expr = ' '.join(right.infixToPrefix())
-            expr = re.sub("\( \- (?P<var>[a-zA-Z_$][a-zA-Z_$0-9]*) \)", r'(* \1 -1)', expr)
+            expr = re.sub(
+                "\( \- (?P<var>[a-zA-Z_$][a-zA-Z_$0-9]*) \)", r'(* \1 -1)', expr)
             print(expr)
             exprs.append(expr)
-            # if rule:
-            #     formated_rule = [r for r in rule.group(1)]
-            #     formated_rule = ''.join(formated_rule)
-            #     ok = True
-            #     for f in remove:
-            #         if f in formated_rule:
-            #             ok = False
-            #     if ok:
-            #         sides, condition = remove_condition(formated_rule)
-            #         sides = ''.join(sides)
-            #         rules.append([sides, condition if condition else " "])
     return exprs
 
 
 if __name__ == '__main__':
-    # arr = [i for i in Expression("c1 + x * y + z").add_parentheses() if i]
     exprs = extract(sys.argv[1])
     frmt = []
     for i, expr in enumerate(exprs):
