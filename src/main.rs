@@ -7,7 +7,6 @@ use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::io::writer::write_results;
 use crate::structs::{ExpressionStruct, ResultStructure};
 use trs::{prove, prove_expression_with_file_classes};
-
 mod trs;
 
 mod dataset;
