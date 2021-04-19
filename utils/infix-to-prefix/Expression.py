@@ -202,7 +202,7 @@ class Expression:
                         i = i + 1
                         arr[i], arr[j] = arr[j], arr[i]
         except RecursionError as re:
-            print('Recursion problem: {}'.format(' '.join(arr))
+            print('Recursion problem: {}'.format(' '.join(arr)))
 
 
 
