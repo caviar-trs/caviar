@@ -17,7 +17,9 @@ def extract(path, delimiter):
                   'Overflow', 'can_prove', 'canprove'
                   'op->type', 'op->type', 'Call', 'this', 'IRMatcher']
         exprs = []
-        exprs = Parallel(n_jobs=num_cores)(delayed(extract_one)(i, row, remove) for i, row in enumerate(csv_reader))
+        #exprs = Parallel(n_jobs=num_cores)(delayed(extract_one)(i, row, remove) for i, row in enumerate(csv_reader))
+        for i, row in enumerate(csv_reader):
+            exprs.append(extract_one(i, row, remove))
     return exprs
 
 def extract_one(i, row, remove):
