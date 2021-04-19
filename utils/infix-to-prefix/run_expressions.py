@@ -6,10 +6,10 @@ from Stack import Stack
 import csv
 
 
-def extract(path):
+def extract(path, delimiter):
     print(path)
     with open(path) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
+        csv_reader = csv.reader(csv_file, delimiter=delimiter)
         remove = ['int32', 'float32', 'select',
                   'broadcast', 'ramp', 'fold',
                   'Overflow', 'can_prove', 'canprove'
@@ -30,13 +30,17 @@ def extract(path):
             expr = ' '.join(right.infixToPrefix())
             expr = re.sub(
                 "\( \- (?P<var>[a-zA-Z_$][a-zA-Z_$0-9]*) \)", r'(* \1 -1)', expr)
-            print(expr)
+            print("Expression "+ str(i) +" processed.")
             exprs.append(expr)
     return exprs
 
 
 if __name__ == '__main__':
-    exprs = extract(sys.argv[1])
+    if len(sys.argv) > 2:
+        delimiter = sys.argv[2]
+    else:
+        delimiter = ','
+    exprs = extract(sys.argv[1], delimiter)
     frmt = []
     for i, expr in enumerate(exprs):
         frmt.append([i+1, expr])
