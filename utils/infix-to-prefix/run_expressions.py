@@ -9,7 +9,7 @@ import multiprocessing
 
 
 def extract(path, delimiter):
-    num_cores = multiprocessing.cpu_count()
+    num_cores = multiprocessing.cpu_count() / 2
     with open(path) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=delimiter)
         remove = ['int32', 'float32', 'select',
