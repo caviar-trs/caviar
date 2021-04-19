@@ -36,6 +36,7 @@ def extract(path, delimiter):
 
 
 if __name__ == '__main__':
+    sys.setrecursionlimit(1500)
     if len(sys.argv) > 2:
         delimiter = sys.argv[2]
     else:
