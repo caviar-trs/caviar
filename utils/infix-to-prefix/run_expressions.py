@@ -17,13 +17,15 @@ def extract(path, delimiter):
                   'Overflow', 'can_prove', 'canprove'
                   'op->type', 'op->type', 'Call', 'this', 'IRMatcher']
         exprs = []
-        #exprs = Parallel(n_jobs=num_cores)(delayed(extract_one)(i, row, remove) for i, row in enumerate(csv_reader))
-        for i, row in enumerate(csv_reader):
-            exprs.append(extract_one(i, row, remove))
+        exprs = Parallel(n_jobs=num_cores)(delayed(extract_one)(i, row, remove) for i, row in enumerate(csv_reader))
+        #for i, row in enumerate(csv_reader):
+        #    exprs.append(extract_one(i, row, remove))
     return exprs
 
 def extract_one(i, row, remove):
     try:
+        if len(row[0]) > 1000:
+            raise Exception("Expression "+ str(i) +" skipped.")
         next_expr = False
         for tabou in remove:
             if tabou in row[0]:
