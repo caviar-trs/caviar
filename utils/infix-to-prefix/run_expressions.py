@@ -38,7 +38,7 @@ def extract_one(i, row, remove):
     return expr
 
 if __name__ == '__main__':
-    sys.setrecursionlimit(60000)
+    sys.setrecursionlimit(6000)
     if len(sys.argv) > 2:
         delimiter = sys.argv[2]
     else:
