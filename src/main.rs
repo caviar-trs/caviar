@@ -106,20 +106,22 @@ fn main() {
         let operation = get_nth_arg(1).unwrap();
         let expressions_file = get_nth_arg(2).unwrap();
         let params = get_runner_params(3).unwrap();
-        let expression_vect = read_expressions(&expressions_file).unwrap();
         match operation.to_str().unwrap() {
             "dataset" => {
                 dataset::generation_execution(&expressions_file, params, 5, 500);
             }
             "prove_exprs" => {
+                let expression_vect = read_expressions(&expressions_file).unwrap();
                 let results = prove_expressions(&expression_vect, -1, params, true, true);
                 write_results("tmp/generated_expressions_results.csv", &results).unwrap();
             }
             "test_classes" => {
+                let expression_vect = read_expressions(&expressions_file).unwrap();
                 let classes_file = get_nth_arg(6).unwrap();
                 test_classes(classes_file, &expression_vect, params, true, false);
             }
             "prove_one_expr" => {
+                let expression_vect = read_expressions(&expressions_file).unwrap();
                 let classes_file = get_nth_arg(6).unwrap();
                 let mut file = File::open(classes_file).unwrap();
                 let mut s = String::new();

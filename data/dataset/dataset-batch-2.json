@@ -1,0 +1,4645 @@
+[
+  {
+    "expression": {
+      "start": "( >= ( + ( + v0 v1 ) v2 ) ( + ( + ( + v0 v1 ) v2 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": ["lt-x-x-sub-a", "lt-swap-out", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( + ( * v0 4 ) v1 ) 0 ) 4 ) ( - ( + ( + ( * v0 4 ) 0 ) v1 ) 4 ) ) ) ( >= ( - ( + ( + ( * v0 4 ) v1 ) 3 ) 4 ) ( - ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) 4 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) ) ( <= 0 0 ) ) ( >= ( - ( + 25 0 ) 1 ) ( - ( + 25 0 ) 1 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "add-comm",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( - ( + ( + ( * v0 503 ) v1 ) 0 ) 5 ) 3 ) ( - ( - ( + ( + ( * v0 503 ) v1 ) 0 ) 5 ) 3 ) ) ) ( >= ( - ( + ( + ( + ( * v0 503 ) v1 ) ( - ( + 503 0 ) 1 ) ) ( - ( - 6 5 ) 1 ) ) 3 ) ( - ( + ( + ( + ( * v0 503 ) v1 ) ( - ( + 503 0 ) 1 ) ) ( - ( - 6 5 ) 1 ) ) 3 ) ) ) ( <= ( - ( - ( + ( + ( * v2 503 ) v3 ) v4 ) 5 ) 3 ) ( - ( - ( + ( + ( * v2 503 ) v3 ) v4 ) 5 ) 3 ) ) ) ( >= ( - ( + ( + ( + ( * v2 503 ) v3 ) v4 ) ( - ( - 6 5 ) 1 ) ) 3 ) ( - ( + ( + ( + ( * v2 503 ) v3 ) v4 ) ( - ( - 6 5 ) 1 ) ) 3 ) ) ) ( <= ( + ( * v5 4 ) 0 ) ( + ( * v5 4 ) 0 ) ) ) ( >= ( + ( * v5 4 ) 3 ) ( + ( * v5 4 ) ( - ( + 4 0 ) 1 ) ) ) )",
+      "end": "1"
+    },
+    "rules": ["lt-to-zero", "eqlt-to-not-gt", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( == ( + ( + ( * ( / ( + v0 v1 ) 8 ) 2 ) v2 ) 10 ) ( - ( + ( + ( + ( * ( / ( + v0 v1 ) 8 ) 2 ) v2 ) 10 ) ( + -10 11 ) ) 1 ) )",
+      "end": "1"
+    },
+    "rules": ["eq-comm", "sub-to-add", "eq-x-x", "eq-swap"]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( * v0 16 ) v1 ) ( + ( * v0 16 ) ( + v1 1 ) ) )",
+      "end": "1"
+    },
+    "rules": ["lt-swap-out", "add-assoc", "lt-x-x-sub-a"]
+  },
+  {
+    "expression": { "start": "( >= ( + ( % v0 125 ) 1499 ) 0 )", "end": "1" },
+    "rules": [
+      "lt-swap-in",
+      "not-gt-to-eqlt",
+      "Eq-lt-min",
+      "min-mod-const-to-const",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( + ( * v0 4 ) 0 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ) ) ( <= ( + ( + ( min ( * v2 63 ) 62 ) v3 ) v4 ) ( + ( + ( min ( * v2 63 ) 62 ) v3 ) v4 ) ) ) ( >= ( + ( + ( min ( * v2 63 ) 62 ) v3 ) v4 ) ( + ( + ( min ( * v2 63 ) 62 ) v3 ) v4 ) ) ) ( <= v5 v5 ) ) ( >= v5 v5 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "add-assoc",
+      "add-comm",
+      "lt-to-zero",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( + ( * v0 4 ) v1 ) 0 ) 4 ) ( - ( + ( + ( * v0 4 ) 0 ) v1 ) 4 ) ) ) ( >= ( - ( + ( + ( * v0 4 ) v1 ) 3 ) 4 ) ( - ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) 4 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) ) ( <= 0 0 ) ) ( >= 3 ( - ( + 4 0 ) 1 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "add-comm",
+      "lt-to-zero",
+      "add-assoc",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) v2 ) 0 ) ( + ( * ( + ( * v0 2 ) v1 ) 4 ) v2 ) ) ) ( >= ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) v2 ) 3 ) ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) 3 ) v2 ) ) ) ( <= v3 ( + 0 v3 ) ) ) ( >= ( + v3 499 ) ( + ( - ( + 500 0 ) 1 ) v3 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "add-zero",
+      "lt-to-zero",
+      "eqlt-to-not-gt",
+      "add-comm",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= v0 v0 ) ) ( >= v0 v0 ) ) ( <= ( + ( + ( * 0 4 ) v1 ) 0 ) ( + ( + ( * 0 4 ) v1 ) 0 ) ) ) ( >= ( + ( + ( * 2 4 ) v1 ) 3 ) ( + ( + ( * 2 4 ) v1 ) ( - ( + 4 0 ) 1 ) ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": ["eqgt-to-not-lt", "lt-to-zero", "eqlt-to-not-gt"]
+  },
+  {
+    "expression": { "start": "( >= ( + ( % v0 500 ) 499 ) 0 )", "end": "1" },
+    "rules": [
+      "eqgt-to-not-lt",
+      "lt-swap-in",
+      "min-mod-const-to-const",
+      "Eq-lt-min",
+      "not-gt-to-eqlt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( min ( * v0 63 ) 62 ) v1 ) 62 ) ( + ( * ( + v0 1 ) 63 ) v1 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "sub-to-add",
+      "min-add-both",
+      "lt-min-term+cpos",
+      "lt-swap-in",
+      "add-assoc",
+      "add-dist-mul",
+      "add-comm",
+      "mul-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + -2 v0 ) ( + -2 v0 ) ) ) ( >= ( + ( - ( - 4 2 ) 1 ) v0 ) ( + ( - ( - 4 2 ) 1 ) v0 ) ) ) ( <= ( - ( + ( - ( + ( * 0 4 ) v1 ) 2 ) 0 ) 8 ) ( + -2 ( - v1 8 ) ) ) ) ( >= ( - ( + ( + ( + ( * ( - ( + 35 0 ) 1 ) 4 ) v1 ) ( - ( - 4 2 ) 1 ) ) 3 ) 8 ) ( + ( - ( - 4 2 ) 1 ) ( + v1 131 ) ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "sub-to-add",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "lt-to-zero",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( + ( + v0 v1 ) v2 ) 8 ) ( - ( + ( + ( + v0 1 ) v1 ) v2 ) 8 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-swap-out",
+      "add-assoc",
+      "lt-x-x-sub-a",
+      "sub-to-add",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( * v0 4 ) v1 ) v2 ) ( + ( + ( * v0 4 ) v1 ) ( + v2 1 ) ) )",
+      "end": "1"
+    },
+    "rules": ["lt-swap-out", "add-assoc", "lt-x-x-sub-a"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( - ( + ( * 0 4 ) v0 ) 5 ) 0 ) 19 ) ( - ( - ( + ( + ( * 0 4 ) 0 ) v0 ) 5 ) 19 ) ) ) ( >= ( - ( + ( + ( + ( * 125 4 ) v0 ) ( - ( - 6 5 ) 1 ) ) 3 ) 19 ) ( - ( + ( + ( + ( * 125 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ( - ( - 6 5 ) 1 ) ) 19 ) ) ) ( <= ( + -5 v1 ) ( + -5 v1 ) ) ) ( >= ( + ( - ( - 6 5 ) 1 ) v1 ) ( + ( - ( - 6 5 ) 1 ) v1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-zero",
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + ( + v0 v1 ) v2 ) ( - ( + ( + v0 v1 ) v2 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": ["lt-x-x-sub-a", "eqlt-to-not-gt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + v0 v1 ) ( + v0 v1 ) ) ) ( >= ( + v0 v1 ) ( + v0 v1 ) ) ) ( <= ( + 0 v2 ) ( + 0 v2 ) ) ) ( >= ( + 3 v2 ) ( + ( - ( + 4 0 ) 1 ) v2 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": ["eqlt-to-not-gt", "lt-to-zero", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) v0 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + ( + ( * 62 4 ) v0 ) 3 ) ( + ( + ( * ( - ( + 63 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= ( + ( + ( min ( * v1 8 ) 117 ) v2 ) v3 ) ( + ( + ( min ( * v1 8 ) 117 ) v2 ) v3 ) ) ) ( >= ( + ( + ( min ( * v1 8 ) 117 ) v2 ) v3 ) ( + ( + ( min ( * v1 8 ) 117 ) v2 ) v3 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "add-comm",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( + v0 v1 ) 4 ) ( - ( + ( + v0 1 ) v1 ) 4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "sub-to-add",
+      "add-comm",
+      "lt-x-x-sub-a",
+      "lt-swap-out",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= v0 v0 ) ) ( >= v0 v0 ) ) ( <= ( + ( + ( * 0 4 ) ( + ( / v1 4 ) ( * v2 4 ) ) ) 0 ) ( + 0 ( + ( / v1 4 ) ( * v2 4 ) ) ) ) ) ( >= ( + ( + ( * 0 4 ) ( + ( / v1 4 ) ( * v2 4 ) ) ) 3 ) ( + ( - ( + 4 0 ) 1 ) ( + ( / v1 4 ) ( * v2 4 ) ) ) ) ) ( <= ( + ( * v3 16 ) 0 ) ( + ( * v3 16 ) 0 ) ) ) ( >= ( + ( * v3 16 ) ( - ( + 16 0 ) 1 ) ) ( + ( * v3 16 ) ( - ( + 16 0 ) 1 ) ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "add-zero",
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( * ( + ( + ( * v0 8 ) v1 ) v2 ) 4 ) 3 ) ( * ( + ( + ( * v0 8 ) v1 ) ( + v2 1 ) ) 4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-x-x-sub-a",
+      "sub-to-add",
+      "add-to-sub",
+      "add-dist-mul",
+      "lt-swap-out",
+      "mul-comm",
+      "add-assoc",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + v0 4 ) ( min ( max ( / v1 8 ) ( + ( + v0 1 ) 4 ) ) ( + v0 1 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-in",
+      "add-comm",
+      "min-comm",
+      "sub-to-add",
+      "and-min-to-lt",
+      "min-add-both",
+      "min-sub-both"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( + ( * v0 4 ) 0 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) ) ( <= ( + ( * v3 8 ) v4 ) ( + ( * v3 8 ) v4 ) ) ) ( >= ( + ( * v3 8 ) v4 ) ( + ( * v3 8 ) v4 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "add-comm",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( + v0 v1 ) 7 ) ( - ( + ( + v0 1 ) v1 ) 10 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "mul-zero",
+      "lt-swap-in",
+      "lt-swap-out",
+      "add-assoc",
+      "add-fact-mul",
+      "mul-assoc",
+      "add-comm",
+      "mul-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) v0 ) 0 ) v0 ) ) ( >= ( + ( + ( * 249 4 ) v0 ) 3 ) ( + v0 999 ) ) ) ( <= ( / v1 8 ) ( / v1 8 ) ) ) ( >= ( / ( + v1 132 ) 8 ) ( / ( + v1 132 ) 8 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "add-zero",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( + ( * ( + v0 v1 ) 4 ) v2 ) ( + ( + ( * ( + ( - v0 1 ) v1 ) 4 ) v2 ) 1 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "mul-zero",
+      "sub-to-add",
+      "add-assoc",
+      "add-to-sub",
+      "lt-swap-out",
+      "mul-assoc",
+      "mul-comm",
+      "add-fact-mul",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( * ( + ( * v0 8 ) v1 ) 4 ) v2 ) ( + ( * ( + ( * v0 8 ) v1 ) 4 ) ( + v2 1 ) ) )",
+      "end": "1"
+    },
+    "rules": ["lt-x-x-sub-a", "lt-swap-out", "add-assoc"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( + ( * 0 4 ) v0 ) 0 ) 4 ) ( - ( + ( + ( * 0 4 ) 0 ) v0 ) 4 ) ) ) ( >= ( - ( + ( + ( * 15 4 ) v0 ) 3 ) 4 ) ( - ( + ( + ( * 15 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) 4 ) ) ) ( <= v1 v1 ) ) ( >= v1 v1 ) ) ( <= 0 0 ) ) ( >= 3 ( - ( + 4 0 ) 1 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < v0 ( min ( max ( - v1 1 ) ( + v0 1 ) ) ( - ( + v0 1 ) 1 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "and-comm",
+      "sub-to-add",
+      "lt-swap-out",
+      "and-min-to-lt",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( + v0 v1 ) 0 ) 251 ) ( + ( + ( + ( * 0 4 ) 0 ) v1 ) v0 ) ) ) ( >= ( + ( + ( + v0 v1 ) 3 ) 251 ) ( + ( + ( + ( * ( - ( + 63 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) v0 ) ) ) ( <= ( + v2 v3 ) ( + v2 v3 ) ) ) ( >= ( + v2 v3 ) ( + v2 v3 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-comm",
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "lt-swap-out",
+      "lt-x-x-sub-a"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( min ( * ( / v0 4 ) 4 ) 1999 ) 3 ) ( - ( max ( - ( min ( * ( / v0 4 ) 4 ) 1999 ) 4 ) ( min ( * ( / v0 4 ) 4 ) 1999 ) ) 3 ) ) ) ( >= ( + ( max ( * ( / ( + v0 127 ) 4 ) 4 ) -3 ) 4 ) ( + ( + ( max ( * ( / ( + v0 127 ) 4 ) 4 ) -3 ) 3 ) 1 ) ) ) ( <= ( + ( + ( + v1 v2 ) 0 ) 1 ) ( - ( + v1 v2 ) 3 ) ) ) ( >= ( + ( + ( + v1 v2 ) 3 ) 1 ) ( + ( + v1 v2 ) 1 ) ) ) ( <= 0 0 ) ) ( >= 2 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "and-comm",
+      "lt-swap-out",
+      "add-to-sub",
+      "eqlt-to-not-gt",
+      "lt-x-x-sub-a",
+      "add-assoc",
+      "add-comm",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) ( + ( / ( - ( + ( min v0 4 ) v1 ) 4 ) 16 ) ( * v2 4 ) ) ) 0 ) ( + 0 ( + ( / ( - ( + ( min v0 4 ) v1 ) 4 ) 16 ) ( * v2 4 ) ) ) ) ) ( >= ( + ( + ( * 0 4 ) ( + ( / ( - ( + ( min v0 4 ) v1 ) 4 ) 16 ) ( * v2 4 ) ) ) 3 ) ( + ( - ( + 4 0 ) 1 ) ( + ( / ( - ( + ( min v0 4 ) v1 ) 4 ) 16 ) ( * v2 4 ) ) ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) ) ( <= ( + ( * v4 32 ) 0 ) ( + ( * v4 32 ) 0 ) ) ) ( >= ( + ( * v4 32 ) ( - ( + 32 0 ) 1 ) ) ( + ( * v4 32 ) ( - ( + 32 0 ) 1 ) ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-comm",
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "add-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + ( - 1999 ( max ( + ( * v0 8 ) v1 ) 1999 ) ) ( - ( max ( + ( * v0 8 ) v1 ) 1999 ) 1991 ) ) ( - 1999 ( max ( + ( * v0 8 ) v1 ) 1999 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-assoc",
+      "and-min-to-eqlt",
+      "min-add-both",
+      "add-to-sub",
+      "sub-to-add",
+      "add-assoc",
+      "mul-zero",
+      "min-comm",
+      "max-to-min",
+      "add-fact-mul",
+      "mul-comm",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + v0 1 ) ( - ( - ( - v0 1 ) 3 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-in",
+      "add-comm",
+      "sub-to-add",
+      "lt-swap-out",
+      "eqlt-to-not-gt",
+      "add-assoc",
+      "lt-x-x-sub-a"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( + ( * v0 4 ) 0 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ) ) ( <= ( + ( + ( min ( * v2 4 ) 121 ) v3 ) v4 ) ( + ( + ( min ( * v2 4 ) 121 ) v3 ) v4 ) ) ) ( >= ( + ( + ( min ( * v2 4 ) 121 ) v3 ) v4 ) ( + ( + ( min ( * v2 4 ) 121 ) v3 ) v4 ) ) ) ( <= v5 v5 ) ) ( >= v5 v5 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "lt-to-zero",
+      "add-assoc",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( + ( min ( * v0 32 ) 220 ) ( * v1 4 ) ) v2 ) ) ( + ( + ( min ( * v0 32 ) 220 ) ( * v1 4 ) ) v2 ) ) ) ( >= ( + 3 ( + ( + ( min ( * v0 32 ) 220 ) ( * v1 4 ) ) v2 ) ) ( + ( + ( + ( min ( * v0 32 ) 220 ) ( * v1 4 ) ) 3 ) v2 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) ) ( <= v3 v3 ) ) ( >= ( - ( + v4 v3 ) 1 ) ( - ( + v4 v3 ) 1 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "add-zero",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "lt-to-zero",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + ( * ( / v0 4 ) 4 ) 128 ) ( * ( / v0 4 ) 4 ) )",
+      "end": "0"
+    },
+    "rules": ["eqlt-to-not-gt", "lt-swap-out", "lt-x-x-sub-a"]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( * v0 3 ) ( + ( * v1 9 ) v2 ) ) 5 ) ( - ( + ( * ( + v0 1 ) 3 ) ( + ( * v1 9 ) v2 ) ) 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-zero",
+      "mul-assoc",
+      "sub-to-add",
+      "add-comm",
+      "add-assoc",
+      "lt-swap-in",
+      "lt-swap-out",
+      "add-fact-mul",
+      "mul-comm",
+      "add-dist-mul"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( min ( * v0 3 ) 122 ) v1 ) v2 ) ( + ( + ( min ( * v0 3 ) 122 ) ( + v1 1 ) ) v2 ) )",
+      "end": "1"
+    },
+    "rules": ["add-assoc", "lt-swap-out", "lt-x-x-sub-a", "add-comm"]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( min ( * v0 42 ) 83 ) ( + ( * v1 14 ) v2 ) ) v3 ) ( + ( + ( min ( * v0 42 ) 83 ) ( + ( * v1 14 ) ( + v2 1 ) ) ) v3 ) )",
+      "end": "1"
+    },
+    "rules": ["add-assoc", "add-comm", "lt-x-x-sub-a", "lt-swap-out"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + v0 0 ) v0 ) ) ( >= ( + v0 3 ) ( + v0 3 ) ) ) ( <= ( / v1 8 ) ( / v1 8 ) ) ) ( >= ( / ( + v1 132 ) 8 ) ( / ( + v1 132 ) 8 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": ["add-zero", "eqgt-to-not-lt", "eqlt-to-not-gt", "lt-to-zero"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( + ( * v0 4 ) 0 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ) ) ( <= v2 v2 ) ) ( >= ( - ( + v3 v2 ) 1 ) ( - ( + v3 v2 ) 1 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= 0 0 ) ) ( >= ( - 4 1 ) ( - 4 1 ) ) ) ( <= ( + ( + ( - ( * ( + ( * v0 2 ) v1 ) 4 ) 2 ) 0 ) 1 ) ( + ( - ( + ( * ( + ( * v0 2 ) v1 ) 4 ) 0 ) 2 ) 1 ) ) ) ( >= ( + ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) ( - ( - 6 2 ) 1 ) ) 3 ) 1 ) ( + ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) ( - ( + 4 0 ) 1 ) ) ( - ( - 6 2 ) 1 ) ) 1 ) ) ) ( <= ( + ( * v2 32 ) v3 ) ( + ( * v2 32 ) v3 ) ) ) ( >= ( + ( * v2 32 ) v3 ) ( + ( * v2 32 ) v3 ) ) )",
+      "end": "1"
+    },
+    "rules": ["add-zero", "eqlt-to-not-gt", "eqgt-to-not-lt", "lt-to-zero"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 4 ) v1 ) 4 ) v2 ) 0 ) ( + ( * ( + ( * v0 4 ) v1 ) 4 ) v2 ) ) ) ( >= ( + ( + ( * ( + ( * v0 4 ) v1 ) 4 ) v2 ) 3 ) ( + ( + ( * ( + ( * v0 4 ) v1 ) 4 ) 3 ) v2 ) ) ) ( <= ( + v3 v4 ) ( + v3 v4 ) ) ) ( >= ( + v3 v4 ) ( + v3 v4 ) ) ) ( <= v5 v5 ) ) ( >= v5 v5 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-zero",
+      "eqgt-to-not-lt",
+      "lt-to-zero",
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= 0 0 ) ) ( >= ( - 4 1 ) ( - 4 1 ) ) ) ( <= ( max ( - ( + ( / v0 125 ) ( * v1 8 ) ) 1 ) ( + ( / v0 125 ) ( * v1 8 ) ) ) ( + ( + ( * 0 4 ) 0 ) ( + ( / v0 125 ) ( * v1 8 ) ) ) ) ) ( >= ( + ( + ( / v0 125 ) ( * v1 8 ) ) 7 ) ( + ( + ( * ( - ( + 2 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) ( + ( / v0 125 ) ( * v1 8 ) ) ) ) ) ( <= ( + ( * 0 32 ) 0 ) 0 ) ) ( >= ( + ( * 1 32 ) 35 ) ( - ( + 64 0 ) 1 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "min-x-x-plus-a-pos",
+      "add-assoc",
+      "lt-max-mutual-term",
+      "add-to-sub",
+      "eq-x-x",
+      "Eq-lt-min",
+      "sub-to-add",
+      "not-gt-to-eqlt",
+      "mul-comm",
+      "min-comm",
+      "eqgt-to-not-lt",
+      "add-dist-mul",
+      "add-zero",
+      "add-comm",
+      "min-mul-out-neg",
+      "lt-swap-out"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( * ( max ( + ( / v0 4 ) v1 ) ( + ( min ( / v0 4 ) ( - ( + ( / v0 4 ) v1 ) ( max v1 34 ) ) ) 34 ) ) 4 ) 4 ) ( - ( * ( + ( / v0 4 ) ( + v1 1 ) ) 4 ) 7 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-zero",
+      "min-to-max",
+      "max-to-min",
+      "min-max",
+      "mul-comm",
+      "add-comm",
+      "lt-swap-in",
+      "add-dist-mul",
+      "add-zero",
+      "add-fact-mul",
+      "min-comm",
+      "add-assoc",
+      "min-sub-both",
+      "sub-to-add",
+      "mul-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + v0 8 ) ( - ( - ( - v0 1 ) 2 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "add-assoc",
+      "add-to-sub",
+      "lt-swap-out",
+      "lt-x-x-sub-a",
+      "eqlt-to-not-gt",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( * v0 8 ) v1 ) ) ( + ( * v0 8 ) v1 ) ) ) ( >= ( + 3 ( + ( + ( * v0 8 ) v1 ) 4 ) ) ( + ( + ( * v0 8 ) 7 ) v1 ) ) ) ( <= ( + ( + ( * v2 8 ) v3 ) v4 ) ( + ( + ( * v2 8 ) v3 ) v4 ) ) ) ( >= ( + ( + ( * v2 8 ) v3 ) v4 ) ( + ( + ( * v2 8 ) v3 ) v4 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "add-zero",
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + ( - ( * ( max ( min v0 25 ) 22 ) 8 ) 204 ) ( - 208 ( * ( max ( min v0 25 ) 22 ) 8 ) ) ) ( - ( * ( max ( min v0 25 ) 22 ) 8 ) 204 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-to-sub",
+      "max-min-switch",
+      "and-comm",
+      "add-assoc",
+      "and-min-to-eqlt",
+      "sub-to-add",
+      "min-mul-in-pos",
+      "lt-swap-out",
+      "lt-x-x-sub-a",
+      "eqlt-to-not-gt",
+      "min-add-both",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( * ( + ( * v0 8 ) v1 ) 8 ) v2 ) ) ( + ( + ( * v0 64 ) ( * v1 8 ) ) v2 ) ) ) ( >= ( + 3 ( + ( + ( * ( + ( * v0 8 ) v1 ) 8 ) v2 ) 4 ) ) ( + ( + ( * v0 64 ) ( + ( * v1 8 ) 7 ) ) v2 ) ) ) ( <= ( + ( + ( * 0 500 ) v3 ) 0 ) ( + 0 v3 ) ) ) ( >= ( + ( + ( * 1 500 ) v3 ) 499 ) ( + ( - ( + 1000 0 ) 1 ) v3 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "add-zero",
+      "eqlt-to-not-gt",
+      "add-assoc",
+      "add-comm",
+      "mul-comm",
+      "add-dist-mul",
+      "mul-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( + ( min ( * v0 502 ) 501 ) ( + ( * v1 251 ) v2 ) ) v3 ) 1 ) ( - ( + ( + ( min ( * v0 502 ) 501 ) ( + ( * v1 251 ) ( + v2 1 ) ) ) v3 ) 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-comm",
+      "mul-zero",
+      "lt-swap-out",
+      "sub-to-add",
+      "add-fact-mul",
+      "mul-assoc",
+      "add-comm",
+      "add-to-sub",
+      "add-assoc",
+      "min-max-const",
+      "min-mul-out-pos"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( + ( * v0 2 ) v1 ) 2 ) ( - ( + ( * v0 2 ) ( + v1 1 ) ) 2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-x-x-sub-a",
+      "add-assoc",
+      "lt-swap-out",
+      "add-comm",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - ( * ( min v0 12 ) 4 ) 52 ) ( - ( + ( - ( * ( min v0 12 ) 4 ) 52 ) ( + ( * ( min v0 12 ) -4 ) 56 ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-in",
+      "min-mul-in-pos",
+      "not-gt-to-eqlt",
+      "add-comm",
+      "and-min-to-eqlt",
+      "and-comm",
+      "sub-to-add",
+      "add-fact-mul",
+      "add-assoc",
+      "mul-zero",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - v0 1 ) ( / ( - ( + ( * ( + ( * v0 2 ) 0 ) 4 ) 0 ) 5 ) 8 ) ) ) ( >= v1 ( / ( - ( + ( * ( + ( * v0 2 ) ( + ( * ( - v1 v0 ) 2 ) 1 ) ) 4 ) 3 ) 5 ) 8 ) ) ) ( <= ( - ( + ( * ( + ( * v2 2 ) v3 ) 4 ) 0 ) 5 ) ( - ( + ( * ( + ( * v2 2 ) v3 ) 4 ) 0 ) 5 ) ) ) ( >= ( - ( + ( * ( + ( * v2 2 ) v3 ) 4 ) ( - ( + 4 0 ) 1 ) ) 5 ) ( - ( + ( * ( + ( * v2 2 ) v3 ) 4 ) ( - ( + 4 0 ) 1 ) ) 5 ) ) ) ( <= ( + 0 ( * v4 69 ) ) ( * v4 69 ) ) ) ( >= ( + 3 ( + ( * v4 69 ) 68 ) ) ( + ( * v4 69 ) 68 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-assoc",
+      "lt-swap-out",
+      "lt-x-x-sub-a",
+      "mul-comm",
+      "add-assoc",
+      "and-comm",
+      "add-dist-mul",
+      "eqgt-to-not-lt",
+      "lt-mul-div-cancel",
+      "sub-to-add",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( - v0 7 ) ( - ( + ( - v0 7 ) 3 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-comm",
+      "add-fact-mul",
+      "add-to-sub",
+      "mul-assoc",
+      "mul-comm",
+      "mul-zero",
+      "add-assoc",
+      "sub-to-add",
+      "eq-swap"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= 0 0 ) ) ( >= ( - 16 1 ) ( - 16 1 ) ) ) ( <= ( - ( + ( * ( + v0 v1 ) 4 ) 0 ) 7 ) ( - ( * ( + v0 v1 ) 4 ) 7 ) ) ) ( >= ( - ( + ( * ( + v0 v1 ) 4 ) 3 ) 7 ) ( - ( + ( * ( + v0 v1 ) 4 ) 3 ) 7 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": ["eqgt-to-not-lt", "lt-to-zero", "add-zero", "eqlt-to-not-gt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= 0 0 ) ) ( >= ( - 16 1 ) ( - 16 1 ) ) ) ( <= ( + ( + ( * 0 4 ) ( + ( * v0 4 ) ( + ( * v1 12 ) v2 ) ) ) 0 ) ( + 0 ( + ( * v0 4 ) ( + ( * v1 12 ) v2 ) ) ) ) ) ( >= ( + ( + ( * 0 4 ) ( + ( * v0 4 ) ( + ( * v1 12 ) v2 ) ) ) 3 ) ( + ( - ( + 4 0 ) 1 ) ( + ( * v0 4 ) ( + ( * v1 12 ) v2 ) ) ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "add-assoc",
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( % ( + v0 v1 ) 8 ) ( % ( + v0 v1 ) 8 ) ) ) ( >= ( % ( + v0 v1 ) 8 ) ( % ( + v0 v1 ) 8 ) ) ) ( <= ( % ( + v2 v3 ) 8 ) ( % ( + v2 v3 ) 8 ) ) ) ( >= ( % ( + v2 v3 ) 8 ) ( % ( + v2 v3 ) 8 ) ) ) ( <= ( + ( * v4 4 ) 0 ) ( * v4 4 ) ) ) ( >= ( + ( * v4 4 ) 3 ) ( + ( min ( * v4 4 ) 5 ) 3 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "and-min-to-lt",
+      "add-zero",
+      "eqlt-to-not-gt",
+      "min-add-both",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( * v0 8 ) v1 ) v2 ) ( + ( + ( * v0 8 ) ( + v1 1 ) ) v2 ) )",
+      "end": "1"
+    },
+    "rules": ["lt-swap-out", "add-comm", "lt-x-x-sub-a", "add-assoc"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + 0 ( - ( + ( * v0 500 ) v1 ) 5 ) ) 3 ) ( - ( + ( * v0 500 ) v1 ) 2 ) ) ) ( >= ( + ( + 3 ( + ( + ( * v0 500 ) v1 ) 1000 ) ) 3 ) ( + ( + ( * v0 500 ) v1 ) 502 ) ) ) ( <= ( + ( + v2 v3 ) 3 ) ( - ( + v2 v3 ) 2 ) ) ) ( >= ( + ( + v2 v3 ) 3 ) ( + ( + v2 v3 ) 3 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-comm",
+      "mul-one",
+      "add-comm",
+      "mul-assoc",
+      "lt-swap-out",
+      "eqlt-to-not-gt",
+      "and-eqlt-to-min",
+      "and-assoc",
+      "and-comm",
+      "min-sub-both",
+      "and-min-to-eqlt",
+      "sub-to-add",
+      "min-ass",
+      "not-gt-to-eqlt",
+      "min-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) v0 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + ( + ( * 124 4 ) v0 ) 3 ) ( + ( + ( * ( - ( + 125 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= ( + ( min ( * v1 63 ) 62 ) v2 ) ( + ( + ( min ( * v1 63 ) 62 ) 0 ) v2 ) ) ) ( >= ( + ( + ( min ( * v1 63 ) 62 ) v2 ) 62 ) ( + ( + ( min ( * v1 63 ) 62 ) ( - ( + 63 0 ) 1 ) ) v2 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-comm",
+      "eqgt-to-not-lt",
+      "lt-to-zero",
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "add-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 v0 ) ( + 0 v0 ) ) ) ( >= ( + 3 ( + v0 12 ) ) ( + 3 ( + v0 12 ) ) ) ) ( <= ( + ( + ( * v1 2 ) v2 ) v3 ) ( + ( + ( * v1 2 ) v2 ) v3 ) ) ) ( >= ( + ( + ( * v1 2 ) v2 ) v3 ) ( + ( + ( * v1 2 ) v2 ) v3 ) ) ) ( <= 0 0 ) ) ( >= 2 2 ) )",
+      "end": "1"
+    },
+    "rules": ["lt-to-zero", "eqlt-to-not-gt", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( >= ( max ( min ( max ( - ( + ( * ( + ( + v0 v1 ) v2 ) 4 ) v3 ) 4 ) ( + ( * ( + v2 v1 ) 4 ) v4 ) ) 1999 ) ( - ( max ( + ( * ( + ( + v0 v1 ) v2 ) 4 ) v5 ) 5 ) 4 ) ) ( + ( - ( max ( + ( * ( + ( + v0 v1 ) v2 ) 4 ) ( - v5 1 ) ) 4 ) 4 ) 1 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "min-lt-cancel",
+      "lt-swap-out",
+      "min-comm",
+      "lt-swap-in",
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "and-lt-gt-to-0",
+      "add-comm",
+      "mul-assoc",
+      "and-min-to-lt",
+      "sub-to-add",
+      "max-to-min",
+      "min-to-max",
+      "add-dist-mul"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - v0 3 ) ( - ( + ( - ( + ( * 0 4 ) v0 ) 2 ) 0 ) 1 ) ) ) ( >= ( - ( + v0 263 ) 3 ) ( - ( + ( + ( + ( * 62 4 ) v0 ) ( - ( - 11 2 ) 1 ) ) 3 ) 1 ) ) ) ( <= v1 v1 ) ) ( >= ( - ( + ( + ( + ( * ( max v2 10 ) -3 ) 30 ) 3 ) v1 ) 1 ) ( - ( + ( + ( + ( * ( max v2 10 ) -3 ) 30 ) 3 ) v1 ) 1 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "mul-comm",
+      "sub-to-add",
+      "add-assoc",
+      "lt-to-zero",
+      "add-comm",
+      "mul-assoc",
+      "eq-x-x",
+      "add-fact-mul",
+      "min-x-x",
+      "eqgt-to-not-lt",
+      "lt-swap-in",
+      "Eq-lt-min",
+      "mul-zero",
+      "lt-swap-out"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) ( + ( * ( + ( * v0 2 ) v1 ) 4 ) ( + ( * v2 64 ) v3 ) ) ) 0 ) ( + ( * ( + ( * v0 2 ) v1 ) 4 ) ( + ( * v2 64 ) v3 ) ) ) ) ( >= ( + ( + ( * 0 4 ) ( + ( * ( + ( * v0 2 ) v1 ) 4 ) ( + ( * v2 64 ) v3 ) ) ) 3 ) ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) ( + ( * v2 64 ) v3 ) ) 3 ) ) ) ( <= ( / v4 4 ) ( / v4 4 ) ) ) ( >= ( / ( + ( + v5 v4 ) 3 ) 4 ) ( / ( + ( + v5 v4 ) 3 ) 4 ) ) ) ( <= v6 v6 ) ) ( >= v6 v6 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-comm",
+      "add-zero",
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( * ( + ( * ( / v0 250 ) 2 ) v1 ) 4 ) 0 ) 5 ) ( - ( + ( * ( + ( * ( / v0 250 ) 2 ) v1 ) 4 ) 0 ) 5 ) ) ) ( >= ( - ( + ( * ( + ( * ( / v0 250 ) 2 ) v1 ) 4 ) 3 ) 5 ) ( - ( + ( * ( + ( * ( / v0 250 ) 2 ) v1 ) 4 ) ( - ( + 4 0 ) 1 ) ) 5 ) ) ) ( <= ( - ( * ( + v2 v3 ) 8 ) 5 ) ( - ( + ( * ( + v2 v3 ) 8 ) 0 ) 5 ) ) ) ( >= ( + ( * ( + v2 v3 ) 8 ) 2 ) ( - ( + ( * ( + v2 v3 ) 8 ) ( - ( + 8 0 ) 1 ) ) 5 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "add-comm",
+      "add-assoc",
+      "lt-to-zero",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 4 ) v1 ) 4 ) v2 ) 0 ) ( + ( * ( + ( * v0 4 ) v1 ) 4 ) v2 ) ) ) ( >= ( + ( + ( * ( + ( * v0 4 ) v1 ) 4 ) v2 ) 3 ) ( + ( + ( * ( + ( * v0 4 ) v1 ) 4 ) 3 ) v2 ) ) ) ( <= v3 v3 ) ) ( >= ( - ( + v4 v3 ) 1 ) ( - ( + v4 v3 ) 1 ) ) ) ( <= v5 v5 ) ) ( >= ( - ( + v6 v5 ) 1 ) ( - ( + v6 v5 ) 1 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-zero",
+      "lt-to-zero",
+      "add-comm",
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= v0 v0 ) ) ( >= v0 v0 ) ) ( <= ( - ( + ( + ( * v1 4 ) v2 ) 0 ) 10 ) ( - ( + ( + ( * v1 4 ) v2 ) 0 ) 10 ) ) ) ( >= ( - ( + ( + ( * v1 4 ) v2 ) 3 ) 10 ) ( - ( + ( + ( * v1 4 ) v2 ) ( - ( + 4 0 ) 1 ) ) 10 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": ["lt-to-zero", "eqlt-to-not-gt", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( + ( * v0 17 ) v1 ) v2 ) 10 ) ( - ( + ( + ( * v0 17 ) v1 ) v2 ) 10 ) ) ) ( >= ( - ( + ( + ( * v0 17 ) v1 ) v2 ) 10 ) ( - ( + ( + ( * v0 17 ) v1 ) v2 ) 10 ) ) ) ( <= ( - ( + ( + ( * v3 4 ) v4 ) 0 ) 10 ) ( - ( + ( + ( * v3 4 ) v4 ) 0 ) 10 ) ) ) ( >= ( - ( + ( + ( * v3 4 ) v4 ) 3 ) 10 ) ( - ( + ( + ( * v3 4 ) v4 ) ( - ( + 4 0 ) 1 ) ) 10 ) ) ) ( <= v5 v5 ) ) ( >= v5 v5 ) )",
+      "end": "1"
+    },
+    "rules": ["eqgt-to-not-lt", "lt-to-zero", "eqlt-to-not-gt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( * v0 4 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) v1 ) 3 ) ) ) ( <= ( / v2 4 ) ( / v2 4 ) ) ) ( >= ( / ( + v2 253 ) 4 ) ( / ( + v2 253 ) 4 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": ["add-zero", "eqgt-to-not-lt", "lt-to-zero", "eqlt-to-not-gt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( + ( * v0 4 ) 0 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ) ) ( <= ( + ( + ( min ( * v2 8 ) 117 ) v3 ) v4 ) ( + ( + ( min ( * v2 8 ) 117 ) v3 ) v4 ) ) ) ( >= ( + ( + ( min ( * v2 8 ) 117 ) v3 ) v4 ) ( + ( + ( min ( * v2 8 ) 117 ) v3 ) v4 ) ) ) ( <= v5 v5 ) ) ( >= v5 v5 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "add-comm",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( max ( min v0 0 ) -15 ) ( - ( + ( max ( min v0 0 ) -15 ) ( - 5 ( max ( min v0 0 ) -15 ) ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "max-min-switch",
+      "add-comm",
+      "not-gt-to-eqlt",
+      "add-to-sub",
+      "and-min-to-eqlt",
+      "add-assoc",
+      "add-fact-mul",
+      "and-comm",
+      "mul-assoc",
+      "mul-comm",
+      "mul-zero",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + 0 ( + ( * v0 128 ) v1 ) ) 3 ) ( - ( + ( * v0 128 ) v1 ) 3 ) ) ) ( >= ( - ( + 3 ( + ( + ( * v0 128 ) v1 ) 124 ) ) 3 ) ( - ( + ( + ( * v0 128 ) 127 ) v1 ) 3 ) ) ) ( <= ( + ( + ( * v2 2 ) v3 ) v4 ) ( + ( + ( * v2 2 ) v3 ) v4 ) ) ) ( >= ( + ( + ( * v2 2 ) v3 ) v4 ) ( + ( + ( * v2 2 ) v3 ) v4 ) ) ) ( <= ( * ( + ( * v5 3 ) v6 ) 8 ) ( + ( * v5 24 ) ( * v6 8 ) ) ) ) ( >= ( + ( * ( + ( * v5 3 ) v6 ) 8 ) 7 ) ( + ( * v5 24 ) ( + ( * v6 8 ) 7 ) ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "add-zero",
+      "mul-comm",
+      "add-assoc",
+      "mul-assoc",
+      "eqgt-to-not-lt",
+      "lt-to-zero",
+      "add-comm",
+      "add-dist-mul"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - v0 11 ) ( - v0 11 ) ) ) ( >= ( + v0 134 ) ( - ( + 146 ( - v0 11 ) ) 1 ) ) ) ( <= ( + ( + ( * v1 4 ) v2 ) 0 ) ( + ( + ( * v1 4 ) 0 ) v2 ) ) ) ( >= ( + ( + ( * v1 4 ) v2 ) 3 ) ( + ( + ( * v1 4 ) ( - ( + 4 0 ) 1 ) ) v2 ) ) ) ( <= 0 0 ) ) ( >= 2 ( - ( + 3 0 ) 1 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "add-comm",
+      "sub-to-add",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( * v0 4 ) 3 ) ( - ( * ( + v0 1 ) 4 ) 4 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-fact-mul",
+      "add-comm",
+      "lt-swap-out",
+      "add-assoc",
+      "add-to-sub",
+      "sub-to-add",
+      "mul-assoc",
+      "mul-comm",
+      "mul-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - -30 ( * v0 2 ) ) ( - 499 ( * v0 2 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "lt-swap-in",
+      "add-assoc",
+      "add-comm",
+      "lt-x-x-sub-a",
+      "lt-swap-out",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": { "start": "( == v0 ( - ( + v0 2 ) 1 ) )", "end": "0" },
+    "rules": [
+      "eq-swap",
+      "add-fact-mul",
+      "add-assoc",
+      "mul-comm",
+      "sub-to-add",
+      "mul-zero",
+      "add-comm",
+      "mul-assoc",
+      "eq-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( + ( + ( + ( * v0 33 ) v1 ) v2 ) v3 ) 5 ) ( - ( + ( + ( + ( * v0 33 ) v1 ) ( + v2 1 ) ) v3 ) 5 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-comm",
+      "lt-x-x-sub-a",
+      "add-assoc",
+      "sub-to-add",
+      "lt-swap-out"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( * v0 4 ) 3 ) ( min ( max ( * ( + v0 1 ) 4 ) ( - ( * ( / v1 4 ) 4 ) 7 ) ) ( - ( * ( + v0 1 ) 4 ) 7 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-to-sub",
+      "lt-swap-in",
+      "and-min-to-lt",
+      "add-assoc",
+      "add-comm",
+      "mul-comm",
+      "min-sub-both",
+      "add-dist-mul",
+      "min-comm",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= 0 ( - ( + 0 ( - 16 ( max ( * ( % v0 3 ) 6 ) 10 ) ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "and-comm",
+      "not-gt-to-eqlt",
+      "lt-swap-in",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "mul-assoc",
+      "and-min-to-lt",
+      "mul-comm",
+      "lt-swap-out",
+      "min-add-both",
+      "Eq-lt-min",
+      "min-mul-in-pos",
+      "or-to-and",
+      "max-to-min",
+      "and-min-to-eqlt",
+      "min-mod-const-to-mod",
+      "min-to-max",
+      "and-x-1",
+      "lt-mul-pos-cancel",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( + ( * v0 4 ) v1 ) ( + ( + ( * ( - v0 1 ) 4 ) v1 ) 1 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eq-x-x",
+      "add-dist-mul",
+      "sub-to-add",
+      "add-assoc",
+      "min-x-x-plus-a-neg",
+      "add-comm",
+      "mul-comm",
+      "Eq-lt-min",
+      "not-gt-to-eqlt",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 4 ) v1 ) 4 ) v2 ) 0 ) ( + ( * ( + ( * v0 4 ) v1 ) 4 ) v2 ) ) ) ( >= ( + ( + ( * ( + ( * v0 4 ) v1 ) 4 ) v2 ) 3 ) ( + ( + ( * ( + ( * v0 4 ) v1 ) 4 ) 3 ) v2 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "eqlt-to-not-gt",
+      "add-zero",
+      "add-assoc",
+      "add-comm",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( + ( + ( * v0 4 ) ( + v1 v2 ) ) 246 ) ( - ( + ( + ( + ( * v0 4 ) ( + v1 v2 ) ) 246 ) 9 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "add-assoc",
+      "lt-swap-out",
+      "lt-x-x-sub-a",
+      "add-comm",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - ( + v0 v1 ) 11 ) ( - ( + ( - ( + v0 v1 ) 11 ) 146 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "lt-swap-out",
+      "eqgt-to-not-lt",
+      "lt-x-x-sub-a",
+      "add-comm",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( - ( + ( min v0 494 ) v1 ) 505 ) ( - ( + ( - ( + ( min v0 494 ) v1 ) 505 ) ( + ( max v0 494 ) 18 ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-comm",
+      "eq-swap",
+      "eq-comm",
+      "Eq-min-c-pos",
+      "sub-to-add",
+      "add-dist-mul",
+      "min-add-both",
+      "min-mul-in-neg",
+      "mul-assoc",
+      "add-assoc",
+      "mul-one",
+      "add-comm",
+      "add-to-sub",
+      "add-fact-mul",
+      "add-zero",
+      "mul-zero",
+      "and-eqlt-to-min",
+      "div-minus-down",
+      "lt-mul-div-cancel",
+      "min-mul-in-pos",
+      "min-mul-out-pos",
+      "eq-mul-x-y-0",
+      "mod-const-sub",
+      "Eq-lt-min",
+      "max-to-min"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + v0 2 ) ( - ( min ( max ( * ( / ( + ( min v1 8 ) v2 ) 4 ) 4 ) ( + ( + v0 1 ) 27 ) ) ( + ( + v0 1 ) 15 ) ) 25 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-in",
+      "and-comm",
+      "add-dist-mul",
+      "lt-swap-out",
+      "add-assoc",
+      "and-lt-to-min",
+      "and-min-to-lt",
+      "sub-to-add",
+      "add-comm",
+      "min-sub-both",
+      "mul-one",
+      "div-cancel-mul",
+      "and-lt-to-max",
+      "lt-const-neg",
+      "div-minus-out",
+      "min-x-x"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( / v0 4 ) ( * ( min v1 10 ) 3 ) ) 2 ) ( + ( / v0 4 ) ( * ( + v1 1 ) 3 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-comm",
+      "min-mul-in-pos",
+      "lt-min-term+cpos",
+      "lt-swap-in",
+      "sub-to-add",
+      "add-dist-mul",
+      "min-add-both",
+      "mul-comm",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) ( - v0 7 ) ) 0 ) ( + -2 ( - v0 5 ) ) ) ) ( >= ( + ( + ( * 34 4 ) ( + v0 104 ) ) 3 ) ( + 1 ( + v0 128 ) ) ) ) ( <= ( + ( + v1 v2 ) 1 ) ( - ( + v1 v2 ) 2 ) ) ) ( >= ( + ( + v1 v2 ) 1 ) ( + ( + v1 v2 ) 1 ) ) ) ( <= 0 0 ) ) ( >= 1 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-assoc",
+      "add-to-sub",
+      "sub-to-add",
+      "lt-x-x-sub-a",
+      "add-comm",
+      "eqlt-to-not-gt",
+      "lt-swap-out",
+      "and-comm",
+      "min-max-max-x",
+      "eq-mul-x-y-0",
+      "add-dist-mul",
+      "mod-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( min ( * v0 3 ) 13 ) v1 ) v2 ) ( + ( + ( min ( * v0 3 ) 13 ) ( + v1 1 ) ) v2 ) )",
+      "end": "1"
+    },
+    "rules": ["lt-swap-out", "lt-x-x-sub-a", "add-assoc", "add-comm"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( - ( + ( * v0 4 ) v1 ) 2 ) 0 ) ( - ( + ( + ( * v0 4 ) 0 ) v1 ) 2 ) ) ) ( >= ( + ( + ( + ( * v0 4 ) v1 ) ( - ( - 6 2 ) 1 ) ) 3 ) ( + ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ( - ( - 6 2 ) 1 ) ) ) ) ( <= 0 0 ) ) ( >= ( - 8 1 ) ( - 8 1 ) ) ) ( <= ( + ( * v2 4 ) v3 ) ( + ( * v2 4 ) v3 ) ) ) ( >= ( + ( * v2 4 ) v3 ) ( + ( * v2 4 ) v3 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-comm",
+      "sub-to-add",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= v0 v0 ) ) ( >= v0 v0 ) ) ( <= ( - ( + ( + ( * 0 4 ) v1 ) 0 ) 1 ) ( - ( + ( + ( * 0 4 ) 0 ) v1 ) 1 ) ) ) ( >= ( - ( + ( + ( * 4 4 ) v1 ) 3 ) 1 ) ( - ( + ( + ( * 4 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) 1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + v0 0 ) ( + 0 v0 ) ) ) ( >= ( + v0 3 ) ( + ( - ( + 4 0 ) 1 ) v0 ) ) ) ( <= ( / v1 125 ) ( / ( + 0 v1 ) 125 ) ) ) ( >= ( / ( + v1 124 ) 125 ) ( / ( + ( - ( + 125 0 ) 1 ) v1 ) 125 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "add-comm",
+      "add-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( max ( / ( + ( min v0 4 ) v1 ) 4 ) ( + v2 11 ) ) 3 ) ( - v2 2 ) ) ) ( >= ( + v2 8 ) ( + v2 8 ) ) ) ( <= ( + ( + ( * 0 4 ) v3 ) 0 ) ( + ( + ( * 0 4 ) v3 ) 0 ) ) ) ( >= ( + ( + ( * ( / ( - 32 ( max ( * v4 8 ) 25 ) ) 4 ) 4 ) v3 ) 3 ) ( + ( + ( * ( / ( - 32 ( max ( * v4 8 ) 25 ) ) 4 ) 4 ) v3 ) 3 ) ) ) ( <= 0 0 ) ) ( >= 47 47 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-dist-mul",
+      "lt-to-zero",
+      "add-assoc",
+      "sub-to-add",
+      "add-to-sub",
+      "Eq-lt-min",
+      "min-mul-in-neg",
+      "min-comm",
+      "min-sub-both",
+      "Eq-min-lt",
+      "and-min-to-eqlt",
+      "eq-swap",
+      "mul-zero",
+      "eq-comm",
+      "add-comm",
+      "max-to-min",
+      "div-minus-down",
+      "min-div-in-pos"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + 0 ( - ( + ( * v0 64 ) v1 ) 5 ) ) 3 ) ( - ( + ( * v0 64 ) v1 ) 2 ) ) ) ( >= ( + ( + 3 ( + ( + ( * v0 64 ) v1 ) 128 ) ) 3 ) ( + ( + ( * v0 64 ) v1 ) 66 ) ) ) ( <= ( + ( + v2 v3 ) 3 ) ( - ( + v2 v3 ) 2 ) ) ) ( >= ( + ( + v2 v3 ) 3 ) ( + ( + v2 v3 ) 3 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "add-comm",
+      "mul-comm",
+      "add-to-sub",
+      "eqlt-to-not-gt",
+      "add-fact-mul",
+      "sub-to-add",
+      "mul-zero",
+      "mul-assoc",
+      "add-assoc",
+      "and-assoc",
+      "lt-swap-out"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( + ( * 0 4 ) ( + ( min v0 4 ) v1 ) ) 0 ) 4 ) ( - ( + 0 ( + ( min v0 4 ) v1 ) ) 4 ) ) ) ( >= ( - ( + ( + ( * 0 4 ) ( + ( * ( / ( - ( max v0 4 ) 1 ) 4 ) 4 ) ( + ( min v0 4 ) v1 ) ) ) 3 ) 4 ) ( - ( + ( - ( + 4 0 ) 1 ) ( + ( * ( / ( - ( max v0 4 ) 1 ) 4 ) 4 ) ( + ( min v0 4 ) v1 ) ) ) 4 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-comm",
+      "add-zero",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + v0 0 ) ( + 0 v0 ) ) ) ( >= ( + v0 3 ) ( + ( - ( + 4 0 ) 1 ) v0 ) ) ) ( <= ( + ( + ( min ( * v1 8 ) 117 ) v2 ) v3 ) ( + ( + ( min ( * v1 8 ) 117 ) v2 ) v3 ) ) ) ( >= ( + ( + ( min ( * v1 8 ) 117 ) v2 ) v3 ) ( + ( + ( min ( * v1 8 ) 117 ) v2 ) v3 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": ["eqlt-to-not-gt", "add-comm", "lt-to-zero", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( == ( * ( / ( * ( min ( + ( * v0 32 ) ( - ( / ( + ( * v1 500 ) v2 ) 8 ) 5 ) ) ( / ( + ( + ( * v1 500 ) v2 ) 515 ) 8 ) ) -8 ) 8 ) 8 ) ( * ( min ( + ( * v0 32 ) ( - ( / ( + ( * v1 500 ) v2 ) 8 ) 5 ) ) ( / ( + ( + ( * v1 500 ) v2 ) 515 ) 8 ) ) -8 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "min-mul-out-pos",
+      "min-mul-in-neg",
+      "mul-assoc",
+      "max-to-min",
+      "eq-x-x",
+      "div-cancel-mul",
+      "mul-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( + ( min ( * v0 21 ) 104 ) v1 ) v2 ) 21 ) ( - ( + ( + ( min ( * v0 21 ) 104 ) v1 ) ( + v2 1 ) ) 5 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-assoc",
+      "sub-to-add",
+      "mul-comm",
+      "mul-assoc",
+      "mul-zero",
+      "lt-swap-in",
+      "add-fact-mul",
+      "add-comm",
+      "lt-swap-out",
+      "div-zero",
+      "and-lt-gt-to-0",
+      "mod-x-x",
+      "Eq-max-c-neg",
+      "ineq-to-eq",
+      "min-comm",
+      "and-x-1",
+      "lt-max-term-term+pos",
+      "lt-const-neg",
+      "lt-const-pos"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( * ( + ( * ( / v0 250 ) 2 ) v1 ) 4 ) 0 ) 5 ) ( - ( + ( * ( + ( * ( / v0 250 ) 2 ) v1 ) 4 ) 0 ) 5 ) ) ) ( >= ( - ( + ( * ( + ( * ( / v0 250 ) 2 ) v1 ) 4 ) 3 ) 5 ) ( - ( + ( * ( + ( * ( / v0 250 ) 2 ) v1 ) 4 ) ( - ( + 4 0 ) 1 ) ) 5 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) ) ( <= ( * ( + ( * v3 8 ) v4 ) 2 ) ( + ( * ( + ( * v3 8 ) v4 ) 2 ) 0 ) ) ) ( >= ( + ( * ( + ( * v3 8 ) v4 ) 2 ) 1 ) ( + ( * ( + ( * v3 8 ) v4 ) 2 ) ( - ( + 2 0 ) 1 ) ) ) )",
+      "end": "1"
+    },
+    "rules": ["add-zero", "eqgt-to-not-lt", "lt-to-zero", "eqlt-to-not-gt"]
+  },
+  {
+    "expression": { "start": "( >= ( - ( max v0 252 ) 1 ) 0 )", "end": "1" },
+    "rules": [
+      "sub-to-add",
+      "Eq-lt-min",
+      "eqgt-to-not-lt",
+      "lt-swap-in",
+      "not-gt-to-eqlt",
+      "min-max-const"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( * ( + ( * v0 4 ) v1 ) 4 ) 0 ) 4 ) ( - ( + ( * ( + ( + ( * v0 4 ) v1 ) 0 ) 4 ) 0 ) 4 ) ) ) ( >= ( - ( + ( * ( + ( * v0 4 ) v1 ) 4 ) 15 ) 4 ) ( - ( + ( * ( + ( + ( * v0 4 ) v1 ) 3 ) 4 ) 3 ) 4 ) ) ) ( <= ( + ( * v2 4 ) v3 ) ( + ( * v2 4 ) v3 ) ) ) ( >= ( + ( * v2 4 ) v3 ) ( + ( * v2 4 ) v3 ) ) ) ( <= 0 0 ) ) ( >= 19 19 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-comm",
+      "lt-to-zero",
+      "mul-comm",
+      "add-dist-mul",
+      "eqlt-to-not-gt",
+      "add-assoc",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) v0 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + ( + ( * 15 4 ) v0 ) 3 ) ( + ( + ( * ( - ( + 16 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= ( + v1 v2 ) ( + v1 v2 ) ) ) ( >= ( + v1 v2 ) ( + v1 v2 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "add-comm",
+      "eqlt-to-not-gt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( - -30 ( * v0 2 ) ) ( - 499 ( * v0 2 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-fact-mul",
+      "mul-assoc",
+      "add-assoc",
+      "mul-zero",
+      "mul-comm",
+      "sub-to-add",
+      "eq-swap",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + 0 ( + ( min v0 4 ) v1 ) ) 4 ) ( - ( + ( min v0 4 ) v1 ) 4 ) ) ) ( >= ( - ( + 3 ( + ( * ( / ( - ( max v0 4 ) 1 ) 4 ) 4 ) ( + ( min v0 4 ) v1 ) ) ) 4 ) ( - ( + ( * ( / ( - ( max v0 4 ) 1 ) 4 ) 4 ) ( + ( min v0 4 ) v1 ) ) 1 ) ) ) ( <= ( / ( + ( min ( * v2 63 ) 62 ) v3 ) 4 ) ( / ( + ( min ( * v2 63 ) 62 ) v3 ) 4 ) ) ) ( >= ( / ( + ( + ( min ( * v2 63 ) 62 ) v3 ) 66 ) 4 ) ( / ( + ( + ( min ( * v2 63 ) 62 ) v3 ) 66 ) 4 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "sub-to-add",
+      "add-comm",
+      "lt-to-zero",
+      "eqlt-to-not-gt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( + ( + ( * v0 17 ) v1 ) v2 ) 10 ) ( - ( + ( + ( * v0 17 ) v1 ) ( + v2 1 ) ) 10 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-x-x-sub-a",
+      "add-comm",
+      "add-assoc",
+      "lt-swap-out",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( - ( + ( * v0 4 ) v1 ) 5 ) 0 ) 503 ) ( - ( - ( + ( + ( * v0 4 ) 0 ) v1 ) 5 ) 503 ) ) ) ( >= ( - ( + ( + ( + ( * v0 4 ) v1 ) ( - ( - 6 5 ) 1 ) ) 3 ) 503 ) ( - ( + ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ( - ( - 6 5 ) 1 ) ) 503 ) ) ) ( <= ( % ( + v2 v3 ) 8 ) ( % ( + v2 v3 ) 8 ) ) ) ( >= ( % ( + v2 v3 ) 8 ) ( % ( + v2 v3 ) 8 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "add-assoc",
+      "add-comm",
+      "add-zero",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 2 ) 0 ) 4 ) v1 ) 0 ) ( + ( * v0 8 ) v1 ) ) ) ( >= ( + ( + ( * ( + ( * v0 2 ) 1 ) 4 ) v1 ) 3 ) ( + ( + ( * v0 8 ) 7 ) v1 ) ) ) ( <= ( + v2 v3 ) ( + v2 v3 ) ) ) ( >= ( + v2 v3 ) ( + v2 v3 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-swap-in",
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "mul-assoc",
+      "mul-comm",
+      "add-comm",
+      "sub-to-add",
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "add-dist-mul"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) v0 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + ( + ( * 31 4 ) v0 ) 3 ) ( + ( + ( * 31 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= ( + v1 v2 ) ( + v1 v2 ) ) ) ( >= ( + v1 v2 ) ( + v1 v2 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "add-comm",
+      "lt-to-zero",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( * v0 4 ) ( + ( * v0 4 ) 0 ) ) ) ( >= ( + ( * v0 4 ) 3 ) ( + ( * v0 4 ) 3 ) ) ) ( <= ( * ( + ( * ( + v1 v2 ) 2 ) v3 ) 2 ) ( * ( + ( * ( + v1 v2 ) 2 ) v3 ) 2 ) ) ) ( >= ( + ( * ( + ( * ( + v1 v2 ) 2 ) v3 ) 2 ) 1 ) ( + ( * ( + ( * ( + v1 v2 ) 2 ) v3 ) 2 ) 1 ) ) ) ( <= ( + ( + ( * 0 16 ) 0 ) 0 ) 0 ) ) ( >= ( + ( + ( * 1 16 ) 20 ) 15 ) 19 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "min-x-x",
+      "add-zero",
+      "Eq-lt-min",
+      "eq-x-x"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - ( min ( * v0 -4 ) 11 ) 11 ) 5 )",
+      "end": "0"
+    },
+    "rules": [
+      "not-gt-to-eqlt",
+      "min-add-both",
+      "and-min-to-eqlt",
+      "min-comm",
+      "eqgt-to-not-lt",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( + ( * 0 4 ) v0 ) 0 ) 2 ) ( - ( + ( + ( * 0 4 ) 0 ) v0 ) 2 ) ) ) ( >= ( - ( + ( + ( * 3 4 ) v0 ) 3 ) 2 ) ( + ( + ( + ( * ( - ( + 2 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ( - ( - 6 2 ) 1 ) ) ) ) ( <= ( % ( + v1 v2 ) 8 ) ( % ( + v1 v2 ) 8 ) ) ) ( >= ( % ( + v1 v2 ) 8 ) ( % ( + v1 v2 ) 8 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eq-x-x",
+      "sub-to-add",
+      "add-assoc",
+      "min-x-x",
+      "lt-swap-in",
+      "eqgt-to-not-lt",
+      "min-x-x-plus-a-neg",
+      "Eq-lt-min",
+      "not-gt-to-eqlt",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( * ( / ( * ( min ( + ( * v0 84 ) ( + ( * v1 12 ) ( / ( + v2 ( min ( * v3 1000 ) ( - v4 1000 ) ) ) 4 ) ) ) ( / ( + ( + v2 ( min ( * v3 1000 ) ( - v4 1000 ) ) ) 1003 ) 4 ) ) -4 ) 4 ) 4 ) ( * ( min ( + ( * v0 84 ) ( + ( * v1 12 ) ( / ( + v2 ( min ( * v3 1000 ) ( - v4 1000 ) ) ) 4 ) ) ) ( / ( + ( + v2 ( min ( * v3 1000 ) ( - v4 1000 ) ) ) 1003 ) 4 ) ) -4 ) )",
+      "end": "1"
+    },
+    "rules": ["min-to-max", "mul-assoc", "eq-x-x", "mul-comm", "div-cancel-mul"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( + ( * v0 4 ) 0 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ) ) ( <= ( + ( + ( min ( * v2 3 ) 122 ) v3 ) v4 ) ( + ( + ( min ( * v2 3 ) 122 ) v3 ) v4 ) ) ) ( >= ( + ( + ( min ( * v2 3 ) 122 ) v3 ) v4 ) ( + ( + ( min ( * v2 3 ) 122 ) v3 ) v4 ) ) ) ( <= v5 v5 ) ) ( >= v5 v5 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( max ( min v0 0 ) -11 ) ( - ( + ( max ( min v0 0 ) -11 ) ( - 5 ( max ( min v0 0 ) -11 ) ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-comm",
+      "eq-swap",
+      "sub-to-add",
+      "max-min-switch",
+      "add-comm",
+      "add-fact-mul",
+      "eq-comm",
+      "add-assoc",
+      "min-add-both",
+      "mul-zero",
+      "Eq-min-c-pos",
+      "mul-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - ( * ( + v0 v1 ) 8 ) 1 ) ( + ( + ( * ( + ( - v0 1 ) v1 ) 8 ) 11 ) 1 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-swap-out",
+      "mul-assoc",
+      "eqgt-to-not-lt",
+      "add-to-sub",
+      "mul-zero",
+      "add-assoc",
+      "mul-comm",
+      "sub-to-add",
+      "add-comm",
+      "add-fact-mul"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= 0 0 ) ) ( >= 0 0 ) ) ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( + ( * v0 4 ) 0 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( + ( max ( * ( - v0 v1 ) 16 ) -22 ) 22 ) ( - ( + ( + ( max ( * ( - v0 v1 ) 16 ) -22 ) 22 ) ( + ( max ( min ( * ( - v0 v1 ) 16 ) -22 ) -23 ) 23 ) ) 1 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "min-comm",
+      "and-min-to-lt",
+      "min-sub-both",
+      "add-comm",
+      "sub-to-add",
+      "min-add-both",
+      "max-min-switch",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) v0 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + ( + ( * 62 4 ) v0 ) 3 ) ( + ( + ( * 62 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= v1 ( + 0 v1 ) ) ) ( >= ( + v1 7 ) ( + ( - ( + 8 0 ) 1 ) v1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "lt-to-zero",
+      "add-zero",
+      "add-assoc",
+      "add-comm",
+      "eqlt-to-not-gt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( * v0 125 ) v1 ) ) ( + ( * v0 125 ) v1 ) ) ) ( >= ( + 3 ( + ( + ( * v0 125 ) v1 ) 121 ) ) ( + ( + ( * v0 125 ) v1 ) 124 ) ) ) ( <= ( + ( * v2 125 ) v3 ) ( + ( * v2 125 ) v3 ) ) ) ( >= ( + ( + ( * v2 125 ) v3 ) 124 ) ( + ( + ( * v2 125 ) v3 ) 124 ) ) ) ( <= ( + ( * 0 7 ) 0 ) 0 ) ) ( >= ( + ( * 1 7 ) 6 ) 13 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-comm",
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "add-zero",
+      "add-assoc",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( + v0 v1 ) 0 ) 1 ) ( - ( + v0 v1 ) 2 ) ) ) ( >= ( + ( + ( + v0 v1 ) 3 ) 1 ) ( + ( + v0 v1 ) 1 ) ) ) ( <= ( - v2 7 ) ( + -2 ( - v2 5 ) ) ) ) ( >= ( + v2 126 ) ( + 1 ( + v2 125 ) ) ) ) ( <= 0 0 ) ) ( >= 1 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-to-sub",
+      "mul-zero",
+      "add-comm",
+      "lt-swap-in",
+      "sub-to-add",
+      "add-fact-mul",
+      "mul-assoc",
+      "mul-comm",
+      "add-assoc",
+      "eqlt-to-not-gt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + -2 v0 ) ( + -2 v0 ) ) ) ( >= ( + ( - ( - 11 2 ) 1 ) v0 ) ( + ( - ( - 11 2 ) 1 ) v0 ) ) ) ( <= ( + ( + ( * 0 4 ) ( / v1 4 ) ) 0 ) ( + 0 ( / v1 4 ) ) ) ) ( >= ( + ( + ( * 0 4 ) ( + ( / v1 4 ) 32 ) ) 3 ) ( + ( - ( + 4 0 ) 1 ) ( + ( / v1 4 ) 32 ) ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "add-comm",
+      "lt-to-zero",
+      "add-assoc",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( * v0 250 ) v1 ) v2 ) ( + ( + ( * v0 250 ) ( + v1 1 ) ) v2 ) )",
+      "end": "1"
+    },
+    "rules": ["lt-swap-out", "add-comm", "lt-x-x-sub-a", "add-assoc"]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( + ( * v0 8 ) v1 ) v2 ) 5 ) ( - ( + ( + ( * v0 8 ) ( + v1 1 ) ) v2 ) 4 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-out",
+      "mul-comm",
+      "add-comm",
+      "mul-assoc",
+      "lt-swap-in",
+      "add-fact-mul",
+      "mul-zero",
+      "sub-to-add",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= v0 ( + 0 v0 ) ) ) ( >= ( + v0 1 ) ( + ( - ( + 2 0 ) 1 ) v0 ) ) ) ( <= ( + ( + ( * v1 4 ) v2 ) 0 ) ( + ( + ( * v1 4 ) 0 ) v2 ) ) ) ( >= ( + ( + ( * v1 4 ) v2 ) 3 ) ( + ( + ( * v1 4 ) ( - ( + 4 0 ) 1 ) ) v2 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "add-zero",
+      "add-assoc",
+      "lt-to-zero",
+      "eqlt-to-not-gt",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + v0 v1 ) ( + v0 v1 ) ) ) ( >= ( + v0 v1 ) ( + v0 v1 ) ) ) ( <= ( + ( + ( * 0 4 ) v2 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v2 ) ) ) ( >= ( + ( + ( * 31 4 ) v2 ) 3 ) ( + ( + ( * 31 4 ) ( - ( + 4 0 ) 1 ) ) v2 ) ) ) ( <= 0 0 ) ) ( >= 2 ( - ( + 3 0 ) 1 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "add-comm",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - v0 4 ) ( - v0 4 ) ) ) ( >= ( + v0 1012 ) ( + v0 1012 ) ) ) ( <= ( + ( + ( + v1 v2 ) 0 ) 5 ) ( - ( + v1 v2 ) 4 ) ) ) ( >= ( + ( + ( + v1 v2 ) 3 ) 5 ) ( + ( + v1 v2 ) 5 ) ) ) ( <= 0 0 ) ) ( >= 2 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-assoc",
+      "add-comm",
+      "and-comm",
+      "eqlt-to-not-gt",
+      "add-to-sub",
+      "lt-x-x-sub-a",
+      "lt-swap-out",
+      "sub-to-add",
+      "min-ass",
+      "not-gt-to-eqlt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( * v0 2 ) v1 ) ( + ( * v0 2 ) v1 ) ) ) ( >= ( + ( * v0 2 ) v1 ) ( + ( * v0 2 ) v1 ) ) ) ( <= ( - v2 10 ) ( - ( + 0 v2 ) 10 ) ) ) ( >= ( + v2 4 ) ( - ( + ( - ( + 15 0 ) 1 ) v2 ) 10 ) ) ) ( <= ( + ( * 0 4 ) 0 ) ( + ( * 0 4 ) 0 ) ) ) ( >= ( + ( * 4 4 ) 3 ) ( + ( * 4 4 ) ( - ( + 4 0 ) 1 ) ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "add-comm",
+      "lt-to-zero",
+      "eqlt-to-not-gt",
+      "sub-to-add",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( + ( * 0 4 ) v0 ) 0 ) 3 ) ( - v0 3 ) ) ) ( >= ( - ( + ( + ( * 4 4 ) v0 ) 3 ) 3 ) ( + v0 13 ) ) ) ( <= ( - ( max ( + v1 8 ) ( + v2 v3 ) ) 3 ) ( - v1 4 ) ) ) ( >= ( + v1 5 ) ( + v1 5 ) ) ) ( <= 0 0 ) ) ( >= 2 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "min-add-both",
+      "add-dist-mul",
+      "and-x-1",
+      "min-comm",
+      "add-comm",
+      "eqlt-to-not-gt",
+      "lt-swap-out",
+      "eqgt-to-not-lt",
+      "and-eqlt-to-min",
+      "sub-to-add",
+      "mul-comm",
+      "and-min-to-eqlt",
+      "mul-assoc",
+      "min-sub-both",
+      "not-gt-to-eqlt",
+      "max-to-min",
+      "add-assoc",
+      "div-minus-up",
+      "div-minus-out",
+      "and-eqlt-gt-to-0",
+      "min-lt-cancel",
+      "min-to-max",
+      "min-max-max-x",
+      "or-over-and",
+      "min-div-in-pos",
+      "and-x-not-x",
+      "and-eq-eq",
+      "lt-to-zero",
+      "and-over-or",
+      "mul-zero",
+      "mul-one",
+      "and-eqlt-eqgt-to-0"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 v0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + 3 ( + v0 24 ) ) ( + ( + ( * ( - ( + 7 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= ( * v1 4 ) ( * v1 4 ) ) ) ( >= ( * v1 4 ) ( * v1 4 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "add-comm",
+      "lt-to-zero",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( min ( * v0 9 ) 128 ) ( + ( * v1 3 ) v2 ) ) ( + ( min ( * v0 9 ) 128 ) ( + ( * v1 3 ) ( + v2 1 ) ) ) )",
+      "end": "1"
+    },
+    "rules": ["add-assoc", "lt-x-x-sub-a", "lt-swap-out"]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( * ( + v0 v1 ) 4 ) 3 ) ( - ( * ( + ( + v0 1 ) v1 ) 4 ) 7 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-to-sub",
+      "mul-comm",
+      "add-fact-mul",
+      "mul-zero",
+      "sub-to-add",
+      "add-comm",
+      "lt-swap-out",
+      "mul-assoc",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + v0 1 ) ( - ( min ( max ( + ( + v0 1 ) 8 ) v1 ) ( + ( + v0 1 ) 5 ) ) 7 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-comm",
+      "min-comm",
+      "lt-swap-in",
+      "mul-assoc",
+      "lt-swap-out",
+      "min-sub-both",
+      "and-min-to-lt",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 3 ) 0 ) 4 ) v1 ) 0 ) ( + ( * v0 12 ) v1 ) ) ) ( >= ( + ( + ( * ( + ( * v0 3 ) 2 ) 4 ) v1 ) 3 ) ( + ( + ( * v0 12 ) 11 ) v1 ) ) ) ( <= ( + v2 v3 ) ( + v2 v3 ) ) ) ( >= ( + v2 v3 ) ( + v2 v3 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "add-to-sub",
+      "lt-swap-out",
+      "add-dist-mul",
+      "mul-comm",
+      "mul-assoc",
+      "eqgt-to-not-lt",
+      "lt-to-zero",
+      "add-assoc",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + ( * ( + v0 v1 ) 8 ) 11 ) ( - ( - ( * ( + ( - v0 1 ) v1 ) 8 ) 1 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "min-x-x-plus-a-pos",
+      "mul-comm",
+      "add-dist-mul",
+      "not-gt-to-eqlt",
+      "Eq-lt-min",
+      "eq-swap",
+      "eq-max-lt",
+      "eq-comm",
+      "eqlt-to-not-gt",
+      "min-mul-in-neg",
+      "sub-to-add",
+      "lt-swap-out",
+      "and-lt-to-min",
+      "add-assoc",
+      "lt-min-term+cpos",
+      "add-comm",
+      "mod-const-sub"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( + ( min ( * v0 42 ) 83 ) ( * v1 3 ) ) v2 ) 2 ) ( + ( + ( min ( * v0 42 ) 83 ) ( * ( + v1 1 ) 3 ) ) v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-swap-out",
+      "mul-comm",
+      "min-to-max",
+      "lt-swap-in",
+      "add-comm",
+      "add-dist-mul",
+      "add-fact-mul",
+      "sub-to-add",
+      "mul-assoc",
+      "add-assoc",
+      "mul-zero",
+      "add-zero",
+      "mod-two",
+      "max-to-min",
+      "Eq-max-c-neg",
+      "lt-min-term+cpos",
+      "min-max-switch",
+      "min-mul-in-neg"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( * v0 8 ) v1 ) ) ( + 0 ( + ( * v0 8 ) v1 ) ) ) ) ( >= ( + 3 ( + ( + ( * v0 8 ) v1 ) 4 ) ) ( + 3 ( + ( + ( * v0 8 ) v1 ) 4 ) ) ) ) ( <= ( + v2 v3 ) ( + v2 v3 ) ) ) ( >= ( + v2 v3 ) ( + v2 v3 ) ) ) ( <= 0 0 ) ) ( >= 18 18 ) )",
+      "end": "1"
+    },
+    "rules": ["lt-to-zero", "eqgt-to-not-lt", "eqlt-to-not-gt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + -10 v0 ) ( + -10 v0 ) ) ) ( >= ( + ( - ( - 13 10 ) 1 ) v0 ) ( + ( - ( - 13 10 ) 1 ) v0 ) ) ) ( <= ( - ( + ( * ( + v1 v2 ) 4 ) 0 ) 7 ) ( - ( + ( * ( + v1 v2 ) 4 ) 0 ) 7 ) ) ) ( >= ( - ( + ( * ( + v1 v2 ) 4 ) 3 ) 7 ) ( - ( + ( * ( + v1 v2 ) 4 ) ( - ( + 4 0 ) 1 ) ) 7 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": ["lt-to-zero", "eqlt-to-not-gt", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( * ( + ( * v0 2 ) v1 ) 4 ) 0 ) 5 ) ( - ( + ( * ( + ( * v0 2 ) v1 ) 4 ) 0 ) 5 ) ) ) ( >= ( - ( + ( * ( + ( * v0 2 ) v1 ) 4 ) 3 ) 5 ) ( - ( + ( * ( + ( * v0 2 ) v1 ) 4 ) ( - ( + 4 0 ) 1 ) ) 5 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) ) ( <= ( + ( * v2 69 ) v3 ) ( + ( * v2 69 ) v3 ) ) ) ( >= ( + ( * v2 69 ) v3 ) ( + ( * v2 69 ) v3 ) ) )",
+      "end": "1"
+    },
+    "rules": ["eqgt-to-not-lt", "eqlt-to-not-gt", "lt-to-zero"]
+  },
+  {
+    "expression": {
+      "start": "( == ( - v0 2 ) ( - ( + ( - v0 2 ) ( + -5 6 ) ) 1 ) )",
+      "end": "1"
+    },
+    "rules": ["eq-swap", "eq-x-x", "eq-comm", "sub-to-add"]
+  },
+  {
+    "expression": {
+      "start": "( >= ( + v0 v1 ) ( + ( + v0 ( - v1 1 ) ) 1 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "lt-swap-out",
+      "add-assoc",
+      "sub-to-add",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( * v0 126 ) v1 ) 126 ) ( - ( + ( * ( + v0 1 ) 126 ) v1 ) 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-to-sub",
+      "lt-swap-in",
+      "add-comm",
+      "mul-comm",
+      "add-assoc",
+      "sub-to-add",
+      "mul-zero",
+      "add-fact-mul",
+      "mul-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( - ( * ( + ( / v0 4 ) v1 ) 4 ) 7 ) ( - ( + ( - ( * ( + ( / v0 4 ) v1 ) 4 ) 7 ) 4 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-assoc",
+      "mul-zero",
+      "mul-assoc",
+      "mul-comm",
+      "eq-swap",
+      "add-fact-mul",
+      "sub-to-add",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( * ( + ( + ( * v0 17 ) v1 ) v2 ) 4 ) 267 ) ( - ( * ( + ( + ( * v0 17 ) ( + v1 1 ) ) v2 ) 4 ) 273 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-swap-in",
+      "lt-to-zero",
+      "add-zero",
+      "add-denom-div",
+      "lt-mul-pos-cancel",
+      "add-assoc",
+      "mul-comm",
+      "sub-to-add",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( + ( * v0 4 ) 0 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) ) ( <= 0 0 ) ) ( >= ( - ( + 208 0 ) 1 ) ( - ( + 208 0 ) 1 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": { "start": "( == v0 ( - ( + v0 250 ) 1 ) )", "end": "0" },
+    "rules": [
+      "mul-zero",
+      "add-fact-mul",
+      "add-comm",
+      "eq-comm",
+      "sub-to-add",
+      "eq-swap",
+      "mul-assoc",
+      "add-assoc",
+      "mul-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( + ( * v0 4 ) 0 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ) ) ( <= ( / v2 250 ) ( / ( + 0 v2 ) 250 ) ) ) ( >= ( / ( + v2 124 ) 250 ) ( / ( + ( - ( + 125 0 ) 1 ) v2 ) 250 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "add-zero",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( * v0 8 ) ( * v0 8 ) ) ) ( >= ( * v0 8 ) ( * v0 8 ) ) ) ( <= ( + 0 ( - v1 1 ) ) ( + 0 ( - v1 1 ) ) ) ) ( >= ( + 3 ( + v1 60 ) ) ( + ( - ( + 4 0 ) 1 ) ( + v1 60 ) ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": ["eqgt-to-not-lt", "eqlt-to-not-gt", "lt-to-zero"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 8 ) 0 ) 4 ) v1 ) 0 ) ( + ( * v0 32 ) v1 ) ) ) ( >= ( + ( + ( * ( + ( * v0 8 ) 7 ) 4 ) v1 ) 3 ) ( + ( + ( * v0 32 ) 31 ) v1 ) ) ) ( <= ( + ( + ( * v2 16 ) ( + ( * v3 4 ) v4 ) ) v5 ) ( + ( + ( * v2 16 ) ( + ( * v3 4 ) v4 ) ) v5 ) ) ) ( >= ( + ( + ( * v2 16 ) ( + ( * v3 4 ) v4 ) ) v5 ) ( + ( + ( * v2 16 ) ( + ( * v3 4 ) v4 ) ) v5 ) ) ) ( <= ( + ( * v6 2 ) v7 ) ( + ( * v6 2 ) v7 ) ) ) ( >= ( + ( * v6 2 ) v7 ) ( + ( * v6 2 ) v7 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "add-comm",
+      "add-assoc",
+      "add-zero",
+      "mul-comm",
+      "eqgt-to-not-lt",
+      "lt-to-zero",
+      "mul-assoc",
+      "add-dist-mul"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( * ( / ( * ( / ( + ( min ( * v0 125 ) ( - v1 125 ) ) v2 ) 4 ) 4 ) 4 ) 4 ) ( * ( / ( + ( min ( * v0 125 ) ( - v1 125 ) ) v2 ) 4 ) 4 ) )",
+      "end": "1"
+    },
+    "rules": ["eq-x-x", "div-cancel-mul"]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - v0 5 ) ( + ( - v0 1 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "lt-x-x-sub-a",
+      "lt-swap-out",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) v2 ) 0 ) ( + ( * ( + ( * v0 2 ) v1 ) 4 ) v2 ) ) ) ( >= ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) v2 ) 3 ) ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) 3 ) v2 ) ) ) ( <= ( + ( + ( * v3 4 ) v4 ) v5 ) ( + ( + ( * v3 4 ) v4 ) v5 ) ) ) ( >= ( + ( + ( * v3 4 ) v4 ) v5 ) ( + ( + ( * v3 4 ) v4 ) v5 ) ) ) ( <= ( + ( * v6 3 ) v7 ) ( + ( * v6 3 ) v7 ) ) ) ( >= ( + ( * v6 3 ) v7 ) ( + ( * v6 3 ) v7 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "add-zero",
+      "add-comm",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) v2 ) ( + ( + ( * v0 4 ) v1 ) v2 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) v2 ) ( + ( + ( * v0 4 ) v1 ) v2 ) ) ) ( <= ( + ( + ( * 0 4 ) v3 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v3 ) ) ) ( >= ( + ( + ( * 7 4 ) v3 ) 3 ) ( + ( + ( * 7 4 ) ( - ( + 4 0 ) 1 ) ) v3 ) ) ) ( <= ( + ( * v4 16 ) v5 ) ( + ( * v4 16 ) v5 ) ) ) ( >= ( + ( * v4 16 ) v5 ) ( + ( * v4 16 ) v5 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "add-comm",
+      "eqlt-to-not-gt",
+      "add-assoc",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( + ( * 0 4 ) v0 ) 0 ) 3 ) ( - ( + ( + ( * 0 4 ) 0 ) v0 ) 3 ) ) ) ( >= ( - ( + ( + ( * 63 4 ) v0 ) 3 ) 3 ) ( - ( + ( + ( * ( - ( + 64 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) 3 ) ) ) ( <= ( * ( / v1 4 ) 4 ) ( * ( / v1 4 ) 4 ) ) ) ( >= ( + ( * ( / v1 4 ) 4 ) 128 ) ( * ( - ( + 33 ( / v1 4 ) ) 1 ) 4 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "eqgt-to-not-lt",
+      "add-dist-mul",
+      "lt-to-zero",
+      "sub-to-add",
+      "mul-comm",
+      "add-comm",
+      "eqlt-to-not-gt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( max ( * v0 4 ) -5 ) v1 ) 3 ) ( - ( + ( * v0 4 ) v1 ) 2 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 6 ) ( + ( + ( * v0 4 ) v1 ) 6 ) ) ) ( <= ( - ( + ( + ( * 0 4 ) v2 ) 0 ) 2 ) ( - v2 2 ) ) ) ( >= ( - ( + ( + ( * 32 4 ) v2 ) 3 ) 2 ) ( + v2 127 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-out",
+      "add-assoc",
+      "min-mul-in-pos",
+      "lt-swap-in",
+      "mul-comm",
+      "add-comm",
+      "sub-to-add",
+      "lt-min-term+cpos",
+      "max-to-min",
+      "mod-one",
+      "min-add-both",
+      "eqlt-to-not-gt",
+      "mul-assoc",
+      "min-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + v0 1 ) ( - ( min ( max ( min ( * v1 4 ) 1999 ) ( + ( + v0 1 ) 6 ) ) ( + ( + v0 1 ) 3 ) ) 5 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-assoc",
+      "sub-to-add",
+      "and-min-to-lt",
+      "add-comm",
+      "min-sub-both",
+      "lt-swap-in",
+      "min-comm",
+      "lt-swap-out"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( - -6 ( * ( + ( * v0 4 ) v1 ) 2 ) ) ( - 499 ( * ( + ( * v0 4 ) v1 ) 2 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-comm",
+      "mul-comm",
+      "eq-swap",
+      "mul-assoc",
+      "add-fact-mul",
+      "sub-to-add",
+      "mul-zero",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 v0 ) ( + 0 v0 ) ) ) ( >= ( + 3 v0 ) ( + ( - ( + 4 0 ) 1 ) v0 ) ) ) ( <= ( * v1 4 ) ( * v1 4 ) ) ) ( >= ( * v1 4 ) ( * v1 4 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": ["eqgt-to-not-lt", "lt-to-zero", "eqlt-to-not-gt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( * v0 2 ) v1 ) ( + ( * v0 2 ) v1 ) ) ) ( >= ( + ( * v0 2 ) v1 ) ( + ( * v0 2 ) v1 ) ) ) ( <= ( - ( * ( + ( * v2 16 ) v3 ) 2 ) 2 ) ( - ( + ( * ( + ( * 0 2 ) ( + ( * v2 16 ) v3 ) ) 2 ) 0 ) 2 ) ) ) ( >= ( - ( + ( * ( + ( * v2 16 ) v3 ) 2 ) 31 ) 2 ) ( - ( + ( * ( + ( * 0 2 ) ( + ( + ( * v2 16 ) v3 ) 14 ) ) 2 ) 3 ) 2 ) ) ) ( <= ( + ( * v4 2 ) v5 ) ( + ( * v4 2 ) v5 ) ) ) ( >= ( + ( * v4 2 ) v5 ) ( + ( * v4 2 ) v5 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "add-assoc",
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "add-dist-mul",
+      "sub-to-add",
+      "mul-comm",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( + ( * ( + ( / v0 4 ) v1 ) 4 ) v2 ) 7 ) ( - ( + ( * ( + ( / v0 4 ) v1 ) 4 ) ( + v2 1 ) ) 7 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-x-x-sub-a",
+      "add-assoc",
+      "sub-to-add",
+      "add-comm",
+      "lt-swap-out"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( / ( - ( + ( min v1 4 ) v2 ) 36 ) 16 ) ( * v3 4 ) ) ) ( - ( + 0 ( + ( / ( - ( + ( min v1 4 ) v2 ) 4 ) 16 ) ( * v3 4 ) ) ) 2 ) ) ) ( >= ( + 3 ( + ( / ( + ( + ( min v1 4 ) v2 ) 44 ) 16 ) ( * v3 4 ) ) ) ( + ( + ( - ( + 4 0 ) 1 ) ( + ( / ( - ( + ( min v1 4 ) v2 ) 4 ) 16 ) ( * v3 4 ) ) ) ( - ( - 6 2 ) 1 ) ) ) ) ( <= 0 0 ) ) ( >= ( - 8 1 ) ( - 8 1 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "add-denom-mul",
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "sub-to-add",
+      "add-comm",
+      "add-zero",
+      "min-to-max"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( % ( + v0 v1 ) 16 ) ( % ( + v0 v1 ) 16 ) ) ) ( >= ( % ( + v0 v1 ) 16 ) ( % ( + v0 v1 ) 16 ) ) ) ( <= ( + ( + ( * 0 4 ) ( + ( * v2 4 ) ( + ( * v3 8 ) v4 ) ) ) 0 ) ( + ( * v2 4 ) ( + ( * v3 8 ) v4 ) ) ) ) ( >= ( + ( + ( * 0 4 ) ( + ( * v2 4 ) ( + ( * v3 8 ) v4 ) ) ) 3 ) ( + ( + ( * v2 4 ) ( + ( * v3 8 ) v4 ) ) 3 ) ) ) ( <= v5 v5 ) ) ( >= v5 v5 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "Eq-lt-min",
+      "eq-x-x",
+      "eqgt-to-not-lt",
+      "add-comm",
+      "min-x-x",
+      "add-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - ( + ( max ( + ( + ( + ( * v0 2 ) v1 ) v2 ) 1 ) ( + ( + v3 v2 ) ( + ( * v4 2 ) v1 ) ) ) v5 ) 2 ) ( + ( - ( + ( + ( + v3 v2 ) ( + ( * ( - v4 1 ) 2 ) v1 ) ) v5 ) 1 ) 1 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "mul-comm",
+      "lt-swap-out",
+      "not-gt-to-eqlt",
+      "min-max-const",
+      "min-mul-in-neg",
+      "add-assoc",
+      "add-dist-mul",
+      "eqgt-to-not-lt",
+      "mul-assoc",
+      "mul-zero",
+      "Eq-lt-min",
+      "min-add-both",
+      "sub-to-add",
+      "mul-one",
+      "max-to-min",
+      "min-ass",
+      "add-comm",
+      "add-to-sub",
+      "add-fact-mul",
+      "lt-const-neg",
+      "max-min-switch",
+      "lt-const-pos"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + v0 1 ) ( - ( min ( max ( min ( * ( / ( + ( min v1 4 ) v2 ) 4 ) 4 ) 2003 ) ( + ( + v0 1 ) 8 ) ) ( + ( + v0 1 ) 4 ) ) 7 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-in",
+      "add-to-sub",
+      "min-comm",
+      "add-comm",
+      "min-sub-both",
+      "and-min-to-lt",
+      "lt-swap-out",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( + ( * v0 63 ) v1 ) v2 ) 1 ) ( - ( + ( + ( * v0 63 ) v1 ) ( + v2 1 ) ) 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-in",
+      "mul-zero",
+      "sub-to-add",
+      "add-fact-mul",
+      "mul-comm",
+      "add-assoc",
+      "mul-assoc",
+      "add-to-sub",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + v0 v1 ) ( + v0 v1 ) ) ) ( >= ( + v0 v1 ) ( + v0 v1 ) ) ) ( <= ( % ( + v2 v3 ) 8 ) ( % ( + v2 v3 ) 8 ) ) ) ( >= ( % ( + v2 v3 ) 8 ) ( % ( + v2 v3 ) 8 ) ) ) ( <= ( + ( * v4 4 ) 0 ) ( * v4 4 ) ) ) ( >= ( + ( * v4 4 ) 3 ) ( + ( min ( * v4 4 ) 5 ) 3 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "min-x-x",
+      "Eq-lt-min",
+      "min-add-both",
+      "eq-x-x",
+      "eqgt-to-not-lt",
+      "min-ass",
+      "not-gt-to-eqlt",
+      "add-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + v0 v1 ) 5 ) ( - ( + ( + v0 1 ) v1 ) 4 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-out",
+      "add-to-sub",
+      "add-fact-mul",
+      "mul-zero",
+      "add-comm",
+      "add-assoc",
+      "mul-comm",
+      "mul-assoc",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( - v0 68 ) 0 ) 63 ) ( + ( max -68 -5 ) v0 ) ) ) ( >= ( + ( + ( + v0 1 ) 3 ) 63 ) ( + 1 ( + v0 63 ) ) ) ) ( <= ( + ( + ( + ( min ( * v1 2 ) 123 ) v2 ) v3 ) 1 ) ( + v3 ( + ( min ( * v1 2 ) 123 ) v2 ) ) ) ) ( >= ( + ( + ( + ( min ( * v1 2 ) 123 ) v2 ) v3 ) 1 ) ( + v3 ( - ( + 2 ( + ( min ( * v1 2 ) 123 ) v2 ) ) 1 ) ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-x-x-sub-a",
+      "eqlt-to-not-gt",
+      "and-comm",
+      "lt-swap-out",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( - ( max ( min v0 5 ) -58 ) 7 ) ( - ( + ( - ( max ( min v0 5 ) -58 ) 7 ) ( - 9 ( max ( min v0 5 ) -58 ) ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-zero",
+      "mul-one",
+      "min-to-max",
+      "eq-swap",
+      "add-fact-mul",
+      "Eq-max-c-pos",
+      "add-comm",
+      "max-min-switch",
+      "mul-assoc",
+      "add-assoc",
+      "min-add-both",
+      "mul-comm",
+      "eq-comm",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 v0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + 3 ( + v0 124 ) ) ( + ( + ( * ( - ( + 32 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= ( - v1 1 ) ( - v1 1 ) ) ) ( >= ( + v1 7 ) ( - ( + 9 ( - v1 1 ) ) 1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "add-comm",
+      "sub-to-add",
+      "eqgt-to-not-lt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= v0 v0 ) ) ( >= v0 v0 ) ) ( <= ( + 0 ( / v1 4 ) ) ( + 0 ( / v1 4 ) ) ) ) ( >= ( + 3 ( + ( / v1 4 ) 28 ) ) ( + ( - ( + 4 0 ) 1 ) ( + ( / v1 4 ) 28 ) ) ) ) ( <= ( + ( * v2 2 ) v3 ) ( + ( * v2 2 ) v3 ) ) ) ( >= ( + ( * v2 2 ) v3 ) ( + ( * v2 2 ) v3 ) ) )",
+      "end": "1"
+    },
+    "rules": ["lt-to-zero", "eqgt-to-not-lt", "eqlt-to-not-gt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( + ( max ( * -3 4 ) -9 ) v0 ) 0 ) 5 ) ( - v0 4 ) ) ) ( >= ( + ( + ( + ( max ( * 15 4 ) -9 ) v0 ) 3 ) 5 ) ( + v0 68 ) ) ) ( <= ( + ( + ( + ( min ( * v1 14 ) 53 ) v2 ) v3 ) 5 ) ( - ( + ( + ( min ( * v1 14 ) 53 ) v2 ) v3 ) 4 ) ) ) ( >= ( + ( + ( + ( min ( * v1 14 ) 53 ) v2 ) v3 ) 5 ) ( + ( + ( + ( min ( * v1 14 ) 53 ) v2 ) v3 ) 5 ) ) ) ( <= 0 0 ) ) ( >= 2 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-assoc",
+      "add-comm",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "lt-swap-out",
+      "lt-to-zero",
+      "sub-to-add",
+      "add-zero",
+      "add-to-sub",
+      "and-eqlt-eqgt-to-0",
+      "min-ass",
+      "lt-max-term-term+pos",
+      "and-lt-to-min",
+      "div-minus-out",
+      "lt-x-x-sub-a",
+      "div-cancel-mul",
+      "add-denom-mul"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( + ( * 0 4 ) ( + ( / ( + ( min v0 500 ) v1 ) 4 ) ( * v2 4 ) ) ) 0 ) 125 ) ( - ( + 0 ( + ( / ( + ( min v0 500 ) v1 ) 4 ) ( * v2 4 ) ) ) 125 ) ) ) ( >= ( - ( + ( + ( * 0 4 ) ( + ( / ( + ( min v0 500 ) v1 ) 4 ) ( * v2 4 ) ) ) 3 ) 125 ) ( - ( + ( - ( + 4 0 ) 1 ) ( + ( / ( + ( min v0 500 ) v1 ) 4 ) ( * v2 4 ) ) ) 125 ) ) ) ( <= v3 ( + 0 v3 ) ) ) ( >= ( + v3 8 ) ( + ( - ( + 9 0 ) 1 ) v3 ) ) ) ( <= 0 0 ) ) ( >= ( - ( + 48 0 ) 1 ) ( - ( + 48 0 ) 1 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "add-zero",
+      "lt-to-zero",
+      "add-comm",
+      "eqlt-to-not-gt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + ( / v0 8 ) 1 ) ( - ( / ( - v0 1 ) 8 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "min-comm",
+      "sub-to-add",
+      "min-sub-both",
+      "mul-assoc",
+      "eqlt-to-not-gt",
+      "min-div-mul",
+      "lt-swap-out",
+      "eq-max-lt",
+      "min-max",
+      "Eq-lt-min",
+      "and-min-to-eqlt",
+      "div-minus-out",
+      "min-x-x-plus-a-neg",
+      "add-comm",
+      "min-to-max",
+      "min-mul-in-neg",
+      "lt-mul-pos-cancel",
+      "add-assoc",
+      "add-dist-mul",
+      "add-to-sub",
+      "mul-comm",
+      "lt-mul-div-cancel",
+      "not-gt-to-eqlt",
+      "min-div-out-pos",
+      "min-mul-in-pos",
+      "add-denom-mul",
+      "and-x-x",
+      "and-eq-eq"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) v2 ) 4 ) ( - ( + ( min ( * ( + ( * v0 2 ) ( + v1 1 ) ) 4 ) ( + ( + ( max ( * ( + v1 1 ) 4 ) -6 ) ( * v0 8 ) ) 6 ) ) v2 ) 5 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "and-min-to-lt",
+      "mul-assoc",
+      "mul-zero",
+      "add-assoc",
+      "min-to-max",
+      "add-comm",
+      "add-to-sub",
+      "sub-to-add",
+      "mul-comm",
+      "lt-swap-out",
+      "add-dist-mul",
+      "add-fact-mul",
+      "max-to-min"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - ( + v0 v1 ) 16 ) ( - ( + ( - ( + v0 v1 ) 16 ) 143 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-out",
+      "add-assoc",
+      "lt-x-x-sub-a",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= 0 0 ) ) ( >= ( - 8 1 ) ( - 8 1 ) ) ) ( <= ( % ( + v0 v1 ) 8 ) ( % ( + v0 v1 ) 8 ) ) ) ( >= ( % ( + v0 v1 ) 8 ) ( % ( + v0 v1 ) 8 ) ) ) ( <= ( + ( * v2 4 ) 0 ) ( * v2 4 ) ) ) ( >= ( + ( * v2 4 ) 3 ) ( + ( min ( * v2 4 ) 5 ) 3 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-comm",
+      "sub-to-add",
+      "and-min-to-lt",
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "lt-swap-out",
+      "add-assoc",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - -6 ( * ( + ( * v0 4 ) v1 ) 2 ) ) ( - 499 ( * ( + ( * v0 4 ) v1 ) 2 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-assoc",
+      "lt-x-x-sub-a",
+      "lt-swap-out",
+      "add-comm",
+      "add-to-sub",
+      "eqgt-to-not-lt",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( * ( + ( * v0 2 ) v1 ) 2 ) ( - ( + ( * ( + ( * v0 2 ) v1 ) 2 ) 2 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-x-x-sub-a",
+      "add-comm",
+      "lt-swap-out",
+      "sub-to-add",
+      "eqgt-to-not-lt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( / v0 250 ) ( - ( / ( - v0 1 ) 250 ) 1 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "min-mul-in-pos",
+      "min-comm",
+      "add-denom-mul",
+      "mul-one",
+      "add-assoc",
+      "add-dist-mul",
+      "mul-assoc",
+      "max-to-min",
+      "min-div-out-pos",
+      "min-mul-in-neg",
+      "and-min-to-lt",
+      "lt-swap-out",
+      "mul-comm",
+      "min-max-max-x",
+      "mul-cancel-div",
+      "min-max",
+      "min-div-mul",
+      "not-gt-to-eqlt",
+      "lt-mul-div-cancel",
+      "min-ass",
+      "and-min-to-eqlt",
+      "and-lt-to-max",
+      "Eq-lt-min",
+      "sub-to-add",
+      "min-x-x-plus-a-neg",
+      "add-comm",
+      "lt-x-x-sub-a",
+      "Eq-min-lt",
+      "lt-swap-in",
+      "and-lt-gt-to-0"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + ( max ( - ( * ( max ( + ( max ( / v0 250 ) v1 ) ( min ( - v1 ( / v0 250 ) ) 0 ) ) v1 ) 8 ) ( min ( max ( * v1 8 ) ( - ( * ( / v0 250 ) 8 ) 5 ) ) ( - ( * v1 8 ) 5 ) ) ) 5 ) 8 ) 1024 )",
+      "end": "1"
+    },
+    "rules": [
+      "min-sub-both",
+      "min-mul-in-pos",
+      "min-mul-in-neg",
+      "min-comm",
+      "add-zero",
+      "add-dist-mul",
+      "min-max",
+      "min-x-x-plus-a-pos",
+      "sub-to-add",
+      "max-to-min",
+      "mul-comm",
+      "mul-assoc",
+      "min-ass",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( + ( min ( * v0 32 ) 968 ) ( * v1 4 ) ) v2 ) ) ( + ( + ( min ( * v0 32 ) 968 ) ( * v1 4 ) ) v2 ) ) ) ( >= ( + 3 ( + ( + ( min ( * v0 32 ) 968 ) ( * v1 4 ) ) v2 ) ) ( + ( + ( + ( min ( * v0 32 ) 968 ) ( * v1 4 ) ) 3 ) v2 ) ) ) ( <= ( + ( + ( min ( * v3 4 ) 121 ) v4 ) v5 ) ( + ( + ( min ( * v3 4 ) 121 ) v4 ) v5 ) ) ) ( >= ( + ( + ( min ( * v3 4 ) 121 ) v4 ) v5 ) ( + ( + ( min ( * v3 4 ) 121 ) v4 ) v5 ) ) ) ( <= v6 v6 ) ) ( >= v6 v6 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "add-zero",
+      "add-comm",
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + v0 0 ) ( + 0 v0 ) ) ) ( >= ( + v0 3 ) ( + ( - ( + 4 0 ) 1 ) v0 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) ) ( <= v1 v1 ) ) ( >= v1 v1 ) )",
+      "end": "1"
+    },
+    "rules": ["eqgt-to-not-lt", "lt-to-zero", "add-comm", "eqlt-to-not-gt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= v0 v0 ) ) ( >= v0 v0 ) ) ( <= ( - ( + ( + ( * v1 4 ) v2 ) 0 ) 1 ) ( - ( + ( + ( * v1 4 ) v2 ) 0 ) 1 ) ) ) ( >= ( - ( + ( + ( * v1 4 ) v2 ) 3 ) 1 ) ( - ( + ( + ( * v1 4 ) v2 ) ( - ( + 4 0 ) 1 ) ) 1 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": ["lt-to-zero", "eqlt-to-not-gt", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + ( - ( / v0 8 ) 5 ) ( / ( + ( % v0 8 ) 180 ) 8 ) ) ( - ( / v0 8 ) 5 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "add-assoc",
+      "min-mod-const-to-const",
+      "mul-comm",
+      "Eq-lt-min",
+      "not-gt-to-eqlt",
+      "min-ass",
+      "add-denom-mul",
+      "min-x-x-plus-a-pos",
+      "mul-cancel-div",
+      "min-comm",
+      "lt-mul-div-cancel",
+      "div-minus-down",
+      "min-div-out-pos",
+      "add-dist-mul",
+      "lt-swap-out",
+      "lt-swap-in",
+      "mul-assoc",
+      "and-eqlt-to-min",
+      "min-sub-both",
+      "div-minus-in",
+      "add-to-sub",
+      "div-minus-out",
+      "min-div-out-neg",
+      "lt-min-term+cpos",
+      "add-zero",
+      "min-div-mul",
+      "add-fact-mul",
+      "sub-to-add",
+      "mul-zero",
+      "add-comm",
+      "and-x-x"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( + ( * v0 4 ) 0 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ) ) ( <= ( * ( + v2 v3 ) 4 ) ( * ( + v2 v3 ) 4 ) ) ) ( >= ( * ( + v2 v3 ) 4 ) ( * ( + v2 v3 ) 4 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "lt-to-zero",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( + ( * v0 8 ) ( + v1 v2 ) ) ( + ( + ( * v0 8 ) ( + ( - v1 1 ) v2 ) ) 1 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-swap-out",
+      "add-assoc",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "sub-to-add",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( - ( + ( * v0 4 ) v1 ) 2 ) 0 ) ( - ( + ( + ( * v0 4 ) 0 ) v1 ) 2 ) ) ) ( >= ( + ( + ( + ( * v0 4 ) v1 ) ( - ( - 6 2 ) 1 ) ) 3 ) ( + ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ( - ( - 6 2 ) 1 ) ) ) ) ( <= ( % ( + v2 v3 ) 8 ) ( % ( + v2 v3 ) 8 ) ) ) ( >= ( % ( + v2 v3 ) 8 ) ( % ( + v2 v3 ) 8 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "add-comm",
+      "eqlt-to-not-gt",
+      "add-zero",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - v0 127 ) ( - ( + ( - v0 127 ) 128 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-zero",
+      "add-assoc",
+      "eqgt-to-not-lt",
+      "lt-x-x-sub-a",
+      "sub-to-add",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( max 0 ( + ( min ( - 33 ( * ( % v0 5 ) 7 ) ) ( - ( + 0 7 ) 1 ) ) 1 ) ) 0 )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-out",
+      "min-mul-in-pos",
+      "max-to-min",
+      "eq-max-lt",
+      "eq-swap",
+      "eqlt-to-not-gt",
+      "and-x-1",
+      "mul-assoc",
+      "and-min-to-lt",
+      "mul-comm",
+      "eq-comm",
+      "min-ass",
+      "and-min-to-eqlt",
+      "sub-to-add",
+      "add-zero",
+      "add-comm",
+      "Eq-lt-min",
+      "not-gt-to-eqlt",
+      "lt-mul-pos-cancel",
+      "add-dist-mul",
+      "and-lt-to-max",
+      "and-assoc",
+      "add-denom-mul",
+      "min-to-max",
+      "eqgt-to-not-lt",
+      "min-comm",
+      "min-max-min-y",
+      "and-max-to-lt",
+      "mod-const-sub",
+      "min-lt-cancel",
+      "Eq-min-c-pos",
+      "Eq-min-c-neg",
+      "min-mod-const-to-mod",
+      "mod-two",
+      "add-assoc",
+      "min-max",
+      "min-x-x-plus-a-neg",
+      "and-x-x",
+      "and-lt-to-min",
+      "Eq-max-c-neg",
+      "div-minus-out",
+      "lt-to-zero",
+      "and-eqlt-to-max",
+      "min-max-const",
+      "Eq-max-c-pos"
+    ]
+  },
+  {
+    "expression": { "start": "( >= ( + ( % v0 503 ) 502 ) 0 )", "end": "1" },
+    "rules": [
+      "Eq-lt-min",
+      "lt-swap-in",
+      "eqgt-to-not-lt",
+      "not-gt-to-eqlt",
+      "min-mod-const-to-const"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( max ( min v0 0 ) -15 ) ( - ( + ( max ( min v0 0 ) -15 ) ( - 5 ( max ( min v0 0 ) -15 ) ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-assoc",
+      "Eq-min-c-pos",
+      "mul-comm",
+      "sub-to-add",
+      "add-fact-mul",
+      "max-min-switch",
+      "add-comm",
+      "add-assoc",
+      "eq-swap",
+      "eq-comm",
+      "min-add-both",
+      "mul-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( + ( * v0 4 ) 0 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ) ) ( <= ( + ( + ( min ( * v2 16 ) 109 ) v3 ) v4 ) ( + ( + ( min ( * v2 16 ) 109 ) v3 ) v4 ) ) ) ( >= ( + ( + ( min ( * v2 16 ) 109 ) v3 ) v4 ) ( + ( + ( min ( * v2 16 ) 109 ) v3 ) v4 ) ) ) ( <= v5 v5 ) ) ( >= v5 v5 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "add-comm",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( + ( % ( + v0 v1 ) 250 ) 1999 ) 0 )",
+      "end": "1"
+    },
+    "rules": [
+      "not-gt-to-eqlt",
+      "min-mod-const-to-const",
+      "eqgt-to-not-lt",
+      "lt-swap-in",
+      "Eq-lt-min"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( + ( * v0 4 ) v1 ) 0 ) 2 ) ( - ( + ( + ( * v0 4 ) 0 ) v1 ) 2 ) ) ) ( >= ( - ( + ( + ( * v0 4 ) v1 ) 3 ) 2 ) ( - ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) 2 ) ) ) ( <= ( + v2 v3 ) ( + v2 v3 ) ) ) ( >= ( + v2 v3 ) ( + v2 v3 ) ) ) ( <= ( + ( * v4 6 ) v5 ) ( + ( * v4 6 ) v5 ) ) ) ( >= ( + ( * v4 6 ) v5 ) ( + ( * v4 6 ) v5 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "add-assoc",
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= v0 ( + ( + ( - v0 1 ) 4 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": ["lt-swap-out", "lt-x-x-sub-a", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( + ( * v0 4 ) v1 ) 0 ) 4 ) ( - ( + ( + ( * v0 4 ) 0 ) v1 ) 4 ) ) ) ( >= ( - ( + ( + ( * v0 4 ) v1 ) 3 ) 4 ) ( - ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) 4 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "add-comm",
+      "add-assoc",
+      "lt-to-zero",
+      "eqlt-to-not-gt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( * ( / ( * ( max ( min ( + ( * v0 16 ) ( * v1 2 ) ) 499 ) 0 ) 2 ) 2 ) 2 ) ( * ( max ( min ( + ( * v0 16 ) ( * v1 2 ) ) 499 ) 0 ) 2 ) )",
+      "end": "1"
+    },
+    "rules": ["eq-x-x", "div-cancel-mul"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 16 ) 0 ) 4 ) v1 ) 0 ) ( + ( * v0 64 ) v1 ) ) ) ( >= ( + ( + ( * ( + ( * v0 16 ) 15 ) 4 ) v1 ) 3 ) ( + ( + ( * v0 64 ) 63 ) v1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-zero",
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "mul-comm",
+      "add-dist-mul",
+      "add-assoc",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "mul-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - v0 15 ) ( - v0 15 ) ) ) ( >= ( + v0 25 ) ( + v0 25 ) ) ) ( <= ( - ( + ( + ( + ( * v1 34 ) v2 ) v3 ) 0 ) 2 ) ( - ( + ( + ( * v1 34 ) v2 ) v3 ) 11 ) ) ) ( >= ( - ( + ( + ( + ( * v1 34 ) v2 ) v3 ) 3 ) 2 ) ( - ( + ( + ( * v1 34 ) v2 ) v3 ) 2 ) ) ) ( <= 0 0 ) ) ( >= 2 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "min-add-both",
+      "min-sub-both",
+      "sub-to-add",
+      "eq-swap",
+      "add-assoc",
+      "add-fact-mul",
+      "mul-zero",
+      "Eq-lt-min",
+      "mul-assoc",
+      "and-comm",
+      "eq-comm",
+      "min-comm",
+      "add-zero",
+      "mul-comm",
+      "Eq-min-c-pos"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( min v0 16 ) v1 ) 24 ) ( + -5 ( - ( + ( min v0 16 ) v1 ) 19 ) ) ) ) ( >= ( - ( + ( max v0 16 ) ( + ( min v0 16 ) v1 ) ) 10 ) ( + ( - ( - 6 5 ) 1 ) ( - ( + ( + ( max v0 16 ) 10 ) ( - ( + ( min v0 16 ) v1 ) 19 ) ) 1 ) ) ) ) ( <= ( + ( + ( + v2 v3 ) 0 ) 12 ) ( - ( + ( + ( + ( * 0 4 ) 0 ) v3 ) v2 ) 3 ) ) ) ( >= ( + ( + ( + v2 v3 ) 3 ) 12 ) ( - ( + ( + ( + ( * ( - ( + 4 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v3 ) v2 ) 3 ) ) ) ( <= 0 0 ) ) ( >= 8 ( - ( + 9 0 ) 1 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "Eq-lt-min",
+      "min-x-x-plus-a-pos",
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "lt-min-term+cpos",
+      "and-comm",
+      "add-comm",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( + -5 v0 ) 0 ) 3 ) ( + ( + 0 v0 ) ( max -5 -2 ) ) ) ) ( >= ( + ( + ( + 3 v0 ) 3 ) 3 ) ( + ( + ( - ( + 4 0 ) 1 ) v0 ) 3 ) ) ) ( <= ( % ( + v1 v2 ) 8 ) ( % ( + v1 v2 ) 8 ) ) ) ( >= ( % ( + v1 v2 ) 8 ) ( % ( + v1 v2 ) 8 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "min-comm",
+      "min-x-x-plus-a-pos",
+      "add-comm",
+      "add-assoc",
+      "min-x-x",
+      "not-gt-to-eqlt",
+      "Eq-lt-min",
+      "eq-x-x"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 3 ) v1 ) 4 ) v2 ) 0 ) ( + ( * ( + ( * v0 3 ) v1 ) 4 ) v2 ) ) ) ( >= ( + ( + ( * ( + ( * v0 3 ) v1 ) 4 ) v2 ) 3 ) ( + ( + ( * ( + ( * v0 3 ) v1 ) 4 ) 3 ) v2 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) ) ( <= ( + ( min ( * v3 69 ) 68 ) v4 ) ( + ( min ( * v3 69 ) 68 ) v4 ) ) ) ( >= ( + ( min ( * v3 69 ) 68 ) v4 ) ( + ( min ( * v3 69 ) 68 ) v4 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "add-zero",
+      "add-comm",
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - v0 2 ) ( + ( + ( - v0 1 ) 3 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "eqgt-to-not-lt",
+      "lt-swap-out",
+      "lt-x-x-sub-a",
+      "add-comm",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) v0 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + ( + ( * 1 4 ) v0 ) 3 ) ( + ( + ( * 1 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= v1 v1 ) ) ( >= v1 v1 ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "lt-to-zero",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + ( * v0 2 ) 2 ) ( * v0 2 ) )",
+      "end": "0"
+    },
+    "rules": ["lt-swap-out", "eqlt-to-not-gt", "lt-x-x-sub-a"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= v0 v0 ) ) ( >= v0 v0 ) ) ( <= ( + 0 ( + ( * v1 32 ) v2 ) ) ( + ( * v1 32 ) v2 ) ) ) ( >= ( + 3 ( + ( + ( * v1 32 ) v2 ) 28 ) ) ( + ( + ( * v1 32 ) 31 ) v2 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-zero",
+      "add-assoc",
+      "lt-to-zero",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( * v0 32 ) v1 ) ( + ( * v0 32 ) ( + v1 1 ) ) )",
+      "end": "1"
+    },
+    "rules": ["lt-x-x-sub-a", "lt-swap-out", "add-assoc"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) v0 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + ( + ( * 7 4 ) v0 ) 3 ) ( + ( + ( * ( - ( + 8 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= ( + 0 v1 ) ( + 0 v1 ) ) ) ( >= ( + ( - ( + 125 0 ) 1 ) v1 ) ( + ( - ( + 125 0 ) 1 ) v1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-comm",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( * ( / ( * ( max ( min ( + ( * v0 64 ) ( * ( + ( * ( + ( * ( max ( min v1 2 ) 0 ) 16 ) v2 ) 2 ) v3 ) 2 ) ) 499 ) 0 ) 4 ) 4 ) 4 ) ( * ( max ( min ( + ( * v0 64 ) ( * ( + ( * ( + ( * ( max ( min v1 2 ) 0 ) 16 ) v2 ) 2 ) v3 ) 2 ) ) 499 ) 0 ) 4 ) )",
+      "end": "1"
+    },
+    "rules": ["div-cancel-mul", "eq-x-x"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 125 ) 0 ) 4 ) v1 ) 0 ) ( + ( * v0 500 ) v1 ) ) ) ( >= ( + ( + ( * ( + ( * v0 125 ) 124 ) 4 ) v1 ) 3 ) ( + ( + ( * v0 500 ) 499 ) v1 ) ) ) ( <= ( + v2 v3 ) ( + v2 v3 ) ) ) ( >= ( + v2 v3 ) ( + v2 v3 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "mul-comm",
+      "mul-assoc",
+      "add-zero",
+      "add-assoc",
+      "add-dist-mul",
+      "lt-to-zero",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( * v0 3 ) v1 ) ( + ( * v0 3 ) ( + v1 1 ) ) )",
+      "end": "1"
+    },
+    "rules": ["lt-swap-out", "lt-x-x-sub-a", "add-assoc"]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( * ( + ( * v0 4 ) v1 ) 2 ) v2 ) ( + ( * ( + ( * v0 4 ) v1 ) 2 ) ( + v2 1 ) ) )",
+      "end": "1"
+    },
+    "rules": ["add-assoc", "lt-swap-out", "lt-x-x-sub-a"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( + -5 v0 ) 0 ) 3 ) ( + ( + 0 v0 ) ( max -5 -2 ) ) ) ) ( >= ( + ( + ( + 3 v0 ) 3 ) 3 ) ( + ( + ( - ( + 4 0 ) 1 ) v0 ) 3 ) ) ) ( <= ( + -2 v1 ) ( + -2 v1 ) ) ) ( >= ( + ( - ( - 6 2 ) 1 ) v1 ) ( + ( - ( - 6 2 ) 1 ) v1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eq-x-x",
+      "min-x-x",
+      "Eq-lt-min",
+      "min-x-x-plus-a-pos",
+      "add-comm",
+      "not-gt-to-eqlt",
+      "min-comm",
+      "eqgt-to-not-lt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) ( + ( / v0 4 ) ( * v1 4 ) ) ) 0 ) ( + 0 ( + ( / v0 4 ) ( * v1 4 ) ) ) ) ) ( >= ( + ( + ( * 0 4 ) ( + ( / v0 4 ) ( * v1 4 ) ) ) 3 ) ( + ( - ( + 4 0 ) 1 ) ( + ( / v0 4 ) ( * v1 4 ) ) ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "add-comm",
+      "lt-to-zero",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( min ( * v0 64 ) 188 ) v1 ) ) ( + ( min ( * v0 64 ) 188 ) v1 ) ) ) ( >= ( + 3 ( + ( + ( min ( * v0 64 ) 188 ) v1 ) 60 ) ) ( + ( + ( min ( * v0 64 ) 188 ) 63 ) v1 ) ) ) ( <= ( + v2 v3 ) ( + v2 v3 ) ) ) ( >= ( + v2 v3 ) ( + v2 v3 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "add-comm",
+      "lt-to-zero",
+      "add-zero",
+      "eqlt-to-not-gt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( + ( * ( + ( + ( * v0 2 ) v1 ) v2 ) 2 ) v3 ) 4 ) ( - ( + ( * ( + ( + ( * v0 2 ) v1 ) v2 ) 2 ) ( + v3 1 ) ) 4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "lt-swap-out",
+      "sub-to-add",
+      "add-comm",
+      "lt-x-x-sub-a"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( * v0 32 ) v1 ) ) ( + ( * v0 32 ) v1 ) ) ) ( >= ( + 3 ( + ( + ( * v0 32 ) v1 ) 28 ) ) ( + ( + ( * v0 32 ) 31 ) v1 ) ) ) ( <= ( / v2 250 ) ( / v2 250 ) ) ) ( >= ( / ( - ( + v3 v2 ) 1 ) 250 ) ( / ( - ( + v3 v2 ) 1 ) 250 ) ) ) ( <= ( + v4 ( / v5 ( / ( + v6 95 ) 96 ) ) ) ( + ( / v5 ( / ( + v6 95 ) 96 ) ) v4 ) ) ) ( >= ( + v4 ( / v5 ( / ( + v6 95 ) 96 ) ) ) ( + ( / v5 ( / ( + v6 95 ) 96 ) ) v4 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-zero",
+      "lt-to-zero",
+      "add-comm",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + 0 ( - ( + ( * v0 32 ) v1 ) 9 ) ) 5 ) ( - ( + ( * v0 32 ) v1 ) 4 ) ) ) ( >= ( + ( + 3 ( + ( + ( * v0 32 ) v1 ) 68 ) ) 5 ) ( + ( + ( * v0 32 ) v1 ) 36 ) ) ) ( <= ( + ( + v2 v3 ) 5 ) ( - ( + v2 v3 ) 4 ) ) ) ( >= ( + ( + v2 v3 ) 5 ) ( + ( + v2 v3 ) 5 ) ) ) ( <= 0 0 ) ) ( >= 2 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-in",
+      "lt-x-x-sub-a",
+      "lt-swap-out",
+      "and-comm",
+      "add-assoc",
+      "sub-to-add",
+      "add-comm",
+      "eqlt-to-not-gt",
+      "and-eqlt-to-min"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( - ( + ( * 0 4 ) v0 ) 2 ) 0 ) 5 ) ( + -2 ( - v0 5 ) ) ) ) ( >= ( - ( + ( + ( + ( * ( - ( + 252 0 ) 1 ) 4 ) v0 ) ( - ( - 4 2 ) 1 ) ) 3 ) 5 ) ( + ( - ( - 4 2 ) 1 ) ( + v0 1000 ) ) ) ) ( <= ( + -2 v1 ) ( + -2 v1 ) ) ) ( >= ( + ( - ( - 4 2 ) 1 ) v1 ) ( + ( - ( - 4 2 ) 1 ) v1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "and-min-to-lt",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "lt-swap-out",
+      "not-gt-to-eqlt",
+      "lt-to-zero",
+      "min-x-x-plus-a-pos",
+      "add-assoc",
+      "min-comm",
+      "Eq-lt-min",
+      "eqlt-to-not-gt",
+      "sub-to-add",
+      "and-max-to-lt",
+      "and-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( / ( - ( + ( min v0 4 ) v1 ) 36 ) 16 ) ) ( + -2 ( / ( - ( + ( min v0 4 ) v1 ) 4 ) 16 ) ) ) ) ( >= ( + 3 ( + ( / ( - ( + ( min v0 4 ) v1 ) 36 ) 16 ) ( * ( / ( - ( + ( / ( + ( + ( min v0 4 ) v1 ) 44 ) 16 ) v2 ) ( / ( - ( + ( min v0 4 ) v1 ) 36 ) 16 ) ) 4 ) 4 ) ) ) ( + ( - ( - 6 2 ) 1 ) ( - ( + ( + v2 1 ) ( / ( - ( + ( min v0 4 ) v1 ) 4 ) 16 ) ) 1 ) ) ) ) ( <= ( - ( * v3 8 ) 1 ) ( - ( + ( * ( + ( * v3 2 ) 0 ) 4 ) 0 ) 1 ) ) ) ( >= ( + ( * v3 8 ) 11 ) ( - ( + ( * ( + ( * v3 2 ) 3 ) 4 ) 3 ) 1 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-assoc",
+      "add-comm",
+      "lt-x-x-sub-a",
+      "add-assoc",
+      "add-dist-mul",
+      "eqgt-to-not-lt",
+      "sub-to-add",
+      "mul-comm",
+      "and-comm",
+      "lt-swap-out"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( + ( min ( * v2 128 ) 124 ) ( min ( * v1 252 ) 248 ) ) v3 ) ) ( + ( + ( min ( * v1 252 ) 248 ) ( min ( * v2 128 ) 124 ) ) v3 ) ) ) ( >= ( + 3 ( + ( + ( + ( min ( * v2 128 ) 124 ) ( min ( * v1 252 ) 248 ) ) v3 ) 124 ) ) ( + ( + ( min ( * v1 252 ) 248 ) ( + ( min ( * v2 128 ) 124 ) 127 ) ) v3 ) ) ) ( <= ( + ( + ( min ( * v4 63 ) 62 ) v5 ) v6 ) ( + ( + ( min ( * v4 63 ) 62 ) v5 ) v6 ) ) ) ( >= ( + ( + ( min ( * v4 63 ) 62 ) v5 ) v6 ) ( + ( + ( min ( * v4 63 ) 62 ) v5 ) v6 ) ) ) ( <= v7 v7 ) ) ( >= ( - ( + v8 v7 ) 1 ) ( - ( + v8 v7 ) 1 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "add-zero",
+      "eqlt-to-not-gt",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( * ( + ( * ( / v0 250 ) 2 ) v1 ) 4 ) 0 ) 5 ) ( - ( + ( * ( + ( * ( / v0 250 ) 2 ) v1 ) 4 ) 0 ) 5 ) ) ) ( >= ( - ( + ( * ( + ( * ( / v0 250 ) 2 ) v1 ) 4 ) 3 ) 5 ) ( - ( + ( * ( + ( * ( / v0 250 ) 2 ) v1 ) 4 ) ( - ( + 4 0 ) 1 ) ) 5 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) ) ( <= ( + ( * v2 2 ) v3 ) ( + ( * v2 2 ) v3 ) ) ) ( >= ( + ( * v2 2 ) v3 ) ( + ( * v2 2 ) v3 ) ) )",
+      "end": "1"
+    },
+    "rules": ["eqlt-to-not-gt", "lt-to-zero", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) v0 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + ( + ( * 250 4 ) v0 ) 3 ) ( + ( + ( * 250 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= ( + v1 v2 ) ( + v1 v2 ) ) ) ( >= ( + v1 v2 ) ( + v1 v2 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "lt-to-zero",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( * v0 500 ) v1 ) 2 ) ( - ( + ( * v0 500 ) v1 ) 2 ) ) ) ( >= ( + ( + ( * v0 500 ) v1 ) 502 ) ( + ( + ( * v0 500 ) v1 ) 502 ) ) ) ( <= ( + ( + ( + v2 v3 ) 0 ) 3 ) ( - ( + v2 v3 ) 2 ) ) ) ( >= ( + ( + ( + v2 v3 ) 3 ) 3 ) ( + ( + v2 v3 ) 3 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "lt-swap-in",
+      "lt-swap-out",
+      "add-assoc",
+      "and-comm",
+      "lt-x-x-sub-a",
+      "sub-to-add",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( - ( * ( min v0 249 ) 8 ) 4 ) ( - ( + ( - ( * ( min v0 249 ) 8 ) 4 ) 8 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-zero",
+      "sub-to-add",
+      "eq-swap",
+      "add-assoc",
+      "add-comm",
+      "mul-comm",
+      "mul-assoc",
+      "add-fact-mul"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - v0 1 ) ( + ( - v0 1 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": ["lt-swap-out", "lt-x-x-sub-a", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( - ( + ( * 0 4 ) v0 ) 5 ) 0 ) 503 ) ( - ( - ( + ( + ( * 0 4 ) 0 ) v0 ) 5 ) 503 ) ) ) ( >= ( - ( + ( + ( + ( * 125 4 ) v0 ) ( - ( - 6 5 ) 1 ) ) 3 ) 503 ) ( - ( + ( + ( + ( * 125 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ( - ( - 6 5 ) 1 ) ) 503 ) ) ) ( <= ( + -5 v1 ) ( + -5 v1 ) ) ) ( >= ( + ( - ( - 6 5 ) 1 ) v1 ) ( + ( - ( - 6 5 ) 1 ) v1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "add-comm",
+      "sub-to-add",
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( - ( + ( * v0 4 ) v1 ) 2 ) 0 ) ( - ( + ( + ( * v0 4 ) 0 ) v1 ) 2 ) ) ) ( >= ( + ( + ( + ( * v0 4 ) v1 ) ( - ( - 6 2 ) 1 ) ) 3 ) ( + ( + ( + ( * v0 4 ) ( - ( + 4 0 ) 1 ) ) v1 ) ( - ( - 6 2 ) 1 ) ) ) ) ( <= 0 0 ) ) ( >= ( - 8 1 ) ( - 8 1 ) ) ) ( <= ( + ( * v2 2 ) v3 ) ( + ( * v2 2 ) v3 ) ) ) ( >= ( + ( * v2 2 ) v3 ) ( + ( * v2 2 ) v3 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-comm",
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "add-zero",
+      "add-assoc",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + ( * v0 8 ) 8 ) ( * v0 8 ) )",
+      "end": "0"
+    },
+    "rules": ["lt-x-x-sub-a", "eqlt-to-not-gt", "lt-swap-out"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( / ( - ( + ( min v0 500 ) v1 ) 508 ) 8 ) ) ( + 0 ( / ( - ( + ( min v0 500 ) v1 ) 508 ) 8 ) ) ) ) ( >= ( + 3 ( + ( / ( - ( + ( min v0 500 ) v1 ) 508 ) 8 ) ( * ( / v2 4 ) 4 ) ) ) ( + ( - ( + 4 0 ) 1 ) ( + ( / ( - ( + ( min v0 500 ) v1 ) 508 ) 8 ) ( * ( / v2 4 ) 4 ) ) ) ) ) ( <= ( - ( + ( * v3 33 ) v4 ) 1 ) ( - ( + ( + ( * v3 33 ) v4 ) 0 ) 1 ) ) ) ( >= ( + ( + ( * v3 33 ) v4 ) 31 ) ( - ( + ( + ( * v3 33 ) v4 ) ( - ( + 33 0 ) 1 ) ) 1 ) ) ) ( <= v5 v5 ) ) ( >= v5 v5 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "eqlt-to-not-gt",
+      "add-comm",
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + ( + v0 v1 ) 1 ) ( - ( - ( + ( - v0 1 ) v1 ) 2 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "add-to-sub",
+      "add-comm",
+      "lt-x-x-sub-a",
+      "lt-swap-out",
+      "add-assoc",
+      "eqlt-to-not-gt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( * v0 8 ) ( + ( * v1 4 ) v2 ) ) ( + ( * v0 8 ) ( + ( * v1 4 ) ( + v2 1 ) ) ) )",
+      "end": "1"
+    },
+    "rules": ["lt-x-x-sub-a", "lt-swap-out", "add-assoc"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( * v0 2 ) ) ( + ( * ( + ( + ( * 0 4 ) v0 ) 0 ) 2 ) 0 ) ) ) ( >= ( + 3 ( + ( * v0 2 ) 13 ) ) ( + ( * ( + ( + ( * 1 4 ) v0 ) ( - ( + 4 0 ) 1 ) ) 2 ) ( - ( + 3 0 ) 1 ) ) ) ) ( <= ( + ( * ( + ( + ( * v1 8 ) v2 ) v3 ) 2 ) 0 ) ( + ( * ( + ( + ( * v1 8 ) v2 ) v3 ) 2 ) 0 ) ) ) ( >= ( + ( * ( + ( + ( * v1 8 ) v2 ) v3 ) 2 ) ( - ( + 3 0 ) 1 ) ) ( + ( * ( + ( + ( * v1 8 ) v2 ) v3 ) 2 ) ( - ( + 3 0 ) 1 ) ) ) ) ( <= ( * ( + ( * v4 3 ) v5 ) 3 ) ( + ( * ( + ( * v4 3 ) v5 ) 3 ) 0 ) ) ) ( >= ( + ( * ( + ( * v4 3 ) v5 ) 3 ) 2 ) ( + ( * ( + ( * v4 3 ) v5 ) 3 ) ( - ( + 3 0 ) 1 ) ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "mul-comm",
+      "add-dist-mul",
+      "add-assoc",
+      "add-zero",
+      "lt-to-zero",
+      "eqgt-to-not-lt",
+      "add-comm",
+      "eqlt-to-not-gt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + v0 8 ) ( - ( + v0 1 ) 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-in",
+      "sub-to-add",
+      "add-comm",
+      "add-to-sub",
+      "mul-assoc",
+      "mul-comm",
+      "add-assoc",
+      "add-fact-mul",
+      "mul-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( * v0 3 ) v1 ) ( - ( + ( * v0 3 ) ( + v1 1 ) ) 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-assoc",
+      "mul-zero",
+      "lt-swap-out",
+      "add-fact-mul",
+      "add-to-sub",
+      "mul-comm",
+      "add-comm",
+      "sub-to-add",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( + ( + v0 v1 ) v2 ) ( + ( + ( + v0 v1 ) ( - v2 1 ) ) 1 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "sub-to-add",
+      "lt-swap-out",
+      "add-assoc",
+      "eqgt-to-not-lt",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + v0 0 ) ( + 0 v0 ) ) ) ( >= ( + v0 3 ) ( + ( - ( + 4 0 ) 1 ) v0 ) ) ) ( <= ( / ( + ( min ( * v1 16 ) 109 ) v2 ) 4 ) ( / ( + ( + ( min ( * v1 16 ) 109 ) 0 ) v2 ) 4 ) ) ) ( >= ( / ( + ( + ( min ( * v1 16 ) 109 ) v2 ) 15 ) 4 ) ( / ( + ( + ( min ( * v1 16 ) 109 ) ( - ( + 16 0 ) 1 ) ) v2 ) 4 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "add-zero",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "lt-to-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( > ( - 10 ( * ( + v0 v1 ) 2 ) ) ( - 509 ( * ( + v0 v1 ) 2 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-comm",
+      "add-fact-mul",
+      "mul-assoc",
+      "gt-to-lt",
+      "sub-to-add",
+      "add-comm",
+      "lt-swap-out",
+      "mul-zero",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( / ( + v0 v1 ) 250 ) ( - ( / ( + ( - v0 1 ) v1 ) 250 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "and-min-to-eqlt",
+      "lt-mul-div-cancel",
+      "add-dist-mul",
+      "div-minus-in",
+      "not-gt-to-eqlt",
+      "lt-swap-in",
+      "lt-swap-out",
+      "max-to-min",
+      "add-comm",
+      "min-x-x-plus-a-neg",
+      "min-to-max",
+      "min-max",
+      "min-comm",
+      "sub-to-add",
+      "add-assoc",
+      "min-mul-in-pos",
+      "eqlt-to-not-gt",
+      "div-minus-down",
+      "Eq-lt-min",
+      "add-denom-mul",
+      "min-mod-const-to-mod",
+      "lt-min-term+cpos",
+      "min-div-mul",
+      "min-div-out-neg",
+      "and-eqlt-to-min",
+      "mul-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( * ( + ( + ( * v0 4 ) v1 ) 0 ) 4 ) 0 ) 4 ) ( - ( + ( * ( + ( * v0 4 ) v1 ) 4 ) 0 ) 4 ) ) ) ( >= ( - ( + ( * ( + ( + ( * v0 4 ) v1 ) 3 ) 4 ) 3 ) 4 ) ( - ( + ( * ( + ( * v0 4 ) v1 ) 4 ) ( - ( + 16 0 ) 1 ) ) 4 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) ) ( <= ( + ( * v3 2 ) v4 ) ( + ( * v3 2 ) v4 ) ) ) ( >= ( + ( * v3 2 ) v4 ) ( + ( * v3 2 ) v4 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "mul-comm",
+      "lt-to-zero",
+      "add-assoc",
+      "add-dist-mul",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( > ( - 0 ( + ( * v0 63 ) v1 ) ) ( - 1999 ( + ( * v0 63 ) v1 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-comm",
+      "gt-to-lt",
+      "add-fact-mul",
+      "add-assoc",
+      "lt-swap-out",
+      "add-comm",
+      "mul-assoc",
+      "mul-zero",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 v0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + 3 ( + v0 12 ) ) ( + ( + ( * ( - ( + 4 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= ( + ( min ( * v1 3 ) 997 ) v2 ) ( + ( + ( min ( * v1 3 ) 997 ) 0 ) v2 ) ) ) ( >= ( + ( + ( min ( * v1 3 ) 997 ) v2 ) 2 ) ( + ( + ( min ( * v1 3 ) 997 ) ( - ( + 3 0 ) 1 ) ) v2 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "add-zero",
+      "add-assoc",
+      "add-comm",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 125 ) v1 ) 4 ) v2 ) 0 ) ( + ( * ( + ( * v0 125 ) v1 ) 4 ) v2 ) ) ) ( >= ( + ( + ( * ( + ( * v0 125 ) v1 ) 4 ) v2 ) 3 ) ( + ( + ( * ( + ( * v0 125 ) v1 ) 4 ) 3 ) v2 ) ) ) ( <= ( + v3 v4 ) ( + v3 v4 ) ) ) ( >= ( + v3 v4 ) ( + v3 v4 ) ) ) ( <= v5 v5 ) ) ( >= v5 v5 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt",
+      "add-zero",
+      "lt-to-zero",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) ( - v0 2 ) ) 0 ) ( + -2 v0 ) ) ) ( >= ( + ( + ( * 1 4 ) ( + v0 9 ) ) 3 ) ( + ( - ( - 4 2 ) 1 ) ( + v0 11 ) ) ) ) ( <= ( - ( max ( + v1 3 ) ( + ( min ( * v2 4 ) 247 ) v3 ) ) 2 ) ( + -2 v1 ) ) ) ( >= ( + v1 1 ) ( + ( - ( - 4 2 ) 1 ) v1 ) ) ) ( <= v4 v4 ) ) ( >= v4 v4 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-in",
+      "add-dist-mul",
+      "and-comm",
+      "eqlt-to-not-gt",
+      "add-comm",
+      "lt-min-term+cpos",
+      "min-sub-both",
+      "lt-swap-out",
+      "max-to-min",
+      "add-zero",
+      "add-to-sub",
+      "sub-to-add",
+      "add-assoc",
+      "and-lt-to-min",
+      "or-over-and"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( * ( + ( / ( + ( min v0 4 ) v1 ) 4 ) v2 ) 4 ) v3 ) 4 ) ( - ( max ( * ( / ( + ( min v0 4 ) v1 ) 4 ) 4 ) ( + ( + ( * ( + ( / ( + ( min v0 4 ) v1 ) 4 ) v2 ) 4 ) ( + v3 1 ) ) 25 ) ) 21 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-swap-out",
+      "mul-assoc",
+      "add-comm",
+      "max-to-min",
+      "mul-comm",
+      "add-dist-mul",
+      "lt-swap-in",
+      "min-comm",
+      "min-sub-both",
+      "lt-min-term+cpos",
+      "sub-to-add",
+      "lt-mul-pos-cancel",
+      "and-lt-to-max",
+      "mod-minus-out",
+      "add-assoc",
+      "lt-const-neg",
+      "and-min-to-lt",
+      "add-zero",
+      "div-cancel-mul",
+      "min-mul-in-pos",
+      "min-x-x-plus-a-pos",
+      "add-denom-div",
+      "Eq-min-c-neg",
+      "and-ineq-eq",
+      "eq-max-lt",
+      "lt-min-mutual-term",
+      "lt-x-x-sub-a"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( * v0 16 ) v1 ) ) ( + 0 ( + ( * v0 16 ) v1 ) ) ) ) ( >= ( + 3 ( + ( + ( * v0 16 ) v1 ) 12 ) ) ( + 3 ( + ( + ( * v0 16 ) v1 ) 12 ) ) ) ) ( <= ( + ( * v2 2 ) v3 ) ( + ( + ( * v2 2 ) 0 ) v3 ) ) ) ( >= ( + ( + ( * v2 2 ) v3 ) 1 ) ( + ( + ( * v2 2 ) ( - ( + 2 0 ) 1 ) ) v3 ) ) ) ( <= 0 0 ) ) ( >= 3 3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "lt-to-zero",
+      "eqlt-to-not-gt",
+      "add-zero",
+      "eqgt-to-not-lt",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( + ( % ( + v0 664 ) 668 ) 671 ) 0 )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "min-mod-const-to-const",
+      "not-gt-to-eqlt",
+      "Eq-lt-min",
+      "lt-swap-in"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - ( max ( min ( - ( + ( * v0 8 ) v1 ) ( min ( - ( - ( + v2 v1 ) ( * v3 126 ) ) ( * v4 32 ) ) ( + v1 22 ) ) ) 14 ) 7 ) 16 ) ( - ( + ( - ( max ( min ( - ( + ( * v0 8 ) v1 ) ( min ( - ( - ( + v2 v1 ) ( * v3 126 ) ) ( * v4 32 ) ) ( + v1 22 ) ) ) 14 ) 7 ) 16 ) ( - 18 ( max ( min ( - ( + ( * v0 8 ) v1 ) ( min ( - ( - ( + v2 v1 ) ( * v3 126 ) ) ( * v4 32 ) ) ( + v1 22 ) ) ) 14 ) 7 ) ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "min-comm",
+      "max-min-switch",
+      "add-to-sub",
+      "lt-swap-out",
+      "lt-x-x-sub-a",
+      "eqlt-to-not-gt",
+      "add-assoc",
+      "min-add-both",
+      "not-gt-to-eqlt",
+      "and-min-to-eqlt",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "mul-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( + ( + ( * v0 503 ) v1 ) v2 ) 3 ) ( - ( + ( + ( * v0 503 ) v1 ) ( + v2 1 ) ) 8 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-to-sub",
+      "add-comm",
+      "sub-to-add",
+      "add-assoc",
+      "add-fact-mul",
+      "mul-zero",
+      "mul-assoc",
+      "mul-comm",
+      "lt-swap-in"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - ( max ( min ( + ( - ( * v0 32 ) ( min ( - ( + v1 v2 ) ( * v3 126 ) ) ( + ( + ( min ( * v0 32 ) 94 ) v2 ) 22 ) ) ) ( + ( * v4 8 ) v2 ) ) 14 ) 7 ) 16 ) ( - ( + ( - ( max ( min ( + ( - ( * v0 32 ) ( min ( - ( + v1 v2 ) ( * v3 126 ) ) ( + ( + ( min ( * v0 32 ) 94 ) v2 ) 22 ) ) ) ( + ( * v4 8 ) v2 ) ) 14 ) 7 ) 16 ) ( - 18 ( max ( min ( + ( - ( * v0 32 ) ( min ( - ( + v1 v2 ) ( * v3 126 ) ) ( + ( + ( min ( * v0 32 ) 94 ) v2 ) 22 ) ) ) ( + ( * v4 8 ) v2 ) ) 14 ) 7 ) ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "not-gt-to-eqlt",
+      "add-to-sub",
+      "add-fact-mul",
+      "sub-to-add",
+      "min-comm",
+      "min-add-both",
+      "eqgt-to-not-lt",
+      "add-comm",
+      "and-min-to-eqlt",
+      "max-min-switch",
+      "add-assoc",
+      "mul-comm",
+      "mul-assoc",
+      "mul-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + v0 v1 ) 1 ) ( - ( + ( + v0 1 ) v1 ) 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "mul-zero",
+      "lt-swap-out",
+      "lt-swap-in",
+      "add-comm",
+      "mul-assoc",
+      "mul-comm",
+      "add-assoc",
+      "add-fact-mul"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( + ( * v0 4 ) ( + v1 v2 ) ) ( + ( + ( * v0 4 ) ( + ( - v1 1 ) v2 ) ) 1 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-to-zero",
+      "add-comm",
+      "add-assoc",
+      "lt-swap-out",
+      "sub-to-add",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": { "start": "( < v0 ( - ( + v0 1 ) 5 ) )", "end": "0" },
+    "rules": [
+      "add-assoc",
+      "add-fact-mul",
+      "mul-assoc",
+      "sub-to-add",
+      "mul-zero",
+      "mul-comm",
+      "lt-swap-out",
+      "lt-swap-in",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( * v0 4 ) 3 ) ( - ( min ( * ( max ( * ( + v0 1 ) 2 ) ( + ( * ( max ( min ( * ( + ( * v1 8 ) v2 ) 2 ) 499 ) 0 ) 2 ) 1 ) ) 2 ) ( + ( * ( + v0 1 ) 4 ) 2 ) ) 6 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "and-comm",
+      "and-min-to-lt",
+      "lt-swap-out",
+      "add-assoc",
+      "lt-swap-in",
+      "mul-comm",
+      "add-denom-div",
+      "sub-to-add",
+      "add-comm",
+      "lt-to-zero",
+      "lt-mul-pos-cancel",
+      "add-dist-mul",
+      "add-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - v0 3 ) ( - v0 3 ) ) ) ( >= ( + v0 1 ) ( + v0 1 ) ) ) ( <= ( + ( + ( + v1 v2 ) 0 ) 1 ) ( - ( + v1 v2 ) 3 ) ) ) ( >= ( + ( + ( + v1 v2 ) 3 ) 1 ) ( + ( + v1 v2 ) 1 ) ) ) ( <= 0 0 ) ) ( >= 2 2 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-min-term+cpos",
+      "Eq-lt-min",
+      "add-assoc",
+      "eq-swap",
+      "add-comm",
+      "min-sub-both",
+      "eqlt-to-not-gt",
+      "Eq-min-lt",
+      "and-comm",
+      "min-x-x-plus-a-pos",
+      "sub-to-add"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - ( max ( min v0 5 ) -58 ) 7 ) ( - ( + ( - ( max ( min v0 5 ) -58 ) 7 ) ( - 9 ( max ( min v0 5 ) -58 ) ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "and-min-to-eqlt",
+      "add-comm",
+      "min-comm",
+      "add-to-sub",
+      "max-min-switch",
+      "add-assoc",
+      "not-gt-to-eqlt",
+      "mul-assoc",
+      "min-add-both",
+      "mul-comm",
+      "add-fact-mul",
+      "sub-to-add",
+      "mul-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( * ( + ( * v0 3 ) v1 ) 2 ) 4 ) ( - ( min ( max ( * v1 2 ) ( + ( * ( + ( * ( + v0 1 ) 3 ) v1 ) 2 ) 1 ) ) ( * ( + ( * ( + v0 1 ) 3 ) v1 ) 2 ) ) 10 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "and-min-to-lt",
+      "lt-swap-out",
+      "sub-to-add",
+      "lt-to-zero",
+      "add-comm",
+      "add-dist-mul",
+      "min-comm",
+      "add-assoc",
+      "mul-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( max 0 ( + ( min ( - 8 ( * ( % v0 5 ) 2 ) ) ( - ( + 0 2 ) 1 ) ) 1 ) ) 0 )",
+      "end": "0"
+    },
+    "rules": [
+      "add-dist-mul",
+      "eq-comm",
+      "min-mul-in-pos",
+      "min-comm",
+      "mul-comm",
+      "not-gt-to-eqlt",
+      "mul-assoc",
+      "min-mul-in-neg",
+      "add-comm",
+      "lt-swap-out",
+      "Eq-min-c-pos",
+      "and-x-1",
+      "add-assoc",
+      "min-ass",
+      "sub-to-add",
+      "eqlt-to-not-gt",
+      "min-max",
+      "lt-mul-pos-cancel",
+      "lt-swap-in",
+      "eq-max-lt",
+      "Eq-lt-min",
+      "max-to-min",
+      "and-x-not-x",
+      "or-to-and",
+      "min-x-x-plus-a-neg",
+      "min-mod-const-to-mod",
+      "mul-cancel-div",
+      "add-fact-mul",
+      "div-minus-out",
+      "or-x-and-x-y",
+      "and-eqlt-to-min",
+      "min-div-out-neg",
+      "min-div-out-pos",
+      "mul-max-min",
+      "div-minus-down",
+      "and-min-to-lt",
+      "min-add-both",
+      "div-minus-in",
+      "mod-minus-in",
+      "min-max-min-y",
+      "div-cancel-mul",
+      "min-div-mul"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( + v0 v1 ) 5 ) ( - ( + ( + v0 1 ) v1 ) 17 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "mul-comm",
+      "mul-zero",
+      "add-to-sub",
+      "add-fact-mul",
+      "add-assoc",
+      "lt-swap-out",
+      "add-comm",
+      "sub-to-add",
+      "mul-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( - v0 5 ) ( - ( + ( - v0 5 ) 5 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "add-fact-mul",
+      "mul-assoc",
+      "sub-to-add",
+      "add-to-sub",
+      "mul-zero",
+      "eq-swap",
+      "add-comm",
+      "add-assoc",
+      "mul-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) v0 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + ( + ( * 1 4 ) v0 ) 3 ) ( + ( + ( * 1 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= v1 ( + 0 v1 ) ) ) ( >= ( + v1 124 ) ( + ( - ( + 125 0 ) 1 ) v1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-zero",
+      "add-comm",
+      "lt-to-zero",
+      "eqlt-to-not-gt",
+      "add-assoc",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + ( + ( * v0 3 ) 0 ) v1 ) 2 ) ( - ( + ( + ( * v0 3 ) 0 ) v1 ) 2 ) ) ) ( >= ( - ( + ( + ( * v0 3 ) ( - ( + 3 0 ) 1 ) ) v1 ) 2 ) ( - ( + ( + ( * v0 3 ) ( - ( + 3 0 ) 1 ) ) v1 ) 2 ) ) ) ( <= ( + ( + ( - ( * ( + ( * v2 2 ) 0 ) 4 ) 2 ) 0 ) 1 ) ( + ( - ( + ( * ( + ( * v2 2 ) 0 ) 4 ) 0 ) 2 ) 1 ) ) ) ( >= ( + ( + ( + ( * ( + ( * v2 2 ) 1 ) 4 ) ( - ( - 6 2 ) 1 ) ) 3 ) 1 ) ( + ( + ( + ( * ( + ( * v2 2 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) ( - ( - 6 2 ) 1 ) ) 1 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": ["add-zero", "lt-to-zero", "eqlt-to-not-gt", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( == ( * ( / ( * ( max ( + ( * v0 -125 ) ( - ( + 125 ( / ( + v1 ( min ( + ( * v2 1000 ) 1000 ) v3 ) ) 4 ) ) 252 ) ) ( / ( - ( + v1 ( min ( + ( * v2 1000 ) 1000 ) v3 ) ) 965 ) 4 ) ) -4 ) 4 ) 4 ) ( * ( max ( + ( * v0 -125 ) ( - ( + 125 ( / ( + v1 ( min ( + ( * v2 1000 ) 1000 ) v3 ) ) 4 ) ) 252 ) ) ( / ( - ( + v1 ( min ( + ( * v2 1000 ) 1000 ) v3 ) ) 965 ) 4 ) ) -4 ) )",
+      "end": "1"
+    },
+    "rules": ["eq-x-x", "div-cancel-mul", "mul-comm", "max-to-min", "mul-assoc"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * v0 4 ) v1 ) 0 ) ( + ( * v0 4 ) v1 ) ) ) ( >= ( + ( + ( * v0 4 ) v1 ) 3 ) ( + ( + ( * v0 4 ) v1 ) 3 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) ) ( <= 0 0 ) ) ( >= 2 2 ) )",
+      "end": "1"
+    },
+    "rules": ["eqlt-to-not-gt", "eqgt-to-not-lt", "add-zero", "lt-to-zero"]
+  },
+  {
+    "expression": {
+      "start": "( >= ( * ( + ( * v0 8 ) v1 ) 4 ) ( - ( + ( * ( + ( * v0 8 ) v1 ) 4 ) 32 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "lt-x-x-sub-a",
+      "add-assoc",
+      "lt-swap-out",
+      "sub-to-add",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( * ( + v0 v1 ) 2 ) 8 ) ( - ( min ( max ( * v1 2 ) ( + ( * ( + ( + v0 1 ) v1 ) 2 ) 1 ) ) ( * ( + ( + v0 1 ) v1 ) 2 ) ) 10 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "add-comm",
+      "mul-comm",
+      "lt-swap-out",
+      "add-dist-mul",
+      "add-assoc",
+      "and-comm",
+      "lt-to-zero",
+      "and-min-to-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( * ( / ( * ( min ( + ( * v0 12 ) ( + ( / ( + v1 ( min ( * ( + v2 v3 ) 1000 ) ( - v4 1000 ) ) ) 4 ) 168 ) ) ( / ( + ( + v1 ( min ( * ( + v2 v3 ) 1000 ) ( - v4 1000 ) ) ) 1003 ) 4 ) ) -4 ) 4 ) 4 ) ( * ( min ( + ( * v0 12 ) ( + ( / ( + v1 ( min ( * ( + v2 v3 ) 1000 ) ( - v4 1000 ) ) ) 4 ) 168 ) ) ( / ( + ( + v1 ( min ( * ( + v2 v3 ) 1000 ) ( - v4 1000 ) ) ) 1003 ) 4 ) ) -4 ) )",
+      "end": "1"
+    },
+    "rules": ["mul-comm", "min-to-max", "eq-x-x", "div-cancel-mul", "mul-assoc"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) v2 ) 0 ) ( + ( * ( + ( * v0 2 ) v1 ) 4 ) v2 ) ) ) ( >= ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) v2 ) 3 ) ( + ( + ( * ( + ( * v0 2 ) v1 ) 4 ) 3 ) v2 ) ) ) ( <= ( + v3 v4 ) ( + v3 v4 ) ) ) ( >= ( + v3 v4 ) ( + v3 v4 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "add-comm",
+      "add-zero",
+      "eqgt-to-not-lt",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( > ( - -30 ( * v0 2 ) ) ( - 499 ( * v0 2 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "add-assoc",
+      "mul-zero",
+      "lt-swap-in",
+      "mul-assoc",
+      "mul-comm",
+      "add-comm",
+      "add-fact-mul",
+      "gt-to-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( / ( + ( + v0 v1 ) v2 ) 250 ) ( - ( / ( + ( + ( - v0 1 ) v1 ) v2 ) 250 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "min-comm",
+      "min-x-x-plus-a-pos",
+      "min-ass",
+      "lt-min-term+cpos",
+      "min-div-out-pos",
+      "lt-swap-out",
+      "sub-to-add",
+      "mul-assoc",
+      "add-denom-mul",
+      "add-dist-mul",
+      "min-x-x",
+      "min-mul-in-pos",
+      "eqlt-to-not-gt",
+      "min-div-mul",
+      "add-comm",
+      "add-assoc",
+      "div-minus-in",
+      "Eq-lt-min",
+      "lt-swap-in",
+      "eq-comm",
+      "min-max-max-x",
+      "max-to-min",
+      "min-to-max",
+      "lt-mul-div-cancel",
+      "min-x-x-plus-a-neg",
+      "not-gt-to-eqlt",
+      "div-cancel-mul",
+      "and-x-1",
+      "mul-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + v0 v1 ) ( + v0 v1 ) ) ) ( >= ( + v0 v1 ) ( + v0 v1 ) ) ) ( <= ( + ( + ( * 0 4 ) v2 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v2 ) ) ) ( >= ( + ( + ( * 7 4 ) v2 ) 3 ) ( + ( + ( * ( - ( + 8 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v2 ) ) ) ( <= 0 0 ) ) ( >= 0 0 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-assoc",
+      "lt-to-zero",
+      "eqlt-to-not-gt",
+      "eqgt-to-not-lt",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( - ( + ( * v0 4 ) v1 ) 5 ) 0 ) 3 ) ( + ( + ( + ( * v0 4 ) v1 ) 0 ) ( max -5 -2 ) ) ) ) ( >= ( + ( + ( + ( + ( * v0 4 ) v1 ) 3 ) 3 ) 3 ) ( + ( + ( + ( * v0 4 ) v1 ) ( - ( + 4 0 ) 1 ) ) 3 ) ) ) ( <= ( + ( - ( + ( * ( + ( * v2 2 ) v3 ) 4 ) v4 ) 2 ) 1 ) ( + ( - ( + ( * ( + ( * v2 2 ) v3 ) 4 ) v4 ) 2 ) 1 ) ) ) ( >= ( + ( + ( + ( * ( + ( * v2 2 ) v3 ) 4 ) v4 ) ( - ( - 6 2 ) 1 ) ) 1 ) ( + ( + ( + ( * ( + ( * v2 2 ) v3 ) 4 ) v4 ) ( - ( - 6 2 ) 1 ) ) 1 ) ) ) ( <= ( + ( * v5 32 ) v6 ) ( + ( * v5 32 ) v6 ) ) ) ( >= ( + ( * v5 32 ) v6 ) ( + ( * v5 32 ) v6 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "and-min-to-lt",
+      "add-assoc",
+      "Eq-lt-min",
+      "lt-to-zero",
+      "sub-to-add",
+      "not-gt-to-eqlt",
+      "min-x-x-plus-a-pos",
+      "add-comm",
+      "min-comm",
+      "eqgt-to-not-lt",
+      "eqlt-to-not-gt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= v0 ( + 0 v0 ) ) ) ( >= ( + v0 511 ) ( + 499 v0 ) ) ) ( <= ( + 0 ( + ( * v1 250 ) v2 ) ) ( + ( + ( * v1 250 ) 0 ) v2 ) ) ) ( >= ( + 124 ( + ( + ( * v1 250 ) v2 ) 125 ) ) ( + ( + ( * v1 250 ) ( - ( + 250 0 ) 1 ) ) v2 ) ) ) ( <= v3 v3 ) ) ( >= ( - ( + v4 v3 ) 1 ) ( - ( + v4 v3 ) 1 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "min-sub-both",
+      "Eq-lt-min",
+      "min-x-x-plus-a-neg",
+      "min-add-both",
+      "not-gt-to-eqlt",
+      "lt-swap-in",
+      "eq-x-x",
+      "lt-to-zero",
+      "add-assoc",
+      "sub-to-add",
+      "add-comm",
+      "eqlt-to-not-gt",
+      "add-to-sub",
+      "eq-comm",
+      "mul-zero",
+      "div-minus-down",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( min ( * v0 2 ) 123 ) v1 ) v2 ) ( + ( + ( min ( * v0 2 ) 123 ) ( + v1 1 ) ) v2 ) )",
+      "end": "1"
+    },
+    "rules": ["add-assoc", "lt-x-x-sub-a", "lt-swap-out", "add-comm"]
+  },
+  {
+    "expression": {
+      "start": "( == ( * ( / ( * ( min ( + ( * v0 32 ) ( - ( / ( + v1 ( min ( * v2 500 ) ( - v3 500 ) ) ) 8 ) 5 ) ) ( / ( + ( + v1 ( min ( * v2 500 ) ( - v3 500 ) ) ) 515 ) 8 ) ) -8 ) 8 ) 8 ) ( * ( min ( + ( * v0 32 ) ( - ( / ( + v1 ( min ( * v2 500 ) ( - v3 500 ) ) ) 8 ) 5 ) ) ( / ( + ( + v1 ( min ( * v2 500 ) ( - v3 500 ) ) ) 515 ) 8 ) ) -8 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "max-to-min",
+      "min-mul-in-neg",
+      "div-cancel-mul",
+      "min-mul-out-pos",
+      "eq-x-x",
+      "mul-comm",
+      "mul-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( * v0 8 ) v1 ) ) ( + ( * v0 8 ) v1 ) ) ) ( >= ( + 3 ( + ( + ( * v0 8 ) v1 ) 4 ) ) ( + ( + ( * v0 8 ) 7 ) v1 ) ) ) ( <= ( + 0 v2 ) ( + 0 v2 ) ) ) ( >= ( + ( - ( + 1000 0 ) 1 ) v2 ) ( + ( - ( + 1000 0 ) 1 ) v2 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqgt-to-not-lt",
+      "lt-to-zero",
+      "add-zero",
+      "eqlt-to-not-gt",
+      "add-assoc",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( - ( + 0 ( + ( * v0 504 ) v1 ) ) 8 ) ( - ( + -5 ( + ( * v0 504 ) v1 ) ) 3 ) ) ) ( >= ( - ( + 3 ( + ( + ( * v0 504 ) v1 ) 508 ) ) 8 ) ( - ( + ( - ( - 6 5 ) 1 ) ( + ( + ( * v0 504 ) v1 ) 503 ) ) 3 ) ) ) ( <= ( - ( + ( * v2 252 ) v3 ) 8 ) ( - ( - ( + ( + ( * v2 252 ) v3 ) 0 ) 5 ) 3 ) ) ) ( >= ( + ( + ( * v2 252 ) v3 ) 248 ) ( - ( + ( + ( + ( * v2 252 ) v3 ) ( - ( + 252 0 ) 1 ) ) ( - ( - 6 5 ) 1 ) ) 3 ) ) ) ( <= ( + ( * v4 5 ) v5 ) ( + ( * v4 5 ) v5 ) ) ) ( >= ( + ( * v4 5 ) v5 ) ( + ( * v4 5 ) v5 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "min-x-x-plus-a-neg",
+      "not-gt-to-eqlt",
+      "eq-x-x",
+      "min-x-x",
+      "add-comm",
+      "Eq-lt-min",
+      "add-assoc",
+      "sub-to-add",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( + ( + ( * v0 8 ) v1 ) 64 ) ( + ( + ( * v0 8 ) ( + v1 1 ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "mul-zero",
+      "add-comm",
+      "lt-swap-in",
+      "add-to-sub",
+      "mul-comm",
+      "add-assoc",
+      "mul-assoc",
+      "add-fact-mul"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( * ( + ( * v0 2 ) v1 ) 4 ) ( - ( + ( * ( + ( * v0 2 ) v1 ) 4 ) 8 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "lt-swap-out",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "lt-x-x-sub-a",
+      "sub-to-add",
+      "add-assoc"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( < ( - ( * ( + v0 v1 ) 4 ) 1 ) ( - ( * ( + ( + v0 1 ) v1 ) 4 ) 4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "lt-swap-out",
+      "add-dist-mul",
+      "lt-x-x-sub-a",
+      "mul-comm",
+      "add-assoc",
+      "sub-to-add",
+      "add-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( - ( + v0 v1 ) 11 ) ( - ( + ( - ( + v0 v1 ) 11 ) 17 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "eq-comm",
+      "add-assoc",
+      "mul-comm",
+      "sub-to-add",
+      "add-comm",
+      "mul-assoc",
+      "eq-swap",
+      "add-fact-mul",
+      "mul-zero"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 ( + ( * ( + ( * v1 16 ) ( + ( * v2 2 ) v3 ) ) 4 ) v4 ) ) ( + ( + ( * v1 64 ) ( * ( + ( * v2 2 ) v3 ) 4 ) ) v4 ) ) ) ( >= ( + 3 ( + ( * ( + ( * v1 16 ) ( + ( * v2 2 ) v3 ) ) 4 ) v4 ) ) ( + ( + ( * v1 64 ) ( + ( * ( + ( * v2 2 ) v3 ) 4 ) 3 ) ) v4 ) ) ) ( <= ( + v5 v6 ) ( + v5 v6 ) ) ) ( >= ( + v5 v6 ) ( + v5 v6 ) ) ) ( <= v7 v7 ) ) ( >= v7 v7 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "mul-comm",
+      "lt-to-zero",
+      "eqlt-to-not-gt",
+      "add-dist-mul",
+      "add-zero",
+      "add-comm",
+      "mul-assoc",
+      "add-assoc",
+      "eqgt-to-not-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( >= ( - -14 ( * v0 2 ) ) ( - 499 ( * v0 2 ) ) )",
+      "end": "0"
+    },
+    "rules": [
+      "min-sub-both",
+      "add-comm",
+      "eqgt-to-not-lt",
+      "mul-assoc",
+      "not-gt-to-eqlt",
+      "Eq-min-c-pos",
+      "eq-swap",
+      "add-assoc",
+      "eq-comm",
+      "Eq-lt-min",
+      "sub-to-add",
+      "min-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= 0 0 ) ) ( >= ( - 8 1 ) ( - 8 1 ) ) ) ( <= ( % ( - ( + ( + ( + ( * v0 503 ) v1 ) v2 ) v3 ) 3 ) 8 ) ( % ( - ( + ( + ( + ( * v0 503 ) v1 ) v2 ) v3 ) 3 ) 8 ) ) ) ( >= ( % ( - ( + ( + ( + ( * v0 503 ) v1 ) v2 ) v3 ) 3 ) 8 ) ( % ( - ( + ( + ( + ( * v0 503 ) v1 ) v2 ) v3 ) 3 ) 8 ) ) ) ( <= ( + ( * v4 4 ) 0 ) ( + ( * v4 4 ) 0 ) ) ) ( >= ( + ( * v4 4 ) 3 ) ( + ( * v4 4 ) ( - ( + 4 0 ) 1 ) ) ) )",
+      "end": "1"
+    },
+    "rules": ["lt-to-zero", "eqlt-to-not-gt", "eqgt-to-not-lt"]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + 0 v0 ) ( + 0 v0 ) ) ) ( >= ( + ( - ( + 16 0 ) 1 ) v0 ) ( + ( - ( + 16 0 ) 1 ) v0 ) ) ) ( <= ( + ( + ( * v1 8 ) v2 ) v3 ) ( + ( + ( * v1 8 ) v2 ) v3 ) ) ) ( >= ( + ( + ( * v1 8 ) v2 ) v3 ) ( + ( + ( * v1 8 ) v2 ) v3 ) ) ) ( <= ( + ( min ( * v4 4 ) 133 ) 0 ) ( + ( min ( * v4 4 ) 133 ) 0 ) ) ) ( >= ( + ( min ( * v4 4 ) 133 ) 3 ) ( + ( min ( * v4 4 ) 133 ) ( - ( + 4 0 ) 1 ) ) ) )",
+      "end": "1"
+    },
+    "rules": ["eqgt-to-not-lt", "eqlt-to-not-gt", "lt-to-zero"]
+  },
+  {
+    "expression": {
+      "start": "( == ( - 0 ( max v0 0 ) ) ( - ( + ( - 0 ( max v0 0 ) ) ( + ( max v0 0 ) 3 ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "sub-to-add",
+      "mul-comm",
+      "min-to-max",
+      "add-fact-mul",
+      "Eq-min-c-pos",
+      "min-add-both",
+      "mul-assoc",
+      "eq-comm",
+      "add-assoc",
+      "add-comm",
+      "eq-swap",
+      "max-to-min"
+    ]
+  },
+  {
+    "expression": { "start": "( >= ( + ( % v0 1004 ) 1003 ) 0 )", "end": "1" },
+    "rules": [
+      "eqgt-to-not-lt",
+      "not-gt-to-eqlt",
+      "min-mod-const-to-const",
+      "lt-swap-in",
+      "Eq-lt-min"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( == ( * ( / ( * ( / ( + ( max ( * v0 4 ) -7 ) ( + ( + ( + v1 v2 ) ( min ( * v3 8 ) 117 ) ) 7 ) ) 4 ) -4 ) 4 ) 4 ) ( * ( / ( + ( max ( * v0 4 ) -7 ) ( + ( + ( + v1 v2 ) ( min ( * v3 8 ) 117 ) ) 7 ) ) 4 ) -4 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "add-to-sub",
+      "mul-cancel-div",
+      "mod-minus-in",
+      "sub-to-add",
+      "eq-x-x",
+      "div-cancel-mul",
+      "mul-assoc",
+      "mul-comm"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( / v0 8 ) ( / ( + v0 0 ) 8 ) ) ) ( >= ( / ( + v0 3 ) 8 ) ( / ( + v0 3 ) 8 ) ) ) ( <= ( + v1 v2 ) ( + v1 v2 ) ) ) ( >= ( + v1 v2 ) ( + v1 v2 ) ) ) ( <= ( + ( + ( * 0 4 ) 0 ) ( min ( * v3 69 ) 68 ) ) ( min ( * v3 69 ) 68 ) ) ) ( >= ( + ( + ( * 2 4 ) 3 ) ( + ( min ( * v3 69 ) 68 ) 60 ) ) ( + ( min ( * v3 69 ) 68 ) 68 ) ) )",
+      "end": "1"
+    },
+    "rules": [
+      "min-sub-both",
+      "and-min-to-lt",
+      "eqgt-to-not-lt",
+      "add-assoc",
+      "min-x-x-plus-a-neg",
+      "Eq-lt-min",
+      "eqlt-to-not-gt",
+      "lt-to-zero",
+      "add-comm",
+      "not-gt-to-eqlt",
+      "add-zero",
+      "sub-to-add",
+      "div-minus-out",
+      "and-eqlt-to-max"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( max 0 ( + ( min ( - 136 ( * ( % v0 2 ) 69 ) ) ( - ( + 0 69 ) 1 ) ) 1 ) ) 0 )",
+      "end": "0"
+    },
+    "rules": [
+      "not-gt-to-eqlt",
+      "min-to-max",
+      "mul-comm",
+      "and-min-to-eqlt",
+      "add-dist-mul",
+      "min-mul-in-neg",
+      "eqlt-to-not-gt",
+      "min-comm",
+      "eq-max-lt",
+      "eq-comm",
+      "and-min-to-lt",
+      "add-comm",
+      "and-x-1",
+      "lt-swap-in",
+      "mul-assoc",
+      "lt-mul-pos-cancel",
+      "min-mod-const-to-mod",
+      "max-to-min",
+      "sub-to-add",
+      "Eq-lt-min",
+      "not-not",
+      "min-lt-cancel",
+      "lt-min-mutual-term",
+      "mod-const-add",
+      "min-max-const",
+      "lt-swap-out",
+      "mul-zero",
+      "mul-cancel-div",
+      "and-comm",
+      "and-eqlt-to-max"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( + ( * ( + ( * v0 16 ) v1 ) 2 ) 2 ) ( * ( + ( * v0 16 ) v1 ) 2 ) )",
+      "end": "0"
+    },
+    "rules": ["lt-swap-out", "eqlt-to-not-gt", "lt-x-x-sub-a"]
+  },
+  {
+    "expression": {
+      "start": "( == ( - ( max ( min ( + ( - ( * v0 32 ) ( min ( - ( + v1 v2 ) ( * v3 126 ) ) ( + ( + ( min ( * v0 32 ) 94 ) v2 ) 22 ) ) ) ( + ( * v4 8 ) v2 ) ) 14 ) 7 ) 16 ) ( - ( + ( - ( max ( min ( + ( - ( * v0 32 ) ( min ( - ( + v1 v2 ) ( * v3 126 ) ) ( + ( + ( min ( * v0 32 ) 94 ) v2 ) 22 ) ) ) ( + ( * v4 8 ) v2 ) ) 14 ) 7 ) 16 ) ( - 18 ( max ( min ( + ( - ( * v0 32 ) ( min ( - ( + v1 v2 ) ( * v3 126 ) ) ( + ( + ( min ( * v0 32 ) 94 ) v2 ) 22 ) ) ) ( + ( * v4 8 ) v2 ) ) 14 ) 7 ) ) ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "Eq-min-c-pos",
+      "add-fact-mul",
+      "mul-comm",
+      "eq-comm",
+      "add-comm",
+      "max-min-switch",
+      "sub-to-add",
+      "add-assoc",
+      "min-add-both",
+      "mul-zero",
+      "mul-assoc",
+      "eq-swap",
+      "mod-zero",
+      "div-minus-out"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) v0 ) 0 ) ( + ( + ( * 0 4 ) 0 ) v0 ) ) ) ( >= ( + ( + ( * 249 4 ) v0 ) 3 ) ( + ( + ( * ( - ( + 250 0 ) 1 ) 4 ) ( - ( + 4 0 ) 1 ) ) v0 ) ) ) ( <= ( + ( + ( * 0 63 ) v1 ) 0 ) ( + 0 v1 ) ) ) ( >= ( + ( + ( * 1 63 ) v1 ) 62 ) ( + ( - ( + 125 0 ) 1 ) v1 ) ) ) ( <= v2 v2 ) ) ( >= v2 v2 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "Eq-lt-min",
+      "eqlt-to-not-gt",
+      "lt-swap-out",
+      "min-comm",
+      "min-x-x-plus-a-pos",
+      "add-zero",
+      "min-x-x",
+      "lt-to-zero",
+      "not-gt-to-eqlt",
+      "and-eqlt-to-max",
+      "min-ass",
+      "and-min-to-eqlt",
+      "add-comm",
+      "sub-to-add",
+      "add-assoc",
+      "eqgt-to-not-lt",
+      "min-div-out-pos",
+      "and-eqlt-gt-to-0",
+      "mul-zero",
+      "min-lt-cancel",
+      "add-fact-mul",
+      "lt-max-mutual-term",
+      "min-max",
+      "lt-const-neg",
+      "not-not",
+      "mod-const-sub"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( && ( && ( && ( && ( && ( && 1 ( <= ( + ( + ( * 0 4 ) 0 ) ( - ( + ( max ( min v0 46 ) 16 ) ( + ( min v0 16 ) v1 ) ) 72 ) ) ( + -2 ( - ( + ( min v0 16 ) v1 ) 24 ) ) ) ) ( >= ( + ( + ( * 15 4 ) 3 ) ( - ( + ( max v0 16 ) ( + ( min v0 16 ) v1 ) ) 72 ) ) ( + ( - ( - 4 2 ) 1 ) ( - ( + ( + ( max v0 16 ) 15 ) ( - ( + ( min v0 16 ) v1 ) 24 ) ) 1 ) ) ) ) ( <= ( - v2 10 ) ( - ( + ( - ( + ( * 0 4 ) v2 ) 2 ) 0 ) 8 ) ) ) ( >= ( + v2 132 ) ( - ( + ( + ( + ( * ( - ( + 35 0 ) 1 ) 4 ) v2 ) ( - ( - 4 2 ) 1 ) ) 3 ) 8 ) ) ) ( <= v3 v3 ) ) ( >= v3 v3 ) )",
+      "end": "1"
+    },
+    "rules": [
+      "eqlt-to-not-gt",
+      "mul-assoc",
+      "sub-to-add",
+      "lt-to-zero",
+      "max-min-switch",
+      "eqgt-to-not-lt",
+      "min-ass",
+      "div-cancel-mul",
+      "lt-swap-out",
+      "Eq-lt-min",
+      "lt-swap-in",
+      "add-assoc",
+      "and-min-to-lt",
+      "add-comm",
+      "add-dist-mul",
+      "add-zero",
+      "mod-zero",
+      "and-eqlt-eqgt-to-0",
+      "lt-max-term+neg-term",
+      "min-comm",
+      "not-gt-to-eqlt",
+      "lt-max-mutual-term",
+      "and-ineq-eq",
+      "min-max-const",
+      "max-to-min",
+      "not-eq-to-ineq",
+      "lt-min-mutual-term",
+      "and-x-1"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( / v0 125 ) ( - ( / ( - v0 1 ) 125 ) 1 ) )",
+      "end": "0"
+    },
+    "rules": [
+      "min-mul-in-pos",
+      "min-comm",
+      "add-assoc",
+      "div-minus-down",
+      "lt-min-term+cpos",
+      "add-comm",
+      "min-to-max",
+      "Eq-lt-min",
+      "and-min-to-lt",
+      "div-minus-in",
+      "lt-swap-out",
+      "min-max-max-x",
+      "max-to-min",
+      "not-gt-to-eqlt",
+      "min-ass",
+      "lt-mul-div-cancel",
+      "min-div-out-neg",
+      "add-denom-mul",
+      "sub-to-add",
+      "add-dist-mul",
+      "lt-swap-in",
+      "min-div-mul",
+      "min-x-x-plus-a-pos",
+      "min-max",
+      "eqlt-to-not-gt",
+      "and-min-to-eqlt",
+      "add-to-sub",
+      "min-max-min-y"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( max 0 ( + ( min ( - 70 ( * ( % v0 4 ) 18 ) ) ( - ( + 0 18 ) 1 ) ) 1 ) ) 0 )",
+      "end": "0"
+    },
+    "rules": [
+      "add-comm",
+      "min-max",
+      "not-gt-to-eqlt",
+      "eqlt-to-not-gt",
+      "min-mod-const-to-mod",
+      "min-mul-in-pos",
+      "Eq-lt-min",
+      "min-max-min-y",
+      "mul-assoc",
+      "lt-mul-pos-cancel",
+      "eq-comm",
+      "min-comm",
+      "min-to-max",
+      "eq-max-lt",
+      "and-min-to-eqlt",
+      "min-max-switch",
+      "Eq-min-c-neg",
+      "sub-to-add",
+      "max-to-min",
+      "min-add-both",
+      "lt-swap-in",
+      "add-div-mod",
+      "min-ass",
+      "mod-minus-in",
+      "min-div-out-pos",
+      "lt-swap-out",
+      "Eq-min-c-pos",
+      "and-assoc",
+      "gt-to-lt"
+    ]
+  },
+  {
+    "expression": {
+      "start": "( <= ( max 0 ( + ( min ( - 33 ( * ( % v0 7 ) 5 ) ) ( - ( + 0 5 ) 1 ) ) 1 ) ) 0 )",
+      "end": "0"
+    },
+    "rules": [
+      "and-min-to-eqlt",
+      "max-to-min",
+      "and-min-to-lt",
+      "Eq-lt-min",
+      "not-gt-to-eqlt",
+      "min-max",
+      "mul-assoc",
+      "min-comm",
+      "add-comm",
+      "min-mod-const-to-mod",
+      "mul-one",
+      "eqlt-to-not-gt",
+      "mul-comm",
+      "eq-max-lt",
+      "and-x-1",
+      "min-mul-in-neg",
+      "lt-swap-out",
+      "eq-comm",
+      "lt-mul-pos-cancel",
+      "lt-swap-in",
+      "min-div-in-neg",
+      "min-div-in-pos",
+      "mod-zero",
+      "mul-cancel-div",
+      "Eq-min-c-pos",
+      "sub-to-add",
+      "eq-x-x"
+    ]
+  }
+]
