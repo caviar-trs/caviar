@@ -85,30 +85,19 @@ fn test_classes(
 
 fn main() {
     let _args: Vec<String> = env::args().collect();
-    // let expressions = vec![
-    //     ("( <= ( - v0 11 ) ( + ( * ( / ( - v0 v1 ) 12 ) 12 ) v1 ) )","1"),
-    //     ("( <= ( + ( / ( - v0 v1 ) 8 ) 32 ) ( max ( / ( + ( - v0 v1 ) 257 ) 8 ) 0 ) )","1"),
-    //     ("( <= (/ a 2) (a))", "1"),
-    //     ("( <= ( min ( + ( * ( + v0 v1 ) 161 ) ( + ( min v2 v3 ) v4 ) ) v5 ) ( + ( * ( + v0 v1 ) 161 ) ( + v2 v4 ) ) )","1"),
-    //     ("( == (+ a b) (+ b a) )","1"),
-    //     ("( == (min a b) (a))","1"),
-    // ];
-    // generate_dataset(expressions,(30, 10000, 5), 2, 2);
-    // generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
-    // println!("Printing rules ...");
-    // let arr = filteredRules(&get_first_arg().unwrap(), 1).unwrap();
-    // for rule in arr{
-    //     println!("{}", rule.name());
-    // }
-    // println!("End.");
-
     if _args.len() > 4 {
         let operation = get_nth_arg(1).unwrap();
         let expressions_file = get_nth_arg(2).unwrap();
         let params = get_runner_params(3).unwrap();
         match operation.to_str().unwrap() {
             "dataset" => {
-                dataset::generation_execution(&expressions_file, params, 5, 500);
+                // cargo run --release dataset ./results/expressions_egg.csv 1000000 10000000 5 5 5000 0 24
+                let reorder_count = get_nth_arg(6).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                let batch_size = get_nth_arg(7).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                let continue_from_expr = get_nth_arg(8).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                let cores = get_nth_arg(9).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                rayon::ThreadPoolBuilder::new().num_threads(cores).build_global().unwrap();
+                dataset::generation_execution(&expressions_file, params, reorder_count, batch_size, continue_from_expr);
             }
             "prove_exprs" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
