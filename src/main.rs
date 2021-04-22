@@ -91,7 +91,7 @@ fn main() {
         let params = get_runner_params(3).unwrap();
         match operation.to_str().unwrap() {
             "dataset" => {
-                // cargo run --release dataset ./results/expressions_egg.csv 1000000 10000000 5 5 5000 0 24
+                // cargo run --release dataset ./results/expressions_egg.csv 100000 100000 5 5 1000 0 48
                 let reorder_count = get_nth_arg(6).unwrap().into_string().unwrap().parse::<usize>().unwrap();
                 let batch_size = get_nth_arg(7).unwrap().into_string().unwrap().parse::<usize>().unwrap();
                 let continue_from_expr = get_nth_arg(8).unwrap().into_string().unwrap().parse::<usize>().unwrap();
