@@ -2,7 +2,7 @@ use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 
 use io::reader::get_nth_arg;
 use json::parse;
-
+use csv::Writer;
 use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::io::writer::write_results;
 use crate::structs::{ExpressionStruct, ResultStructure};
@@ -153,7 +153,12 @@ fn main() {
                 let mut s = String::new();
                 file.read_to_string(&mut s).unwrap();
                 let expressions = parse(&s).unwrap();
-                dataset::experiment_minimal_subset(&expressions, (30, 10000, 5));
+                let results = dataset::experiment_minimal_subset(&expressions, (30, 10000, 5));
+                let mut wtr = Writer::from_path("tmp/experiment.csv").unwrap();
+                for result in results {
+                    wtr.serialize(result).unwrap();
+                }
+                wtr.flush().unwrap();
             }
             _ => {}
         }

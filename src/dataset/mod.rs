@@ -356,11 +356,12 @@ pub fn minimal_set_to_prove_0_1(
 pub fn experiment_minimal_subset(
     expressions: &JsonValue,
     params: (usize, usize, u64),
-){
+) -> Vec<(String, f64, f64)>{
     let mut ruleset_minimal: Vec<egg::Rewrite<Math, ConstantFold>>;
     let mut start: RecExpr<Math>;
     let mut results: Vec<(String, f64, f64)> = Vec::new();
     expressions.members().for_each(|expression| {compare_rulesets(expression, params, &mut results)});
+    return results;
 }
 
 pub fn compare_rulesets(
@@ -375,23 +376,29 @@ pub fn compare_rulesets(
     let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
     let ruleset = rules(-1);
-    let mut runner = Runner::default()
-            .with_iter_limit(params.0)
-            .with_node_limit(params.1)
-            .with_time_limit(Duration::new(params.2, 0))
-            .with_expr(&start);
-    println!("{}",format!("\n\nFull ruleset").blue().bold());
-    runner = runner.run_check_iteration(ruleset.iter(), &goals);
-    runner.print_report();
-    let total_time1: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
-    runner = Runner::default()
-            .with_iter_limit(params.0)
-            .with_node_limit(params.1)
-            .with_time_limit(Duration::new(params.2, 0))
-            .with_expr(&start);
-    println!("{}",format!("\n\nMinimal ruleset").blue().bold());
-    runner = runner.run_check_iteration(minimal_ruleset.iter(), &goals);
-    runner.print_report(); 
-    let total_time2: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
-    results.push((expression_with_rules["expression"]["start"].to_string(), total_time1, total_time2)); 
+    let mut runner;
+    let mut total_time1: f64 = 0.0;
+    let mut total_time2: f64 = 0.0;
+    for i in 0 .. 10{
+        runner = Runner::default()
+        .with_iter_limit(params.0)
+        .with_node_limit(params.1)
+        .with_time_limit(Duration::new(params.2, 0))
+        .with_expr(&start);
+        println!("{}",format!("\n\nFull ruleset").blue().bold());
+        runner = runner.run_check_iteration(ruleset.iter(), &goals);
+        runner.print_report();
+        total_time1 = total_time1 + runner.iterations.iter().map(|i| i.total_time).sum::<f64>();
+        runner = Runner::default()
+                .with_iter_limit(params.0)
+                .with_node_limit(params.1)
+                .with_time_limit(Duration::new(params.2, 0))
+                .with_expr(&start);
+        println!("{}",format!("\n\nMinimal ruleset").blue().bold());
+        runner = runner.run_check_iteration(minimal_ruleset.iter(), &goals);
+        runner.print_report(); 
+        total_time2 = total_time2 + runner.iterations.iter().map(|i| i.total_time).sum::<f64>();
+    };
+    
+    results.push((expression_with_rules["expression"]["start"].to_string(), total_time1 / 10.0, total_time2 / 10.0)); 
 }
