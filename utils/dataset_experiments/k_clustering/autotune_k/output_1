@@ -1,0 +1,6835 @@
+Starting: K=10
+[['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch', 'eq-max-lt', 'min-div-out-neg', 'Eq-min-c-neg']] 
+
+ Total Classes: 8
+Starting Expression: 1
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 16 nodes, 11 classes, 17 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000035838
+    Search:  (0.58) 0.000020666
+    Apply:   (0.34) 0.000012293
+    Rebuild: (0.07) 0.000002616
+Execution took: 0.000035838 s
+
+Starting Expression: 2
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 25 nodes, 20 classes, 27 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000039128
+    Search:  (0.65) 0.000025419
+    Apply:   (0.26) 0.000010318
+    Rebuild: (0.08) 0.000003149
+Execution took: 0.000039128 s
+
+Starting Expression: 3
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 5
+  Egraph size: 125 nodes, 53 classes, 184 memo
+  Rebuilds: 4, 0.80 per iter
+  Total time: 0.00029613700000000003
+    Search:  (0.35) 0.00010279700000000001
+    Apply:   (0.49) 0.000145895
+    Rebuild: (0.16) 0.00004652
+Execution took: 0.00029613700000000003 s
+
+Starting Expression: 4
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 11 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000029009
+    Search:  (0.64) 0.000018619
+    Apply:   (0.29) 0.000008513
+    Rebuild: (0.06) 0.000001682
+Execution took: 0.000029009 s
+
+Starting Expression: 5
+Could not prove any goal:
+
+Best Expr: (&& (&& (&& (&& 1 (<= (+ (* 2 (+ (* 2 v2) (+ (* v3 16) (+ 0 v4)))) -2) (+ (* 2 (+ (* 2 v2) (+ (* v3 16) v4))) -2))) (>= (+ 1 (* 2 (+ (* 2 v2) (+ (* v3 16) (+ 0 v4))))) (+ 1 (* 2 (+ (* 2 v2) (+ (* v3 16) v4)))))) 1) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.395634577)
+  Iterations: 47
+  Egraph size: 27230 nodes, 4772 classes, 197085 memo
+  Rebuilds: 47450, 1009.57 per iter
+  Total time: 0.45867110899999997
+    Search:  (0.38) 0.17474821299999999
+    Apply:   (0.34) 0.155724666
+    Rebuild: (0.28) 0.12809884900000001
+Execution took: 0.45867110899999997 s
+
+Proved goal:
+"1"
+ class 1
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 16303 nodes, 3073 classes, 203769 memo
+  Rebuilds: 1702, 851.00 per iter
+  Total time: 0.055087542
+    Search:  (0.80) 0.043939808
+    Apply:   (0.04) 0.001965065
+    Rebuild: (0.17) 0.009182051
+Execution took: 0.055087542 s
+
+Starting Expression: 6
+Could not prove any goal:
+
+Best Expr: (== (* (+ (* v0 2) v1) 4) (+ (* (+ (* v0 2) v1) 4) 7))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 5
+  Egraph size: 26 nodes, 15 classes, 29 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000060435
+    Search:  (0.48) 0.000029307
+    Apply:   (0.40) 0.000023976
+    Rebuild: (0.11) 0.000006458
+Execution took: 0.000060435 s
+
+Could not prove any goal:
+
+Best Expr: (== (+ (* v0 8) (* v1 4)) (+ (+ (* v0 8) (* v1 4)) 7))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 10
+  Egraph size: 432 nodes, 47 classes, 738 memo
+  Rebuilds: 46, 4.60 per iter
+  Total time: 0.002643887
+    Search:  (0.50) 0.0013246400000000002
+    Apply:   (0.43) 0.0011292259999999999
+    Rebuild: (0.07) 0.00018867
+Execution took: 0.002643887 s
+
+Proved goal:
+"0"
+ class 2
+Runner report
+=============
+  Stop reason: Other("Goal 0 Matched")
+  Iterations: 5
+  Egraph size: 1237 nodes, 241 classes, 1965 memo
+  Rebuilds: 18, 3.60 per iter
+  Total time: 0.0027990259999999996
+    Search:  (0.49) 0.001363151
+    Apply:   (0.45) 0.001245835
+    Rebuild: (0.07) 0.00018943699999999998
+Execution took: 0.0027990259999999996 s
+
+Starting Expression: 7
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 6
+  Egraph size: 512 nodes, 155 classes, 623 memo
+  Rebuilds: 7, 1.17 per iter
+  Total time: 0.0004961119999999999
+    Search:  (0.27) 0.000133617
+    Apply:   (0.57) 0.000282271
+    Rebuild: (0.16) 0.00007957400000000001
+Execution took: 0.0004961119999999999 s
+
+Starting Expression: 8
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 33 nodes, 27 classes, 34 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000024186
+    Search:  (0.59) 0.000014166
+    Apply:   (0.32) 0.000007641
+    Rebuild: (0.09) 0.000002244
+Execution took: 0.000024186 s
+
+Starting Expression: 9
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 79 nodes, 48 classes, 135 memo
+  Rebuilds: 2, 0.67 per iter
+  Total time: 0.000138364
+    Search:  (0.26) 0.000036295
+    Apply:   (0.40) 0.000055299999999999996
+    Rebuild: (0.34) 0.000046418
+Execution took: 0.000138364 s
+
+Starting Expression: 10
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 24 nodes, 17 classes, 25 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000022828
+    Search:  (0.62) 0.000014117
+    Apply:   (0.30) 0.000006783
+    Rebuild: (0.08) 0.00000179
+Execution took: 0.000022828 s
+
+Starting Expression: 11
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 6
+  Egraph size: 491 nodes, 160 classes, 609 memo
+  Rebuilds: 13, 2.17 per iter
+  Total time: 0.00047018499999999997
+    Search:  (0.30) 0.000142888
+    Apply:   (0.53) 0.00025111
+    Rebuild: (0.16) 0.000075543
+Execution took: 0.00047018499999999997 s
+
+Starting Expression: 12
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 25 nodes, 18 classes, 66 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000049738
+    Search:  (0.39) 0.000019618
+    Apply:   (0.43) 0.000021257
+    Rebuild: (0.17) 0.000008626
+Execution took: 0.000049738 s
+
+Starting Expression: 13
+Could not prove any goal:
+
+Best Expr: (&& (&& (&& 1 (>= (+ v3 502) (+ v3 501))) 1) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.521404378)
+  Iterations: 30
+  Egraph size: 70433 nodes, 7092 classes, 183593 memo
+  Rebuilds: 22302, 743.40 per iter
+  Total time: 0.52391909
+    Search:  (0.52) 0.272929776
+    Apply:   (0.38) 0.19909218699999998
+    Rebuild: (0.10) 0.051869028
+Execution took: 0.52391909 s
+
+Could not prove any goal:
+
+Best Expr: (&& (&& (&& 1 (<= (+ 501 v3) (+ v3 502))) 1) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.37567442)
+  Iterations: 9
+  Egraph size: 69931 nodes, 7609 classes, 189613 memo
+  Rebuilds: 541, 60.11 per iter
+  Total time: 0.377058626
+    Search:  (0.94) 0.353671733
+    Apply:   (0.02) 0.006166747
+    Rebuild: (0.05) 0.017181007
+Execution took: 0.377058626 s
+
+Could not prove any goal:
+
+Best Expr: (&& 1 (&& 1 (&& 1 (<= (+ 501 v3) (+ v3 502)))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.375666917)
+  Iterations: 5
+  Egraph size: 73406 nodes, 9269 classes, 193088 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.3773828759999999
+    Search:  (0.95) 0.359801576
+    Apply:   (0.02) 0.006843165
+    Rebuild: (0.03) 0.010630998
+Execution took: 0.3773828759999999 s
+
+Proved goal:
+"1"
+ class 3
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 73609 nodes, 10231 classes, 195125 memo
+  Rebuilds: 3, 1.50 per iter
+  Total time: 0.180876365
+    Search:  (0.97) 0.174884044
+    Apply:   (0.01) 0.002056512
+    Rebuild: (0.02) 0.0039349450000000005
+Execution took: 0.180876365 s
+
+Starting Expression: 14
+Could not prove any goal:
+
+Best Expr: (> (- 0 v0) (- 124 v0))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 3
+  Egraph size: 13 nodes, 8 classes, 13 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000023197
+    Search:  (0.46) 0.000010582
+    Apply:   (0.41) 0.000009577
+    Rebuild: (0.11) 0.000002635
+Execution took: 0.000023197 s
+
+Could not prove any goal:
+
+Best Expr: (> (- 0 v0) (- 124 v0))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 9
+  Egraph size: 53 nodes, 11 classes, 80 memo
+  Rebuilds: 2, 0.22 per iter
+  Total time: 0.000263114
+    Search:  (0.44) 0.00011640799999999999
+    Apply:   (0.48) 0.000125983
+    Rebuild: (0.08) 0.000019746000000000004
+Execution took: 0.000263114 s
+
+Could not prove any goal:
+
+Best Expr: (> (- 0 v0) (- 124 v0))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 53 nodes, 11 classes, 80 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000040284
+    Search:  (0.58) 0.000023219
+    Apply:   (0.38) 0.00001516
+    Rebuild: (0.04) 0.000001699
+Execution took: 0.000040284 s
+
+Proved goal:
+"0"
+ class 3
+Runner report
+=============
+  Stop reason: Other("Goal 0 Matched")
+  Iterations: 5
+  Egraph size: 65 nodes, 17 classes, 196 memo
+  Rebuilds: 3, 0.60 per iter
+  Total time: 0.00037746700000000004
+    Search:  (0.43) 0.000163214
+    Apply:   (0.49) 0.000183309
+    Rebuild: (0.08) 0.000030348
+Execution took: 0.00037746700000000004 s
+
+Starting Expression: 15
+Could not prove any goal:
+
+Best Expr: (<= (max 0 (+ 1 (min (/ (- 490 ("%" (+ (min (+ 500 (* v0 500)) v1) (+ v2 7)) 8)) 32) (+ (/ (+ ("%" v3 8) 539) 32) -1)))) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 59 nodes, 34 classes, 67 memo
+  Rebuilds: 1, 0.14 per iter
+  Total time: 0.000118344
+    Search:  (0.45) 0.000053189
+    Apply:   (0.39) 0.000046028999999999996
+    Rebuild: (0.15) 0.000018251
+Execution took: 0.000118344 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max 0 (+ 1 (min (/ (- 490 ("%" (+ (min (+ 500 (* v0 500)) v1) (+ v2 7)) 8)) 32) (+ (/ (+ ("%" v3 8) 539) 32) -1)))) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 287 nodes, 56 classes, 424 memo
+  Rebuilds: 10, 1.25 per iter
+  Total time: 0.001202077
+    Search:  (0.48) 0.000573671
+    Apply:   (0.44) 0.000525184
+    Rebuild: (0.09) 0.000102212
+Execution took: 0.001202077 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (min (/ (- 490 ("%" (+ (min (* v0 500) (- v1 500)) (+ 500 (+ v2 7))) 8)) 32) (+ (/ (+ ("%" v3 8) 539) 32) -1)) -1) -1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.379074877)
+  Iterations: 43
+  Egraph size: 75587 nodes, 27627 classes, 105698 memo
+  Rebuilds: 10120, 235.35 per iter
+  Total time: 0.38243205699999994
+    Search:  (0.44) 0.16793456099999995
+    Apply:   (0.35) 0.13394548599999997
+    Rebuild: (0.21) 0.080502164
+Execution took: 0.38243205699999994 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (min (/ (- 490 ("%" (- (min (* v0 500) (+ v1 -500)) (- -500 (+ v2 7))) 8)) 32) (+ (/ (+ ("%" v3 8) 539) 32) -1)) -1) -1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.375064625)
+  Iterations: 11
+  Egraph size: 80056 nodes, 29697 classes, 110250 memo
+  Rebuilds: 7, 0.64 per iter
+  Total time: 0.380019263
+    Search:  (0.83) 0.31657412399999996
+    Apply:   (0.04) 0.013470636999999999
+    Rebuild: (0.13) 0.049946305999999996
+Execution took: 0.380019263 s
+
+Could not prove any goal:
+
+Best Expr: (<= (min (/ (- 490 ("%" (+ (min (* 500 v0) (+ v1 -500)) (+ 500 (+ 7 v2))) 8)) 32) (+ (/ (+ ("%" v3 8) 539) 32) -1)) -1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.381263479)
+  Iterations: 6
+  Egraph size: 81772 nodes, 30574 classes, 114429 memo
+  Rebuilds: 333, 55.50 per iter
+  Total time: 0.38672619999999996
+    Search:  (0.91) 0.350985997
+    Apply:   (0.02) 0.005815315
+    Rebuild: (0.08) 0.029887732
+Execution took: 0.38672619999999996 s
+
+Could not prove any goal:
+
+Best Expr: (<= (min (/ (- 490 ("%" (+ (min (* 500 v0) (+ v1 -500)) (+ 500 (+ 7 v2))) 8)) 32) (+ (/ (+ ("%" v3 8) 539) 32) -1)) -1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.377525487)
+  Iterations: 5
+  Egraph size: 81833 nodes, 30580 classes, 114551 memo
+  Rebuilds: 3, 0.60 per iter
+  Total time: 0.38118931500000003
+    Search:  (0.94) 0.35679685899999997
+    Apply:   (0.01) 0.002581838
+    Rebuild: (0.06) 0.021801999
+Execution took: 0.38118931500000003 s
+
+Could not prove any goal:
+
+Best Expr: (<= (min (/ (- 490 ("%" (+ (min (* 500 v0) (+ v1 -500)) (+ 500 (+ 7 v2))) 8)) 32) (+ (/ (+ ("%" v3 8) 539) 32) -1)) -1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.37675942)
+  Iterations: 4
+  Egraph size: 82325 nodes, 30737 classes, 115071 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.38054670900000004
+    Search:  (0.94) 0.35947722800000004
+    Apply:   (0.01) 0.004146914
+    Rebuild: (0.04) 0.016891378
+Execution took: 0.38054670900000004 s
+
+Could not prove any goal:
+
+Best Expr: (<= (min (/ (- 490 ("%" (+ (min (* 500 v0) (+ v1 -500)) (+ 500 (+ 7 v2))) 8)) 32) (+ (/ (+ ("%" v3 8) 539) 32) -1)) -1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.376306723)
+  Iterations: 4
+  Egraph size: 82333 nodes, 30740 classes, 115079 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.38051087
+    Search:  (0.95) 0.361246156
+    Apply:   (0.00) 0.001471637
+    Rebuild: (0.05) 0.017767873
+Execution took: 0.38051087 s
+
+Starting Expression: 16
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 11 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000022582
+    Search:  (0.45) 0.0000102
+    Apply:   (0.45) 0.000010268
+    Rebuild: (0.08) 0.000001906
+Execution took: 0.000022582 s
+
+Starting Expression: 17
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 46 nodes, 36 classes, 47 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000048064
+    Search:  (0.53) 0.000025392
+    Apply:   (0.35) 0.000016779
+    Rebuild: (0.12) 0.000005626
+Execution took: 0.000048064 s
+
+Starting Expression: 771
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 61 nodes, 38 classes, 130 memo
+  Rebuilds: 5, 1.67 per iter
+  Total time: 0.000138632
+    Search:  (0.26) 0.000035483
+    Apply:   (0.54) 0.000075282
+    Rebuild: (0.20) 0.000027332
+Execution took: 0.000138632 s
+
+Starting Expression: 772
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 13 nodes, 10 classes, 14 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000028565
+    Search:  (0.67) 0.000019215
+    Apply:   (0.26) 0.000007396
+    Rebuild: (0.06) 0.000001753
+Execution took: 0.000028565 s
+
+Starting Expression: 1369
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 19 nodes, 14 classes, 20 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000034219
+    Search:  (0.63) 0.000021617
+    Apply:   (0.30) 0.000010121
+    Rebuild: (0.07) 0.000002264
+Execution took: 0.000034219 s
+
+Starting Expression: 1370
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 8 nodes, 7 classes, 8 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000028252
+    Search:  (0.69) 0.00001937
+    Apply:   (0.24) 0.000006661
+    Rebuild: (0.06) 0.000001708
+Execution took: 0.000028252 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 28 nodes, 12 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000131374
+    Search:  (0.45) 0.000059414000000000004
+    Apply:   (0.44) 0.000058393
+    Rebuild: (0.09) 0.0000124
+Execution took: 0.000131374 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 28 nodes, 12 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000030517
+    Search:  (0.60) 0.000018187
+    Apply:   (0.35) 0.000010568
+    Rebuild: (0.05) 0.000001465
+Execution took: 0.000030517 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 28 nodes, 12 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000036503
+    Search:  (0.61) 0.000022156
+    Apply:   (0.34) 0.000012437
+    Rebuild: (0.04) 0.000001602
+Execution took: 0.000036503 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 21 nodes, 11 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000072605
+    Search:  (0.63) 0.000045642999999999997
+    Apply:   (0.31) 0.000022315
+    Rebuild: (0.06) 0.000004186
+Execution took: 0.000072605 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 21 nodes, 11 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000042196
+    Search:  (0.68) 0.000028576
+    Apply:   (0.28) 0.000011914
+    Rebuild: (0.03) 0.000001335
+Execution took: 0.000042196 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 21 nodes, 11 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000044526
+    Search:  (0.70) 0.000031025
+    Apply:   (0.27) 0.000011858
+    Rebuild: (0.03) 0.000001296
+Execution took: 0.000044526 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 21 nodes, 11 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000043681
+    Search:  (0.70) 0.000030471
+    Apply:   (0.27) 0.000011634
+    Rebuild: (0.03) 0.000001216
+Execution took: 0.000043681 s
+
+Starting Expression: 1371
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 26 nodes, 20 classes, 28 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000032214
+    Search:  (0.55) 0.000017812
+    Apply:   (0.34) 0.000011004
+    Rebuild: (0.10) 0.000003214
+Execution took: 0.000032214 s
+
+Starting Expression: 1372
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 6
+  Egraph size: 294 nodes, 102 classes, 362 memo
+  Rebuilds: 4, 0.67 per iter
+  Total time: 0.00043709300000000005
+    Search:  (0.30) 0.00013102699999999998
+    Apply:   (0.53) 0.000231259
+    Rebuild: (0.17) 0.000073962
+Execution took: 0.00043709300000000005 s
+
+Starting Expression: 1373
+Could not prove any goal:
+
+Best Expr: (== (* 4 (/ (* v0 -500) 4)) (* v0 -500))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 9 nodes, 7 classes, 9 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000019988
+    Search:  (0.54) 0.000010844
+    Apply:   (0.35) 0.000006942
+    Rebuild: (0.09) 0.00000177
+Execution took: 0.000019988 s
+
+Could not prove any goal:
+
+Best Expr: (== (* 4 (/ (* v0 -500) 4)) (* v0 -500))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 9 nodes, 7 classes, 9 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000024901
+    Search:  (0.83) 0.000020751
+    Apply:   (0.13) 0.000003232
+    Rebuild: (0.03) 0.000000629
+Execution took: 0.000024901 s
+
+Could not prove any goal:
+
+Best Expr: (== (* v0 -500) (* 4 (/ (* v0 -500) 4)))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 10 nodes, 7 classes, 10 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000029907
+    Search:  (0.60) 0.000017875
+    Apply:   (0.34) 0.000010093
+    Rebuild: (0.05) 0.000001482
+Execution took: 0.000029907 s
+
+Could not prove any goal:
+
+Best Expr: (== (* v0 -500) (* 4 (/ (* v0 -500) 4)))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 10 nodes, 7 classes, 10 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000020239
+    Search:  (0.67) 0.000013546
+    Apply:   (0.28) 0.000005747
+    Rebuild: (0.03) 0.000000646
+Execution took: 0.000020239 s
+
+Could not prove any goal:
+
+Best Expr: (== ("%" (* -500 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 17
+  Egraph size: 144 nodes, 24 classes, 306 memo
+  Rebuilds: 17, 1.00 per iter
+  Total time: 0.0018418010000000001
+    Search:  (0.57) 0.0010465790000000002
+    Apply:   (0.37) 0.0006788429999999999
+    Rebuild: (0.06) 0.00011398900000000001
+Execution took: 0.0018418010000000001 s
+
+Could not prove any goal:
+
+Best Expr: (== 0 ("%" (* -500 v0) 4))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 148 nodes, 24 classes, 379 memo
+  Rebuilds: 10, 1.25 per iter
+  Total time: 0.0013044110000000001
+    Search:  (0.62) 0.000814156
+    Apply:   (0.33) 0.000429557
+    Rebuild: (0.05) 0.000059484
+Execution took: 0.0013044110000000001 s
+
+Could not prove any goal:
+
+Best Expr: (== 0 ("%" (* -500 v0) 4))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 148 nodes, 24 classes, 379 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000197771
+    Search:  (0.69) 0.000136257
+    Apply:   (0.28) 0.000055427
+    Rebuild: (0.03) 0.000005697
+Execution took: 0.000197771 s
+
+Could not prove any goal:
+
+Best Expr: (== 0 ("%" (* -500 v0) 4))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 148 nodes, 24 classes, 379 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000199791
+    Search:  (0.63) 0.000126213
+    Apply:   (0.34) 0.000067135
+    Rebuild: (0.03) 0.000006053
+Execution took: 0.000199791 s
+
+Starting Expression: 1374
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 11 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000023371
+    Search:  (0.69) 0.000016183
+    Apply:   (0.24) 0.000005683
+    Rebuild: (0.06) 0.000001337
+Execution took: 0.000023371 s
+
+Starting Expression: 1375
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 52 nodes, 39 classes, 53 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000037525
+    Search:  (0.59) 0.00002205
+    Apply:   (0.30) 0.000011183
+    Rebuild: (0.11) 0.000004121
+Execution took: 0.000037525 s
+
+Starting Expression: 1376
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 22 nodes, 16 classes, 24 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000027788
+    Search:  (0.56) 0.000015569
+    Apply:   (0.35) 0.000009626
+    Rebuild: (0.09) 0.000002443
+Execution took: 0.000027788 s
+
+Starting Expression: 1377
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 17 nodes, 14 classes, 18 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000023407
+    Search:  (0.65) 0.000015279
+    Apply:   (0.27) 0.000006405
+    Rebuild: (0.07) 0.000001571
+Execution took: 0.000023407 s
+
+Starting Expression: 1378
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 25 nodes, 19 classes, 26 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000025728
+    Search:  (0.59) 0.000015234
+    Apply:   (0.32) 0.000008134
+    Rebuild: (0.09) 0.000002202
+Execution took: 0.000025728 s
+
+Starting Expression: 1379
+Could not prove any goal:
+
+Best Expr: (<= (max 0 (+ 1 (min (/ (+ (- (max (min v0 60) -64) (max (min v0 124) 0)) 33) 32) (+ (/ v1 32) 2)))) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 6
+  Egraph size: 67 nodes, 32 classes, 87 memo
+  Rebuilds: 2, 0.33 per iter
+  Total time: 0.000151232
+    Search:  (0.40) 0.000059888999999999995
+    Apply:   (0.46) 0.000068945
+    Rebuild: (0.14) 0.000021568
+Execution took: 0.000151232 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max 0 (+ 1 (min (/ (+ (- (max (min v0 60) -64) (max (min v0 124) 0)) 33) 32) (+ (/ v1 32) 2)))) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 278 nodes, 48 classes, 429 memo
+  Rebuilds: 9, 1.29 per iter
+  Total time: 0.001211213
+    Search:  (0.45) 0.000544511
+    Apply:   (0.46) 0.000562096
+    Rebuild: (0.09) 0.000103598
+Execution took: 0.001211213 s
+
+Could not prove any goal:
+
+Best Expr: (<= (min (/ (+ (- (max (min v0 60) -64) (max 0 (min v0 124))) 33) 32) (+ (/ v1 32) 2)) (min (min (/ (+ (- (max (min v0 60) -64) (max 0 (min v0 124))) 33) 32) (+ (/ v1 32) 2)) -1))
+Runner report
+=============
+  Stop reason: TimeLimit(0.384438715)
+  Iterations: 43
+  Egraph size: 83898 nodes, 31267 classes, 111864 memo
+  Rebuilds: 7829, 182.07 per iter
+  Total time: 0.390273636
+    Search:  (0.42) 0.165147099
+    Apply:   (0.37) 0.146206279
+    Rebuild: (0.20) 0.07885081599999998
+Execution took: 0.390273636 s
+
+Could not prove any goal:
+
+Best Expr: (<= (min (/ (+ (- (max (min v0 60) -64) (max 0 (min v0 124))) 33) 32) (+ (/ v1 32) 2)) (min (min (/ (+ (- (max (min v0 60) -64) (max 0 (min v0 124))) 33) 32) (+ (/ v1 32) 2)) -1))
+Runner report
+=============
+  Stop reason: TimeLimit(0.376003339)
+  Iterations: 7
+  Egraph size: 88191 nodes, 33604 classes, 116316 memo
+  Rebuilds: 12, 1.71 per iter
+  Total time: 0.380475963
+    Search:  (0.90) 0.34151526800000004
+    Apply:   (0.02) 0.005984906
+    Rebuild: (0.09) 0.032951746999999997
+Execution took: 0.380475963 s
+
+Could not prove any goal:
+
+Best Expr: (<= 1 (max (- -2 (/ v1 32)) (/ (+ (max 0 (min v0 124)) (- -33 (max (min v0 60) -64))) 32)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.375001212)
+  Iterations: 4
+  Egraph size: 91340 nodes, 35140 classes, 120366 memo
+  Rebuilds: 300, 75.00 per iter
+  Total time: 0.381501175
+    Search:  (0.93) 0.354426196
+    Apply:   (0.01) 0.0041725930000000005
+    Rebuild: (0.06) 0.022883307
+Execution took: 0.381501175 s
+
+Could not prove any goal:
+
+Best Expr: (<= 1 (max (- -2 (/ v1 32)) (/ (+ (max 0 (min v0 124)) (- -33 (max (min v0 60) -64))) 32)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.375086748)
+  Iterations: 4
+  Egraph size: 92714 nodes, 35748 classes, 121742 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.37954119799999997
+    Search:  (0.94) 0.356559623
+    Apply:   (0.01) 0.00236032
+    Rebuild: (0.05) 0.020611549
+Execution took: 0.37954119799999997 s
+
+Could not prove any goal:
+
+Best Expr: (<= 1 (max (- -2 (/ v1 32)) (/ (+ (max 0 (min v0 124)) (- -33 (max (min v0 60) -64))) 32)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.376987962)
+  Iterations: 3
+  Egraph size: 93082 nodes, 35926 classes, 122112 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.38237355599999995
+    Search:  (0.95) 0.363190308
+    Apply:   (0.00) 0.001863118
+    Rebuild: (0.05) 0.017279724
+Execution took: 0.38237355599999995 s
+
+Could not prove any goal:
+
+Best Expr: (<= 1 (max (- -2 (/ v1 32)) (/ (+ (max 0 (min v0 124)) (- -33 (max (min v0 60) -64))) 32)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.375492482)
+  Iterations: 3
+  Egraph size: 93261 nodes, 35916 classes, 122301 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.381112394
+    Search:  (0.95) 0.36209336
+    Apply:   (0.00) 0.0017115059999999998
+    Rebuild: (0.05) 0.017255035000000002
+Execution took: 0.381112394 s
+
+Starting Expression: 1380
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 20 nodes, 16 classes, 22 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00002521
+    Search:  (0.34) 0.000008646
+    Apply:   (0.51) 0.00001294
+    Rebuild: (0.13) 0.00000338
+Execution took: 0.00002521 s
+
+Starting Expression: 1610
+Could not prove any goal:
+
+Best Expr: (== (* 4 (/ (* v0 -20) 4)) (* v0 -20))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 9 nodes, 7 classes, 9 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000025512999999999998
+    Search:  (0.56) 0.000014236
+    Apply:   (0.33) 0.000008487
+    Rebuild: (0.09) 0.000002233
+Execution took: 0.000025512999999999998 s
+
+Could not prove any goal:
+
+Best Expr: (== (* 4 (/ (* v0 -20) 4)) (* v0 -20))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 9 nodes, 7 classes, 9 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000030431
+    Search:  (0.82) 0.00002508
+    Apply:   (0.14) 0.000004323
+    Rebuild: (0.02) 0.00000069
+Execution took: 0.000030431 s
+
+Could not prove any goal:
+
+Best Expr: (== (* v0 -20) (* 4 (/ (* v0 -20) 4)))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 10 nodes, 7 classes, 10 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000037957
+    Search:  (0.60) 0.000022944000000000003
+    Apply:   (0.33) 0.00001244
+    Rebuild: (0.05) 0.000002052
+Execution took: 0.000037957 s
+
+Could not prove any goal:
+
+Best Expr: (== (* v0 -20) (* 4 (/ (* v0 -20) 4)))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 10 nodes, 7 classes, 10 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000023753
+    Search:  (0.68) 0.000016135
+    Apply:   (0.27) 0.000006492
+    Rebuild: (0.03) 0.000000812
+Execution took: 0.000023753 s
+
+Could not prove any goal:
+
+Best Expr: (== ("%" (* -20 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 17
+  Egraph size: 144 nodes, 24 classes, 306 memo
+  Rebuilds: 17, 1.00 per iter
+  Total time: 0.002201997
+    Search:  (0.56) 0.0012427340000000001
+    Apply:   (0.37) 0.000816134
+    Rebuild: (0.06) 0.00014010200000000002
+Execution took: 0.002201997 s
+
+Could not prove any goal:
+
+Best Expr: (== 0 ("%" (* -20 v0) 4))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 148 nodes, 24 classes, 379 memo
+  Rebuilds: 10, 1.25 per iter
+  Total time: 0.0016232699999999998
+    Search:  (0.62) 0.00099882
+    Apply:   (0.34) 0.0005455589999999999
+    Rebuild: (0.05) 0.00007729199999999998
+Execution took: 0.0016232699999999998 s
+
+Could not prove any goal:
+
+Best Expr: (== 0 ("%" (* -20 v0) 4))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 148 nodes, 24 classes, 379 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000233961
+    Search:  (0.67) 0.000155852
+    Apply:   (0.30) 0.00007065
+    Rebuild: (0.03) 0.000006966
+Execution took: 0.000233961 s
+
+Could not prove any goal:
+
+Best Expr: (== 0 ("%" (* -20 v0) 4))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 148 nodes, 24 classes, 379 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000249456
+    Search:  (0.67) 0.000167513
+    Apply:   (0.30) 0.000074244
+    Rebuild: (0.03) 0.000007251
+Execution took: 0.000249456 s
+
+Starting Expression: 1611
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 13 nodes, 10 classes, 14 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000028193
+    Search:  (0.69) 0.000019524
+    Apply:   (0.24) 0.000006664
+    Rebuild: (0.06) 0.000001827
+Execution took: 0.000028193 s
+
+Starting Expression: 1612
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 37 nodes, 28 classes, 38 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000049182
+    Search:  (0.52) 0.000025484
+    Apply:   (0.38) 0.000018855
+    Rebuild: (0.09) 0.000004625
+Execution took: 0.000049182 s
+
+Starting Expression: 1994
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 11 nodes, 9 classes, 13 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000030352
+    Search:  (0.61) 0.000018521
+    Apply:   (0.32) 0.000009715
+    Rebuild: (0.06) 0.000001898
+Execution took: 0.000030352 s
+
+Starting Expression: 1995
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 7 nodes, 6 classes, 8 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000013807
+    Search:  (0.51) 0.000006986
+    Apply:   (0.40) 0.000005516
+    Rebuild: (0.08) 0.000001119
+Execution took: 0.000013807 s
+
+Starting Expression: 2016
+Could not prove any goal:
+
+Best Expr: (&& (&& (&& (&& (&& (&& 1 (<= (+ (* 4 (+ (* v0 4) 0)) (+ 0 v1)) (+ v1 (* v0 16)))) (>= (+ (* 4 (+ (* v0 4) 3)) (+ v1 3)) (+ (* v0 16) (+ v1 15)))) 1) 1) 1) 1)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 12
+  Egraph size: 887 nodes, 170 classes, 1024 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.0030318040000000004
+    Search:  (0.39) 0.001197243
+    Apply:   (0.49) 0.001485069
+    Rebuild: (0.11) 0.000347088
+Execution took: 0.0030318040000000004 s
+
+Proved goal:
+"1"
+ class 1
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 2829 nodes, 814 classes, 6718 memo
+  Rebuilds: 416, 138.67 per iter
+  Total time: 0.00615561
+    Search:  (0.35) 0.002181347
+    Apply:   (0.45) 0.002796166
+    Rebuild: (0.19) 0.001177403
+Execution took: 0.00615561 s
+
+Starting Expression: 2017
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 11 nodes, 8 classes, 12 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000026048
+    Search:  (0.69) 0.000017906
+    Apply:   (0.25) 0.000006449
+    Rebuild: (0.06) 0.000001509
+Execution took: 0.000026048 s
+
+Starting Expression: 2018
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 22 nodes, 19 classes, 23 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000032045
+    Search:  (0.73) 0.000023338
+    Apply:   (0.20) 0.000006309
+    Rebuild: (0.07) 0.000002216
+Execution took: 0.000032045 s
+
+Starting Expression: 2019
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* v0 4) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 11 nodes, 9 classes, 11 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000025528
+    Search:  (0.71) 0.000018019
+    Apply:   (0.20) 0.000005225
+    Rebuild: (0.07) 0.000001849
+Execution took: 0.000025528 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* v0 4) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 47 nodes, 16 classes, 71 memo
+  Rebuilds: 1, 0.14 per iter
+  Total time: 0.00019441
+    Search:  (0.46) 0.00008927
+    Apply:   (0.45) 0.00008680100000000001
+    Rebuild: (0.09) 0.00001729
+Execution took: 0.00019441 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* v0 4) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 47 nodes, 16 classes, 71 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000048983
+    Search:  (0.61) 0.000029905
+    Apply:   (0.34) 0.000016722
+    Rebuild: (0.04) 0.000002046
+Execution took: 0.000048983 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* v0 4) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 47 nodes, 16 classes, 71 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000046468
+    Search:  (0.58) 0.000026903
+    Apply:   (0.37) 0.000017242
+    Rebuild: (0.04) 0.00000205
+Execution took: 0.000046468 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* 4 v0) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 39 nodes, 15 classes, 71 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00009664600000000001
+    Search:  (0.61) 0.000058771
+    Apply:   (0.34) 0.00003276
+    Rebuild: (0.05) 0.000004739
+Execution took: 0.00009664600000000001 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* 4 v0) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 39 nodes, 15 classes, 71 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000055346
+    Search:  (0.67) 0.000037346
+    Apply:   (0.29) 0.000016051
+    Rebuild: (0.03) 0.000001663
+Execution took: 0.000055346 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* 4 v0) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 39 nodes, 15 classes, 71 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000064605
+    Search:  (0.71) 0.000045687
+    Apply:   (0.26) 0.000016832
+    Rebuild: (0.03) 0.000001731
+Execution took: 0.000064605 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* 4 v0) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 39 nodes, 15 classes, 71 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000056923
+    Search:  (0.67) 0.000038343
+    Apply:   (0.29) 0.000016672
+    Rebuild: (0.03) 0.000001606
+Execution took: 0.000056923 s
+
+Starting Expression: 2020
+Could not prove any goal:
+
+Best Expr: (== 0 (+ (* (min (+ (max (min (/ (+ v0 (+ v1 47)) 16) 124) 0) (+ (* v2 -2) (* (max (min (/ v1 16) 126) 2) -1))) -1) 4) 11))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 6
+  Egraph size: 90 nodes, 40 classes, 108 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000190943
+    Search:  (0.39) 0.00007519699999999999
+    Apply:   (0.47) 0.00008909799999999999
+    Rebuild: (0.13) 0.00002577
+Execution took: 0.000190943 s
+
+Could not prove any goal:
+
+Best Expr: (== 0 (+ (* (min (- (max (min (/ (+ (+ v0 v1) 47) 16) 124) 0) (+ (max (min (/ v1 16) 126) 2) (* v2 2))) -1) 4) 11))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 437 nodes, 65 classes, 709 memo
+  Rebuilds: 24, 3.00 per iter
+  Total time: 0.0024029449999999996
+    Search:  (0.48) 0.001161907
+    Apply:   (0.44) 0.001059757
+    Rebuild: (0.07) 0.000180128
+Execution took: 0.0024029449999999996 s
+
+Could not prove any goal:
+
+Best Expr: (== (* -4 (min (max 0 (min (/ (+ (+ v0 v1) 47) 16) 124)) (+ (max 2 (min (/ v1 16) 126)) (- -1 (* v2 -2))))) (- 12 (- 1 (* 4 (min (+ (* v2 -2) -2) (- (* v2 -2) (min (/ v1 16) 126)))))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.376156576)
+  Iterations: 30
+  Egraph size: 99174 nodes, 37291 classes, 131992 memo
+  Rebuilds: 10831, 361.03 per iter
+  Total time: 0.381986316
+    Search:  (0.51) 0.196635387
+    Apply:   (0.31) 0.11859567
+    Rebuild: (0.17) 0.06663546499999999
+Execution took: 0.381986316 s
+
+Could not prove any goal:
+
+Best Expr: (== (* -4 (min (max 0 (min (/ (+ (+ v0 v1) 47) 16) 124)) (+ (max 2 (min (/ v1 16) 126)) (- -1 (* v2 -2))))) (+ 11 (* 4 (min (+ (* v2 -2) -2) (- (* v2 -2) (min (/ v1 16) 126))))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.376197936)
+  Iterations: 7
+  Egraph size: 58718 nodes, 21186 classes, 156444 memo
+  Rebuilds: 23534, 3362.00 per iter
+  Total time: 0.378885259
+    Search:  (0.82) 0.31164802799999997
+    Apply:   (0.05) 0.018924925999999998
+    Rebuild: (0.13) 0.048297357000000006
+Execution took: 0.378885259 s
+
+Could not prove any goal:
+
+Best Expr: (== (* -4 (min (max 0 (min (/ (+ (+ v1 v0) 47) 16) 124)) (+ (max 2 (min 126 (/ v1 16))) (- -1 (* -2 v2))))) (+ (* (max 2 (min 126 (/ v1 16))) -4) (+ 11 (* v2 -8))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.375017699)
+  Iterations: 13
+  Egraph size: 46014 nodes, 17491 classes, 156995 memo
+  Rebuilds: 1868, 143.69 per iter
+  Total time: 0.37680202299999993
+    Search:  (0.90) 0.33740894400000004
+    Apply:   (0.01) 0.004413477999999999
+    Rebuild: (0.09) 0.034971312
+Execution took: 0.37680202299999993 s
+
+Could not prove any goal:
+
+Best Expr: (== (* -4 (min (max 0 (min (/ (+ (+ v1 v0) 47) 16) 124)) (+ (max 2 (min 126 (/ v1 16))) (- -1 (* -2 v2))))) (+ (min -8 (* (max (/ v1 -16) -126) 4)) (+ 11 (* v2 -8))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.377107339)
+  Iterations: 11
+  Egraph size: 46122 nodes, 17305 classes, 158241 memo
+  Rebuilds: 529, 48.09 per iter
+  Total time: 0.37935439499999996
+    Search:  (0.92) 0.349090824
+    Apply:   (0.02) 0.00719123
+    Rebuild: (0.06) 0.023064684000000002
+Execution took: 0.37935439499999996 s
+
+Could not prove any goal:
+
+Best Expr: (== (* -4 (min (max 0 (min (/ (+ (+ v1 v0) 47) 16) 124)) (+ (max 2 (min 126 (/ v1 16))) (- -1 (* -2 v2))))) (+ (min -8 (* (max (/ v1 -16) -126) 4)) (+ 11 (* v2 -8))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.37532143)
+  Iterations: 11
+  Egraph size: 46786 nodes, 17517 classes, 158905 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.37695324100000005
+    Search:  (0.92) 0.34721466600000006
+    Apply:   (0.02) 0.008280805
+    Rebuild: (0.06) 0.021444071000000006
+Execution took: 0.37695324100000005 s
+
+Could not prove any goal:
+
+Best Expr: (== (* -4 (min (max 0 (min (/ (+ (+ v1 v0) 47) 16) 124)) (+ (max 2 (min 126 (/ v1 16))) (- -1 (* -2 v2))))) (+ (min -8 (* (max (/ v1 -16) -126) 4)) (+ 11 (* v2 -8))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.375063809)
+  Iterations: 9
+  Egraph size: 47416 nodes, 17727 classes, 159535 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.376839382
+    Search:  (0.92) 0.3484333359999999
+    Apply:   (0.02) 0.009143014
+    Rebuild: (0.05) 0.019202415
+Execution took: 0.376839382 s
+
+Starting Expression: 2021
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 5
+  Egraph size: 101 nodes, 46 classes, 175 memo
+  Rebuilds: 11, 2.20 per iter
+  Total time: 0.00014520400000000001
+    Search:  (0.33) 0.000048473
+    Apply:   (0.49) 0.000070726
+    Rebuild: (0.18) 0.000025495
+Execution took: 0.00014520400000000001 s
+
+Starting Expression: 2022
+Could not prove any goal:
+
+Best Expr: (<= (max (+ 1 (min (min 1999 (+ (min (+ v1 v2) 2000) -1)) (+ v3 507))) (min (max (max 0 (max v2 0)) (+ v3 -10)) (+ v3 508))) (min (max (max 0 (max v2 0)) (+ v3 -10)) (+ v3 508)))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 73 nodes, 35 classes, 90 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00012800300000000001
+    Search:  (0.41) 0.000051862
+    Apply:   (0.45) 0.000058106
+    Rebuild: (0.13) 0.000017235
+Execution took: 0.00012800300000000001 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (+ 1 (min (min 1999 (+ (min (+ v1 v2) 2000) -1)) (+ v3 507))) (min (+ v3 508) (max (max 0 (max v2 0)) (+ v3 -10)))) (min (+ v3 508) (max (max 0 (max v2 0)) (+ v3 -10))))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 9
+  Egraph size: 329 nodes, 58 classes, 481 memo
+  Rebuilds: 5, 0.56 per iter
+  Total time: 0.001380817
+    Search:  (0.43) 0.00059725
+    Apply:   (0.49) 0.000670088
+    Rebuild: (0.08) 0.00011238699999999999
+Execution took: 0.001380817 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (min (+ v3 508) (max (+ v3 -10) (max 0 (max v2 0)))) (min (+ v3 508) (min 2000 (min (+ v1 v2) 2000)))) (min (+ v3 508) (max (+ v3 -10) (max 0 (max v2 0)))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.375587531)
+  Iterations: 44
+  Egraph size: 88018 nodes, 33587 classes, 103737 memo
+  Rebuilds: 4494, 102.14 per iter
+  Total time: 0.38129245800000006
+    Search:  (0.52) 0.19755487400000002
+    Apply:   (0.25) 0.094582913
+    Rebuild: (0.23) 0.089088184
+Execution took: 0.38129245800000006 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (min (+ v3 508) (max (+ v3 -10) (max 0 (max v2 0)))) (min (+ v3 508) (min (+ v1 v2) 2000))) (min (+ v3 508) (max (+ v3 -10) (max 0 (max v2 0)))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.378120945)
+  Iterations: 6
+  Egraph size: 84891 nodes, 32168 classes, 106455 memo
+  Rebuilds: 1416, 236.00 per iter
+  Total time: 0.38321846800000003
+    Search:  (0.90) 0.343904329
+    Apply:   (0.02) 0.0059389
+    Rebuild: (0.09) 0.033300012000000004
+Execution took: 0.38321846800000003 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (min (+ 508 v3) (max (+ -10 v3) (max 0 (max 0 v2)))) (min (+ 508 v3) (min (+ v2 v1) 2000))) (min (+ 508 v3) (max (+ -10 v3) (max 0 (max 0 v2)))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.376057974)
+  Iterations: 7
+  Egraph size: 81445 nodes, 31407 classes, 106739 memo
+  Rebuilds: 798, 114.00 per iter
+  Total time: 0.38071316599999994
+    Search:  (0.90) 0.3409335440000001
+    Apply:   (0.01) 0.005369998999999999
+    Rebuild: (0.09) 0.034334171
+Execution took: 0.38071316599999994 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (min (+ 508 v3) (max (+ -10 v3) (max 0 (max 0 v2)))) (min (+ 508 v3) (min (+ v2 v1) 2000))) (min (+ 508 v3) (max (+ -10 v3) (max 0 (max 0 v2)))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.377209482)
+  Iterations: 5
+  Egraph size: 81560 nodes, 31463 classes, 106856 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.381104418
+    Search:  (0.95) 0.360634594
+    Apply:   (0.00) 0.001013157
+    Rebuild: (0.05) 0.019408685000000002
+Execution took: 0.381104418 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (min (+ 508 v3) (max (+ -10 v3) (max 0 (max 0 v2)))) (min (+ 508 v3) (min (+ v2 v1) 2000))) (min (+ 508 v3) (max (+ -10 v3) (max 0 (max 0 v2)))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.375553129)
+  Iterations: 4
+  Egraph size: 83048 nodes, 32207 classes, 108344 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.379322893
+    Search:  (0.95) 0.360885418
+    Apply:   (0.01) 0.00197859
+    Rebuild: (0.04) 0.016381669
+Execution took: 0.379322893 s
+
+Could not prove any goal:
+
+Best Expr: (<= (min (+ 508 v3) (min (+ v2 v1) 2000)) (min (+ 508 v3) (max (+ -10 v3) (max 0 (max 0 v2)))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.375916157)
+  Iterations: 5
+  Egraph size: 83267 nodes, 32284 classes, 108563 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.38136328699999994
+    Search:  (0.93) 0.35627176
+    Apply:   (0.01) 0.0023410249999999996
+    Rebuild: (0.06) 0.022708818000000002
+Execution took: 0.38136328699999994 s
+
+Starting Expression: 2152
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 35 nodes, 28 classes, 36 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000093824
+    Search:  (0.22) 0.000020885
+    Apply:   (0.69) 0.000064376
+    Rebuild: (0.08) 0.000007964
+Execution took: 0.000093824 s
+
+Starting Expression: 2153
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 16 nodes, 11 classes, 17 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000033886
+    Search:  (0.65) 0.000021916
+    Apply:   (0.28) 0.000009473
+    Rebuild: (0.07) 0.00000226
+Execution took: 0.000033886 s
+
+Starting Expression: 2694
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 8 nodes, 7 classes, 8 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000020345
+    Search:  (0.58) 0.000011785
+    Apply:   (0.30) 0.000006186
+    Rebuild: (0.09) 0.0000018749999999999998
+Execution took: 0.000020345 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 28 nodes, 12 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00014372
+    Search:  (0.44) 0.00006368
+    Apply:   (0.45) 0.000064464
+    Rebuild: (0.10) 0.000014311999999999998
+Execution took: 0.00014372 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 28 nodes, 12 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000034555
+    Search:  (0.60) 0.000020563
+    Apply:   (0.34) 0.000011875
+    Rebuild: (0.05) 0.000001809
+Execution took: 0.000034555 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 28 nodes, 12 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000045525
+    Search:  (0.53) 0.000024279
+    Apply:   (0.41) 0.000018755
+    Rebuild: (0.05) 0.000002127
+Execution took: 0.000045525 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 21 nodes, 11 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000097664
+    Search:  (0.59) 0.000057941999999999995
+    Apply:   (0.33) 0.000032564
+    Rebuild: (0.07) 0.000006529
+Execution took: 0.000097664 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 21 nodes, 11 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000045022
+    Search:  (0.69) 0.000030935
+    Apply:   (0.27) 0.00001227
+    Rebuild: (0.03) 0.000001447
+Execution took: 0.000045022 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 21 nodes, 11 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000049485
+    Search:  (0.71) 0.000035116
+    Apply:   (0.25) 0.000012509
+    Rebuild: (0.03) 0.000001513
+Execution took: 0.000049485 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 21 nodes, 11 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000048053
+    Search:  (0.70) 0.000033521
+    Apply:   (0.27) 0.000012741
+    Rebuild: (0.03) 0.000001464
+Execution took: 0.000048053 s
+
+Starting Expression: 2695
+Could not prove any goal:
+
+Best Expr: (== (/ (- -165 ("%" (+ v0 v1) 8)) 8) (+ (/ (- -165 ("%" (+ v0 v1) 8)) 8) (+ (/ (+ ("%" (+ v0 v1) 8) 180) 8) -1)))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 5
+  Egraph size: 33 nodes, 19 classes, 34 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000082502
+    Search:  (0.50) 0.000041435
+    Apply:   (0.35) 0.000029287000000000003
+    Rebuild: (0.13) 0.000010892
+Execution took: 0.000082502 s
+
+Could not prove any goal:
+
+Best Expr: (== (/ (- -165 ("%" (+ v0 v1) 8)) 8) (+ (/ (- -165 ("%" (+ v0 v1) 8)) 8) (+ (/ (+ ("%" (+ v0 v1) 8) 180) 8) -1)))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 9
+  Egraph size: 209 nodes, 35 classes, 300 memo
+  Rebuilds: 8, 0.89 per iter
+  Total time: 0.001370747
+    Search:  (0.48) 0.000659565
+    Apply:   (0.44) 0.000603574
+    Rebuild: (0.08) 0.00010610400000000001
+Execution took: 0.001370747 s
+
+Could not prove any goal:
+
+Best Expr: (== (/ (+ ("%" (+ v0 v1) 8) 180) 8) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.378207637)
+  Iterations: 73
+  Egraph size: 63286 nodes, 15863 classes, 84430 memo
+  Rebuilds: 3909, 53.55 per iter
+  Total time: 0.380198097
+    Search:  (0.55) 0.20946894699999996
+    Apply:   (0.32) 0.12274462199999998
+    Rebuild: (0.13) 0.04794170699999999
+Execution took: 0.380198097 s
+
+Could not prove any goal:
+
+Best Expr: (== (/ (+ ("%" (+ v0 v1) 8) 180) 8) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.3793466)
+  Iterations: 11
+  Egraph size: 149648 nodes, 36524 classes, 172365 memo
+  Rebuilds: 139, 12.64 per iter
+  Total time: 0.396622409
+    Search:  (0.73) 0.290050611
+    Apply:   (0.17) 0.066405986
+    Rebuild: (0.10) 0.040133801999999996
+Execution took: 0.396622409 s
+
+Could not prove any goal:
+
+Best Expr: (== (/ (+ ("%" (+ v0 v1) 8) 180) 8) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.381776723)
+  Iterations: 3
+  Egraph size: 149648 nodes, 36524 classes, 172365 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.387088654
+    Search:  (0.96) 0.37051503099999994
+    Apply:   (0.00) 0.000018233
+    Rebuild: (0.04) 0.016533483
+Execution took: 0.387088654 s
+
+Could not prove any goal:
+
+Best Expr: (== (/ (+ ("%" (+ v0 v1) 8) 180) 8) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.375161918)
+  Iterations: 4
+  Egraph size: 149641 nodes, 36523 classes, 172366 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.380370412
+    Search:  (0.94) 0.357154038
+    Apply:   (0.00) 0.000057348
+    Rebuild: (0.06) 0.023149958
+Execution took: 0.380370412 s
+
+Could not prove any goal:
+
+Best Expr: (== (/ (+ ("%" (+ v0 v1) 8) 180) 8) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.37782381)
+  Iterations: 2
+  Egraph size: 149641 nodes, 36523 classes, 172366 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.383531118
+    Search:  (0.97) 0.371920848
+    Apply:   (0.00) 0.000016526
+    Rebuild: (0.03) 0.011581883000000001
+Execution took: 0.383531118 s
+
+Could not prove any goal:
+
+Best Expr: (== (/ (+ ("%" (+ v0 v1) 8) 180) 8) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.383683085)
+  Iterations: 3
+  Egraph size: 149641 nodes, 36523 classes, 172366 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.389591504
+    Search:  (0.95) 0.371980403
+    Apply:   (0.00) 0.000030612
+    Rebuild: (0.05) 0.017565845
+Execution took: 0.389591504 s
+
+Starting Expression: 2696
+Could not prove any goal:
+
+Best Expr: (== (- v0 20) (+ (* (max (+ (* (max (min (* (/ v1 125) 8) 125) 1) 2) (* v2 -1)) 2) -8) (+ v0 3)))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 211 nodes, 50 classes, 285 memo
+  Rebuilds: 3, 0.38 per iter
+  Total time: 0.000709908
+    Search:  (0.34) 0.000244088
+    Apply:   (0.53) 0.00037812200000000005
+    Rebuild: (0.12) 0.00008614
+Execution took: 0.000709908 s
+
+Could not prove any goal:
+
+Best Expr: (== (+ v0 -20) (+ (* (max (+ (* (max (min 125 (* (/ v1 125) 8)) 1) 2) (* v2 -1)) 2) -8) (+ v0 3)))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 1031 nodes, 86 classes, 1576 memo
+  Rebuilds: 17, 2.43 per iter
+  Total time: 0.005952710000000001
+    Search:  (0.45) 0.0026747130000000004
+    Apply:   (0.48) 0.002848027
+    Rebuild: (0.07) 0.000428534
+Execution took: 0.005952710000000001 s
+
+Could not prove any goal:
+
+Best Expr: (== (* 8 (max (* 2 (max (min 125 (* (/ v1 125) 8)) 1)) (+ v2 (+ (* v2 -1) (+ 2 v2))))) (+ (* 8 v2) (+ (+ v0 3) (- 20 v0))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.37538562)
+  Iterations: 43
+  Egraph size: 96944 nodes, 30590 classes, 122973 memo
+  Rebuilds: 6968, 162.05 per iter
+  Total time: 0.380639037
+    Search:  (0.51) 0.19521317100000002
+    Apply:   (0.29) 0.11020962000000002
+    Rebuild: (0.20) 0.07514689399999999
+Execution took: 0.380639037 s
+
+Could not prove any goal:
+
+Best Expr: (== (* 8 (max (* 2 (max (min 125 (* (/ v1 125) 8)) 1)) (+ v2 (+ (* v2 -1) (+ 2 v2))))) (+ (* 8 v2) (+ (+ v0 3) (- 20 v0))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.381765216)
+  Iterations: 5
+  Egraph size: 96946 nodes, 30591 classes, 122975 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.38641983799999996
+    Search:  (0.93) 0.36015180900000004
+    Apply:   (0.00) 0.000848034
+    Rebuild: (0.07) 0.025386015
+Execution took: 0.38641983799999996 s
+
+Could not prove any goal:
+
+Best Expr: (== (* 8 (min (* 2 (min -1 (max -125 (* -8 (/ v1 125))))) (- -2 v2))) (- (* -8 v2) (- (- 20 v0) (- -3 v0))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.375652429)
+  Iterations: 6
+  Egraph size: 94721 nodes, 30307 classes, 123125 memo
+  Rebuilds: 286, 47.67 per iter
+  Total time: 0.38074874500000006
+    Search:  (0.92) 0.349261543
+    Apply:   (0.00) 0.000286747
+    Rebuild: (0.08) 0.031183934000000003
+Execution took: 0.38074874500000006 s
+
+Could not prove any goal:
+
+Best Expr: (== (* 8 (min (* 2 (min -1 (max -125 (* 8 (/ v1 -125))))) (- -2 v2))) (- (* -8 v2) (- (- 20 v0) (- -3 v0))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.376971021)
+  Iterations: 6
+  Egraph size: 93330 nodes, 29908 classes, 123225 memo
+  Rebuilds: 162, 27.00 per iter
+  Total time: 0.382722301
+    Search:  (0.92) 0.350486366
+    Apply:   (0.01) 0.002136587
+    Rebuild: (0.08) 0.030094584
+Execution took: 0.382722301 s
+
+Could not prove any goal:
+
+Best Expr: (== (* 8 (min (* 2 (min -1 (max -125 (* 8 (/ v1 -125))))) (- -2 v2))) (- (* -8 v2) (- (- 20 v0) (- -3 v0))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.381417296)
+  Iterations: 6
+  Egraph size: 93348 nodes, 29914 classes, 123243 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.38562427299999996
+    Search:  (0.93) 0.35963519299999996
+    Apply:   (0.01) 0.0020168760000000003
+    Rebuild: (0.06) 0.023968009999999998
+Execution took: 0.38562427299999996 s
+
+Could not prove any goal:
+
+Best Expr: (== (* 8 (min (* 2 (min -1 (max -125 (* 8 (/ v1 -125))))) (- -2 v2))) (- (* -8 v2) (- (- 20 v0) (- -3 v0))))
+Runner report
+=============
+  Stop reason: TimeLimit(0.377749628)
+  Iterations: 6
+  Egraph size: 93363 nodes, 29919 classes, 123258 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.3811313070000001
+    Search:  (0.93) 0.35623424
+    Apply:   (0.01) 0.0020418750000000003
+    Rebuild: (0.06) 0.022851949000000003
+Execution took: 0.3811313070000001 s
+
+Starting Expression: 3056
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 18 nodes, 13 classes, 19 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000023957
+    Search:  (0.44) 0.000010602
+    Apply:   (0.46) 0.000010934
+    Rebuild: (0.09) 0.000002229
+Execution took: 0.000023957 s
+
+Starting Expression: 3057
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 21 nodes, 16 classes, 23 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000019442
+    Search:  (0.42) 0.000008259
+    Apply:   (0.43) 0.000008425
+    Rebuild: (0.13) 0.000002571
+Execution took: 0.000019442 s
+
+Starting Expression: 3058
+Could not prove any goal:
+
+Best Expr: (&& (&& (&& (&& 1 (<= (/ v1 125) (/ (+ 0 v1) 125))) 1) 1) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.375752028)
+  Iterations: 33
+  Egraph size: 55634 nodes, 4504 classes, 164576 memo
+  Rebuilds: 23548, 713.58 per iter
+  Total time: 0.377089757
+    Search:  (0.36) 0.135899588
+    Apply:   (0.53) 0.199432914
+    Rebuild: (0.11) 0.041742081
+Execution took: 0.377089757 s
+
+Proved goal:
+"1"
+ class 1
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 32412 nodes, 2566 classes, 166775 memo
+  Rebuilds: 1999, 999.50 per iter
+  Total time: 0.245994983
+    Search:  (0.95) 0.234344067
+    Apply:   (0.00) 0.00034128100000000003
+    Rebuild: (0.05) 0.011309086999999999
+Execution took: 0.245994983 s
+
+Starting Expression: 4218
+Could not prove any goal:
+
+Best Expr: (<= (max (+ 1 (min (/ (+ (/ (+ (+ v3 v4) 3) 4) (+ (* (/ v4 4) -1) -31)) 32) (+ 0 (/ v2 32)))) (min (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0) (+ (/ v2 32) 1))) (min (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0) (+ (/ v2 32) 1)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.477865596)
+  Iterations: 35
+  Egraph size: 33823 nodes, 1664 classes, 119453 memo
+  Rebuilds: 15261, 436.03 per iter
+  Total time: 0.478648638
+    Search:  (0.59) 0.280375762
+    Apply:   (0.36) 0.17196713300000002
+    Rebuild: (0.05) 0.026293609
+Execution took: 0.478648638 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (+ 1 (min (/ (+ (/ (+ (+ v3 v4) 3) 4) (+ (* (/ v4 4) -1) -31)) 32) (/ v2 32))) (min (+ 1 (/ v2 32)) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0))) (min (+ 1 (/ v2 32)) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.375800673)
+  Iterations: 5
+  Egraph size: 33683 nodes, 1663 classes, 119458 memo
+  Rebuilds: 1, 0.20 per iter
+  Total time: 0.376617836
+    Search:  (0.99) 0.37317632199999995
+    Apply:   (0.00) 0.000056477
+    Rebuild: (0.01) 0.0033813660000000002
+Execution took: 0.376617836 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (+ 1 (min (/ (+ (/ (+ (+ v3 v4) 3) 4) (+ (* (/ v4 4) -1) -31)) 32) (/ v2 32))) (min (+ 1 (/ v2 32)) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0))) (min (+ 1 (/ v2 32)) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.499009281)
+  Iterations: 15
+  Egraph size: 56163 nodes, 9221 classes, 145592 memo
+  Rebuilds: 743, 49.53 per iter
+  Total time: 0.5010147410000001
+    Search:  (0.92) 0.4621134779999999
+    Apply:   (0.04) 0.018203307999999998
+    Rebuild: (0.04) 0.020686864000000003
+Execution took: 0.5010147410000001 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (+ 1 (min (/ (+ (/ (+ (+ v3 v4) 3) 4) (+ (* (/ v4 4) -1) -31)) 32) (/ v2 32))) (min (/ (+ v2 32) 32) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0))) (min (/ (+ v2 32) 32) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.376695528)
+  Iterations: 6
+  Egraph size: 57614 nodes, 10166 classes, 150679 memo
+  Rebuilds: 774, 129.00 per iter
+  Total time: 0.377959898
+    Search:  (0.95) 0.359845254
+    Apply:   (0.02) 0.008779683
+    Rebuild: (0.02) 0.009326379000000001
+Execution took: 0.377959898 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (+ 1 (min (/ (+ (/ (+ (+ v3 v4) 3) 4) (+ (* (/ v4 4) -1) -31)) 32) (/ v2 32))) (min (/ (+ v2 32) 32) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0))) (min (/ (+ v2 32) 32) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.387489505)
+  Iterations: 6
+  Egraph size: 59574 nodes, 10700 classes, 152639 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.3896659
+    Search:  (0.96) 0.374228696
+    Apply:   (0.02) 0.0061179450000000005
+    Rebuild: (0.02) 0.00931565
+Execution took: 0.3896659 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (+ 1 (/ (min (* -1 (* -1 v2)) (+ (/ (+ (+ v3 v4) 3) 4) (+ (/ v4 -4) -31))) 32)) (min (- 1 (/ v2 -32)) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0))) (min (- 1 (/ v2 -32)) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.422877669)
+  Iterations: 5
+  Egraph size: 59595 nodes, 10441 classes, 155817 memo
+  Rebuilds: 793, 158.60 per iter
+  Total time: 0.42500863599999994
+    Search:  (0.96) 0.40882645100000004
+    Apply:   (0.02) 0.007118832
+    Rebuild: (0.02) 0.009053662
+Execution took: 0.42500863599999994 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (+ 1 (/ (min (* -1 (* -1 v2)) (+ (/ (+ (+ v3 v4) 3) 4) (+ (/ v4 -4) -31))) 32)) (min (- 1 (/ v2 -32)) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0))) (min (- 1 (/ v2 -32)) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.375094286)
+  Iterations: 2
+  Egraph size: 59595 nodes, 10441 classes, 155817 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.376641743
+    Search:  (0.99) 0.371921281
+    Apply:   (0.00) 0.001846989
+    Rebuild: (0.01) 0.002856046
+Execution took: 0.376641743 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (+ 1 (/ (min (* -1 (* -1 v2)) (+ (/ (+ (+ v3 v4) 3) 4) (+ (/ v4 -4) -31))) 32)) (min (- 1 (/ v2 -32)) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0))) (min (- 1 (/ v2 -32)) (max (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)) 0)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.39107414)
+  Iterations: 4
+  Egraph size: 60040 nodes, 10530 classes, 156351 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.39320464200000005
+    Search:  (0.97) 0.381965776
+    Apply:   (0.01) 0.004773360000000001
+    Rebuild: (0.02) 0.006455775
+Execution took: 0.39320464200000005 s
+
+Starting Expression: 4306
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 36 nodes, 28 classes, 38 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000023068
+    Search:  (0.43) 0.000009989
+    Apply:   (0.43) 0.000009846
+    Rebuild: (0.13) 0.0000031
+Execution took: 0.000023068 s
+
+Starting Expression: 4858
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 20 nodes, 15 classes, 22 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000013023
+    Search:  (0.36) 0.000004626
+    Apply:   (0.51) 0.000006646
+    Rebuild: (0.13) 0.000001645
+Execution took: 0.000013023 s
+
+Starting Expression: 4888
+Could not prove any goal:
+
+Best Expr: (< (+ (* v0 2) (+ -1 (+ v1 v2))) (+ (* v0 2) (+ v1 v2)))
+Runner report
+=============
+  Stop reason: TimeLimit(0.376164979)
+  Iterations: 53
+  Egraph size: 115902 nodes, 27031 classes, 146942 memo
+  Rebuilds: 4042, 76.26 per iter
+  Total time: 0.38152697899999993
+    Search:  (0.38) 0.143763117
+    Apply:   (0.40) 0.15178848000000003
+    Rebuild: (0.23) 0.08594183899999999
+Execution took: 0.38152697899999993 s
+
+Proved goal:
+"1"
+ class 1
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 21707 nodes, 5178 classes, 147679 memo
+  Rebuilds: 21663, 21663.00 per iter
+  Total time: 0.096328534
+    Search:  (0.70) 0.067428059
+    Apply:   (0.01) 0.000626264
+    Rebuild: (0.29) 0.028273732
+Execution took: 0.096328534 s
+
+Starting Expression: 4889
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 15 nodes, 10 classes, 16 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000043493
+    Search:  (0.35) 0.00001511
+    Apply:   (0.54) 0.000023685
+    Rebuild: (0.10) 0.000004263
+Execution took: 0.000043493 s
+
+Starting Expression: 5227
+Could not prove any goal:
+
+Best Expr: (== (* 8 (/ (* (/ (+ (min (* v0 125) (+ v1 -125)) v2) 250) 8) 8)) (* (/ (+ (min (* v0 125) (+ v1 -125)) v2) 250) 8))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 3
+  Egraph size: 23 nodes, 17 classes, 24 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000071173
+    Search:  (0.48) 0.000033874
+    Apply:   (0.36) 0.000025809
+    Rebuild: (0.14) 0.00001028
+Execution took: 0.000071173 s
+
+Could not prove any goal:
+
+Best Expr: (== (* 8 (/ (* (/ (+ (min (* v0 125) (+ v1 -125)) v2) 250) 8) 8)) (* (/ (+ (min (* v0 125) (+ v1 -125)) v2) 250) 8))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 9
+  Egraph size: 87 nodes, 25 classes, 98 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000976812
+    Search:  (0.51) 0.000499703
+    Apply:   (0.41) 0.000398801
+    Rebuild: (0.08) 0.000075329
+Execution took: 0.000976812 s
+
+Proved goal:
+"1"
+ class 2
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 183 nodes, 65 classes, 251 memo
+  Rebuilds: 18, 9.00 per iter
+  Total time: 0.0006153560000000001
+    Search:  (0.37) 0.000225827
+    Apply:   (0.50) 0.000306223
+    Rebuild: (0.13) 0.000082733
+Execution took: 0.0006153560000000001 s
+
+Starting Expression: 5275
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 16 nodes, 11 classes, 17 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000055322
+    Search:  (0.64) 0.000035421
+    Apply:   (0.29) 0.000016038
+    Rebuild: (0.06) 0.000003536
+Execution took: 0.000055322 s
+
+Starting Expression: 5287
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 24 nodes, 18 classes, 25 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000055389
+    Search:  (0.64) 0.000035501
+    Apply:   (0.27) 0.00001504
+    Rebuild: (0.08) 0.000004479
+Execution took: 0.000055389 s
+
+Starting Expression: 5668
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 38 nodes, 28 classes, 40 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000074096
+    Search:  (0.53) 0.000039252
+    Apply:   (0.36) 0.000026778
+    Rebuild: (0.10) 0.000007681
+Execution took: 0.000074096 s
+
+Execution time : |23| |16|
+Starting: K=35
+[['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch', 'eq-max-lt', 'min-div-out-neg', 'Eq-min-c-neg']] 
+
+ Total Classes: 3
+Starting Expression: 1
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 22 nodes, 15 classes, 24 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000046443
+    Search:  (0.46) 0.000021428
+    Apply:   (0.45) 0.000020766
+    Rebuild: (0.08) 0.000003904
+Execution took: 0.000046443 s
+
+Starting Expression: 2
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 48 nodes, 34 classes, 53 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000064992
+    Search:  (0.32) 0.000020797
+    Apply:   (0.55) 0.000035698
+    Rebuild: (0.13) 0.00000827
+Execution took: 0.000064992 s
+
+Starting Expression: 3
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 117 nodes, 62 classes, 198 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000273553
+    Search:  (0.34) 0.00009222000000000001
+    Apply:   (0.53) 0.000144019
+    Rebuild: (0.13) 0.000036899
+Execution took: 0.000273553 s
+
+Starting Expression: 4
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 11 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000027561
+    Search:  (0.49) 0.000013379
+    Apply:   (0.44) 0.000012131
+    Rebuild: (0.07) 0.000001818
+Execution took: 0.000027561 s
+
+Starting Expression: 5
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 427 nodes, 161 classes, 611 memo
+  Rebuilds: 21, 7.00 per iter
+  Total time: 0.000810938
+    Search:  (0.28) 0.000229513
+    Apply:   (0.57) 0.000458421
+    Rebuild: (0.15) 0.000122189
+Execution took: 0.000810938 s
+
+Starting Expression: 6
+Proved goal:
+"0"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 0 Matched")
+  Iterations: 7
+  Egraph size: 1020 nodes, 243 classes, 1711 memo
+  Rebuilds: 54, 7.71 per iter
+  Total time: 0.002845959
+    Search:  (0.37) 0.001060466
+    Apply:   (0.51) 0.00143928
+    Rebuild: (0.12) 0.00034485099999999997
+Execution took: 0.002845959 s
+
+Starting Expression: 7
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 4
+  Egraph size: 663 nodes, 246 classes, 1243 memo
+  Rebuilds: 102, 25.50 per iter
+  Total time: 0.0015365729999999998
+    Search:  (0.26) 0.00039974300000000004
+    Apply:   (0.56) 0.00085454
+    Rebuild: (0.18) 0.00028155599999999997
+Execution took: 0.0015365729999999998 s
+
+Starting Expression: 8
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 65 nodes, 46 classes, 72 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00007423
+    Search:  (0.29) 0.000021531
+    Apply:   (0.58) 0.000043248
+    Rebuild: (0.12) 0.000009247
+Execution took: 0.00007423 s
+
+Starting Expression: 9
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 447 nodes, 181 classes, 595 memo
+  Rebuilds: 19, 6.33 per iter
+  Total time: 0.0006995770000000001
+    Search:  (0.28) 0.00019301099999999999
+    Apply:   (0.55) 0.000386974
+    Rebuild: (0.17) 0.000119067
+Execution took: 0.0006995770000000001 s
+
+Starting Expression: 10
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 37 nodes, 25 classes, 39 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000046783
+    Search:  (0.42) 0.000019541
+    Apply:   (0.46) 0.000021616
+    Rebuild: (0.12) 0.000005458
+Execution took: 0.000046783 s
+
+Starting Expression: 11
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 321 nodes, 128 classes, 495 memo
+  Rebuilds: 10, 3.33 per iter
+  Total time: 0.00060906
+    Search:  (0.28) 0.000171865
+    Apply:   (0.56) 0.000339812
+    Rebuild: (0.16) 0.000096862
+Execution took: 0.00060906 s
+
+Starting Expression: 12
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 50 nodes, 28 classes, 129 memo
+  Rebuilds: 1, 0.50 per iter
+  Total time: 0.000170405
+    Search:  (0.33) 0.000055446
+    Apply:   (0.51) 0.000087476
+    Rebuild: (0.16) 0.000027122999999999998
+Execution took: 0.000170405 s
+
+Starting Expression: 13
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 7
+  Egraph size: 4545 nodes, 1836 classes, 10714 memo
+  Rebuilds: 1939, 277.00 per iter
+  Total time: 0.015108328
+    Search:  (0.44) 0.006699508
+    Apply:   (0.37) 0.0056587550000000006
+    Rebuild: (0.18) 0.0027487350000000004
+Execution took: 0.015108328 s
+
+Starting Expression: 14
+Proved goal:
+"0"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 0 Matched")
+  Iterations: 6
+  Egraph size: 67 nodes, 19 classes, 181 memo
+  Rebuilds: 12, 2.00 per iter
+  Total time: 0.00036160299999999995
+    Search:  (0.41) 0.000147069
+    Apply:   (0.48) 0.000174129
+    Rebuild: (0.11) 0.000039556
+Execution took: 0.00036160299999999995 s
+
+Starting Expression: 15
+Could not prove any goal:
+
+Best Expr: (<= (min (/ (- 490 ("%" (+ (min (* v0 500) (+ v1 -500)) (+ v2 507)) 8)) 32) (+ (/ (+ ("%" v3 8) 539) 32) -1)) (min (min (/ (- 490 ("%" (+ (min (* v0 500) (+ v1 -500)) (+ v2 507)) 8)) 32) (+ (/ (+ ("%" v3 8) 539) 32) -1)) -1))
+Runner report
+=============
+  Stop reason: TimeLimit(1.004333012)
+  Iterations: 76
+  Egraph size: 112064 nodes, 31545 classes, 198617 memo
+  Rebuilds: 21963, 288.99 per iter
+  Total time: 1.0101320400000002
+    Search:  (0.50) 0.5054941319999999
+    Apply:   (0.32) 0.31897302900000013
+    Rebuild: (0.18) 0.18558761599999996
+Execution took: 1.0101320400000002 s
+
+Could not prove any goal:
+
+Best Expr: (<= (min (/ (- 490 ("%" (+ (min (* v0 500) (+ v1 -500)) (+ v2 507)) 8)) 32) (+ (/ (+ ("%" v3 8) 539) 32) -1)) -1)
+Runner report
+=============
+  Stop reason: TimeLimit(1.000356139)
+  Iterations: 2
+  Egraph size: 104114 nodes, 28262 classes, 204413 memo
+  Rebuilds: 4603, 2301.50 per iter
+  Total time: 1.005252918
+    Search:  (0.98) 0.9868397990000001
+    Apply:   (0.00) 0.0014690319999999999
+    Rebuild: (0.02) 0.016896918
+Execution took: 1.005252918 s
+
+Could not prove any goal:
+
+Best Expr: (<= (min (/ (- 490 ("%" (+ (min (* v0 500) (+ v1 -500)) (+ v2 507)) 8)) 32) (+ (/ (+ ("%" v3 8) 539) 32) -1)) -1)
+Runner report
+=============
+  Stop reason: TimeLimit(1.000708877)
+  Iterations: 1
+  Egraph size: 104114 nodes, 28262 classes, 204413 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 1.005736475
+    Search:  (1.00) 1.000708734
+    Apply:   (0.00) 0.000091147
+    Rebuild: (0.00) 0.00491077
+Execution took: 1.005736475 s
+
+Starting Expression: 16
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 11 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000066755
+    Search:  (0.47) 0.000031065
+    Apply:   (0.47) 0.000031144
+    Rebuild: (0.06) 0.000004041
+Execution took: 0.000066755 s
+
+Starting Expression: 17
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 99 nodes, 68 classes, 107 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000187644
+    Search:  (0.29) 0.000054599
+    Apply:   (0.55) 0.000102783
+    Rebuild: (0.16) 0.00002979
+Execution took: 0.000187644 s
+
+Starting Expression: 771
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 228 nodes, 94 classes, 353 memo
+  Rebuilds: 7, 2.33 per iter
+  Total time: 0.000896805
+    Search:  (0.29) 0.000263006
+    Apply:   (0.55) 0.0004969589999999999
+    Rebuild: (0.15) 0.000135752
+Execution took: 0.000896805 s
+
+Starting Expression: 772
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 26 nodes, 18 classes, 28 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000040117
+    Search:  (0.40) 0.000015963
+    Apply:   (0.49) 0.000019674
+    Rebuild: (0.11) 0.000004299
+Execution took: 0.000040117 s
+
+Starting Expression: 1369
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 29 nodes, 20 classes, 31 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000053239
+    Search:  (0.32) 0.000016795
+    Apply:   (0.61) 0.000032215
+    Rebuild: (0.08) 0.00000405
+Execution took: 0.000053239 s
+
+Starting Expression: 1370
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 28 nodes, 12 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000172528
+    Search:  (0.50) 0.000085634
+    Apply:   (0.42) 0.000072661
+    Rebuild: (0.08) 0.000012948
+Execution took: 0.000172528 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 21 nodes, 11 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00008549299999999999
+    Search:  (0.65) 0.000055816
+    Apply:   (0.29) 0.000024871
+    Rebuild: (0.05) 0.000004337
+Execution took: 0.00008549299999999999 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 21 nodes, 11 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000044891
+    Search:  (0.71) 0.000031791
+    Apply:   (0.25) 0.000011393
+    Rebuild: (0.03) 0.000001361
+Execution took: 0.000044891 s
+
+Starting Expression: 1371
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 39 nodes, 28 classes, 42 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000046027
+    Search:  (0.36) 0.000016583
+    Apply:   (0.51) 0.000023442
+    Rebuild: (0.13) 0.000005815
+Execution took: 0.000046027 s
+
+Starting Expression: 1372
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 363 nodes, 157 classes, 461 memo
+  Rebuilds: 6, 2.00 per iter
+  Total time: 0.000493249
+    Search:  (0.27) 0.000133072
+    Apply:   (0.58) 0.000288052
+    Rebuild: (0.15) 0.00007167
+Execution took: 0.000493249 s
+
+Starting Expression: 1373
+Could not prove any goal:
+
+Best Expr: (== (* v0 -500) (* 4 (/ (* v0 -500) 4)))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 10 nodes, 7 classes, 10 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00003712
+    Search:  (0.60) 0.000022171
+    Apply:   (0.33) 0.00001237
+    Rebuild: (0.06) 0.000002104
+Execution took: 0.00003712 s
+
+Could not prove any goal:
+
+Best Expr: (== ("%" (* 500 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 17
+  Egraph size: 148 nodes, 24 classes, 280 memo
+  Rebuilds: 8, 0.47 per iter
+  Total time: 0.002186978
+    Search:  (0.60) 0.001302798
+    Apply:   (0.35) 0.0007693229999999999
+    Rebuild: (0.05) 0.000112202
+Execution took: 0.002186978 s
+
+Could not prove any goal:
+
+Best Expr: (== ("%" (* 500 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 148 nodes, 24 classes, 280 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00022513
+    Search:  (0.64) 0.000143229
+    Apply:   (0.32) 0.000071922
+    Rebuild: (0.04) 0.000009396
+Execution took: 0.00022513 s
+
+Starting Expression: 1374
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 14 nodes, 11 classes, 16 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000028853
+    Search:  (0.48) 0.000013711
+    Apply:   (0.43) 0.00001254
+    Rebuild: (0.08) 0.000002388
+Execution took: 0.000028853 s
+
+Starting Expression: 1375
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 109 nodes, 73 classes, 118 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000092464
+    Search:  (0.30) 0.000027421
+    Apply:   (0.56) 0.00005179
+    Rebuild: (0.14) 0.000013088
+Execution took: 0.000092464 s
+
+Starting Expression: 1376
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 35 nodes, 24 classes, 38 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000041616
+    Search:  (0.37) 0.00001542
+    Apply:   (0.52) 0.000021443
+    Rebuild: (0.11) 0.000004585
+Execution took: 0.000041616 s
+
+Starting Expression: 1377
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 32 nodes, 24 classes, 36 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000039265
+    Search:  (0.36) 0.000014085
+    Apply:   (0.53) 0.000020918
+    Rebuild: (0.10) 0.000004095
+Execution took: 0.000039265 s
+
+Starting Expression: 1378
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 38 nodes, 27 classes, 41 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00003888
+    Search:  (0.39) 0.000015203
+    Apply:   (0.49) 0.000019099
+    Rebuild: (0.11) 0.000004407
+Execution took: 0.00003888 s
+
+Starting Expression: 1379
+Could not prove any goal:
+
+Best Expr: (<= (min (+ (/ v1 32) 2) (/ (+ (max (min v0 60) -64) (- 33 (max 0 (min v0 124)))) 32)) (min (min (+ (/ v1 32) 2) (/ (+ (max (min v0 60) -64) (- 33 (max 0 (min v0 124)))) 32)) -1))
+Runner report
+=============
+  Stop reason: TimeLimit(1.000076225)
+  Iterations: 55
+  Egraph size: 81673 nodes, 23722 classes, 119403 memo
+  Rebuilds: 10529, 191.44 per iter
+  Total time: 1.003459595
+    Search:  (0.54) 0.544005384
+    Apply:   (0.34) 0.341110732
+    Rebuild: (0.12) 0.11816491200000001
+Execution took: 1.003459595 s
+
+Could not prove any goal:
+
+Best Expr: (<= 1 (/ (min (+ v1 64) (+ (max -124 (min 0 (* -1 v0))) (+ (max (min 60 v0) -64) 33))) -32))
+Runner report
+=============
+  Stop reason: TimeLimit(1.000601098)
+  Iterations: 14
+  Egraph size: 82937 nodes, 25411 classes, 127235 memo
+  Rebuilds: 732, 52.29 per iter
+  Total time: 1.003465669
+    Search:  (0.95) 0.948884186
+    Apply:   (0.01) 0.012489885999999999
+    Rebuild: (0.04) 0.041993748
+Execution took: 1.003465669 s
+
+Could not prove any goal:
+
+Best Expr: (<= 1 (/ (min (+ v1 64) (+ (max -124 (min 0 (* -1 v0))) (+ (max (min 60 v0) -64) 33))) -32))
+Runner report
+=============
+  Stop reason: TimeLimit(1.007140476)
+  Iterations: 7
+  Egraph size: 84813 nodes, 26038 classes, 129111 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 1.0111676400000003
+    Search:  (0.97) 0.9788164480000001
+    Apply:   (0.01) 0.008151173000000001
+    Rebuild: (0.02) 0.024149083000000002
+Execution took: 1.0111676400000003 s
+
+Starting Expression: 1380
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 38 nodes, 27 classes, 41 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000038125
+    Search:  (0.36) 0.000013677
+    Apply:   (0.52) 0.000019824
+    Rebuild: (0.12) 0.000004461
+Execution took: 0.000038125 s
+
+Starting Expression: 1610
+Could not prove any goal:
+
+Best Expr: (== (* v0 -20) (* 4 (/ (* v0 -20) 4)))
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 10 nodes, 7 classes, 10 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000028556000000000002
+    Search:  (0.60) 0.000017249
+    Apply:   (0.32) 0.000009227
+    Rebuild: (0.06) 0.0000016770000000000002
+Execution took: 0.000028556000000000002 s
+
+Could not prove any goal:
+
+Best Expr: (== ("%" (* 20 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 17
+  Egraph size: 148 nodes, 24 classes, 280 memo
+  Rebuilds: 8, 0.47 per iter
+  Total time: 0.0017126329999999996
+    Search:  (0.59) 0.001018967
+    Apply:   (0.35) 0.0006036580000000001
+    Rebuild: (0.05) 0.000087841
+Execution took: 0.0017126329999999996 s
+
+Could not prove any goal:
+
+Best Expr: (== ("%" (* 20 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 148 nodes, 24 classes, 280 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000168015
+    Search:  (0.67) 0.000113324
+    Apply:   (0.30) 0.000049758
+    Rebuild: (0.03) 0.000004606
+Execution took: 0.000168015 s
+
+Starting Expression: 1611
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 26 nodes, 18 classes, 28 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00002905
+    Search:  (0.38) 0.000011078
+    Apply:   (0.48) 0.000013896
+    Rebuild: (0.14) 0.000003944
+Execution took: 0.00002905 s
+
+Starting Expression: 1612
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 56 nodes, 38 classes, 60 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000042624
+    Search:  (0.35) 0.000015076
+    Apply:   (0.51) 0.000021802
+    Rebuild: (0.13) 0.000005594
+Execution took: 0.000042624 s
+
+Starting Expression: 1994
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 16 nodes, 12 classes, 18 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000021899
+    Search:  (0.42) 0.000009305
+    Apply:   (0.47) 0.000010361
+    Rebuild: (0.10) 0.000002116
+Execution took: 0.000021899 s
+
+Starting Expression: 1995
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 12 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000018621
+    Search:  (0.48) 0.000008958
+    Apply:   (0.43) 0.00000808
+    Rebuild: (0.08) 0.000001429
+Execution took: 0.000018621 s
+
+Starting Expression: 2016
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 4
+  Egraph size: 1143 nodes, 434 classes, 1776 memo
+  Rebuilds: 138, 34.50 per iter
+  Total time: 0.001345482
+    Search:  (0.26) 0.000345134
+    Apply:   (0.54) 0.000732376
+    Rebuild: (0.20) 0.00026741799999999995
+Execution took: 0.001345482 s
+
+Starting Expression: 2017
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 15 nodes, 11 classes, 17 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000023357
+    Search:  (0.49) 0.000011367
+    Apply:   (0.43) 0.000010058
+    Rebuild: (0.08) 0.000001789
+Execution took: 0.000023357 s
+
+Starting Expression: 2018
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 50 nodes, 36 classes, 56 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000040234
+    Search:  (0.31) 0.000012347
+    Apply:   (0.56) 0.00002247
+    Rebuild: (0.13) 0.000005281
+Execution took: 0.000040234 s
+
+Starting Expression: 2019
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* v0 4) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 47 nodes, 16 classes, 79 memo
+  Rebuilds: 4, 0.50 per iter
+  Total time: 0.00018749900000000004
+    Search:  (0.47) 0.000087951
+    Apply:   (0.44) 0.00008204499999999999
+    Rebuild: (0.09) 0.000016479000000000003
+Execution took: 0.00018749900000000004 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* 4 v0) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 39 nodes, 15 classes, 79 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000093507
+    Search:  (0.65) 0.000060436
+    Apply:   (0.31) 0.000028608
+    Rebuild: (0.04) 0.0000041
+Execution took: 0.000093507 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* 4 v0) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 39 nodes, 15 classes, 79 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000048366
+    Search:  (0.68) 0.000033002
+    Apply:   (0.28) 0.000013591
+    Rebuild: (0.03) 0.000001514
+Execution took: 0.000048366 s
+
+Starting Expression: 2020
+Could not prove any goal:
+
+Best Expr: (== (* -4 (min (max 0 (min (/ (+ (+ v0 v1) 47) 16) 124)) (+ -1 (+ (* v2 2) (max 2 (min (/ v1 16) 126)))))) (- 11 (* 4 (+ (* v2 2) (max 2 (min (/ v1 16) 126))))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.010783404)
+  Iterations: 49
+  Egraph size: 136570 nodes, 51138 classes, 176715 memo
+  Rebuilds: 12700, 259.18 per iter
+  Total time: 1.0203747699999999
+    Search:  (0.54) 0.5500656420000001
+    Apply:   (0.29) 0.293175589
+    Rebuild: (0.17) 0.176858136
+Execution took: 1.0203747699999999 s
+
+Could not prove any goal:
+
+Best Expr: (== (* -4 (min (max 0 (min (/ (+ (+ v0 v1) 47) 16) 124)) (+ -1 (+ (* v2 2) (max 2 (min (/ v1 16) 126)))))) (- 11 (* 4 (+ (* v2 2) (max 2 (min (/ v1 16) 126))))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.008170374)
+  Iterations: 4
+  Egraph size: 135792 nodes, 51460 classes, 177771 memo
+  Rebuilds: 85, 21.25 per iter
+  Total time: 1.016084084
+    Search:  (0.96) 0.973252342
+    Apply:   (0.00) 0.001493731
+    Rebuild: (0.04) 0.041314614
+Execution took: 1.016084084 s
+
+Could not prove any goal:
+
+Best Expr: (== (min (* (max 0 (min 124 (/ (+ (+ v0 v1) 47) 16))) 4) (+ -4 (* 4 (+ (* v2 2) (max 2 (min 126 (/ v1 16))))))) (+ -11 (* 4 (+ (* v2 2) (max 2 (min 126 (/ v1 16)))))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.015778305)
+  Iterations: 4
+  Egraph size: 139161 nodes, 52758 classes, 181174 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 1.025043964
+    Search:  (0.95) 0.9779497620000001
+    Apply:   (0.00) 0.004093897
+    Rebuild: (0.04) 0.04299102899999999
+Execution took: 1.025043964 s
+
+Starting Expression: 2021
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 185 nodes, 72 classes, 332 memo
+  Rebuilds: 12, 4.00 per iter
+  Total time: 0.00045235999999999996
+    Search:  (0.30) 0.00013597499999999998
+    Apply:   (0.55) 0.000249008
+    Rebuild: (0.15) 0.00006661199999999999
+Execution took: 0.00045235999999999996 s
+
+Starting Expression: 2022
+Could not prove any goal:
+
+Best Expr: (<= (max (min (+ v3 508) (min 2000 (min (+ v1 v2) 2000))) (min (+ v3 508) (max (+ v3 -10) (max 0 (max v2 0))))) (min (+ v3 508) (max (+ v3 -10) (max 0 (max v2 0)))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.000064223)
+  Iterations: 62
+  Egraph size: 75087 nodes, 25272 classes, 109941 memo
+  Rebuilds: 10636, 171.55 per iter
+  Total time: 1.003334352
+    Search:  (0.49) 0.49267703299999993
+    Apply:   (0.35) 0.3466495950000001
+    Rebuild: (0.16) 0.163974311
+Execution took: 1.003334352 s
+
+Could not prove any goal:
+
+Best Expr: (<= (+ -518 (min (- 518 (max 0 (max 0 v2))) (- 518 (+ -10 v3)))) (+ (- 0 v2) (max (max (- 0 v1) (+ -2000 v2)) (+ (- -508 v3) v2))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.001139192)
+  Iterations: 18
+  Egraph size: 68837 nodes, 24548 classes, 123646 memo
+  Rebuilds: 3230, 179.44 per iter
+  Total time: 1.0039907389999998
+    Search:  (0.90) 0.907888825
+    Apply:   (0.04) 0.036194472
+    Rebuild: (0.06) 0.059785003
+Execution took: 1.0039907389999998 s
+
+Could not prove any goal:
+
+Best Expr: (<= (min (min (+ v2 v1) 2000) (+ 508 v3)) (max (+ -10 v3) (max 0 (max 0 v2))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.000210508)
+  Iterations: 14
+  Egraph size: 70362 nodes, 25217 classes, 126187 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 1.00628455
+    Search:  (0.92) 0.927759874
+    Apply:   (0.03) 0.029323112
+    Rebuild: (0.05) 0.049128032
+Execution took: 1.00628455 s
+
+Starting Expression: 2152
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 80 nodes, 55 classes, 88 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000063077
+    Search:  (0.30) 0.000019055
+    Apply:   (0.56) 0.00003533
+    Rebuild: (0.14) 0.000008518
+Execution took: 0.000063077 s
+
+Starting Expression: 2153
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 22 nodes, 15 classes, 24 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000027085
+    Search:  (0.45) 0.000012198
+    Apply:   (0.45) 0.000012296
+    Rebuild: (0.09) 0.000002456
+Execution took: 0.000027085 s
+
+Starting Expression: 2694
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 28 nodes, 12 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00012805099999999998
+    Search:  (0.49) 0.000063234
+    Apply:   (0.42) 0.000054081
+    Rebuild: (0.08) 0.000009672
+Execution took: 0.00012805099999999998 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 2
+  Egraph size: 21 nodes, 11 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000064521
+    Search:  (0.65) 0.000042172
+    Apply:   (0.29) 0.000018738
+    Rebuild: (0.05) 0.000003212
+Execution took: 0.000064521 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 21 nodes, 11 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000031851
+    Search:  (0.69) 0.000022004
+    Apply:   (0.27) 0.000008543
+    Rebuild: (0.03) 0.000001008
+Execution took: 0.000031851 s
+
+Starting Expression: 2695
+Could not prove any goal:
+
+Best Expr: (== (/ (+ ("%" (+ v0 v1) 8) 180) 8) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(1.000782277)
+  Iterations: 97
+  Egraph size: 92798 nodes, 13963 classes, 130474 memo
+  Rebuilds: 6394, 65.92 per iter
+  Total time: 1.0032874599999997
+    Search:  (0.57) 0.566983909
+    Apply:   (0.33) 0.3272237340000001
+    Rebuild: (0.11) 0.10900995400000002
+Execution took: 1.0032874599999997 s
+
+Could not prove any goal:
+
+Best Expr: (== (/ (+ ("%" (+ v0 v1) 8) 180) 8) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(1.002056328)
+  Iterations: 24
+  Egraph size: 110826 nodes, 20663 classes, 148576 memo
+  Rebuilds: 13, 0.54 per iter
+  Total time: 1.004776567
+    Search:  (0.91) 0.9116586230000001
+    Apply:   (0.03) 0.033705563
+    Rebuild: (0.06) 0.05923380400000001
+Execution took: 1.004776567 s
+
+Could not prove any goal:
+
+Best Expr: (== (/ (+ ("%" (+ v0 v1) 8) 180) 8) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(1.019465843)
+  Iterations: 12
+  Egraph size: 119954 nodes, 23719 classes, 157704 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 1.0236403529999998
+    Search:  (0.92) 0.94428011
+    Apply:   (0.04) 0.038285478
+    Rebuild: (0.04) 0.041036829
+Execution took: 1.0236403529999998 s
+
+Starting Expression: 2696
+Could not prove any goal:
+
+Best Expr: (== (min (* (max (min 125 (* (/ v1 125) 8)) 1) -16) (* 8 (- -2 v2))) (+ -23 (* v2 -8)))
+Runner report
+=============
+  Stop reason: TimeLimit(1.001603951)
+  Iterations: 53
+  Egraph size: 109264 nodes, 39796 classes, 164705 memo
+  Rebuilds: 18394, 347.06 per iter
+  Total time: 1.0084119539999998
+    Search:  (0.50) 0.5028882379999999
+    Apply:   (0.31) 0.30841885
+    Rebuild: (0.20) 0.19699352
+Execution took: 1.0084119539999998 s
+
+Could not prove any goal:
+
+Best Expr: (== (min (* (max (min 125 (* (/ v1 125) 8)) 1) -16) (* 8 (- -2 v2))) (+ -23 (* v2 -8)))
+Runner report
+=============
+  Stop reason: TimeLimit(1.017070482)
+  Iterations: 4
+  Egraph size: 109550 nodes, 39918 classes, 165185 memo
+  Rebuilds: 3, 0.75 per iter
+  Total time: 1.03343528
+    Search:  (0.94) 0.973237668
+    Apply:   (0.00) 0.0022874189999999997
+    Rebuild: (0.06) 0.057900611000000005
+Execution took: 1.03343528 s
+
+Could not prove any goal:
+
+Best Expr: (== (max (* (max (min 125 (* 8 (/ v1 125))) 1) 16) (* -1 (* 8 (- -2 v2)))) (+ (* 8 v2) (+ (- v0 -4) (- 19 v0))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.002385159)
+  Iterations: 4
+  Egraph size: 109554 nodes, 39920 classes, 165197 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 1.0204730800000001
+    Search:  (0.95) 0.967875466
+    Apply:   (0.00) 0.0017273610000000002
+    Rebuild: (0.05) 0.050856034
+Execution took: 1.0204730800000001 s
+
+Starting Expression: 3056
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 29 nodes, 20 classes, 31 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000078834
+    Search:  (0.40) 0.000031338
+    Apply:   (0.51) 0.000040263
+    Rebuild: (0.09) 0.000006914
+Execution took: 0.000078834 s
+
+Starting Expression: 3057
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 32 nodes, 22 classes, 35 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000064424
+    Search:  (0.42) 0.000027053
+    Apply:   (0.47) 0.000030303
+    Rebuild: (0.11) 0.000006789
+Execution took: 0.000064424 s
+
+Starting Expression: 3058
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 157 nodes, 61 classes, 262 memo
+  Rebuilds: 8, 2.67 per iter
+  Total time: 0.000497044
+    Search:  (0.31) 0.000156467
+    Apply:   (0.53) 0.000264263
+    Rebuild: (0.15) 0.00007557
+Execution took: 0.000497044 s
+
+Starting Expression: 4218
+Could not prove any goal:
+
+Best Expr: (<= (max (+ 1 (min (/ v2 32) (/ (+ (/ (+ (+ v3 v4) 3) 4) (+ (* (/ v4 4) -1) -31)) 32))) (min (+ 1 (/ v2 32)) (max 0 (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32))))) (min (+ 1 (/ v2 32)) (max 0 (+ 1 (/ (- (/ (+ (+ v3 v4) 3) 4) (/ v4 4)) 32)))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.001068123)
+  Iterations: 52
+  Egraph size: 87237 nodes, 26375 classes, 122583 memo
+  Rebuilds: 11356, 218.38 per iter
+  Total time: 1.014048888
+    Search:  (0.50) 0.5090983909999999
+    Apply:   (0.34) 0.346917401
+    Rebuild: (0.16) 0.15792705999999998
+Execution took: 1.014048888 s
+
+Could not prove any goal:
+
+Best Expr: (<= (max (+ -1 (min 1 (/ (- (/ (+ (+ v4 v3) 3) 4) (/ v4 4)) -32))) (+ -1 (/ v2 -32))) (- -1 (/ (min v2 (+ (/ (+ (+ v4 v3) 3) 4) (- -31 (/ v4 4)))) 32)))
+Runner report
+=============
+  Stop reason: TimeLimit(1.001663742)
+  Iterations: 9
+  Egraph size: 71307 nodes, 21573 classes, 132288 memo
+  Rebuilds: 7516, 835.11 per iter
+  Total time: 1.011490356
+    Search:  (0.93) 0.9434339690000001
+    Apply:   (0.01) 0.012404773000000001
+    Rebuild: (0.05) 0.05530924999999999
+Execution took: 1.011490356 s
+
+Could not prove any goal:
+
+Best Expr: (<= (+ 1 (/ (min v2 (+ (/ (+ (+ v4 v3) 3) 4) (- -31 (/ v4 4)))) 32)) (min (+ 1 (/ v2 32)) (+ (/ (- (/ (+ (+ v4 v3) 3) 4) (/ v4 4)) 32) (max 1 (/ (- (/ (+ (+ v4 v3) 3) 4) (/ v4 4)) -32)))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.174608213)
+  Iterations: 3
+  Egraph size: 71325 nodes, 21573 classes, 132306 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 1.178690143
+    Search:  (0.99) 1.16252851
+    Apply:   (0.00) 0.0017135639999999999
+    Rebuild: (0.01) 0.01418845
+Execution took: 1.178690143 s
+
+Starting Expression: 4306
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 62 nodes, 44 classes, 67 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000082991
+    Search:  (0.33) 0.000026974
+    Apply:   (0.54) 0.000044461
+    Rebuild: (0.14) 0.000011206
+Execution took: 0.000082991 s
+
+Starting Expression: 4858
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 25 nodes, 18 classes, 29 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000049653
+    Search:  (0.41) 0.000020157
+    Apply:   (0.50) 0.000024681
+    Rebuild: (0.09) 0.00000451
+Execution took: 0.000049653 s
+
+Starting Expression: 4888
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 4
+  Egraph size: 393 nodes, 129 classes, 554 memo
+  Rebuilds: 15, 3.75 per iter
+  Total time: 0.000821258
+    Search:  (0.31) 0.00025447299999999996
+    Apply:   (0.55) 0.000450966
+    Rebuild: (0.14) 0.00011491600000000001
+Execution took: 0.000821258 s
+
+Starting Expression: 4889
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 21 nodes, 14 classes, 23 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000043116
+    Search:  (0.44) 0.000019186
+    Apply:   (0.46) 0.000019963
+    Rebuild: (0.09) 0.000003721
+Execution took: 0.000043116 s
+
+Starting Expression: 5227
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 65 nodes, 36 classes, 72 memo
+  Rebuilds: 1, 0.50 per iter
+  Total time: 0.000129559
+    Search:  (0.38) 0.000049211
+    Apply:   (0.49) 0.000063554
+    Rebuild: (0.13) 0.000016355000000000002
+Execution took: 0.000129559 s
+
+Starting Expression: 5275
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 24 nodes, 16 classes, 26 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00004558
+    Search:  (0.44) 0.000020123
+    Apply:   (0.46) 0.000020777
+    Rebuild: (0.10) 0.000004414
+Execution took: 0.00004558 s
+
+Starting Expression: 5287
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 52 nodes, 35 classes, 57 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000065955
+    Search:  (0.36) 0.000023951
+    Apply:   (0.54) 0.000035485
+    Rebuild: (0.10) 0.000006318
+Execution took: 0.000065955 s
+
+Starting Expression: 5668
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 61 nodes, 41 classes, 65 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000076516
+    Search:  (0.34) 0.000026338
+    Apply:   (0.52) 0.000040131
+    Rebuild: (0.13) 0.000009798
+Execution took: 0.000076516 s
+
+Execution time : |24| |22|
+Starting: K=55
+[['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch', 'eq-max-lt', 'min-div-out-neg', 'Eq-min-c-neg']] 
+
+ Total Classes: 2
+Starting Expression: 1
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 22 nodes, 15 classes, 24 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000068985
+    Search:  (0.54) 0.000037094
+    Apply:   (0.38) 0.000026474
+    Rebuild: (0.07) 0.000005097
+Execution took: 0.000068985 s
+
+Starting Expression: 2
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 48 nodes, 34 classes, 53 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000092462
+    Search:  (0.40) 0.000037046
+    Apply:   (0.49) 0.000045245
+    Rebuild: (0.11) 0.000009861
+Execution took: 0.000092462 s
+
+Starting Expression: 3
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 118 nodes, 63 classes, 200 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000469638
+    Search:  (0.40) 0.000188268
+    Apply:   (0.49) 0.00022914299999999998
+    Rebuild: (0.11) 0.000051589
+Execution took: 0.000469638 s
+
+Starting Expression: 4
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 11 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000056236
+    Search:  (0.54) 0.000030121
+    Apply:   (0.41) 0.000023213
+    Rebuild: (0.05) 0.000002564
+Execution took: 0.000056236 s
+
+Starting Expression: 5
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 428 nodes, 162 classes, 613 memo
+  Rebuilds: 21, 7.00 per iter
+  Total time: 0.001291828
+    Search:  (0.33) 0.000425608
+    Apply:   (0.51) 0.000661564
+    Rebuild: (0.16) 0.000203519
+Execution took: 0.001291828 s
+
+Starting Expression: 6
+Proved goal:
+"0"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 0 Matched")
+  Iterations: 7
+  Egraph size: 975 nodes, 233 classes, 1693 memo
+  Rebuilds: 56, 8.00 per iter
+  Total time: 0.006559076
+    Search:  (0.38) 0.002519754
+    Apply:   (0.51) 0.0033660340000000004
+    Rebuild: (0.10) 0.000669589
+Execution took: 0.006559076 s
+
+Starting Expression: 7
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 4
+  Egraph size: 676 nodes, 253 classes, 1248 memo
+  Rebuilds: 105, 26.25 per iter
+  Total time: 0.0024586820000000002
+    Search:  (0.28) 0.000682427
+    Apply:   (0.52) 0.00127768
+    Rebuild: (0.20) 0.000497004
+Execution took: 0.0024586820000000002 s
+
+Starting Expression: 8
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 65 nodes, 46 classes, 72 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000142451
+    Search:  (0.48) 0.000068115
+    Apply:   (0.44) 0.000062065
+    Rebuild: (0.08) 0.000011831
+Execution took: 0.000142451 s
+
+Starting Expression: 9
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 453 nodes, 184 classes, 601 memo
+  Rebuilds: 19, 6.33 per iter
+  Total time: 0.001026251
+    Search:  (0.36) 0.000364557
+    Apply:   (0.50) 0.0005178089999999999
+    Rebuild: (0.14) 0.000143025
+Execution took: 0.001026251 s
+
+Starting Expression: 10
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 37 nodes, 25 classes, 39 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000073393
+    Search:  (0.46) 0.000034107
+    Apply:   (0.44) 0.000031989
+    Rebuild: (0.10) 0.000007045
+Execution took: 0.000073393 s
+
+Starting Expression: 11
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 289 nodes, 116 classes, 488 memo
+  Rebuilds: 17, 5.67 per iter
+  Total time: 0.003196253
+    Search:  (0.47) 0.00148852
+    Apply:   (0.43) 0.001378641
+    Rebuild: (0.10) 0.000326193
+Execution took: 0.003196253 s
+
+Starting Expression: 12
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 50 nodes, 28 classes, 129 memo
+  Rebuilds: 1, 0.50 per iter
+  Total time: 0.000435891
+    Search:  (0.45) 0.00019759999999999998
+    Apply:   (0.42) 0.000185021
+    Rebuild: (0.12) 0.000052624
+Execution took: 0.000435891 s
+
+Starting Expression: 13
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 7
+  Egraph size: 4865 nodes, 2045 classes, 12295 memo
+  Rebuilds: 2291, 327.29 per iter
+  Total time: 0.043361342
+    Search:  (0.61) 0.026343711
+    Apply:   (0.23) 0.009797113
+    Rebuild: (0.17) 0.0072167229999999995
+Execution took: 0.043361342 s
+
+Starting Expression: 14
+Proved goal:
+"0"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 0 Matched")
+  Iterations: 6
+  Egraph size: 60 nodes, 20 classes, 181 memo
+  Rebuilds: 13, 2.17 per iter
+  Total time: 0.001563858
+    Search:  (0.48) 0.0007444140000000001
+    Apply:   (0.45) 0.000696061
+    Rebuild: (0.08) 0.000118634
+Execution took: 0.001563858 s
+
+Starting Expression: 15
+Could not prove any goal:
+
+Best Expr: (<= 0 (/ (max (- -539 ("%" v3 8)) (+ ("%" (+ (min (* 500 v0) (+ v1 -500)) (+ v2 507)) 8) -522)) 32))
+Runner report
+=============
+  Stop reason: TimeLimit(1.506121382)
+  Iterations: 46
+  Egraph size: 72147 nodes, 25439 classes, 106586 memo
+  Rebuilds: 10148, 220.61 per iter
+  Total time: 1.5145411009999996
+    Search:  (0.76) 1.1504477009999998
+    Apply:   (0.14) 0.207284011
+    Rebuild: (0.10) 0.15674917100000002
+Execution took: 1.5145411009999996 s
+
+Could not prove any goal:
+
+Best Expr: (<= 0 (/ (max (- -539 ("%" v3 8)) (+ ("%" (+ (min (* 500 v0) (+ v1 -500)) (+ v2 507)) 8) -522)) 32))
+Runner report
+=============
+  Stop reason: TimeLimit(1.5109336949999999)
+  Iterations: 11
+  Egraph size: 74744 nodes, 26723 classes, 109212 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 1.518802059
+    Search:  (0.94) 1.424362651
+    Apply:   (0.02) 0.036031090999999994
+    Rebuild: (0.04) 0.058377572999999995
+Execution took: 1.518802059 s
+
+Starting Expression: 16
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 11 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000031657
+    Search:  (0.53) 0.000016923
+    Apply:   (0.40) 0.000012719
+    Rebuild: (0.06) 0.000001824
+Execution took: 0.000031657 s
+
+Starting Expression: 17
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 101 nodes, 69 classes, 109 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000087233
+    Search:  (0.36) 0.000031721
+    Apply:   (0.50) 0.000043547
+    Rebuild: (0.14) 0.000011792
+Execution took: 0.000087233 s
+
+Starting Expression: 771
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 196 nodes, 82 classes, 346 memo
+  Rebuilds: 14, 4.67 per iter
+  Total time: 0.000404011
+    Search:  (0.35) 0.000140933
+    Apply:   (0.51) 0.00020443799999999998
+    Rebuild: (0.14) 0.000058216
+Execution took: 0.000404011 s
+
+Starting Expression: 772
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 26 nodes, 18 classes, 28 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000039846
+    Search:  (0.45) 0.000017747
+    Apply:   (0.46) 0.000018418
+    Rebuild: (0.09) 0.00000355
+Execution took: 0.000039846 s
+
+Starting Expression: 1369
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 29 nodes, 20 classes, 31 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00004097
+    Search:  (0.47) 0.00001927
+    Apply:   (0.44) 0.000018003
+    Rebuild: (0.09) 0.000003557
+Execution took: 0.00004097 s
+
+Starting Expression: 1370
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 21 nodes, 11 classes, 34 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00016248899999999998
+    Search:  (0.56) 0.000090369
+    Apply:   (0.37) 0.000060664
+    Rebuild: (0.06) 0.000010425
+Execution took: 0.00016248899999999998 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 21 nodes, 11 classes, 34 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000038385
+    Search:  (0.68) 0.000026115
+    Apply:   (0.28) 0.000010726
+    Rebuild: (0.03) 0.000001188
+Execution took: 0.000038385 s
+
+Starting Expression: 1371
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 42 nodes, 30 classes, 45 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000059395
+    Search:  (0.32) 0.000019209
+    Apply:   (0.56) 0.000033547
+    Rebuild: (0.11) 0.000006465
+Execution took: 0.000059395 s
+
+Starting Expression: 1372
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 363 nodes, 157 classes, 461 memo
+  Rebuilds: 6, 2.00 per iter
+  Total time: 0.000594447
+    Search:  (0.35) 0.000208
+    Apply:   (0.53) 0.000313697
+    Rebuild: (0.12) 0.00007228599999999999
+Execution took: 0.000594447 s
+
+Starting Expression: 1373
+Could not prove any goal:
+
+Best Expr: (== ("%" (* 500 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 11
+  Egraph size: 104 nodes, 20 classes, 228 memo
+  Rebuilds: 11, 1.00 per iter
+  Total time: 0.0008387350000000001
+    Search:  (0.55) 0.00046533400000000003
+    Apply:   (0.37) 0.000313508
+    Rebuild: (0.07) 0.000058463999999999995
+Execution took: 0.0008387350000000001 s
+
+Could not prove any goal:
+
+Best Expr: (== ("%" (* 500 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 148 nodes, 24 classes, 301 memo
+  Rebuilds: 10, 1.25 per iter
+  Total time: 0.001176271
+    Search:  (0.64) 0.0007570130000000001
+    Apply:   (0.32) 0.000371358
+    Rebuild: (0.04) 0.000046808
+Execution took: 0.001176271 s
+
+Starting Expression: 1374
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 17 nodes, 13 classes, 19 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000030032
+    Search:  (0.49) 0.000014822
+    Apply:   (0.43) 0.000012904
+    Rebuild: (0.07) 0.000002179
+Execution took: 0.000030032 s
+
+Starting Expression: 1375
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 109 nodes, 73 classes, 118 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00008711
+    Search:  (0.37) 0.000032236
+    Apply:   (0.51) 0.000044257
+    Rebuild: (0.12) 0.00001049
+Execution took: 0.00008711 s
+
+Starting Expression: 1376
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 35 nodes, 24 classes, 38 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000043346
+    Search:  (0.42) 0.000018273
+    Apply:   (0.48) 0.000020778
+    Rebuild: (0.10) 0.000004159
+Execution took: 0.000043346 s
+
+Starting Expression: 1377
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 32 nodes, 24 classes, 36 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000041847
+    Search:  (0.41) 0.000017366
+    Apply:   (0.49) 0.000020563
+    Rebuild: (0.09) 0.000003781
+Execution took: 0.000041847 s
+
+Starting Expression: 1378
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 41 nodes, 29 classes, 45 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00005858
+    Search:  (0.57) 0.000033328
+    Apply:   (0.35) 0.000020608
+    Rebuild: (0.08) 0.000004526
+Execution took: 0.00005858 s
+
+Starting Expression: 1379
+Could not prove any goal:
+
+Best Expr: (<= 0 (/ (max (+ (- (max 0 (min 124 v0)) (max -64 (min 60 v0))) -65) (+ -32 (- 32 (+ v1 96)))) 32))
+Runner report
+=============
+  Stop reason: TimeLimit(1.512264106)
+  Iterations: 43
+  Egraph size: 64581 nodes, 23963 classes, 95907 memo
+  Rebuilds: 9481, 220.49 per iter
+  Total time: 1.5159633529999998
+    Search:  (0.79) 1.1924208950000001
+    Apply:   (0.13) 0.20001081200000004
+    Rebuild: (0.08) 0.12351162599999999
+Execution took: 1.5159633529999998 s
+
+Could not prove any goal:
+
+Best Expr: (<= 0 (/ (max (+ (- (max 0 (min 124 v0)) (max -64 (min 60 v0))) -65) (+ -32 (- 32 (+ v1 96)))) 32))
+Runner report
+=============
+  Stop reason: TimeLimit(1.502153228)
+  Iterations: 10
+  Egraph size: 66719 nodes, 24867 classes, 98472 memo
+  Rebuilds: 126, 12.60 per iter
+  Total time: 1.505434068
+    Search:  (0.93) 1.4038378360000001
+    Apply:   (0.03) 0.04332728500000001
+    Rebuild: (0.04) 0.058135439
+Execution took: 1.505434068 s
+
+Starting Expression: 1380
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 38 nodes, 27 classes, 41 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.0000438
+    Search:  (0.42) 0.000018322
+    Apply:   (0.47) 0.000020799
+    Rebuild: (0.10) 0.000004535
+Execution took: 0.0000438 s
+
+Starting Expression: 1610
+Could not prove any goal:
+
+Best Expr: (== ("%" (* 20 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 11
+  Egraph size: 104 nodes, 20 classes, 228 memo
+  Rebuilds: 11, 1.00 per iter
+  Total time: 0.000787121
+    Search:  (0.55) 0.00043576
+    Apply:   (0.37) 0.000295146
+    Rebuild: (0.07) 0.000054856000000000005
+Execution took: 0.000787121 s
+
+Could not prove any goal:
+
+Best Expr: (== ("%" (* 20 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 148 nodes, 24 classes, 301 memo
+  Rebuilds: 10, 1.25 per iter
+  Total time: 0.001115693
+    Search:  (0.63) 0.000699506
+    Apply:   (0.33) 0.000370338
+    Rebuild: (0.04) 0.000044735
+Execution took: 0.001115693 s
+
+Starting Expression: 1611
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 26 nodes, 18 classes, 28 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00004045
+    Search:  (0.50) 0.000020383
+    Apply:   (0.41) 0.000016435
+    Rebuild: (0.09) 0.000003481
+Execution took: 0.00004045 s
+
+Starting Expression: 1612
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 56 nodes, 38 classes, 60 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000049137
+    Search:  (0.42) 0.000020508
+    Apply:   (0.46) 0.000022789
+    Rebuild: (0.12) 0.000005712
+Execution took: 0.000049137 s
+
+Starting Expression: 1994
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 16 nodes, 12 classes, 18 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000027654
+    Search:  (0.48) 0.000013316
+    Apply:   (0.43) 0.000011946
+    Rebuild: (0.08) 0.000002272
+Execution took: 0.000027654 s
+
+Starting Expression: 1995
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 12 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000022685
+    Search:  (0.54) 0.000012218
+    Apply:   (0.40) 0.000009052
+    Rebuild: (0.06) 0.000001287
+Execution took: 0.000022685 s
+
+Starting Expression: 2016
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 4
+  Egraph size: 1170 nodes, 449 classes, 1806 memo
+  Rebuilds: 137, 34.25 per iter
+  Total time: 0.002722331
+    Search:  (0.27) 0.000723701
+    Apply:   (0.53) 0.001455924
+    Rebuild: (0.20) 0.000541625
+Execution took: 0.002722331 s
+
+Starting Expression: 2017
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 15 nodes, 11 classes, 17 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000035918
+    Search:  (0.52) 0.000018619
+    Apply:   (0.42) 0.000014989
+    Rebuild: (0.06) 0.000002142
+Execution took: 0.000035918 s
+
+Starting Expression: 2018
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 50 nodes, 36 classes, 56 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000050212
+    Search:  (0.36) 0.00001831
+    Apply:   (0.51) 0.000025718
+    Rebuild: (0.12) 0.000006042
+Execution took: 0.000050212 s
+
+Starting Expression: 2019
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* 4 v0) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 39 nodes, 15 classes, 79 memo
+  Rebuilds: 4, 0.50 per iter
+  Total time: 0.00030170200000000005
+    Search:  (0.59) 0.000177147
+    Apply:   (0.34) 0.00010359799999999999
+    Rebuild: (0.07) 0.000019717
+Execution took: 0.00030170200000000005 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* 4 v0) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 39 nodes, 15 classes, 79 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000050577
+    Search:  (0.67) 0.000033927
+    Apply:   (0.30) 0.00001494
+    Rebuild: (0.03) 0.000001443
+Execution took: 0.000050577 s
+
+Starting Expression: 2020
+Could not prove any goal:
+
+Best Expr: (== (* 4 (min (max 0 (min (/ (+ (+ v1 v0) 47) 16) 124)) (- (* v2 2) (- 1 (max 2 (min 126 (/ v1 16))))))) (+ (* v2 8) (- -11 (* (max 2 (min 126 (/ v1 16))) -4))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.500179915)
+  Iterations: 48
+  Egraph size: 66886 nodes, 24457 classes, 81206 memo
+  Rebuilds: 3836, 79.92 per iter
+  Total time: 1.503163257
+    Search:  (0.77) 1.1598116180000002
+    Apply:   (0.14) 0.217041416
+    Rebuild: (0.08) 0.126237856
+Execution took: 1.503163257 s
+
+Could not prove any goal:
+
+Best Expr: (== (* 4 (min (max 0 (min (/ (+ (+ v1 v0) 47) 16) 124)) (- (* v2 2) (- 1 (max 2 (min 126 (/ v1 16))))))) (+ (* v2 8) (- -11 (* (max 2 (min 126 (/ v1 16))) -4))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.502695823)
+  Iterations: 11
+  Egraph size: 77446 nodes, 27584 classes, 96312 memo
+  Rebuilds: 1338, 121.64 per iter
+  Total time: 1.5069664079999998
+    Search:  (0.89) 1.3398858750000002
+    Apply:   (0.06) 0.08740182800000001
+    Rebuild: (0.05) 0.079496626
+Execution took: 1.5069664079999998 s
+
+Starting Expression: 2021
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 146 nodes, 58 classes, 324 memo
+  Rebuilds: 22, 7.33 per iter
+  Total time: 0.000551288
+    Search:  (0.33) 0.000183976
+    Apply:   (0.52) 0.000287848
+    Rebuild: (0.14) 0.000078861
+Execution took: 0.000551288 s
+
+Starting Expression: 2022
+Could not prove any goal:
+
+Best Expr: (<= (max (min (+ v1 v2) (min 2000 (+ v3 508))) (min (+ v3 508) (max (+ v3 -10) (max v2 0)))) (min (+ v3 508) (max (+ v3 -10) (max v2 0))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.5012225099999998)
+  Iterations: 49
+  Egraph size: 75160 nodes, 23621 classes, 132168 memo
+  Rebuilds: 15710, 320.61 per iter
+  Total time: 1.5081121519999998
+    Search:  (0.72) 1.079354168
+    Apply:   (0.17) 0.258800027
+    Rebuild: (0.11) 0.16992681299999998
+Execution took: 1.5081121519999998 s
+
+Could not prove any goal:
+
+Best Expr: (<= (min (+ v1 v2) (min 2000 (+ v3 508))) (min (+ v3 508) (max (+ v3 -10) (max v2 0))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.5027307410000001)
+  Iterations: 12
+  Egraph size: 83741 nodes, 27213 classes, 141691 memo
+  Rebuilds: 21, 1.75 per iter
+  Total time: 1.5084057469999999
+    Search:  (0.93) 1.400582698
+    Apply:   (0.02) 0.024812998000000006
+    Rebuild: (0.05) 0.082943199
+Execution took: 1.5084057469999999 s
+
+Starting Expression: 2152
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 82 nodes, 56 classes, 90 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000166333
+    Search:  (0.37) 0.000061532
+    Apply:   (0.52) 0.000086413
+    Rebuild: (0.11) 0.000018049
+Execution took: 0.000166333 s
+
+Starting Expression: 2153
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 22 nodes, 15 classes, 24 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000100431
+    Search:  (0.50) 0.000049993
+    Apply:   (0.44) 0.000044103
+    Rebuild: (0.06) 0.000005885
+Execution took: 0.000100431 s
+
+Starting Expression: 2694
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 21 nodes, 11 classes, 34 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000339445
+    Search:  (0.56) 0.000189054
+    Apply:   (0.37) 0.000125625
+    Rebuild: (0.07) 0.00002232
+Execution took: 0.000339445 s
+
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 1
+  Egraph size: 21 nodes, 11 classes, 34 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.0001006
+    Search:  (0.60) 0.000060595
+    Apply:   (0.36) 0.000036152
+    Rebuild: (0.03) 0.000002859
+Execution took: 0.0001006 s
+
+Starting Expression: 2695
+Could not prove any goal:
+
+Best Expr: (== 0 (/ (- -172 ("%" (+ v1 v0) 8)) 8))
+Runner report
+=============
+  Stop reason: TimeLimit(1.5096522060000002)
+  Iterations: 58
+  Egraph size: 99961 nodes, 27734 classes, 155070 memo
+  Rebuilds: 13591, 234.33 per iter
+  Total time: 1.5223101409999997
+    Search:  (0.71) 1.0858135249999998
+    Apply:   (0.17) 0.262459883
+    Rebuild: (0.11) 0.173841471
+Execution took: 1.5223101409999997 s
+
+Could not prove any goal:
+
+Best Expr: (== 0 (/ (- -172 ("%" (+ v1 v0) 8)) 8))
+Runner report
+=============
+  Stop reason: TimeLimit(1.50272112)
+  Iterations: 8
+  Egraph size: 143481 nodes, 31384 classes, 230115 memo
+  Rebuilds: 7699, 962.38 per iter
+  Total time: 1.5848983669999999
+    Search:  (0.79) 1.2522979600000002
+    Apply:   (0.12) 0.194618397
+    Rebuild: (0.09) 0.13792602199999998
+Execution took: 1.5848983669999999 s
+
+Starting Expression: 2696
+Could not prove any goal:
+
+Best Expr: (== (- -23 (* 8 v2)) (min (* (max (* -8 (/ v1 125)) -125) 16) (* 8 (- -2 (max v2 0)))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.502645442)
+  Iterations: 45
+  Egraph size: 69792 nodes, 18740 classes, 119078 memo
+  Rebuilds: 17142, 380.93 per iter
+  Total time: 1.5072492540000002
+    Search:  (0.74) 1.1123544
+    Apply:   (0.15) 0.23180612599999995
+    Rebuild: (0.11) 0.16174079800000002
+Execution took: 1.5072492540000002 s
+
+Could not prove any goal:
+
+Best Expr: (== (- -23 (* 8 v2)) (min (* (max (* 8 (/ v1 -125)) -125) 16) (* 8 (- -2 (max v2 0)))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.500219159)
+  Iterations: 12
+  Egraph size: 70997 nodes, 18940 classes, 121864 memo
+  Rebuilds: 237, 19.75 per iter
+  Total time: 1.503855057
+    Search:  (0.91) 1.3718674240000002
+    Apply:   (0.04) 0.062486530000000005
+    Rebuild: (0.05) 0.069238332
+Execution took: 1.503855057 s
+
+Starting Expression: 3056
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 34 nodes, 23 classes, 36 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000102519
+    Search:  (0.40) 0.000040834
+    Apply:   (0.50) 0.00005176
+    Rebuild: (0.09) 0.000009476
+Execution took: 0.000102519 s
+
+Starting Expression: 3057
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 35 nodes, 24 classes, 38 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000090648
+    Search:  (0.45) 0.000041215
+    Apply:   (0.45) 0.000040671
+    Rebuild: (0.09) 0.000008395
+Execution took: 0.000090648 s
+
+Starting Expression: 3058
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 159 nodes, 67 classes, 287 memo
+  Rebuilds: 11, 3.67 per iter
+  Total time: 0.00068139
+    Search:  (0.39) 0.000267187
+    Apply:   (0.48) 0.00032677
+    Rebuild: (0.13) 0.00008652
+Execution took: 0.00068139 s
+
+Starting Expression: 4218
+Could not prove any goal:
+
+Best Expr: (<= (max (min 0 (/ (+ (/ (- -3 (+ v3 v4)) 4) (+ -32 (/ v4 4))) 32)) (- -1 (/ v2 32))) (+ -1 (max (/ (- (/ (- v4 -124) 4) (/ (+ (+ v3 v4) 3) 4)) 32) (- 0 (/ v2 32)))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.5005238360000002)
+  Iterations: 40
+  Egraph size: 78895 nodes, 27693 classes, 99667 memo
+  Rebuilds: 4818, 120.45 per iter
+  Total time: 1.5104215190000003
+    Search:  (0.78) 1.1793049340000001
+    Apply:   (0.14) 0.21872310599999997
+    Rebuild: (0.07) 0.112372733
+Execution took: 1.5104215190000003 s
+
+Could not prove any goal:
+
+Best Expr: (<= (/ (min (+ 32 v2) (+ (/ (+ (+ v3 v4) 3) 4) (- 32 (/ (- v4 -124) 4)))) 32) (min (/ (+ 32 v2) 32) (max 0 (/ (+ (/ (+ (+ v3 v4) 3) 4) (- 32 (/ v4 4))) 32))))
+Runner report
+=============
+  Stop reason: TimeLimit(1.500482755)
+  Iterations: 6
+  Egraph size: 86473 nodes, 29949 classes, 109527 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 1.504908028
+    Search:  (0.96) 1.4491227000000002
+    Apply:   (0.01) 0.019172074
+    Rebuild: (0.02) 0.036466041
+Execution took: 1.504908028 s
+
+Starting Expression: 4306
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 62 nodes, 44 classes, 67 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000082598
+    Search:  (0.38) 0.000031475
+    Apply:   (0.50) 0.000040987
+    Rebuild: (0.12) 0.000009911
+Execution took: 0.000082598 s
+
+Starting Expression: 4858
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 25 nodes, 18 classes, 29 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000048543
+    Search:  (0.46) 0.000022247
+    Apply:   (0.46) 0.000022132
+    Rebuild: (0.08) 0.000003968
+Execution took: 0.000048543 s
+
+Starting Expression: 4888
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 4
+  Egraph size: 393 nodes, 129 classes, 554 memo
+  Rebuilds: 15, 3.75 per iter
+  Total time: 0.000747638
+    Search:  (0.34) 0.000256344
+    Apply:   (0.52) 0.000386593
+    Rebuild: (0.14) 0.000104038
+Execution took: 0.000747638 s
+
+Starting Expression: 4889
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 21 nodes, 14 classes, 23 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000046263
+    Search:  (0.50) 0.000022902
+    Apply:   (0.43) 0.000019712
+    Rebuild: (0.07) 0.000003462
+Execution took: 0.000046263 s
+
+Starting Expression: 5227
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 72 nodes, 40 classes, 79 memo
+  Rebuilds: 1, 0.50 per iter
+  Total time: 0.000146798
+    Search:  (0.44) 0.00006482
+    Apply:   (0.45) 0.00006558
+    Rebuild: (0.11) 0.000016043999999999997
+Execution took: 0.000146798 s
+
+Starting Expression: 5275
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 24 nodes, 16 classes, 26 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000046919
+    Search:  (0.51) 0.000023733
+    Apply:   (0.40) 0.00001876
+    Rebuild: (0.09) 0.000004231
+Execution took: 0.000046919 s
+
+Starting Expression: 5287
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 54 nodes, 36 classes, 59 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000077646
+    Search:  (0.39) 0.000030353
+    Apply:   (0.49) 0.000038211
+    Rebuild: (0.11) 0.000008903
+Execution took: 0.000077646 s
+
+Starting Expression: 5668
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 67 nodes, 45 classes, 72 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000080387
+    Search:  (0.39) 0.000031702
+    Apply:   (0.49) 0.000039056
+    Rebuild: (0.12) 0.000009459
+Execution took: 0.000080387 s
+
+Execution time : |23| |21|
+Starting: K=75
+[['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch', 'eq-max-lt', 'min-div-out-neg', 'Eq-min-c-neg']] 
+
+ Total Classes: 1
+Starting Expression: 1
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 22 nodes, 15 classes, 24 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000065217
+    Search:  (0.56) 0.000036381
+    Apply:   (0.37) 0.000024425
+    Rebuild: (0.06) 0.000004146
+Execution took: 0.000065217 s
+
+Starting Expression: 2
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 48 nodes, 34 classes, 53 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000090157
+    Search:  (0.45) 0.000040945
+    Apply:   (0.45) 0.000040925
+    Rebuild: (0.09) 0.000008058
+Execution took: 0.000090157 s
+
+Starting Expression: 3
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 120 nodes, 64 classes, 217 memo
+  Rebuilds: 13, 6.50 per iter
+  Total time: 0.000367586
+    Search:  (0.41) 0.00015010799999999998
+    Apply:   (0.47) 0.000172614
+    Rebuild: (0.12) 0.000044446
+Execution took: 0.000367586 s
+
+Starting Expression: 4
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 11 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000041255
+    Search:  (0.60) 0.000024648
+    Apply:   (0.35) 0.00001462
+    Rebuild: (0.04) 0.000001773
+Execution took: 0.000041255 s
+
+Starting Expression: 5
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 428 nodes, 162 classes, 643 memo
+  Rebuilds: 25, 8.33 per iter
+  Total time: 0.001025071
+    Search:  (0.37) 0.000375846
+    Apply:   (0.50) 0.000510079
+    Rebuild: (0.14) 0.000138547
+Execution took: 0.001025071 s
+
+Starting Expression: 6
+Proved goal:
+"0"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 0 Matched")
+  Iterations: 7
+  Egraph size: 975 nodes, 233 classes, 1693 memo
+  Rebuilds: 56, 8.00 per iter
+  Total time: 0.0030578999999999997
+    Search:  (0.43) 0.001310832
+    Apply:   (0.46) 0.001406041
+    Rebuild: (0.11) 0.000339855
+Execution took: 0.0030578999999999997 s
+
+Starting Expression: 7
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 4
+  Egraph size: 676 nodes, 253 classes, 1294 memo
+  Rebuilds: 117, 29.25 per iter
+  Total time: 0.001785292
+    Search:  (0.32) 0.0005624439999999999
+    Apply:   (0.52) 0.000921732
+    Rebuild: (0.17) 0.000300348
+Execution took: 0.001785292 s
+
+Starting Expression: 8
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 65 nodes, 46 classes, 72 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000095262
+    Search:  (0.44) 0.000041696
+    Apply:   (0.46) 0.000043767
+    Rebuild: (0.10) 0.000009587
+Execution took: 0.000095262 s
+
+Starting Expression: 9
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 453 nodes, 184 classes, 618 memo
+  Rebuilds: 25, 8.33 per iter
+  Total time: 0.000871556
+    Search:  (0.36) 0.000317007
+    Apply:   (0.49) 0.00042795699999999997
+    Rebuild: (0.14) 0.000126051
+Execution took: 0.000871556 s
+
+Starting Expression: 10
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 37 nodes, 25 classes, 39 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000063759
+    Search:  (0.51) 0.000032378
+    Apply:   (0.40) 0.000025496
+    Rebuild: (0.09) 0.00000568
+Execution took: 0.000063759 s
+
+Starting Expression: 11
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 289 nodes, 116 classes, 522 memo
+  Rebuilds: 26, 8.67 per iter
+  Total time: 0.000759303
+    Search:  (0.35) 0.000268838
+    Apply:   (0.50) 0.000378452
+    Rebuild: (0.15) 0.000111445
+Execution took: 0.000759303 s
+
+Starting Expression: 12
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 50 nodes, 28 classes, 139 memo
+  Rebuilds: 12, 6.00 per iter
+  Total time: 0.00022996699999999998
+    Search:  (0.39) 0.000090768
+    Apply:   (0.47) 0.000108419
+    Rebuild: (0.13) 0.000030451
+Execution took: 0.00022996699999999998 s
+
+Starting Expression: 13
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 7
+  Egraph size: 4927 nodes, 2102 classes, 13062 memo
+  Rebuilds: 2400, 342.86 per iter
+  Total time: 0.035342227999999996
+    Search:  (0.66) 0.023175841000000003
+    Apply:   (0.24) 0.008378567
+    Rebuild: (0.11) 0.003786185
+Execution took: 0.035342227999999996 s
+
+Starting Expression: 14
+Proved goal:
+"0"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 0 Matched")
+  Iterations: 6
+  Egraph size: 60 nodes, 20 classes, 181 memo
+  Rebuilds: 13, 2.17 per iter
+  Total time: 0.000460879
+    Search:  (0.45) 0.00020743699999999999
+    Apply:   (0.45) 0.00020672399999999998
+    Rebuild: (0.10) 0.000045857000000000005
+Execution took: 0.000460879 s
+
+Starting Expression: 15
+Could not prove any goal:
+
+Best Expr: (<= (min ("%" (+ (max (* -500 v0) (- 500 v1)) (- (- -7 v2) 500)) 8) (+ (+ ("%" v3 8) 539) -522)) -522)
+Runner report
+=============
+  Stop reason: TimeLimit(3.106644301)
+  Iterations: 48
+  Egraph size: 92811 nodes, 30867 classes, 118012 memo
+  Rebuilds: 6571, 136.90 per iter
+  Total time: 3.1113968399999994
+    Search:  (0.90) 2.7862406410000005
+    Apply:   (0.06) 0.19793983099999998
+    Rebuild: (0.04) 0.12715225
+Execution took: 3.1113968399999994 s
+
+Starting Expression: 16
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 11 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000044408
+    Search:  (0.58) 0.000025621
+    Apply:   (0.37) 0.000016559
+    Rebuild: (0.05) 0.000002015
+Execution took: 0.000044408 s
+
+Starting Expression: 17
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 101 nodes, 69 classes, 109 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000112148
+    Search:  (0.41) 0.000045956
+    Apply:   (0.47) 0.000052432
+    Rebuild: (0.12) 0.000013589
+Execution took: 0.000112148 s
+
+Starting Expression: 771
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 196 nodes, 82 classes, 364 memo
+  Rebuilds: 21, 7.00 per iter
+  Total time: 0.000531173
+    Search:  (0.37) 0.00019684500000000002
+    Apply:   (0.49) 0.000257649
+    Rebuild: (0.14) 0.000076215
+Execution took: 0.000531173 s
+
+Starting Expression: 772
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 26 nodes, 18 classes, 28 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000053719
+    Search:  (0.52) 0.000027918
+    Apply:   (0.40) 0.000021269
+    Rebuild: (0.08) 0.000004365
+Execution took: 0.000053719 s
+
+Starting Expression: 1369
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 29 nodes, 20 classes, 31 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000056887
+    Search:  (0.53) 0.000030067
+    Apply:   (0.39) 0.000022271
+    Rebuild: (0.08) 0.000004325
+Execution took: 0.000056887 s
+
+Starting Expression: 1370
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 21 nodes, 11 classes, 34 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000221103
+    Search:  (0.57) 0.00012499900000000001
+    Apply:   (0.37) 0.00008253999999999999
+    Rebuild: (0.06) 0.000012359999999999999
+Execution took: 0.000221103 s
+
+Starting Expression: 1371
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 42 nodes, 30 classes, 45 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000063803
+    Search:  (0.48) 0.000030454
+    Apply:   (0.42) 0.000027069
+    Rebuild: (0.10) 0.000006122
+Execution took: 0.000063803 s
+
+Starting Expression: 1372
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 363 nodes, 157 classes, 469 memo
+  Rebuilds: 8, 2.67 per iter
+  Total time: 0.0005939439999999999
+    Search:  (0.38) 0.000224102
+    Apply:   (0.50) 0.000295767
+    Rebuild: (0.12) 0.000073624
+Execution took: 0.0005939439999999999 s
+
+Starting Expression: 1373
+Could not prove any goal:
+
+Best Expr: (== ("%" (* 500 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 17
+  Egraph size: 148 nodes, 24 classes, 280 memo
+  Rebuilds: 8, 0.47 per iter
+  Total time: 0.0021543570000000004
+    Search:  (0.60) 0.001300424
+    Apply:   (0.34) 0.0007426339999999999
+    Rebuild: (0.05) 0.00010883299999999999
+Execution took: 0.0021543570000000004 s
+
+Starting Expression: 1374
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 17 nodes, 13 classes, 19 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000040724
+    Search:  (0.55) 0.000022314
+    Apply:   (0.38) 0.000015623
+    Rebuild: (0.06) 0.000002637
+Execution took: 0.000040724 s
+
+Starting Expression: 1375
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 109 nodes, 73 classes, 118 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000109052
+    Search:  (0.41) 0.000045045
+    Apply:   (0.47) 0.000051504
+    Rebuild: (0.11) 0.000012342
+Execution took: 0.000109052 s
+
+Starting Expression: 1376
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 35 nodes, 24 classes, 38 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00005616
+    Search:  (0.47) 0.000026257
+    Apply:   (0.44) 0.000024831
+    Rebuild: (0.09) 0.000004884
+Execution took: 0.00005616 s
+
+Starting Expression: 1377
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 32 nodes, 24 classes, 36 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000052771
+    Search:  (0.47) 0.000024857
+    Apply:   (0.45) 0.000023548
+    Rebuild: (0.08) 0.000004203
+Execution took: 0.000052771 s
+
+Starting Expression: 1378
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 41 nodes, 29 classes, 45 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000058911
+    Search:  (0.49) 0.000028653
+    Apply:   (0.42) 0.000024743
+    Rebuild: (0.09) 0.000005374
+Execution took: 0.000058911 s
+
+Starting Expression: 1379
+Could not prove any goal:
+
+Best Expr: (<= (min (- (min 60 (max -64 v0)) (max 0 (min 124 v0))) (+ (+ 96 v1) -65)) -65)
+Runner report
+=============
+  Stop reason: TimeLimit(3.001249557)
+  Iterations: 57
+  Egraph size: 106512 nodes, 38443 classes, 149937 memo
+  Rebuilds: 11083, 194.44 per iter
+  Total time: 3.0068650690000007
+    Search:  (0.85) 2.5496033869999994
+    Apply:   (0.08) 0.25169456800000006
+    Rebuild: (0.07) 0.20540118200000002
+Execution took: 3.0068650690000007 s
+
+Starting Expression: 1380
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 38 nodes, 27 classes, 41 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000071811
+    Search:  (0.47) 0.00003357
+    Apply:   (0.44) 0.00003168
+    Rebuild: (0.09) 0.000006347
+Execution took: 0.000071811 s
+
+Starting Expression: 1610
+Could not prove any goal:
+
+Best Expr: (== ("%" (* 20 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 17
+  Egraph size: 148 nodes, 24 classes, 280 memo
+  Rebuilds: 8, 0.47 per iter
+  Total time: 0.0025531569999999995
+    Search:  (0.58) 0.001468975
+    Apply:   (0.37) 0.000957308
+    Rebuild: (0.05) 0.000123796
+Execution took: 0.0025531569999999995 s
+
+Starting Expression: 1611
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 26 nodes, 18 classes, 28 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000056104
+    Search:  (0.51) 0.00002868
+    Apply:   (0.40) 0.000022712
+    Rebuild: (0.08) 0.000004515
+Execution took: 0.000056104 s
+
+Starting Expression: 1612
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 56 nodes, 38 classes, 60 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000076771
+    Search:  (0.47) 0.000036015
+    Apply:   (0.43) 0.000032956
+    Rebuild: (0.10) 0.000007603
+Execution took: 0.000076771 s
+
+Starting Expression: 1994
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 16 nodes, 12 classes, 18 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000043852
+    Search:  (0.55) 0.000023951
+    Apply:   (0.38) 0.000016733
+    Rebuild: (0.07) 0.000002996
+Execution took: 0.000043852 s
+
+Starting Expression: 1995
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 12 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000035323
+    Search:  (0.58) 0.000020627
+    Apply:   (0.36) 0.000012779
+    Rebuild: (0.05) 0.000001735
+Execution took: 0.000035323 s
+
+Starting Expression: 2016
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 4
+  Egraph size: 1170 nodes, 449 classes, 1829 memo
+  Rebuilds: 143, 35.75 per iter
+  Total time: 0.00206299
+    Search:  (0.32) 0.000668029
+    Apply:   (0.48) 0.000997606
+    Rebuild: (0.19) 0.00039672800000000005
+Execution took: 0.00206299 s
+
+Starting Expression: 2017
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 15 nodes, 11 classes, 17 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000042477
+    Search:  (0.58) 0.000024671
+    Apply:   (0.36) 0.000015326
+    Rebuild: (0.05) 0.000002285
+Execution took: 0.000042477 s
+
+Starting Expression: 2018
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 50 nodes, 36 classes, 56 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000066282
+    Search:  (0.43) 0.000028431
+    Apply:   (0.46) 0.000030742
+    Rebuild: (0.10) 0.000006931
+Execution took: 0.000066282 s
+
+Starting Expression: 2019
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* 4 v0) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 39 nodes, 15 classes, 79 memo
+  Rebuilds: 4, 0.50 per iter
+  Total time: 0.00035604299999999995
+    Search:  (0.58) 0.000206388
+    Apply:   (0.36) 0.000126548
+    Rebuild: (0.06) 0.000021879
+Execution took: 0.00035604299999999995 s
+
+Starting Expression: 2020
+Could not prove any goal:
+
+Best Expr: (== (* (max 0 (min (/ (+ (+ v1 v0) 47) 16) 124)) -4) (+ 11 (+ (* 4 (min -2 (max (/ v1 -16) -126))) (* v2 -8))))
+Runner report
+=============
+  Stop reason: TimeLimit(3.002278664)
+  Iterations: 65
+  Egraph size: 135902 nodes, 47147 classes, 184562 memo
+  Rebuilds: 14048, 216.12 per iter
+  Total time: 3.0125229379999996
+    Search:  (0.76) 2.3003521630000003
+    Apply:   (0.16) 0.47546659
+    Rebuild: (0.08) 0.23594578700000005
+Execution took: 3.0125229379999996 s
+
+Starting Expression: 2021
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 146 nodes, 58 classes, 359 memo
+  Rebuilds: 27, 9.00 per iter
+  Total time: 0.000601004
+    Search:  (0.37) 0.000222377
+    Apply:   (0.49) 0.00029228800000000003
+    Rebuild: (0.14) 0.000085771
+Execution took: 0.000601004 s
+
+Starting Expression: 2022
+Could not prove any goal:
+
+Best Expr: (<= (min (+ v1 v2) (min 2000 (- v3 -508))) (max (+ v3 -10) (max v2 0)))
+Runner report
+=============
+  Stop reason: TimeLimit(3.014015194)
+  Iterations: 55
+  Egraph size: 93969 nodes, 34194 classes, 166196 memo
+  Rebuilds: 16923, 307.69 per iter
+  Total time: 3.0200113379999993
+    Search:  (0.85) 2.5550572959999998
+    Apply:   (0.10) 0.314332869
+    Rebuild: (0.05) 0.150474513
+Execution took: 3.0200113379999993 s
+
+Starting Expression: 2152
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 82 nodes, 56 classes, 90 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000123666
+    Search:  (0.41) 0.000050494
+    Apply:   (0.48) 0.000059036
+    Rebuild: (0.11) 0.000013879
+Execution took: 0.000123666 s
+
+Starting Expression: 2153
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 22 nodes, 15 classes, 24 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000056169
+    Search:  (0.54) 0.000030453
+    Apply:   (0.39) 0.000021886
+    Rebuild: (0.06) 0.000003623
+Execution took: 0.000056169 s
+
+Starting Expression: 2694
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 21 nodes, 11 classes, 34 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00027501699999999996
+    Search:  (0.57) 0.00015797300000000003
+    Apply:   (0.37) 0.00010072000000000001
+    Rebuild: (0.05) 0.000014774000000000001
+Execution took: 0.00027501699999999996 s
+
+Starting Expression: 2695
+Could not prove any goal:
+
+Best Expr: (== (/ (+ 180 ("%" (+ v1 v0) 8)) 8) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(3.016808838)
+  Iterations: 84
+  Egraph size: 124727 nodes, 20640 classes, 213287 memo
+  Rebuilds: 14908, 177.48 per iter
+  Total time: 3.035823009
+    Search:  (0.72) 2.195616794
+    Apply:   (0.19) 0.573708694
+    Rebuild: (0.09) 0.266149204
+Execution took: 3.035823009 s
+
+Starting Expression: 2696
+Could not prove any goal:
+
+Best Expr: (== (* (max 1 (min 125 (* 8 (/ v1 125)))) -16) (- -23 (* 8 v2)))
+Runner report
+=============
+  Stop reason: TimeLimit(3.000423469)
+  Iterations: 66
+  Egraph size: 97996 nodes, 26841 classes, 148901 memo
+  Rebuilds: 17726, 268.58 per iter
+  Total time: 3.007826296000001
+    Search:  (0.77) 2.3292634179999996
+    Apply:   (0.15) 0.439847124
+    Rebuild: (0.08) 0.23824828399999998
+Execution took: 3.007826296000001 s
+
+Starting Expression: 3056
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 34 nodes, 23 classes, 36 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000070386
+    Search:  (0.48) 0.000033625
+    Apply:   (0.43) 0.000030305
+    Rebuild: (0.09) 0.000006239
+Execution took: 0.000070386 s
+
+Starting Expression: 3057
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 35 nodes, 24 classes, 38 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000062127
+    Search:  (0.52) 0.000032067
+    Apply:   (0.40) 0.00002471
+    Rebuild: (0.08) 0.000005186
+Execution took: 0.000062127 s
+
+Starting Expression: 3058
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 159 nodes, 67 classes, 304 memo
+  Rebuilds: 19, 6.33 per iter
+  Total time: 0.000476316
+    Search:  (0.40) 0.00018924300000000002
+    Apply:   (0.46) 0.000219211
+    Rebuild: (0.14) 0.00006736700000000001
+Execution took: 0.000476316 s
+
+Starting Expression: 4218
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 7
+  Egraph size: 11979 nodes, 5189 classes, 19635 memo
+  Rebuilds: 1311, 187.29 per iter
+  Total time: 0.032599830999999996
+    Search:  (0.62) 0.020297483999999998
+    Apply:   (0.27) 0.008799508
+    Rebuild: (0.11) 0.003501685
+Execution took: 0.032599830999999996 s
+
+Starting Expression: 4306
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 62 nodes, 44 classes, 67 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000057948
+    Search:  (0.44) 0.000025631
+    Apply:   (0.45) 0.000026258
+    Rebuild: (0.10) 0.000005934
+Execution took: 0.000057948 s
+
+Starting Expression: 4858
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 25 nodes, 18 classes, 29 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000035745
+    Search:  (0.51) 0.000018282
+    Apply:   (0.41) 0.000014771
+    Rebuild: (0.07) 0.000002563
+Execution took: 0.000035745 s
+
+Starting Expression: 4888
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 4
+  Egraph size: 393 nodes, 129 classes, 554 memo
+  Rebuilds: 15, 3.75 per iter
+  Total time: 0.000495532
+    Search:  (0.35) 0.000174301
+    Apply:   (0.51) 0.000253842
+    Rebuild: (0.14) 0.000066955
+Execution took: 0.000495532 s
+
+Starting Expression: 4889
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 21 nodes, 14 classes, 23 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000033872
+    Search:  (0.53) 0.000018022
+    Apply:   (0.40) 0.000013522
+    Rebuild: (0.07) 0.000002202
+Execution took: 0.000033872 s
+
+Starting Expression: 5227
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 72 nodes, 40 classes, 79 memo
+  Rebuilds: 1, 0.50 per iter
+  Total time: 0.000101258
+    Search:  (0.48) 0.000048951
+    Apply:   (0.42) 0.000042048
+    Rebuild: (0.10) 0.000010036
+Execution took: 0.000101258 s
+
+Starting Expression: 5275
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 24 nodes, 16 classes, 26 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000048066
+    Search:  (0.54) 0.0000258
+    Apply:   (0.38) 0.000018417
+    Rebuild: (0.08) 0.000003648
+Execution took: 0.000048066 s
+
+Starting Expression: 5287
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 54 nodes, 36 classes, 59 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000051902
+    Search:  (0.45) 0.000023332
+    Apply:   (0.45) 0.000023243
+    Rebuild: (0.10) 0.000005192
+Execution took: 0.000051902 s
+
+Starting Expression: 5668
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 67 nodes, 45 classes, 72 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000054429
+    Search:  (0.45) 0.000024275
+    Apply:   (0.44) 0.000024113
+    Rebuild: (0.11) 0.000005922
+Execution took: 0.000054429 s
+
+Execution time : |19| |18|
+Starting: K=111
+[['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch', 'eq-max-lt', 'min-div-out-neg', 'Eq-min-c-neg']] 
+
+ Total Classes: 1
+Starting Expression: 1
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 22 nodes, 15 classes, 24 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000065448
+    Search:  (0.56) 0.000036912
+    Apply:   (0.37) 0.000024006
+    Rebuild: (0.06) 0.000004187
+Execution took: 0.000065448 s
+
+Starting Expression: 2
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 48 nodes, 34 classes, 53 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000091167
+    Search:  (0.46) 0.000041805
+    Apply:   (0.45) 0.000040579
+    Rebuild: (0.09) 0.000008509
+Execution took: 0.000091167 s
+
+Starting Expression: 3
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 120 nodes, 64 classes, 217 memo
+  Rebuilds: 13, 6.50 per iter
+  Total time: 0.000381222
+    Search:  (0.40) 0.000152551
+    Apply:   (0.48) 0.000184847
+    Rebuild: (0.11) 0.000043426999999999996
+Execution took: 0.000381222 s
+
+Starting Expression: 4
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 11 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000039162
+    Search:  (0.60) 0.000023498
+    Apply:   (0.35) 0.000013719
+    Rebuild: (0.04) 0.000001732
+Execution took: 0.000039162 s
+
+Starting Expression: 5
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 428 nodes, 162 classes, 643 memo
+  Rebuilds: 25, 8.33 per iter
+  Total time: 0.0009765379999999999
+    Search:  (0.36) 0.00035574
+    Apply:   (0.50) 0.000486716
+    Rebuild: (0.14) 0.000133525
+Execution took: 0.0009765379999999999 s
+
+Starting Expression: 6
+Proved goal:
+"0"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 0 Matched")
+  Iterations: 7
+  Egraph size: 975 nodes, 233 classes, 1693 memo
+  Rebuilds: 56, 8.00 per iter
+  Total time: 0.003047862
+    Search:  (0.43) 0.0013104549999999999
+    Apply:   (0.46) 0.001395184
+    Rebuild: (0.11) 0.000341065
+Execution took: 0.003047862 s
+
+Starting Expression: 7
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 4
+  Egraph size: 676 nodes, 253 classes, 1294 memo
+  Rebuilds: 117, 29.25 per iter
+  Total time: 0.0017864270000000002
+    Search:  (0.32) 0.000563277
+    Apply:   (0.52) 0.0009301019999999999
+    Rebuild: (0.16) 0.00029236599999999996
+Execution took: 0.0017864270000000002 s
+
+Starting Expression: 8
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 65 nodes, 46 classes, 72 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000091096
+    Search:  (0.44) 0.000039966
+    Apply:   (0.46) 0.000041688
+    Rebuild: (0.10) 0.00000925
+Execution took: 0.000091096 s
+
+Starting Expression: 9
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 453 nodes, 184 classes, 618 memo
+  Rebuilds: 25, 8.33 per iter
+  Total time: 0.000845892
+    Search:  (0.36) 0.000305014
+    Apply:   (0.50) 0.000418849
+    Rebuild: (0.14) 0.000121502
+Execution took: 0.000845892 s
+
+Starting Expression: 10
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 37 nodes, 25 classes, 39 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000061541
+    Search:  (0.52) 0.000031778
+    Apply:   (0.39) 0.000024135
+    Rebuild: (0.09) 0.000005435
+Execution took: 0.000061541 s
+
+Starting Expression: 11
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 289 nodes, 116 classes, 522 memo
+  Rebuilds: 26, 8.67 per iter
+  Total time: 0.000732743
+    Search:  (0.38) 0.000275353
+    Apply:   (0.48) 0.000351821
+    Rebuild: (0.14) 0.000105079
+Execution took: 0.000732743 s
+
+Starting Expression: 12
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 50 nodes, 28 classes, 139 memo
+  Rebuilds: 12, 6.00 per iter
+  Total time: 0.000221727
+    Search:  (0.40) 0.00008905100000000001
+    Apply:   (0.46) 0.000102884
+    Rebuild: (0.13) 0.000029459
+Execution took: 0.000221727 s
+
+Starting Expression: 13
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 7
+  Egraph size: 4927 nodes, 2102 classes, 13062 memo
+  Rebuilds: 2400, 342.86 per iter
+  Total time: 0.028201543
+    Search:  (0.64) 0.018018461
+    Apply:   (0.24) 0.006767278999999999
+    Rebuild: (0.12) 0.003414281
+Execution took: 0.028201543 s
+
+Starting Expression: 14
+Proved goal:
+"0"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 0 Matched")
+  Iterations: 6
+  Egraph size: 60 nodes, 20 classes, 181 memo
+  Rebuilds: 13, 2.17 per iter
+  Total time: 0.000422851
+    Search:  (0.45) 0.000190526
+    Apply:   (0.45) 0.000191251
+    Rebuild: (0.10) 0.000040339
+Execution took: 0.000422851 s
+
+Starting Expression: 15
+Could not prove any goal:
+
+Best Expr: (<= (min ("%" (+ (max (* -500 v0) (- 500 v1)) (- (- -7 v2) 500)) 8) (+ (+ ("%" v3 8) 539) -522)) -522)
+Runner report
+=============
+  Stop reason: TimeLimit(3.001962184)
+  Iterations: 46
+  Egraph size: 91505 nodes, 30754 classes, 115607 memo
+  Rebuilds: 6571, 142.85 per iter
+  Total time: 3.0069053100000005
+    Search:  (0.88) 2.6351079939999997
+    Apply:   (0.08) 0.22576026999999996
+    Rebuild: (0.05) 0.145967993
+Execution took: 3.0069053100000005 s
+
+Starting Expression: 16
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 11 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00005528
+    Search:  (0.59) 0.00003287
+    Apply:   (0.36) 0.000019937
+    Rebuild: (0.04) 0.000002242
+Execution took: 0.00005528 s
+
+Starting Expression: 17
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 101 nodes, 69 classes, 109 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000138864
+    Search:  (0.42) 0.000057905
+    Apply:   (0.46) 0.000064473
+    Rebuild: (0.12) 0.000016113
+Execution took: 0.000138864 s
+
+Starting Expression: 771
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 196 nodes, 82 classes, 364 memo
+  Rebuilds: 21, 7.00 per iter
+  Total time: 0.000658736
+    Search:  (0.39) 0.000255867
+    Apply:   (0.48) 0.00031366200000000003
+    Rebuild: (0.13) 0.00008855500000000001
+Execution took: 0.000658736 s
+
+Starting Expression: 772
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 26 nodes, 18 classes, 28 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000068554
+    Search:  (0.52) 0.000035388
+    Apply:   (0.40) 0.000027692
+    Rebuild: (0.08) 0.000005256
+Execution took: 0.000068554 s
+
+Starting Expression: 1369
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 29 nodes, 20 classes, 31 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000068331
+    Search:  (0.53) 0.000036516
+    Apply:   (0.39) 0.000026607
+    Rebuild: (0.07) 0.000005018
+Execution took: 0.000068331 s
+
+Starting Expression: 1370
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 264) 252) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 21 nodes, 11 classes, 34 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00028558399999999997
+    Search:  (0.58) 0.000164456
+    Apply:   (0.36) 0.000103905
+    Rebuild: (0.05) 0.000015504000000000003
+Execution took: 0.00028558399999999997 s
+
+Starting Expression: 1371
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 42 nodes, 30 classes, 45 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000084161
+    Search:  (0.50) 0.00004227
+    Apply:   (0.41) 0.000034428
+    Rebuild: (0.09) 0.000007239
+Execution took: 0.000084161 s
+
+Starting Expression: 1372
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 363 nodes, 157 classes, 469 memo
+  Rebuilds: 8, 2.67 per iter
+  Total time: 0.000926905
+    Search:  (0.40) 0.000367176
+    Apply:   (0.49) 0.000452181
+    Rebuild: (0.11) 0.000106212
+Execution took: 0.000926905 s
+
+Starting Expression: 1373
+Could not prove any goal:
+
+Best Expr: (== ("%" (* 500 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 17
+  Egraph size: 148 nodes, 24 classes, 280 memo
+  Rebuilds: 8, 0.47 per iter
+  Total time: 0.0028399719999999996
+    Search:  (0.59) 0.0016753699999999998
+    Apply:   (0.36) 0.001018908
+    Rebuild: (0.05) 0.000142141
+Execution took: 0.0028399719999999996 s
+
+Starting Expression: 1374
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 17 nodes, 13 classes, 19 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000051256
+    Search:  (0.56) 0.000028536
+    Apply:   (0.38) 0.000019453
+    Rebuild: (0.06) 0.000003059
+Execution took: 0.000051256 s
+
+Starting Expression: 1375
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 109 nodes, 73 classes, 118 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000167004
+    Search:  (0.37) 0.000061607
+    Apply:   (0.53) 0.000088388
+    Rebuild: (0.10) 0.000016774
+Execution took: 0.000167004 s
+
+Starting Expression: 1376
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 35 nodes, 24 classes, 38 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000092618
+    Search:  (0.42) 0.000038606
+    Apply:   (0.50) 0.000046414
+    Rebuild: (0.08) 0.000007388
+Execution took: 0.000092618 s
+
+Starting Expression: 1377
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 32 nodes, 24 classes, 36 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000079349
+    Search:  (0.51) 0.000040505
+    Apply:   (0.41) 0.000032807
+    Rebuild: (0.07) 0.000005661
+Execution took: 0.000079349 s
+
+Starting Expression: 1378
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 41 nodes, 29 classes, 45 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000080889
+    Search:  (0.49) 0.000039732
+    Apply:   (0.42) 0.000033973
+    Rebuild: (0.09) 0.000006984
+Execution took: 0.000080889 s
+
+Starting Expression: 1379
+Could not prove any goal:
+
+Best Expr: (<= (min (- (min 60 (max -64 v0)) (max 0 (min 124 v0))) (+ (+ 96 v1) -65)) -65)
+Runner report
+=============
+  Stop reason: TimeLimit(3.000215457)
+  Iterations: 51
+  Egraph size: 90777 nodes, 28984 classes, 133930 memo
+  Rebuilds: 10964, 214.98 per iter
+  Total time: 3.0106213040000007
+    Search:  (0.85) 2.5527572350000005
+    Apply:   (0.08) 0.242130276
+    Rebuild: (0.07) 0.21554388800000002
+Execution took: 3.0106213040000007 s
+
+Starting Expression: 1380
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 38 nodes, 27 classes, 41 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000075071
+    Search:  (0.46) 0.000034897
+    Apply:   (0.44) 0.000033176
+    Rebuild: (0.09) 0.000006679
+Execution took: 0.000075071 s
+
+Starting Expression: 1610
+Could not prove any goal:
+
+Best Expr: (== ("%" (* 20 v0) 4) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 17
+  Egraph size: 148 nodes, 24 classes, 280 memo
+  Rebuilds: 8, 0.47 per iter
+  Total time: 0.0024867299999999995
+    Search:  (0.60) 0.0014870979999999998
+    Apply:   (0.35) 0.000868744
+    Rebuild: (0.05) 0.000127893
+Execution took: 0.0024867299999999995 s
+
+Starting Expression: 1611
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 26 nodes, 18 classes, 28 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000061162
+    Search:  (0.51) 0.00003148
+    Apply:   (0.40) 0.000024476
+    Rebuild: (0.08) 0.000004965
+Execution took: 0.000061162 s
+
+Starting Expression: 1612
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 56 nodes, 38 classes, 60 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.0000812
+    Search:  (0.46) 0.000037404
+    Apply:   (0.44) 0.000035856
+    Rebuild: (0.10) 0.000007719
+Execution took: 0.0000812 s
+
+Starting Expression: 1994
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 16 nodes, 12 classes, 18 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000045387
+    Search:  (0.52) 0.000023794
+    Apply:   (0.41) 0.000018475
+    Rebuild: (0.06) 0.000002934
+Execution took: 0.000045387 s
+
+Starting Expression: 1995
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 10 nodes, 8 classes, 12 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000038282
+    Search:  (0.57) 0.000021662
+    Apply:   (0.38) 0.000014612
+    Rebuild: (0.05) 0.000001812
+Execution took: 0.000038282 s
+
+Starting Expression: 2016
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 4
+  Egraph size: 1170 nodes, 449 classes, 1829 memo
+  Rebuilds: 143, 35.75 per iter
+  Total time: 0.002135807
+    Search:  (0.32) 0.0006936900000000001
+    Apply:   (0.49) 0.001046039
+    Rebuild: (0.19) 0.00039538499999999994
+Execution took: 0.002135807 s
+
+Starting Expression: 2017
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 15 nodes, 11 classes, 17 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00004277
+    Search:  (0.56) 0.000023818
+    Apply:   (0.39) 0.000016545
+    Rebuild: (0.05) 0.00000221
+Execution took: 0.00004277 s
+
+Starting Expression: 2018
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 50 nodes, 36 classes, 56 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000067893
+    Search:  (0.42) 0.000028351
+    Apply:   (0.47) 0.00003207
+    Rebuild: (0.11) 0.000007267
+Execution took: 0.000067893 s
+
+Starting Expression: 2019
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ (* 4 v0) 507) 502) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 8
+  Egraph size: 39 nodes, 15 classes, 79 memo
+  Rebuilds: 4, 0.50 per iter
+  Total time: 0.000361928
+    Search:  (0.56) 0.00020088499999999999
+    Apply:   (0.38) 0.000136179
+    Rebuild: (0.06) 0.000023504
+Execution took: 0.000361928 s
+
+Starting Expression: 2020
+Could not prove any goal:
+
+Best Expr: (== (* (max 0 (min (/ (+ (+ v1 v0) 47) 16) 124)) -4) (+ 11 (+ (* 4 (min -2 (max (/ v1 -16) -126))) (* v2 -8))))
+Runner report
+=============
+  Stop reason: TimeLimit(3.000957594)
+  Iterations: 60
+  Egraph size: 95914 nodes, 28621 classes, 136070 memo
+  Rebuilds: 12118, 201.97 per iter
+  Total time: 3.006394218
+    Search:  (0.79) 2.378136607
+    Apply:   (0.14) 0.419882592
+    Rebuild: (0.07) 0.207712403
+Execution took: 3.006394218 s
+
+Starting Expression: 2021
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 146 nodes, 58 classes, 359 memo
+  Rebuilds: 27, 9.00 per iter
+  Total time: 0.000699394
+    Search:  (0.39) 0.00027092
+    Apply:   (0.47) 0.000328335
+    Rebuild: (0.14) 0.000099244
+Execution took: 0.000699394 s
+
+Starting Expression: 2022
+Could not prove any goal:
+
+Best Expr: (<= (min (+ v1 v2) (min 2000 (- v3 -508))) (max (+ v3 -10) (max v2 0)))
+Runner report
+=============
+  Stop reason: TimeLimit(3.004922592)
+  Iterations: 54
+  Egraph size: 92806 nodes, 34213 classes, 164995 memo
+  Rebuilds: 16923, 313.39 per iter
+  Total time: 3.0109474149999995
+    Search:  (0.85) 2.5578700189999997
+    Apply:   (0.10) 0.30614004599999994
+    Rebuild: (0.05) 0.14664160999999998
+Execution took: 3.0109474149999995 s
+
+Starting Expression: 2152
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 82 nodes, 56 classes, 90 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000117819
+    Search:  (0.40) 0.000047689
+    Apply:   (0.48) 0.000056768
+    Rebuild: (0.11) 0.000013019
+Execution took: 0.000117819 s
+
+Starting Expression: 2153
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 22 nodes, 15 classes, 24 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00005402
+    Search:  (0.55) 0.000029911
+    Apply:   (0.37) 0.000020204
+    Rebuild: (0.07) 0.000003684
+Execution took: 0.00005402 s
+
+Starting Expression: 2694
+Could not prove any goal:
+
+Best Expr: (!= (/ (+ v0 130) 128) 0)
+Runner report
+=============
+  Stop reason: Saturated
+  Iterations: 7
+  Egraph size: 21 nodes, 11 classes, 34 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000245564
+    Search:  (0.57) 0.000139917
+    Apply:   (0.37) 0.000090495
+    Rebuild: (0.06) 0.000013770999999999997
+Execution took: 0.000245564 s
+
+Starting Expression: 2695
+Could not prove any goal:
+
+Best Expr: (== (/ (+ 180 ("%" (+ v1 v0) 8)) 8) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(3.002081398)
+  Iterations: 84
+  Egraph size: 166647 nodes, 30560 classes, 210087 memo
+  Rebuilds: 8058, 95.93 per iter
+  Total time: 3.0084890780000006
+    Search:  (0.73) 2.185402538
+    Apply:   (0.18) 0.551436488
+    Rebuild: (0.09) 0.27101141900000003
+Execution took: 3.0084890780000006 s
+
+Starting Expression: 2696
+Could not prove any goal:
+
+Best Expr: (== (* (max 1 (min 125 (* 8 (/ v1 125)))) -16) (- -23 (* 8 v2)))
+Runner report
+=============
+  Stop reason: TimeLimit(3.003731763)
+  Iterations: 68
+  Egraph size: 98074 nodes, 26880 classes, 148979 memo
+  Rebuilds: 17726, 260.68 per iter
+  Total time: 3.0133632829999994
+    Search:  (0.76) 2.288669785
+    Apply:   (0.17) 0.5013126120000001
+    Rebuild: (0.07) 0.22307060700000003
+Execution took: 3.0133632829999994 s
+
+Starting Expression: 3056
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 34 nodes, 23 classes, 36 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000097372
+    Search:  (0.49) 0.00004751
+    Apply:   (0.42) 0.000041044
+    Rebuild: (0.09) 0.000008395
+Execution took: 0.000097372 s
+
+Starting Expression: 3057
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 35 nodes, 24 classes, 38 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000104621
+    Search:  (0.58) 0.000061015
+    Apply:   (0.35) 0.00003613
+    Rebuild: (0.07) 0.000007084
+Execution took: 0.000104621 s
+
+Starting Expression: 3058
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 159 nodes, 67 classes, 304 memo
+  Rebuilds: 19, 6.33 per iter
+  Total time: 0.00074095
+    Search:  (0.38) 0.000284304
+    Apply:   (0.48) 0.00035608899999999997
+    Rebuild: (0.13) 0.000099756
+Execution took: 0.00074095 s
+
+Starting Expression: 4218
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 7
+  Egraph size: 11979 nodes, 5189 classes, 19635 memo
+  Rebuilds: 1311, 187.29 per iter
+  Total time: 0.082192682
+    Search:  (0.60) 0.049442846
+    Apply:   (0.26) 0.021758885000000002
+    Rebuild: (0.13) 0.010985184
+Execution took: 0.082192682 s
+
+Starting Expression: 4306
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 62 nodes, 44 classes, 67 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000249577
+    Search:  (0.44) 0.000110042
+    Apply:   (0.48) 0.000118594
+    Rebuild: (0.08) 0.00001916
+Execution took: 0.000249577 s
+
+Starting Expression: 4858
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 25 nodes, 18 classes, 29 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00017618
+    Search:  (0.55) 0.000096923
+    Apply:   (0.40) 0.000069702
+    Rebuild: (0.05) 0.000008969
+Execution took: 0.00017618 s
+
+Starting Expression: 4888
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 4
+  Egraph size: 393 nodes, 129 classes, 554 memo
+  Rebuilds: 15, 3.75 per iter
+  Total time: 0.000968093
+    Search:  (0.38) 0.00037089800000000004
+    Apply:   (0.50) 0.000479608
+    Rebuild: (0.12) 0.000116626
+Execution took: 0.000968093 s
+
+Starting Expression: 4889
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 21 nodes, 14 classes, 23 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.00007507
+    Search:  (0.55) 0.000041469
+    Apply:   (0.38) 0.000028818
+    Rebuild: (0.06) 0.000004335
+Execution took: 0.00007507 s
+
+Starting Expression: 5227
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 72 nodes, 40 classes, 79 memo
+  Rebuilds: 1, 0.50 per iter
+  Total time: 0.00020832
+    Search:  (0.49) 0.000101619
+    Apply:   (0.42) 0.00008750500000000001
+    Rebuild: (0.09) 0.000018602
+Execution took: 0.00020832 s
+
+Starting Expression: 5275
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 24 nodes, 16 classes, 26 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000075041
+    Search:  (0.55) 0.000040981
+    Apply:   (0.38) 0.000028386
+    Rebuild: (0.07) 0.000005334
+Execution took: 0.000075041 s
+
+Starting Expression: 5287
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 54 nodes, 36 classes, 59 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000103449
+    Search:  (0.45) 0.000046578
+    Apply:   (0.45) 0.000046627
+    Rebuild: (0.10) 0.000009849
+Execution took: 0.000103449 s
+
+Starting Expression: 5668
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 1
+  Egraph size: 67 nodes, 45 classes, 72 memo
+  Rebuilds: 0, 0.00 per iter
+  Total time: 0.000107436
+    Search:  (0.42) 0.000044688
+    Apply:   (0.48) 0.000051891
+    Rebuild: (0.10) 0.000010645
+Execution took: 0.000107436 s
+
+Execution time : |19| |18|

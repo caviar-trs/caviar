@@ -599,9 +599,10 @@ pub fn prove_expression_with_file_classes(
         if result {
             if report {
                 println!(
-                    "{}\n{:?}",
+                    "{}\n{:?}\n class {}",
                     "Proved goal:".bright_green().bold(),
-                    goals[proved_goal_index].to_string()
+                    goals[proved_goal_index].to_string(),
+                    i
                 );
             }
             best_expr = Some(goals[proved_goal_index].to_string())

@@ -6,7 +6,7 @@ use json::parse;
 use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::io::writer::write_results;
 use crate::structs::{ExpressionStruct, ResultStructure};
-use trs::{prove, prove_expression_with_file_classes};
+use trs::{prove, prove_equiv, prove_expression_with_file_classes};
 mod trs;
 
 mod dataset;
@@ -118,7 +118,7 @@ fn main() {
             "test_classes" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let classes_file = get_nth_arg(6).unwrap();
-                test_classes(classes_file, &expression_vect, params, true, false);
+                test_classes(classes_file, &expression_vect, params, true, true);
             }
             "prove_one_expr" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
@@ -146,6 +146,6 @@ fn main() {
         let params = get_runner_params(1).unwrap();
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start, end);
-        println!("{:?}", prove(&start, -1, params, true, true));
+        println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
     }
 }

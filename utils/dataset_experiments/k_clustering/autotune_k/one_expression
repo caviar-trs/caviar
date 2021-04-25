@@ -1,0 +1,100 @@
+Starting: K=10
+[['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch', 'eq-max-lt', 'min-div-out-neg', 'Eq-min-c-neg']] 
+
+ Total Classes: 8
+Starting Expression: 3058
+Could not prove any goal:
+
+Best Expr: (&& (&& (&& (&& 1 (<= (/ v1 125) (/ (+ 0 v1) 125))) 1) 1) 1)
+Runner report
+=============
+  Stop reason: TimeLimit(0.470021774)
+  Iterations: 32
+  Egraph size: 55634 nodes, 4504 classes, 164576 memo
+  Rebuilds: 23548, 735.88 per iter
+  Total time: 0.500511299
+    Search:  (0.38) 0.189960616
+    Apply:   (0.52) 0.260058229
+    Rebuild: (0.10) 0.050421609000000006
+Execution took: 0.500511299 s
+
+Proved goal:
+"1"
+ class 1
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 2
+  Egraph size: 32412 nodes, 2566 classes, 166775 memo
+  Rebuilds: 1999, 999.50 per iter
+  Total time: 0.26184524400000003
+    Search:  (0.95) 0.249752891
+    Apply:   (0.00) 0.000348728
+    Rebuild: (0.04) 0.011742933
+Execution took: 0.26184524400000003 s
+
+Execution time : |0| |0|
+Starting: K=35
+[['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch', 'eq-max-lt', 'min-div-out-neg', 'Eq-min-c-neg']] 
+
+ Total Classes: 3
+Starting Expression: 3058
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 157 nodes, 61 classes, 262 memo
+  Rebuilds: 8, 2.67 per iter
+  Total time: 0.000382023
+    Search:  (0.30) 0.00011439499999999999
+    Apply:   (0.55) 0.000211424
+    Rebuild: (0.15) 0.000055629999999999994
+Execution took: 0.000382023 s
+
+Execution time : |0| |0|
+Starting: K=55
+[['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg'], ['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch', 'eq-max-lt', 'min-div-out-neg', 'Eq-min-c-neg']] 
+
+ Total Classes: 2
+Starting Expression: 3058
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 159 nodes, 67 classes, 287 memo
+  Rebuilds: 11, 3.67 per iter
+  Total time: 0.0007232
+    Search:  (0.37) 0.000270631
+    Apply:   (0.49) 0.000357282
+    Rebuild: (0.13) 0.000094169
+Execution took: 0.0007232 s
+
+Execution time : |0| |0|
+Starting: K=75
+[['eq-x-x', 'add-comm', 'add-assoc', 'eqgt-to-not-lt', 'sub-to-add', 'eqlt-to-not-gt', 'lt-to-zero', 'lt-swap-out', 'mul-comm', 'mul-assoc', 'add-zero', 'lt-x-x-sub-a', 'add-fact-mul', 'mul-zero', 'lt-swap-in', 'add-dist-mul', 'add-to-sub', 'not-gt-to-eqlt', 'Eq-lt-min', 'min-comm', 'min-add-both', 'eq-swap', 'max-to-min', 'and-comm', 'and-min-to-lt', 'min-sub-both', 'min-to-max', 'eq-comm', 'div-cancel-mul', 'and-min-to-eqlt', 'gt-to-lt', 'min-x-x', 'min-mul-in-pos', 'lt-min-term+cpos', 'max-min-switch', 'min-x-x-plus-a-pos', 'min-max-const', 'min-mod-const-to-const', 'Eq-min-c-pos', 'add-denom-mul', 'min-ass', 'min-x-x-plus-a-neg', 'add-denom-div', 'lt-mul-pos-cancel', 'mul-cancel-div', 'and-lt-to-min', 'min-max', 'div-minus-in', 'lt-mul-div-cancel', 'mul-one', 'mod-minus-in', 'min-div-in-pos', 'min-div-out-pos', 'min-mul-out-neg', 'min-mul-in-neg', 'min-max-max-x', 'div-minus-down', 'and-eqlt-eqgt-to-0', 'min-div-mul', 'lt-min-max-cancel', 'min-mul-out-pos', 'and-assoc', 'Eq-max-c-pos', 'min-mod-const-to-mod', 'Eq-min-lt', 'and-max-to-eqlt', 'and-lt-to-max', 'lt-min-term-term+pos', 'and-x-1', 'min-max-switch', 'eq-max-lt', 'min-div-out-neg', 'Eq-min-c-neg']] 
+
+ Total Classes: 1
+Starting Expression: 3058
+Proved goal:
+"1"
+ class 0
+Runner report
+=============
+  Stop reason: Other("Goal 1 Matched")
+  Iterations: 3
+  Egraph size: 159 nodes, 67 classes, 304 memo
+  Rebuilds: 19, 6.33 per iter
+  Total time: 0.000602245
+    Search:  (0.41) 0.000244054
+    Apply:   (0.46) 0.000278667
+    Rebuild: (0.13) 0.00007887399999999999
+Execution took: 0.000602245 s
+
+Execution time : |0| |0|
+Starting: K=111
