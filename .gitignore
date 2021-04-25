@@ -9,3 +9,5 @@ tmp/*
 !results/.gitkeep
 !halide_rules/.gitkeep
 !tmp/.gitkeep
+
+**/results/

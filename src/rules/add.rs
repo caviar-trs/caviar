@@ -13,8 +13,5 @@ pub fn add() -> Vec<Rewrite> {
         rw!("add-denom-mul" ; "(+ (/ ?a ?b) ?c)"            => "(/ (+ ?a (* ?b ?c)) ?b)"),
         rw!("add-denom-div" ; "(/ (+ ?a (* ?b ?c)) ?b)"     => "(+ (/ ?a ?b) ?c)"),
         rw!("add-div-mod"   ; "( + ( / ?x 2 ) ( % ?x 2 ) )" => "( / ( + ?x 1 ) 2 )"),
-        // rw!("add-double"; "(+ ?a ?a)" => "(* 2 ?a)"), //NOTAXIOM
-        // rw!("plus-max-min"    ; "(+ (min ?a ?b) (max ?a ?b))" => "(+ ?a ?b)"), //NOTAXIOM
-        // rw!("add-zero"; "?a" => "(+ ?a 0)"),
     ]
 }

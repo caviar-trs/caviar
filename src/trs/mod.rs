@@ -449,6 +449,15 @@ pub fn prove(
     let id;
     let best_expr;
 
+    // // print the ruleset used as a vector of strings
+    // println!(
+    //     "{:?}",
+    //     rules(ruleset_class)
+    //         .iter()
+    //         .map(|rew| rew.name.clone())
+    //         .collect::<Vec<String>>()
+    // );
+
     if report {
         println!(
             "\n====================================\nProving Expression:\n {}\n",
@@ -480,8 +489,6 @@ pub fn prove(
             break;
         }
     }
-
-    let class = runner.egraph.classes().find(|class| class.id == id);
 
     if result {
         if report {
@@ -661,6 +668,8 @@ pub fn prove_expression_with_file_classes(
         StopReason::TimeLimit(time) => format!("Time Limit : {}", time),
         StopReason::Other(reason) => reason,
     };
+    // // comparing prove to the prove_file_classes with all rules
+    // prove(start_expression, -1, params, use_iteration_check, report);
 
     let result_struct = ResultStructure::new(
         index,
