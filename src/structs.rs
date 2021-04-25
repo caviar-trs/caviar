@@ -7,10 +7,14 @@ pub struct ResultStructure {
     index: i16,
     start_expression: String,
     end_expression: String,
-    pub result: bool,
-    pub best_expr: String,
-    pub total_time: f64,
+    result: bool,
+    best_expr: String,
     class: i64,
+    iterations: usize,
+    egraph_size: usize,
+    rebuilds: usize,
+    total_time: f64,
+    stop_reason: String,
     condition: Option<String>,
 }
 
@@ -21,8 +25,12 @@ impl ResultStructure {
         end_expression: String,
         result: bool,
         best_expr: String,
-        total_time: f64,
         class: i64,
+        iterations: usize,
+        egraph_size: usize,
+        rebuilds: usize,
+        total_time: f64,
+        stop_reason: String,
         condition: Option<String>,
     ) -> Self {
         Self {
@@ -31,10 +39,19 @@ impl ResultStructure {
             end_expression,
             result,
             best_expr,
-            total_time,
             class,
+            iterations,
+            egraph_size,
+            rebuilds,
+            total_time,
+            stop_reason,
             condition,
         }
+    }
+
+    pub fn add_index_condition(&mut self, index: i16, condition: String) {
+        self.index = index;
+        self.condition = Some(condition);
     }
 }
 

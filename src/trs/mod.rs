@@ -407,14 +407,26 @@ pub fn prove_equiv(
         runner.print_report();
     }
 
+    let stop_reason = match runner.stop_reason.unwrap() {
+        StopReason::Saturated => "Saturation".to_string(),
+        StopReason::IterationLimit(iter) => format!("Iterations: {}", iter),
+        StopReason::NodeLimit(nodes) => format!("Node Limit: {}", nodes),
+        StopReason::TimeLimit(time) => format!("Time Limit : {}", time),
+        StopReason::Other(reason) => reason,
+    };
+
     ResultStructure::new(
         -1,
         start_expression.to_string(),
         end_expressions.to_string(),
         result,
         best_expr_string.unwrap_or_default(),
-        total_time,
         ruleset_class as i64,
+        runner.iterations.len(),
+        runner.egraph.total_number_of_nodes(),
+        runner.iterations.iter().map(|i| i.n_rebuilds).sum(),
+        total_time,
+        stop_reason,
         None,
     )
 }
@@ -498,14 +510,26 @@ pub fn prove(
         runner.print_report();
     }
 
+    let stop_reason = match runner.stop_reason.unwrap() {
+        StopReason::Saturated => "Saturation".to_string(),
+        StopReason::IterationLimit(iter) => format!("Iterations: {}", iter),
+        StopReason::NodeLimit(nodes) => format!("Node Limit: {}", nodes),
+        StopReason::TimeLimit(time) => format!("Time Limit : {}", time),
+        StopReason::Other(reason) => reason,
+    };
+
     ResultStructure::new(
         -1,
         start_expression.to_string(),
         "1/0".to_string(),
         result,
         best_expr.unwrap_or_default(),
-        total_time,
         ruleset_class as i64,
+        runner.iterations.len(),
+        runner.egraph.total_number_of_nodes(),
+        runner.iterations.iter().map(|i| i.n_rebuilds).sum(),
+        total_time,
+        stop_reason,
         None,
     )
 }
@@ -518,7 +542,7 @@ pub fn prove_rule(
     use_iteration_check: bool,
     report: bool,
 ) -> ResultStructure {
-    let result = prove_equiv(
+    let mut result = prove_equiv(
         &rule.lhs,
         &rule.rhs,
         ruleset_class,
@@ -526,16 +550,8 @@ pub fn prove_rule(
         use_iteration_check,
         report,
     );
-    ResultStructure::new(
-        rule.index,
-        rule.lhs.clone(),
-        rule.rhs.clone(),
-        result.result,
-        result.best_expr,
-        result.total_time,
-        ruleset_class as i64,
-        rule.condition.clone(),
-    )
+    result.add_index_condition(rule.index, rule.condition.as_ref().unwrap().clone());
+    result
 }
 
 pub fn prove_expression_with_file_classes(
@@ -559,6 +575,7 @@ pub fn prove_expression_with_file_classes(
     let end_1: Pattern<Math> = "1".parse().unwrap();
     let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
+    let mut total_time: f64 = 0.0;
 
     let time_per_class = (params.2 as f64) / (classes.len() as f64);
 
@@ -586,6 +603,8 @@ pub fn prove_expression_with_file_classes(
         } else {
             runner = runner.run(rules.iter());
         }
+        let class_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
+        total_time += class_time;
 
         for (goal_index, goal) in goals.iter().enumerate() {
             let boolean = (goal.search_eclass(&runner.egraph, id)).is_none();
@@ -622,7 +641,6 @@ pub fn prove_expression_with_file_classes(
                 );
             }
         }
-        let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
         if report {
             runner.print_report();
             println!(
@@ -636,15 +654,27 @@ pub fn prove_expression_with_file_classes(
         }
     }
 
+    let stop_reason = match runner.stop_reason.unwrap() {
+        StopReason::Saturated => "Saturation".to_string(),
+        StopReason::IterationLimit(iter) => format!("Iterations: {}", iter),
+        StopReason::NodeLimit(nodes) => format!("Node Limit: {}", nodes),
+        StopReason::TimeLimit(time) => format!("Time Limit : {}", time),
+        StopReason::Other(reason) => reason,
+    };
+
     let result_struct = ResultStructure::new(
         index,
         start_expression.to_string(),
         "1/0".to_string(),
         result,
         best_expr.unwrap_or_default(),
-        start_t.elapsed().as_secs_f64(),
         proving_class as i64,
-        Some(0.to_string()),
+        runner.iterations.len(),
+        runner.egraph.total_number_of_nodes(),
+        runner.iterations.iter().map(|i| i.n_rebuilds).sum(),
+        total_time,
+        stop_reason,
+        None,
     );
     Ok((result_struct, proving_class, start_t.elapsed()))
 }

@@ -146,6 +146,7 @@ fn main() {
         let params = get_runner_params(1).unwrap();
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start, end);
-        println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
+        // println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
+        println!("{:?}", prove(&start, -1, params, true, true));
     }
 }
