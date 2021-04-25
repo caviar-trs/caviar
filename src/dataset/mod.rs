@@ -352,3 +352,46 @@ pub fn minimal_set_to_prove_0_1(
         println!("Could not prove {0}", format!("{0}", expression.to_string()).red().bold());
     }
 }
+
+pub fn experiment_minimal_subset(
+    expressions: &JsonValue,
+    params: (usize, usize, u64),
+){
+    let mut ruleset_minimal: Vec<egg::Rewrite<Math, ConstantFold>>;
+    let mut start: RecExpr<Math>;
+    let mut results: Vec<(String, f64, f64)> = Vec::new();
+    expressions.members().for_each(|expression| {compare_rulesets(expression, params, &mut results)});
+}
+
+pub fn compare_rulesets(
+    expression_with_rules: &JsonValue, 
+    params: (usize, usize, u64),
+    results: &mut std::vec::Vec<(std::string::String, f64, f64)>
+){
+    let start = &expression_with_rules["expression"]["start"].to_string().parse().unwrap();
+    let minimal_ruleset_ids = &expression_with_rules["rules"];
+    let minimal_ruleset = crate::trs::filtered_rules(&minimal_ruleset_ids).unwrap();
+    let end_1: Pattern<Math> = "1".parse().unwrap();
+    let end_0: Pattern<Math> = "0".parse().unwrap();
+    let goals = [end_0.clone(), end_1.clone()];
+    let ruleset = rules(-1);
+    let mut runner = Runner::default()
+            .with_iter_limit(params.0)
+            .with_node_limit(params.1)
+            .with_time_limit(Duration::new(params.2, 0))
+            .with_expr(&start);
+    println!("{}",format!("\n\nFull ruleset").blue().bold());
+    runner = runner.run_check_iteration(ruleset.iter(), &goals);
+    runner.print_report();
+    let total_time1: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
+    runner = Runner::default()
+            .with_iter_limit(params.0)
+            .with_node_limit(params.1)
+            .with_time_limit(Duration::new(params.2, 0))
+            .with_expr(&start);
+    println!("{}",format!("\n\nMinimal ruleset").blue().bold());
+    runner = runner.run_check_iteration(minimal_ruleset.iter(), &goals);
+    runner.print_report(); 
+    let total_time2: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
+    results.push((expression_with_rules["expression"]["start"].to_string(), total_time1, total_time2)); 
+}

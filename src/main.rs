@@ -102,25 +102,32 @@ fn main() {
     // }
     // println!("End.");
 
-    if _args.len() > 4 {
+    if _args.len() > 1 {
         let operation = get_nth_arg(1).unwrap();
-        let expressions_file = get_nth_arg(2).unwrap();
-        let params = get_runner_params(3).unwrap();
+        
         match operation.to_str().unwrap() {
             "dataset" => {
+                let expressions_file = get_nth_arg(2).unwrap();
+                let params = get_runner_params(3).unwrap();
                 dataset::generation_execution(&expressions_file, params, 5, 500);
             }
             "prove_exprs" => {
+                let expressions_file = get_nth_arg(2).unwrap();
+                let params = get_runner_params(3).unwrap();
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let results = prove_expressions(&expression_vect, -1, params, true, true);
                 write_results("tmp/generated_expressions_results.csv", &results).unwrap();
             }
             "test_classes" => {
+                let expressions_file = get_nth_arg(2).unwrap();
+                let params = get_runner_params(3).unwrap();
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let classes_file = get_nth_arg(6).unwrap();
                 test_classes(classes_file, &expression_vect, params, true, false);
             }
             "prove_one_expr" => {
+                let expressions_file = get_nth_arg(2).unwrap();
+                let params = get_runner_params(3).unwrap();
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let classes_file = get_nth_arg(6).unwrap();
                 let mut file = File::open(classes_file).unwrap();
@@ -139,6 +146,14 @@ fn main() {
                 )
                 .unwrap();
                 println!("{}", start_t.elapsed().as_secs_f64());
+            }
+            "experiment_clustering" => {
+                let dataset = get_nth_arg(2).unwrap();
+                let mut file = File::open(dataset).unwrap();
+                let mut s = String::new();
+                file.read_to_string(&mut s).unwrap();
+                let expressions = parse(&s).unwrap();
+                dataset::experiment_minimal_subset(&expressions, (30, 10000, 5));
             }
             _ => {}
         }
