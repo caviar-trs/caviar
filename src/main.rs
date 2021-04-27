@@ -56,6 +56,8 @@ fn test_classes(
     let mut i = 0;
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
+        i = 0;
+        average = 0.0;
         loop{
             prove_result = prove_expression_with_file_classes(
                 &classes,
@@ -66,6 +68,7 @@ fn test_classes(
                 false,
             )
             .unwrap();
+            println!("Iter: {} | time: {}", i, prove_result.0.total_time);
             average += prove_result.0.total_time;
             i += 1;
             if i == count {break;}
