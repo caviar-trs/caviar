@@ -7,7 +7,7 @@ pub struct ResultStructure {
     index: i16,
     start_expression: String,
     end_expression: String,
-    result: bool,
+    pub result: bool,
     best_expr: String,
     class: i64,
     iterations: usize,

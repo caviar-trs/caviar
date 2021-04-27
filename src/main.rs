@@ -1,11 +1,11 @@
 use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 
-use io::reader::get_nth_arg;
-use json::parse;
-use std::time::Duration;
 use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::io::writer::write_results;
 use crate::structs::{ExpressionStruct, ResultStructure};
+use io::reader::get_nth_arg;
+use json::parse;
+use std::time::Duration;
 use trs::{prove, prove_equiv, prove_expression_with_file_classes};
 mod trs;
 
@@ -58,7 +58,7 @@ fn test_classes(
         println!("Starting Expression: {}", expression.index);
         i = 0;
         average = 0.0;
-        loop{
+        loop {
             prove_result = prove_expression_with_file_classes(
                 &classes,
                 params,
@@ -71,13 +71,15 @@ fn test_classes(
             println!("Iter: {} | time: {}", i, prove_result.0.total_time);
             average += prove_result.0.total_time;
             i += 1;
-            if i == count {break;}
+            if i == count || !prove_result.0.result {
+                break;
+            }
         }
-        prove_result.0.total_time = average / (count as f64);
+        prove_result.0.total_time = average / (i as f64);
         results_structs.push(prove_result.0);
         results_proving_class.push(prove_result.1);
         results_exec_time.push(prove_result.2);
-        println!("Average time: {}", average / (count as f64));
+        println!("Average time: {}", average / (i as f64));
     }
     let duration = start_t.elapsed().as_secs();
     let exec_time: f64 = results_exec_time.iter().map(|i| i.as_secs() as f64).sum();
@@ -145,8 +147,20 @@ fn main() {
             "test_classes" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let classes_file = get_nth_arg(6).unwrap();
-                let iterations_count = get_nth_arg(7).unwrap().into_string().unwrap().parse::<usize>().unwrap();
-                test_classes(classes_file, &expression_vect, params, iterations_count, true, true);
+                let iterations_count = get_nth_arg(7)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<usize>()
+                    .unwrap();
+                test_classes(
+                    classes_file,
+                    &expression_vect,
+                    params,
+                    iterations_count,
+                    true,
+                    true,
+                );
             }
             "prove_one_expr" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
