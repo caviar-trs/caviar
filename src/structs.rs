@@ -13,7 +13,7 @@ pub struct ResultStructure {
     iterations: usize,
     egraph_size: usize,
     rebuilds: usize,
-    total_time: f64,
+    pub total_time: f64,
     stop_reason: String,
     condition: Option<String>,
 }

@@ -2,7 +2,7 @@ use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 
 use io::reader::get_nth_arg;
 use json::parse;
-
+use std::time::Duration;
 use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::io::writer::write_results;
 use crate::structs::{ExpressionStruct, ResultStructure};
@@ -39,6 +39,7 @@ fn test_classes(
     path: OsString,
     exprs_vect: &Vec<ExpressionStruct>,
     params: (usize, usize, u64),
+    count: usize,
     use_iteration_check: bool,
     report: bool,
 ) -> () {
@@ -50,21 +51,30 @@ fn test_classes(
     let mut results_proving_class = Vec::new();
     let mut results_exec_time = Vec::new();
     let start_t = Instant::now();
-
+    let mut average = 0.0;
+    let mut prove_result: (ResultStructure, i64, Duration);
+    let mut i = 0;
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
-        let (strct, class, exec_time) = prove_expression_with_file_classes(
-            &classes,
-            params,
-            expression.index,
-            &expression.expression.clone(),
-            use_iteration_check,
-            report,
-        )
-        .unwrap();
-        results_structs.push(strct);
-        results_proving_class.push(class);
-        results_exec_time.push(exec_time);
+        loop{
+            prove_result = prove_expression_with_file_classes(
+                &classes,
+                params,
+                expression.index,
+                &expression.expression.clone(),
+                use_iteration_check,
+                false,
+            )
+            .unwrap();
+            average += prove_result.0.total_time;
+            i += 1;
+            if i == count {break;}
+        }
+        prove_result.0.total_time = average / (count as f64);
+        results_structs.push(prove_result.0);
+        results_proving_class.push(prove_result.1);
+        results_exec_time.push(prove_result.2);
+        println!("Average time: {}", average / (count as f64));
     }
     let duration = start_t.elapsed().as_secs();
     let exec_time: f64 = results_exec_time.iter().map(|i| i.as_secs() as f64).sum();
@@ -107,6 +117,20 @@ fn main() {
         let expressions_file = get_nth_arg(2).unwrap();
         let params = get_runner_params(3).unwrap();
         match operation.to_str().unwrap() {
+            "comparaison" => {
+                /*let expression_vect = read_expressions(&expressions_file).unwrap();
+                let classes_file = get_nth_arg(6).unwrap();
+                let mut average_k = 0.0;
+                let mut average = 0.0;
+                for i in 0..5000{
+                    let results_k = test_classes(classes_file.clone(), &expression_vect, params, true, false);
+                    let results = prove_expressions(&expression_vect, -1, params, true, false);
+                    average_k += results_k[0].total_time;
+                    average += results[0].total_time;
+                }
+                println!("Average time with classes {}", average_k/5000.0);
+                println!("Average time without classes {}", average/5000.0);*/
+            }
             "dataset" => {
                 dataset::generation_execution(&expressions_file, params, 5, 500);
             }
@@ -118,7 +142,8 @@ fn main() {
             "test_classes" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let classes_file = get_nth_arg(6).unwrap();
-                test_classes(classes_file, &expression_vect, params, true, true);
+                let iterations_count = get_nth_arg(7).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                test_classes(classes_file, &expression_vect, params, iterations_count, true, true);
             }
             "prove_one_expr" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
@@ -145,7 +170,7 @@ fn main() {
     } else {
         let params = get_runner_params(1).unwrap();
         let (start, end) = get_start_end().unwrap();
-        println!("Simplifying expression:\n {}\n to {}", start, end);
+        // println!("Simplifying expression:\n {}\n to {}", start, end);
         // println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
         println!("{:?}", prove(&start, -1, params, true, true));
     }
