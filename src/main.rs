@@ -4,9 +4,12 @@ use dataset::generate_dataset_par;
 use io::reader::get_nth_arg;
 use json::parse;
 
-use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::io::writer::write_results;
 use crate::structs::{ExpressionStruct, ResultStructure};
+use crate::{
+    io::reader::{get_runner_params, get_start_end, read_expressions},
+    trs::fast_fail_prove,
+};
 use trs::{prove, prove_equiv, prove_expression_with_file_classes};
 mod trs;
 
@@ -148,10 +151,10 @@ fn main() {
         let params = get_runner_params(1).unwrap();
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start, end);
-        println!("{:?}", prove(-1, &start, -1, params, true, true));
+        // println!("{:?}", fast_fail_prove(-1, &start, -1, params, true, true));
         // println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
 
-        // let expressions = vec![(&start[..], &end[..])];
-        // generate_dataset_par(&expressions, params, -1, 10);
+        let expressions = vec![(&start[..], &end[..])];
+        generate_dataset_par(&expressions, params, -1, 10);
     }
 }
