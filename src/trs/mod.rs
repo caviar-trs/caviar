@@ -506,9 +506,9 @@ pub fn prove(
         let mut extractor = Extractor::new(&runner.egraph, AstDepth);
         let now = Instant::now();
         let (_, best_exprr) = extractor.find_best(id);
-        let mut egraph = EGraph::default();
-        let a11 = egraph.add_expr(&best_exprr.to_string().parse().unwrap());
-        egraph.rebuild();
+        // let mut egraph = EGraph::default();
+        // let a11 = egraph.add_expr(&best_exprr.to_string().parse().unwrap());
+        // egraph.rebuild();
         // for (impo_index, impo) in impossibles.iter().enumerate() {
         //     let results = impo.search_eclass(&egraph, a11).unwrap();
 
@@ -536,12 +536,7 @@ pub fn prove(
         //     //     break;
         //     // }
         // }
-
-        println!(
-            "{} {}",
-            "process took:".bright_red(),
-            now.elapsed().as_secs_f32().to_string().bright_green()
-        );
+        let extraction_time = now.elapsed().as_secs_f32();
 
         best_expr = Some(best_exprr.to_string());
 
@@ -550,6 +545,11 @@ pub fn prove(
             println!(
                 "Best Expr: {}",
                 format!("{}", best_exprr).bright_green().bold()
+            );
+            println!(
+                "{} {}",
+                "Extracting Best Expression took:".bright_red(),
+                extraction_time.to_string().bright_green()
             );
         }
     }
