@@ -827,27 +827,33 @@ pub fn fast_fail_prove(
         //     // }
         // }
         let extraction_time = now.elapsed().as_secs_f32();
-        println!(
-            "Starting 2nd pass with Best Expr: {} in {}",
-            format!("{}", best_exprr).bright_green().bold(),
-            format!("{}", extraction_time).bright_green().bold()
-        );
+
         let first_exec_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
         total_time += first_exec_time;
-        if use_iteration_check {
-            runner = Runner::default()
-                .with_iter_limit(params.0)
-                .with_node_limit(params.1)
-                .with_time_limit(Duration::new(time_limit, 0))
-                .with_expr(&best_exprr)
-                .run_check_iteration(rules(ruleset_class).iter(), &goals);
-        } else {
-            runner = Runner::default()
-                .with_iter_limit(params.0)
-                .with_node_limit(params.1)
-                .with_time_limit(Duration::new(time_limit, 0))
-                .with_expr(&best_exprr)
-                .run(rules(ruleset_class).iter());
+        if match &runner.stop_reason.as_ref().unwrap() {
+            StopReason::Saturated => false,
+            _ => true,
+        } {
+            println!(
+                "Starting 2nd pass with Best Expr: {} in {}",
+                format!("{}", best_exprr).bright_green().bold(),
+                format!("{}", extraction_time).bright_green().bold()
+            );
+            if use_iteration_check {
+                runner = Runner::default()
+                    .with_iter_limit(params.0)
+                    .with_node_limit(params.1)
+                    .with_time_limit(Duration::new(params.2 - 1, 0))
+                    .with_expr(&best_exprr)
+                    .run_check_iteration(rules(ruleset_class).iter(), &goals);
+            } else {
+                runner = Runner::default()
+                    .with_iter_limit(params.0)
+                    .with_node_limit(params.1)
+                    .with_time_limit(Duration::new(params.2 - 1, 0))
+                    .with_expr(&best_exprr)
+                    .run(rules(ruleset_class).iter());
+            }
         }
 
         id = runner.egraph.find(*runner.roots.last().unwrap());

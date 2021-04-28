@@ -153,8 +153,9 @@ fn main() {
         println!("Simplifying expression:\n {}\n to {}", start, end);
         // println!("{:?}", fast_fail_prove(-1, &start, -1, params, true, true));
         // println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
+        println!("{:?}", prove(-1, &start, -1, params, true, true));
 
-        let expressions = vec![(&start[..], &end[..])];
-        generate_dataset_par(&expressions, params, -1, 10);
+        // let expressions = vec![(&start[..], &end[..])];
+        // generate_dataset_par(&expressions, params, -1, 10);
     }
 }

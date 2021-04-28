@@ -6,6 +6,7 @@ pub fn eq() -> Vec<Rewrite> {
     vec![
         // Equality RULES
         rw!("eq-comm"       ; "(== ?x ?y)"           => "(== ?y ?x)"),
+        rw!("eq-x-y-0"      ; "(== ?x ?y)"           => "(== (- ?x ?y) 0)"),
         rw!("eq-swap"       ; "(== (+ ?x ?y) ?z)"    => "(== ?x (- ?z ?y))"),
         rw!("eq-x-x"        ; "(== ?x ?x)"           => "1"),
         rw!("eq-mul-x-y-0"  ; "(== (* ?x ?y) 0)"     => "(|| (== ?x 0) (== ?y 0))"),
