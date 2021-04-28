@@ -1,3 +1,4 @@
+import sys
 from Stack import Stack
 
 
@@ -11,9 +12,9 @@ class Expression:
         # self.expr = Expression.fun_to_op(
         #     Expression.expr_str_to_arr(Expression.minus_plus(expr)))
         self.expr = Expression.expr_str_to_arr(Expression.minus_plus(expr))
-        #print(self.toString())
+        # print(self.toString())
         Expression.add_parentheses(self)
-        #print(self.toString())
+        # print(self.toString())
 
     def print(self):
         print(self.toString() + "\n")
@@ -201,8 +202,6 @@ class Expression:
                     i = i + 1
                     arr[i], arr[j] = arr[j], arr[i]
 
-
-
         arr[i + 1], arr[high] = arr[high], arr[i + 1]
         return (i + 1)
 
@@ -325,7 +324,6 @@ class Expression:
                     for i in range(len(not_list)):
                         if not_list[i][1] >= position:
                             not_list[i][1] += 1
-
 
         for op_index in range(len(list_operations)):
             position = list_operations[op_index][1]
@@ -452,7 +450,7 @@ class Expression:
 
 if __name__ == '__main__':
     # arr = [i for i in Expression("c1 + x * y + z").add_parentheses() if i]
-    arr = Expression("(min ( x + min ( y , w ) , z ))")
+    arr = Expression(sys.argv[1])
     # print(arr.toString())
     #                 ( min ( ( y - z ) , x ) + z )
     print(' '.join(arr.infixToPrefix()))

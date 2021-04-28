@@ -1,5 +1,6 @@
 use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 
+use dataset::generate_dataset_par;
 use io::reader::get_nth_arg;
 use json::parse;
 
@@ -25,6 +26,7 @@ fn prove_expressions(
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
         results.push(prove(
+            expression.index,
             &expression.expression,
             ruleset_class,
             params,
@@ -108,7 +110,7 @@ fn main() {
         let params = get_runner_params(3).unwrap();
         match operation.to_str().unwrap() {
             "dataset" => {
-                dataset::generation_execution(&expressions_file, params, 5, 500);
+                dataset::generation_execution(&expressions_file, params, 10, 500);
             }
             "prove_exprs" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
@@ -146,7 +148,10 @@ fn main() {
         let params = get_runner_params(1).unwrap();
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start, end);
+        println!("{:?}", prove(-1, &start, -1, params, true, true));
         // println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
-        println!("{:?}", prove(&start, -1, params, true, true));
+
+        // let expressions = vec![(&start[..], &end[..])];
+        // generate_dataset_par(&expressions, params, -1, 10);
     }
 }

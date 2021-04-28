@@ -8,7 +8,7 @@ pub fn lt() -> Vec<Rewrite> {
         rw!("gt-to-lt"      ;  "(> ?x ?z)"              => "(< ?z ?x)"),
         rw!("lt-to-zero"    ;  "(< ?a ?a)"              => "0"),
         rw!("lt-swap-in"    ;  "(< (+ ?x ?y) ?z)"       => "(< ?x (- ?z ?y))" ),
-        rw!("lt-swap-out"   ;  "(< ?z (+ ?x ?y))"       => "(< (- ?z ?y) ?x)" ), //adding it causes an error
+        rw!("lt-swap-out"   ;  "(< ?z (+ ?x ?y))"       => "(< (- ?z ?y) ?x)" ),
         rw!("lt-x-x-sub-a"  ;  "(< (- ?a ?y) ?a )"      => "1" if crate::trs::is_const_pos("?y")),
         rw!("lt-const-pos"  ;  "(< 0 ?y )"              => "1" if crate::trs::is_const_pos("?y")),
         rw!("lt-const-neg"  ;  "(< ?y 0 )"              => "1" if crate::trs::is_const_neg("?y")),

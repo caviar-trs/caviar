@@ -433,6 +433,7 @@ pub fn prove_equiv(
 
 #[allow(dead_code)]
 pub fn prove(
+    index: i16,
     start_expression: &str,
     ruleset_class: i8,
     params: (usize, usize, u64),
@@ -443,6 +444,8 @@ pub fn prove(
     let end_1: Pattern<Math> = "1".parse().unwrap();
     let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
+    let impossible: Pattern<Math> = "(== ?a ?c)".parse().unwrap();
+    let impossibles = [impossible];
     let runner: Runner<Math, ConstantFold>;
     let mut result = false;
     let mut proved_goal_index = 0;
@@ -501,7 +504,45 @@ pub fn prove(
         best_expr = Some(goals[proved_goal_index].to_string());
     } else {
         let mut extractor = Extractor::new(&runner.egraph, AstDepth);
+        let now = Instant::now();
         let (_, best_exprr) = extractor.find_best(id);
+        let mut egraph = EGraph::default();
+        let a11 = egraph.add_expr(&best_exprr.to_string().parse().unwrap());
+        egraph.rebuild();
+        // for (impo_index, impo) in impossibles.iter().enumerate() {
+        //     let results = impo.search_eclass(&egraph, a11).unwrap();
+
+        //     // for result in results {}
+        //     let a: Var = "?a".parse().unwrap();
+        //     let c: Var = "?c".parse().unwrap();
+
+        //     println!("{:?}", egraph[results.substs[0][a]].nodes);
+        //     println!(
+        //         "{:?}",
+        //         egraph[results.substs[0][a]].nodes.iter().any(|n| match n {
+        //             Math::Symbol(_) => true,
+        //             _ => return false,
+        //         }) && egraph[results.substs[0][c]].nodes.iter().all(|n| match n {
+        //             Math::Symbol(_) => false,
+        //             _ => return true,
+        //         })
+        //     )
+        //     // for subs in results.substs.iter() {
+        //     //     println!("{:?}", subs);
+        //     // }
+        //     // if !boolean {
+        //     //     result = true;
+        //     //     proved_goal_index = goal_index;
+        //     //     break;
+        //     // }
+        // }
+
+        println!(
+            "{} {}",
+            "process took:".bright_red(),
+            now.elapsed().as_secs_f32().to_string().bright_green()
+        );
+
         best_expr = Some(best_exprr.to_string());
 
         if report {
@@ -526,7 +567,7 @@ pub fn prove(
     };
 
     ResultStructure::new(
-        -1,
+        index,
         start_expression.to_string(),
         "1/0".to_string(),
         result,
