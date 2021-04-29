@@ -1,9 +1,9 @@
 use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 
-use dataset::generate_dataset_par;
 use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::io::writer::write_results;
 use crate::structs::{ExpressionStruct, ResultStructure};
+use dataset::generate_dataset_par;
 use io::reader::get_nth_arg;
 use json::parse;
 use std::time::Duration;
@@ -158,12 +158,41 @@ fn main() {
             }
             "dataset" => {
                 // cargo run --release dataset ./results/expressions_egg.csv 1000000 10000000 5 5 3 0 4
-                let reorder_count = get_nth_arg(6).unwrap().into_string().unwrap().parse::<usize>().unwrap();
-                let batch_size = get_nth_arg(7).unwrap().into_string().unwrap().parse::<usize>().unwrap();
-                let continue_from_expr = get_nth_arg(8).unwrap().into_string().unwrap().parse::<usize>().unwrap();
-                let cores = get_nth_arg(9).unwrap().into_string().unwrap().parse::<usize>().unwrap();
-                rayon::ThreadPoolBuilder::new().num_threads(cores).build_global().unwrap();
-                dataset::generation_execution(&expressions_file, params, reorder_count, batch_size, continue_from_expr);
+                let reorder_count = get_nth_arg(6)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<usize>()
+                    .unwrap();
+                let batch_size = get_nth_arg(7)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<usize>()
+                    .unwrap();
+                let continue_from_expr = get_nth_arg(8)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<usize>()
+                    .unwrap();
+                let cores = get_nth_arg(9)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<usize>()
+                    .unwrap();
+                rayon::ThreadPoolBuilder::new()
+                    .num_threads(cores)
+                    .build_global()
+                    .unwrap();
+                dataset::generation_execution(
+                    &expressions_file,
+                    params,
+                    reorder_count,
+                    batch_size,
+                    continue_from_expr,
+                );
             }
             "prove_exprs" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();

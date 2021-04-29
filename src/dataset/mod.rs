@@ -1,17 +1,17 @@
 use crate::trs::{rules, ConstantFold, Math};
 use colored::*;
+use csv::ReaderBuilder;
 use egg::{Pattern, RecExpr, Runner, Searcher};
 use json::object;
 use json::JsonValue;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use rayon::prelude::*;
+use std::ffi::OsString;
 use std::fs::File;
 use std::io::Write;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
-use std::ffi::OsString;
-use csv::ReaderBuilder;
 
 #[allow(dead_code)]
 pub fn generate_dataset(
@@ -201,29 +201,47 @@ pub fn minimal_set_to_prove(
     }
 }
 
-pub fn generation_execution(file_path: &OsString, params: (usize, usize, u64),reorder_count: usize, batch_size: usize, continue_from_expr: usize){
+pub fn generation_execution(
+    file_path: &OsString,
+    params: (usize, usize, u64),
+    reorder_count: usize,
+    batch_size: usize,
+    continue_from_expr: usize,
+) {
     let mut expressions_vect = Vec::new();
     let file = File::open(file_path).unwrap();
     //let mut rdr = csv::Reader::from_reader(file);
-    let mut rdr = ReaderBuilder::new()
-        .delimiter(b',')
-        .from_reader(file);
+    let mut rdr = ReaderBuilder::new().delimiter(b',').from_reader(file);
     let mut i = 0;
     for result in rdr.records() {
         i += 1;
-        if i > continue_from_expr{
+        if i > continue_from_expr {
             let record = result.unwrap();
             let expression = &record[1];
             expressions_vect.push(expression.to_string());
-            if i % batch_size == 0{
-                generate_dataset_0_1_par(&expressions_vect, -2, params, true, reorder_count, i/batch_size);
+            if i % batch_size == 0 {
+                generate_dataset_0_1_par(
+                    &expressions_vect,
+                    -2,
+                    params,
+                    true,
+                    reorder_count,
+                    i / batch_size,
+                );
                 println!("{} expressions processed!", i);
                 expressions_vect = Vec::new();
             }
         }
     }
     if expressions_vect.len() > 0 {
-        generate_dataset_0_1_par(&expressions_vect, -2, params, true, reorder_count, i/batch_size + 1);
+        generate_dataset_0_1_par(
+            &expressions_vect,
+            -2,
+            params,
+            true,
+            reorder_count,
+            i / batch_size + 1,
+        );
         println!("{} expressions processed!", i);
     }
 }
@@ -235,12 +253,15 @@ pub fn generate_dataset_0_1_par(
     params: (usize, usize, u64),
     use_iteration_check: bool,
     reorder_count: usize,
-    batch_number: usize
+    batch_number: usize,
 ) {
-    let results_file_name = format!("results/dataset-batch-{}.json",batch_number);
+    let results_file_name = format!("results/dataset-batch-{}.json", batch_number);
     let mut dataset = File::create(results_file_name).unwrap();
     let data = Arc::new(Mutex::new(Vec::new()));
-    println!("Generating batch #{0} with params iter_limit={1} nodes_limit={2} time_limit={3}", batch_number, params.0, params.1, params.2);
+    println!(
+        "Generating batch #{0} with params iter_limit={1} nodes_limit={2} time_limit={3}",
+        batch_number, params.0, params.1, params.2
+    );
     expressions.par_iter().for_each(|expression| {
         minimal_set_to_prove_0_1(
             &expression,
@@ -272,8 +293,8 @@ pub fn minimal_set_to_prove_0_1(
     let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
     let mut proved_goal = "0/1".to_string();
-    let result = crate::trs::prove(expression, -2, params, true, false);
-    if result.result{
+    let result = crate::trs::prove(-1, expression, -2, params, true, false);
+    if result.result {
         let mut runner;
         let mut id;
         let mut matches;
@@ -303,7 +324,7 @@ pub fn minimal_set_to_prove_0_1(
                     .with_node_limit(params.1)
                     .with_time_limit(Duration::new(params.2, 0))
                     .with_expr(&start);
-    
+
                 if use_iteration_check {
                     runner = runner.run_check_iteration(ruleset_copy.iter(), &goals);
                 } else {
@@ -353,6 +374,9 @@ pub fn minimal_set_to_prove_0_1(
         //     );
         // }
     } else {
-        println!("Could not prove {0}", format!("{0}", expression.to_string()).red().bold());
+        println!(
+            "Could not prove {0}",
+            format!("{0}", expression.to_string()).red().bold()
+        );
     }
 }
