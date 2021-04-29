@@ -98,15 +98,10 @@ fn test_classes(
 
 fn main() {
     let _args: Vec<String> = env::args().collect();
-    // let expressions = vec![
-    //     ("( <= ( - v0 11 ) ( + ( * ( / ( - v0 v1 ) 12 ) 12 ) v1 ) )","1"),
-    //     ("( <= ( + ( / ( - v0 v1 ) 8 ) 32 ) ( max ( / ( + ( - v0 v1 ) 257 ) 8 ) 0 ) )","1"),
-    //     ("( <= (/ a 2) (a))", "1"),
-    //     ("( <= ( min ( + ( * ( + v0 v1 ) 161 ) ( + ( min v2 v3 ) v4 ) ) v5 ) ( + ( * ( + v0 v1 ) 161 ) ( + v2 v4 ) ) )","1"),
-    //     ("( == (+ a b) (+ b a) )","1"),
-    //     ("( == (min a b) (a))","1"),
-    // ];
-    // generate_dataset(expressions,(30, 10000, 5), 2, 2);
+    let expressions = vec![
+        ("( < ( min y ( + x 2 ) ) x )","1"),
+    ];
+    dataset::generate_dataset(expressions,(3000, 100000, 5), -2, 15);
     // generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
     // println!("Printing rules ...");
     // let arr = filteredRules(&get_first_arg().unwrap(), 1).unwrap();
@@ -139,7 +134,7 @@ fn main() {
             }
             "prove_exprs" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
-                let results = prove_expressions(&expression_vect, -1, params, true, true);
+                let results = prove_expressions(&expression_vect, -1, params, false, true);
                 write_results("tmp/generated_expressions_results.csv", &results).unwrap();
             }
             "test_classes" => {
