@@ -132,7 +132,13 @@ fn main() {
                 println!("Average time without classes {}", average/5000.0);*/
             }
             "dataset" => {
-                dataset::generation_execution(&expressions_file, params, 5, 500);
+                // cargo run --release dataset ./results/expressions_egg.csv 1000000 10000000 5 5 3 0 4
+                let reorder_count = get_nth_arg(6).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                let batch_size = get_nth_arg(7).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                let continue_from_expr = get_nth_arg(8).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                let cores = get_nth_arg(9).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                rayon::ThreadPoolBuilder::new().num_threads(cores).build_global().unwrap();
+                dataset::generation_execution(&expressions_file, params, reorder_count, batch_size, continue_from_expr);
             }
             "prove_exprs" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
