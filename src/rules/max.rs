@@ -1,6 +1,6 @@
-use egg::{rewrite as rw};
-use crate::trs::Math;
 use crate::trs::ConstantFold;
+use crate::trs::Math;
+use egg::rewrite as rw;
 pub type Rewrite = egg::Rewrite<Math, ConstantFold>;
 pub fn max() -> Vec<Rewrite> { vec![
     // MAX RULES

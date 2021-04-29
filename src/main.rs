@@ -1,12 +1,13 @@
 use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 
+use dataset::generate_dataset_par;
 use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::io::writer::write_results;
 use crate::structs::{ExpressionStruct, ResultStructure};
 use io::reader::get_nth_arg;
 use json::parse;
 use std::time::Duration;
-use trs::{prove, prove_equiv, prove_expression_with_file_classes};
+use trs::{prove, prove_equiv, prove_expression_with_file_classes, prove_multiple_passes};
 mod trs;
 
 mod dataset;
@@ -25,9 +26,33 @@ fn prove_expressions(
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
         results.push(prove(
+            expression.index,
             &expression.expression,
             ruleset_class,
             params,
+            use_iteration_check,
+            report,
+        ));
+    }
+    results
+}
+
+#[allow(dead_code)]
+fn prove_expressions_multiple_passes(
+    exprs_vect: &Vec<ExpressionStruct>,
+    ruleset_class: i8,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> Vec<ResultStructure> {
+    let mut results = Vec::new();
+    for expression in exprs_vect.iter() {
+        results.push(prove_multiple_passes(
+            expression.index,
+            &expression.expression,
+            ruleset_class,
+            params,
+            0.5,
             use_iteration_check,
             report,
         ));
@@ -143,7 +168,13 @@ fn main() {
             "prove_exprs" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let results = prove_expressions(&expression_vect, -1, params, true, true);
-                write_results("tmp/generated_expressions_results.csv", &results).unwrap();
+                write_results("tmp/results_prove.csv", &results).unwrap();
+            }
+            "prove_exprs_passes" => {
+                let expression_vect = read_expressions(&expressions_file).unwrap();
+                let results =
+                    prove_expressions_multiple_passes(&expression_vect, -1, params, true, true);
+                write_results("tmp/results_multiple_passes.csv", &results).unwrap();
             }
             "test_classes" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
@@ -188,8 +219,15 @@ fn main() {
     } else {
         let params = get_runner_params(1).unwrap();
         let (start, end) = get_start_end().unwrap();
-        // println!("Simplifying expression:\n {}\n to {}", start, end);
-        println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
-        // println!("{:?}", prove(&start, -1, params, true, true));
+        println!("Simplifying expression:\n {}\n to {}", start, end);
+        println!(
+            "{:?}",
+            prove_multiple_passes(-1, &start, -1, params, 0.5, true, true)
+        );
+        // println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
+        println!("{:?}", prove(-1, &start, -1, params, true, true));
+
+        // let expressions = vec![(&start[..], &end[..])];
+        // generate_dataset_par(&expressions, params, -1, 10);
     }
 }
