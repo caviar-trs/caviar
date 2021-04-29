@@ -1,16 +1,13 @@
 use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 
 use dataset::generate_dataset_par;
-use io::reader::get_nth_arg;
-use json::parse;
-
+use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::io::writer::write_results;
 use crate::structs::{ExpressionStruct, ResultStructure};
-use crate::{
-    io::reader::{get_runner_params, get_start_end, read_expressions},
-    trs::prove_multiple_passes,
-};
-use trs::{prove, prove_equiv, prove_expression_with_file_classes};
+use io::reader::get_nth_arg;
+use json::parse;
+use std::time::Duration;
+use trs::{prove, prove_equiv, prove_expression_with_file_classes, prove_multiple_passes};
 mod trs;
 
 mod dataset;
@@ -67,6 +64,7 @@ fn test_classes(
     path: OsString,
     exprs_vect: &Vec<ExpressionStruct>,
     params: (usize, usize, u64),
+    count: usize,
     use_iteration_check: bool,
     report: bool,
 ) -> () {
@@ -78,21 +76,35 @@ fn test_classes(
     let mut results_proving_class = Vec::new();
     let mut results_exec_time = Vec::new();
     let start_t = Instant::now();
-
+    let mut average = 0.0;
+    let mut prove_result: (ResultStructure, i64, Duration);
+    let mut i = 0;
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
-        let (strct, class, exec_time) = prove_expression_with_file_classes(
-            &classes,
-            params,
-            expression.index,
-            &expression.expression.clone(),
-            use_iteration_check,
-            report,
-        )
-        .unwrap();
-        results_structs.push(strct);
-        results_proving_class.push(class);
-        results_exec_time.push(exec_time);
+        i = 0;
+        average = 0.0;
+        loop {
+            prove_result = prove_expression_with_file_classes(
+                &classes,
+                params,
+                expression.index,
+                &expression.expression.clone(),
+                use_iteration_check,
+                false,
+            )
+            .unwrap();
+            println!("Iter: {} | time: {}", i, prove_result.0.total_time);
+            average += prove_result.0.total_time;
+            i += 1;
+            if i == count || !prove_result.0.result {
+                break;
+            }
+        }
+        prove_result.0.total_time = average / (i as f64);
+        results_structs.push(prove_result.0);
+        results_proving_class.push(prove_result.1);
+        results_exec_time.push(prove_result.2);
+        println!("Average time: {}", average / (i as f64));
     }
     let duration = start_t.elapsed().as_secs();
     let exec_time: f64 = results_exec_time.iter().map(|i| i.as_secs() as f64).sum();
@@ -114,14 +126,9 @@ fn test_classes(
 fn main() {
     let _args: Vec<String> = env::args().collect();
     // let expressions = vec![
-    //     ("( <= ( - v0 11 ) ( + ( * ( / ( - v0 v1 ) 12 ) 12 ) v1 ) )","1"),
-    //     ("( <= ( + ( / ( - v0 v1 ) 8 ) 32 ) ( max ( / ( + ( - v0 v1 ) 257 ) 8 ) 0 ) )","1"),
-    //     ("( <= (/ a 2) (a))", "1"),
-    //     ("( <= ( min ( + ( * ( + v0 v1 ) 161 ) ( + ( min v2 v3 ) v4 ) ) v5 ) ( + ( * ( + v0 v1 ) 161 ) ( + v2 v4 ) ) )","1"),
-    //     ("( == (+ a b) (+ b a) )","1"),
-    //     ("( == (min a b) (a))","1"),
+    //     ("( < ( min y ( + x 2 ) ) x )","1"),
     // ];
-    // generate_dataset(expressions,(30, 10000, 5), 2, 2);
+    // dataset::generate_dataset(expressions,(3000, 100000, 5), -2, 15);
     // generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
     // println!("Printing rules ...");
     // let arr = filteredRules(&get_first_arg().unwrap(), 1).unwrap();
@@ -135,8 +142,28 @@ fn main() {
         let expressions_file = get_nth_arg(2).unwrap();
         let params = get_runner_params(3).unwrap();
         match operation.to_str().unwrap() {
+            "comparaison" => {
+                /*let expression_vect = read_expressions(&expressions_file).unwrap();
+                let classes_file = get_nth_arg(6).unwrap();
+                let mut average_k = 0.0;
+                let mut average = 0.0;
+                for i in 0..5000{
+                    let results_k = test_classes(classes_file.clone(), &expression_vect, params, true, false);
+                    let results = prove_expressions(&expression_vect, -1, params, true, false);
+                    average_k += results_k[0].total_time;
+                    average += results[0].total_time;
+                }
+                println!("Average time with classes {}", average_k/5000.0);
+                println!("Average time without classes {}", average/5000.0);*/
+            }
             "dataset" => {
-                dataset::generation_execution(&expressions_file, params, 10, 500);
+                // cargo run --release dataset ./results/expressions_egg.csv 1000000 10000000 5 5 3 0 4
+                let reorder_count = get_nth_arg(6).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                let batch_size = get_nth_arg(7).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                let continue_from_expr = get_nth_arg(8).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                let cores = get_nth_arg(9).unwrap().into_string().unwrap().parse::<usize>().unwrap();
+                rayon::ThreadPoolBuilder::new().num_threads(cores).build_global().unwrap();
+                dataset::generation_execution(&expressions_file, params, reorder_count, batch_size, continue_from_expr);
             }
             "prove_exprs" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
@@ -152,7 +179,20 @@ fn main() {
             "test_classes" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let classes_file = get_nth_arg(6).unwrap();
-                test_classes(classes_file, &expression_vect, params, true, true);
+                let iterations_count = get_nth_arg(7)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<usize>()
+                    .unwrap();
+                test_classes(
+                    classes_file,
+                    &expression_vect,
+                    params,
+                    iterations_count,
+                    true,
+                    true,
+                );
             }
             "prove_one_expr" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();

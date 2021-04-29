@@ -201,7 +201,7 @@ pub fn minimal_set_to_prove(
     }
 }
 
-pub fn generation_execution(file_path: &OsString, params: (usize, usize, u64),reorder_count: usize, batch_size: usize){
+pub fn generation_execution(file_path: &OsString, params: (usize, usize, u64),reorder_count: usize, batch_size: usize, continue_from_expr: usize){
     let mut expressions_vect = Vec::new();
     let file = File::open(file_path).unwrap();
     //let mut rdr = csv::Reader::from_reader(file);
@@ -211,14 +211,20 @@ pub fn generation_execution(file_path: &OsString, params: (usize, usize, u64),re
     let mut i = 0;
     for result in rdr.records() {
         i += 1;
-        let record = result.unwrap();
-        let expression = &record[1];
-        expressions_vect.push(expression.to_string());
-        if i % batch_size == 0{
-            generate_dataset_0_1_par(&expressions_vect, -2, params, true, reorder_count, i/batch_size);
-            println!("{} expressions processed!", i);
-            expressions_vect = Vec::new();
+        if i > continue_from_expr{
+            let record = result.unwrap();
+            let expression = &record[1];
+            expressions_vect.push(expression.to_string());
+            if i % batch_size == 0{
+                generate_dataset_0_1_par(&expressions_vect, -2, params, true, reorder_count, i/batch_size);
+                println!("{} expressions processed!", i);
+                expressions_vect = Vec::new();
+            }
         }
+    }
+    if expressions_vect.len() > 0 {
+        generate_dataset_0_1_par(&expressions_vect, -2, params, true, reorder_count, i/batch_size + 1);
+        println!("{} expressions processed!", i);
     }
 }
 
@@ -266,64 +272,62 @@ pub fn minimal_set_to_prove_0_1(
     let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
     let mut proved_goal = "0/1".to_string();
-    let mut proved_once: bool = false;
-    let mut runner;
-    let mut id;
-    let mut matches;
-    let mut i: usize;
-    let mut counter: usize;
-    // let mut minimal_ruleset_len: usize;
-    let mut rule;
-    let mut ruleset = rules(ruleset_id);
-    let data_object;
-    ruleset.shuffle(&mut rng);
-    //println!("Ruleset size == {}", ruleset.len());
-    let mut ruleset_copy: Vec<egg::Rewrite<Math, ConstantFold>>;
-    let mut ruleset_minimal: Vec<egg::Rewrite<Math, ConstantFold>>;
-    let ruleset_copy_names: Vec<String>;
-    counter = 0;
-    ruleset_minimal = ruleset.clone();
-    while counter < reorder_count {
-        ruleset_copy = ruleset.clone();
-        ruleset_copy.shuffle(&mut rng);
-        i = 0;
-        while i < ruleset_copy.len() {
-            rule = ruleset_copy.remove(i);
-            start = expression.parse().unwrap();
-            // end = expression.1.parse().unwrap();
-            runner = Runner::default()
-                .with_iter_limit(params.0)
-                .with_node_limit(params.1)
-                .with_time_limit(Duration::new(params.2, 0))
-                .with_expr(&start);
-
-            if use_iteration_check {
-                runner = runner.run_check_iteration(ruleset_copy.iter(), &goals);
-            } else {
-                runner = runner.run(ruleset_copy.iter());
-            }
-            id = runner.egraph.find(*runner.roots.last().unwrap());
-            // matches = end.search_eclass(&runner.egraph, id);
-            matches = goals.iter().all(|goal| {
-                let mat = goal.search_eclass(&runner.egraph, id);
-                if !mat.is_none() {
-                    proved_goal = goal.to_string();
+    let result = crate::trs::prove(expression, -2, params, true, false);
+    if result.result{
+        let mut runner;
+        let mut id;
+        let mut matches;
+        let mut i: usize;
+        let mut counter: usize;
+        // let mut minimal_ruleset_len: usize;
+        let mut rule;
+        let mut ruleset = rules(ruleset_id);
+        let data_object;
+        ruleset.shuffle(&mut rng);
+        //println!("Ruleset size == {}", ruleset.len());
+        let mut ruleset_copy: Vec<egg::Rewrite<Math, ConstantFold>>;
+        let mut ruleset_minimal: Vec<egg::Rewrite<Math, ConstantFold>>;
+        let ruleset_copy_names: Vec<String>;
+        counter = 0;
+        ruleset_minimal = ruleset.clone();
+        while counter < reorder_count {
+            ruleset_copy = ruleset.clone();
+            ruleset_copy.shuffle(&mut rng);
+            i = 0;
+            while i < ruleset_copy.len() {
+                rule = ruleset_copy.remove(i);
+                start = expression.parse().unwrap();
+                // end = expression.1.parse().unwrap();
+                runner = Runner::default()
+                    .with_iter_limit(params.0)
+                    .with_node_limit(params.1)
+                    .with_time_limit(Duration::new(params.2, 0))
+                    .with_expr(&start);
+    
+                if use_iteration_check {
+                    runner = runner.run_check_iteration(ruleset_copy.iter(), &goals);
+                } else {
+                    runner = runner.run(ruleset_copy.iter());
                 }
-                mat.is_none()
-            });
-            if matches {
-                ruleset_copy.insert(i, rule);
-                i += 1;
-            } else {
-                proved_once = true;
+                id = runner.egraph.find(*runner.roots.last().unwrap());
+                // matches = end.search_eclass(&runner.egraph, id);
+                matches = goals.iter().all(|goal| {
+                    let mat = goal.search_eclass(&runner.egraph, id);
+                    if !mat.is_none() {
+                        proved_goal = goal.to_string();
+                    }
+                    mat.is_none()
+                });
+                if matches {
+                    ruleset_copy.insert(i, rule);
+                    i += 1;
+                }
             }
+            if ruleset_copy.len() < ruleset_minimal.len() {
+                ruleset_minimal = ruleset_copy.clone();
+            }
+            counter += 1;
         }
-        if ruleset_copy.len() < ruleset_minimal.len() {
-            ruleset_minimal = ruleset_copy.clone();
-        }
-        counter += 1;
-    }
-    if proved_once {
         ruleset_copy_names = ruleset_minimal
             .clone()
             .into_iter()

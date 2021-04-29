@@ -187,20 +187,23 @@ class Expression:
 
     @staticmethod
     def partition(arr, low, high):
-        i = (low - 1)  # index of smaller element
-        pivot = arr[high]  # pivot
+        try:
+            i = (low - 1)  # index of smaller element
+            pivot = arr[high]  # pivot
 
-        for j in range(low, high):
-            # If current element is bigger than or
-            # equal to pivot
-            if Expression.priority(arr[j][0]) > Expression.priority(pivot[0]):
-                # increment index of smaller element
-                i = i + 1
-                arr[i], arr[j] = arr[j], arr[i]
-            elif Expression.priority(arr[j][0]) == Expression.priority(pivot[0]):
-                if arr[j][1] < pivot[1]:
+            for j in range(low, high):
+                # If current element is bigger than or
+                # equal to pivot
+                if Expression.priority(arr[j][0]) > Expression.priority(pivot[0]):
+                    # increment index of smaller element
                     i = i + 1
                     arr[i], arr[j] = arr[j], arr[i]
+                elif Expression.priority(arr[j][0]) == Expression.priority(pivot[0]):
+                    if arr[j][1] < pivot[1]:
+                        i = i + 1
+                        arr[i], arr[j] = arr[j], arr[i]
+        except RecursionError as re:
+            print('Recursion problem!!!!')
 
         arr[i + 1], arr[high] = arr[high], arr[i + 1]
         return (i + 1)
