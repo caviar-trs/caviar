@@ -211,6 +211,7 @@ pub fn compare_c0_c1(
                     ">=a" => c >= &(c1.abs()),
                     ">=a-1" => c >= &(c1.abs() - 1),
                     "!=" => c != c1,
+                    "c0_mult_c1" => (c % c1) == 0,
                     _ => false,
                 },
                 _ => return false,
@@ -730,7 +731,7 @@ pub fn prove_expression_with_file_classes(
 }
 
 #[allow(dead_code)]
-pub fn fast_fail_prove(
+pub fn fast_fail_prove_old(
     index: i16,
     start_expression: &str,
     ruleset_class: i8,
@@ -750,8 +751,13 @@ pub fn fast_fail_prove(
     let mut id;
     let best_expr;
     let mut total_time: f64 = 0.0;
+    let threshold = 0.5;
 
-    let mut time_limit = if params.2 < 1 { params.2 } else { 1 };
+    let mut time_limit = if (params.2 as f64) < threshold {
+        params.2 as f64
+    } else {
+        threshold
+    };
 
     if report {
         println!(
@@ -763,14 +769,14 @@ pub fn fast_fail_prove(
         runner = Runner::default()
             .with_iter_limit(params.0)
             .with_node_limit(params.1)
-            .with_time_limit(Duration::new(time_limit, 0))
+            .with_time_limit(Duration::from_secs_f64(time_limit))
             .with_expr(&start)
             .run_check_iteration(rules(ruleset_class).iter(), &goals);
     } else {
         runner = Runner::default()
             .with_iter_limit(params.0)
             .with_node_limit(params.1)
-            .with_time_limit(Duration::new(time_limit, 0))
+            .with_time_limit(Duration::from_secs_f64(time_limit))
             .with_expr(&start)
             .run(rules(ruleset_class).iter());
     }
@@ -843,14 +849,14 @@ pub fn fast_fail_prove(
                 runner = Runner::default()
                     .with_iter_limit(params.0)
                     .with_node_limit(params.1)
-                    .with_time_limit(Duration::new(params.2 - 1, 0))
+                    .with_time_limit(Duration::from_secs_f64((params.2 as f64) - threshold))
                     .with_expr(&best_exprr)
                     .run_check_iteration(rules(ruleset_class).iter(), &goals);
             } else {
                 runner = Runner::default()
                     .with_iter_limit(params.0)
                     .with_node_limit(params.1)
-                    .with_time_limit(Duration::new(params.2 - 1, 0))
+                    .with_time_limit(Duration::from_secs_f64((params.2 as f64) - threshold))
                     .with_expr(&best_exprr)
                     .run(rules(ruleset_class).iter());
             }
@@ -926,6 +932,158 @@ pub fn fast_fail_prove(
     }
     let second_exec_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
     total_time += second_exec_time;
+    if report {
+        runner.print_report();
+    }
+
+    let stop_reason = match runner.stop_reason.unwrap() {
+        StopReason::Saturated => "Saturation".to_string(),
+        StopReason::IterationLimit(iter) => format!("Iterations: {}", iter),
+        StopReason::NodeLimit(nodes) => format!("Node Limit: {}", nodes),
+        StopReason::TimeLimit(time) => format!("Time Limit : {}", time),
+        StopReason::Other(reason) => reason,
+    };
+
+    ResultStructure::new(
+        index,
+        start_expression.to_string(),
+        "1/0".to_string(),
+        result,
+        best_expr.unwrap_or_default(),
+        ruleset_class as i64,
+        runner.iterations.len(),
+        runner.egraph.total_number_of_nodes(),
+        runner.iterations.iter().map(|i| i.n_rebuilds).sum(),
+        total_time,
+        stop_reason,
+        None,
+    )
+}
+
+#[allow(dead_code)]
+pub fn prove_multiple_passes(
+    index: i16,
+    start_expression: &str,
+    ruleset_class: i8,
+    params: (usize, usize, u64),
+    threshold: f64,
+    use_iteration_check: bool,
+    report: bool,
+) -> ResultStructure {
+    let start: RecExpr<Math> = start_expression.parse().unwrap();
+    let end_1: Pattern<Math> = "1".parse().unwrap();
+    let end_0: Pattern<Math> = "0".parse().unwrap();
+    let goals = [end_0.clone(), end_1.clone()];
+    let mut runner: Runner<Math, ConstantFold>;
+    let mut result = false;
+    let mut proved_goal_index = 0;
+    let mut id;
+    let best_expr;
+    let mut total_time: f64 = 0.0;
+    let nbr_passes = (params.2 as f64) / threshold;
+
+    if report {
+        println!(
+            "\n====================================\nProving Expression:\n {}\n",
+            start_expression
+        )
+    }
+
+    let mut i = 0.0;
+    let mut exit = false;
+    let mut expr = start;
+    let mut runner = Runner::default()
+        .with_iter_limit(params.0)
+        .with_node_limit(params.1)
+        .with_time_limit(Duration::from_secs_f64((params.2 as f64) - threshold))
+        .with_expr(&expr);
+    id = runner.egraph.find(*runner.roots.last().unwrap());
+    while !exit {
+        if i > 0.0 {
+            let mut extractor;
+            extractor = Extractor::new(&((&runner).egraph), AstDepth);
+            let now = Instant::now();
+            let (_, best_exprr) = extractor.find_best(id);
+            let extraction_time = now.elapsed().as_secs_f64();
+            expr = best_exprr;
+            total_time += extraction_time;
+            if report {
+                println!(
+                    "Starting pass {} with Expr: {} in {}",
+                    i,
+                    format!("{}", expr).bright_green().bold(),
+                    format!("{}", extraction_time).bright_green().bold()
+                );
+            }
+        }
+
+        if use_iteration_check {
+            runner = Runner::default()
+                .with_iter_limit(params.0)
+                .with_node_limit(params.1)
+                .with_time_limit(Duration::from_secs_f64(threshold))
+                .with_expr(&expr)
+                .run_check_iteration(rules(ruleset_class).iter(), &goals);
+        } else {
+            runner = Runner::default()
+                .with_iter_limit(params.0)
+                .with_node_limit(params.1)
+                .with_time_limit(Duration::from_secs_f64(threshold))
+                .with_expr(&expr)
+                .run(rules(ruleset_class).iter());
+        }
+
+        id = runner.egraph.find(*runner.roots.last().unwrap());
+        for (goal_index, goal) in goals.iter().enumerate() {
+            let boolean = (goal.search_eclass(&runner.egraph, id)).is_none();
+            if !boolean {
+                result = true;
+                proved_goal_index = goal_index;
+                break;
+            }
+        }
+
+        let saturated = match &runner.stop_reason.as_ref().unwrap() {
+            StopReason::Saturated => true,
+            _ => false,
+        };
+        let exec_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
+        total_time += exec_time;
+        if saturated || i > (nbr_passes - 1.0) || result {
+            exit = true;
+        } else {
+            i += 1.0;
+        }
+    }
+    if result {
+        if report {
+            println!(
+                "{}\n{:?}",
+                "Proved goal:".bright_green().bold(),
+                goals[proved_goal_index].to_string()
+            );
+        }
+        best_expr = Some(goals[proved_goal_index].to_string());
+    } else {
+        let mut extractor = Extractor::new(&runner.egraph, AstDepth);
+        let now = Instant::now();
+        let (_, best_exprr) = extractor.find_best(id);
+        let extraction_time = now.elapsed().as_secs_f32();
+
+        best_expr = Some(best_exprr.to_string());
+        if report {
+            println!("{}\n", "Could not prove any goal:".bright_red().bold(),);
+            println!(
+                "Best Expr: {}",
+                format!("{}", best_exprr).bright_green().bold()
+            );
+            println!(
+                "{} {}",
+                "Extracting Best Expression took:".bright_red(),
+                extraction_time.to_string().bright_green()
+            );
+        }
+    }
     if report {
         runner.print_report();
     }
