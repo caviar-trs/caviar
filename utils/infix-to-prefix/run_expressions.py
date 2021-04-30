@@ -22,20 +22,23 @@ def extract(path, delimiter):
 
 def extract_one(i, row, remove):
     try:
-        next_expr = False
-        for tabou in remove:
-            if tabou in row[0]:
-                # print("=====", tabou)
-                next_expr = True
-        if next_expr:
-            # print("Skipped row :", i)
-            return None
-        row[0] = row[0].replace("(uint1)", "")
-        right = Expression(row[0])
-        expr = ' '.join(right.infixToPrefix())
-        expr = re.sub("\( \- (?P<var>[a-zA-Z_$][a-zA-Z_$0-9]*) \)", r'(* \1 -1)', expr)
-        print("Expression "+ str(i) +" processed.")
-        return expr
+        if len(row[0]) < 1000:
+            next_expr = False
+            for tabou in remove:
+                if tabou in row[0]:
+                    # print("=====", tabou)
+                    next_expr = True
+            if next_expr:
+                # print("Skipped row :", i)
+                return None
+            row[0] = row[0].replace("(uint1)", "")
+            right = Expression(row[0])
+            expr = ' '.join(right.infixToPrefix())
+            expr = re.sub("\( \- (?P<var>[a-zA-Z_$][a-zA-Z_$0-9]*) \)", r'(* \1 -1)', expr)
+            print("Expression "+ str(i) +" processed.")
+            return expr
+        else:
+            raise Exception("Expression too long!")
     except Exception as e:
         print(e)
         print("Expression "+ str(i) +" skipped.")
