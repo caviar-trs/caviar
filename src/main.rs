@@ -41,6 +41,7 @@ fn prove_expressions(
 fn prove_expressions_multiple_passes(
     exprs_vect: &Vec<ExpressionStruct>,
     ruleset_class: i8,
+    threshold: f64,
     params: (usize, usize, u64),
     use_iteration_check: bool,
     report: bool,
@@ -51,8 +52,8 @@ fn prove_expressions_multiple_passes(
             expression.index,
             &expression.expression,
             ruleset_class,
+            threshold,
             params,
-            0.5,
             use_iteration_check,
             report,
         ));
@@ -200,9 +201,21 @@ fn main() {
                 write_results("tmp/results_prove.csv", &results).unwrap();
             }
             "prove_exprs_passes" => {
+                let threshold = get_nth_arg(6)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<f64>()
+                    .unwrap();
                 let expression_vect = read_expressions(&expressions_file).unwrap();
-                let results =
-                    prove_expressions_multiple_passes(&expression_vect, -1, params, true, true);
+                let results = prove_expressions_multiple_passes(
+                    &expression_vect,
+                    -1,
+                    threshold,
+                    params,
+                    true,
+                    true,
+                );
                 write_results("tmp/results_multiple_passes.csv", &results).unwrap();
             }
             "test_classes" => {
@@ -251,7 +264,7 @@ fn main() {
         println!("Simplifying expression:\n {}\n to {}", start, end);
         println!(
             "{:?}",
-            prove_multiple_passes(-1, &start, -1, params, 0.5, true, true)
+            prove_multiple_passes(-1, &start, -1, 0.5, params, true, true)
         );
         // println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
         println!("{:?}", prove(-1, &start, -1, params, true, true));
