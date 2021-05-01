@@ -216,7 +216,11 @@ fn main() {
                     true,
                     true,
                 );
-                write_results("tmp/results_multiple_passes.csv", &results).unwrap();
+                write_results(
+                    &format!("tmp/results_multiple_passes_{}.csv", threshold),
+                    &results,
+                )
+                .unwrap();
             }
             "test_classes" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
