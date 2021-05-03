@@ -137,6 +137,7 @@ dependencies = [
 [[package]]
 name = "egg"
 version = "0.6.1-dev"
+source = "git+https://github.com/namani-kourta-pfe/egg?branch=fail_fast#59a266a0426a7bceb15d8b65e911e262b3553fc7"
 dependencies = [
  "fxhash",
  "indexmap",

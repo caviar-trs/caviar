@@ -8,7 +8,8 @@ edition = "2018"
 
 [dependencies]
 # egg = { git = "https://github.com/namani-kourta-pfe/egg", branch = "check_equivalence_iteration_level" }
-egg = { path="../egg" }
+egg = { git = "https://github.com/namani-kourta-pfe/egg", branch = "fail_fast" }
+# egg = { path="../egg" }
 
 ordered-float = "1"
 env_logger = "0.8.2"
