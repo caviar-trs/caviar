@@ -967,8 +967,8 @@ pub fn prove_multiple_passes(
     index: i16,
     start_expression: &str,
     ruleset_class: i8,
-    params: (usize, usize, u64),
     threshold: f64,
+    params: (usize, usize, u64),
     use_iteration_check: bool,
     report: bool,
 ) -> ResultStructure {
@@ -997,7 +997,7 @@ pub fn prove_multiple_passes(
     let mut runner = Runner::default()
         .with_iter_limit(params.0)
         .with_node_limit(params.1)
-        .with_time_limit(Duration::from_secs_f64((params.2 as f64) - threshold))
+        .with_time_limit(Duration::from_secs_f64(threshold))
         .with_expr(&expr);
     id = runner.egraph.find(*runner.roots.last().unwrap());
     while !exit {
