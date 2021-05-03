@@ -270,6 +270,7 @@ pub fn generate_dataset_0_1_par(
             use_iteration_check,
             reorder_count,
             &data,
+            batch_number
         )
     });
     dataset
@@ -285,10 +286,10 @@ pub fn minimal_set_to_prove_0_1(
     use_iteration_check: bool,
     reorder_count: usize,
     data: &Arc<Mutex<Vec<JsonValue>>>,
+    batch_number: usize
 ) {
     let mut rng = thread_rng();
     let mut start: RecExpr<Math>;
-    // let mut end: Pattern<Math>;
     let end_1: Pattern<Math> = "1".parse().unwrap();
     let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
@@ -300,12 +301,10 @@ pub fn minimal_set_to_prove_0_1(
         let mut matches;
         let mut i: usize;
         let mut counter: usize;
-        // let mut minimal_ruleset_len: usize;
         let mut rule;
         let mut ruleset = rules(ruleset_id);
         let data_object;
         ruleset.shuffle(&mut rng);
-        //println!("Ruleset size == {}", ruleset.len());
         let mut ruleset_copy: Vec<egg::Rewrite<Math, ConstantFold>>;
         let mut ruleset_minimal: Vec<egg::Rewrite<Math, ConstantFold>>;
         let ruleset_copy_names: Vec<String>;
@@ -318,7 +317,6 @@ pub fn minimal_set_to_prove_0_1(
             while i < ruleset_copy.len() {
                 rule = ruleset_copy.remove(i);
                 start = expression.parse().unwrap();
-                // end = expression.1.parse().unwrap();
                 runner = Runner::default()
                     .with_iter_limit(params.0)
                     .with_node_limit(params.1)
@@ -331,7 +329,6 @@ pub fn minimal_set_to_prove_0_1(
                     runner = runner.run(ruleset_copy.iter());
                 }
                 id = runner.egraph.find(*runner.roots.last().unwrap());
-                // matches = end.search_eclass(&runner.egraph, id);
                 matches = goals.iter().all(|goal| {
                     let mat = goal.search_eclass(&runner.egraph, id);
                     if !mat.is_none() {
@@ -364,7 +361,8 @@ pub fn minimal_set_to_prove_0_1(
         };
         data.lock().unwrap().push(data_object);
         println!(
-            "{0} rules are needed to prove: {1}",
+            "Batch #{0}: {1} rules are needed to prove: {2}",
+            format!("{0}", batch_number).blue().bold(),
             format!("{0}", ruleset_minimal.len()).red().bold(),
             format!("{0}", expression.to_string()).bright_green().bold(),
         );
@@ -375,7 +373,8 @@ pub fn minimal_set_to_prove_0_1(
         // }
     } else {
         println!(
-            "Could not prove {0}",
+            "Batch #{0}: Could not prove {1}",
+            format!("{0}", batch_number).blue().bold(),
             format!("{0}", expression.to_string()).red().bold()
         );
     }
