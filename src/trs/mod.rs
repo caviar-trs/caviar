@@ -1,6 +1,4 @@
 use json::JsonValue;
-use serde::ser::Impossible;
-// use ordered_float::NotNan;
 use std::error::Error;
 use std::time::Duration;
 use std::{cmp::Ordering, time::Instant};
@@ -448,8 +446,6 @@ pub fn prove(
     let end_1: Pattern<Math> = "1".parse().unwrap();
     let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
-    let impossible: Pattern<Math> = "(== ?a ?c)".parse().unwrap();
-    let impossibles = [impossible];
     let runner: Runner<Math, ConstantFold>;
     let mut result = false;
     let mut proved_goal_index = 0;
@@ -822,7 +818,6 @@ pub fn prove_multiple_passes(
     let end_1: Pattern<Math> = "1".parse().unwrap();
     let end_0: Pattern<Math> = "0".parse().unwrap();
     let goals = [end_0.clone(), end_1.clone()];
-    let mut runner: Runner<Math, ConstantFold>;
     let mut result = false;
     let mut proved_goal_index = 0;
     let mut id;

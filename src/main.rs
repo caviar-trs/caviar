@@ -3,11 +3,10 @@ use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::structs::{ExpressionStruct, ResultStructure};
 use crate::{io::writer::write_results, trs::prove_fast_fail};
-use dataset::generate_dataset_par;
 use io::reader::get_nth_arg;
 use json::parse;
 use std::time::Duration;
-use trs::{prove, prove_equiv, prove_expression_with_file_classes, prove_multiple_passes};
+use trs::{prove, prove_expression_with_file_classes, prove_multiple_passes};
 mod trs;
 
 mod dataset;
@@ -293,7 +292,7 @@ fn main() {
                 let classes = parse(&s).unwrap();
                 let start_t = Instant::now();
 
-                let (strct, class, exec_time) = prove_expression_with_file_classes(
+                let (_strct, _class, _exec_time) = prove_expression_with_file_classes(
                     &classes,
                     params,
                     expression_vect[0].index,
