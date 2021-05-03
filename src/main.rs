@@ -71,6 +71,7 @@ fn prove_expressions_fast(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
+        println!("Starting Expression: {}", expression.index);
         results.push(prove_fast(
             expression.index,
             &expression.expression,
@@ -94,6 +95,7 @@ fn prove_expressions_fast_passes(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
+        println!("Starting Expression: {}", expression.index);
         results.push(prove_fast_passes(
             expression.index,
             &expression.expression,
@@ -279,7 +281,7 @@ fn main() {
 
             "prove_exprs_fast" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
-                let results = prove_expressions_fast(&expression_vect, -1, params, true, true);
+                let results = prove_expressions_fast(&expression_vect, -1, params, true, false);
                 write_results(&format!("tmp/results_fast.csv"), &results).unwrap();
             }
             "prove_exprs_fast_passes" => {
@@ -296,7 +298,7 @@ fn main() {
                     threshold,
                     params,
                     true,
-                    true,
+                    false,
                 );
                 write_results(
                     &format!("tmp/results_fast_passes_{}.csv", threshold),
