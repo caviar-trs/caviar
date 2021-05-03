@@ -1,15 +1,13 @@
 use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 
-use crate::structs::{ExpressionStruct, ResultStructure};
-use crate::{
-    io::reader::{get_runner_params, get_start_end, read_expressions},
-    trs::prove_fast,
-};
-use crate::{io::writer::write_results, trs::prove_fast_fail};
-use io::reader::get_nth_arg;
+use io::reader::{get_nth_arg, get_runner_params, get_start_end, read_expressions};
+use io::writer::write_results;
 use json::parse;
 use std::time::Duration;
-use trs::{prove, prove_expression_with_file_classes, prove_multiple_passes};
+use structs::{ExpressionStruct, ResultStructure};
+use trs::{
+    prove, prove_expression_with_file_classes, prove_fast, prove_fast_passes, prove_multiple_passes,
+};
 mod trs;
 
 mod dataset;
@@ -67,6 +65,28 @@ fn prove_expressions_multiple_passes(
 fn prove_expressions_fast(
     exprs_vect: &Vec<ExpressionStruct>,
     ruleset_class: i8,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> Vec<ResultStructure> {
+    let mut results = Vec::new();
+    for expression in exprs_vect.iter() {
+        results.push(prove_fast(
+            expression.index,
+            &expression.expression,
+            ruleset_class,
+            params,
+            use_iteration_check,
+            report,
+        ));
+    }
+    results
+}
+
+#[allow(dead_code)]
+fn prove_expressions_fast_passes(
+    exprs_vect: &Vec<ExpressionStruct>,
+    ruleset_class: i8,
     threshold: f64,
     params: (usize, usize, u64),
     use_iteration_check: bool,
@@ -74,7 +94,7 @@ fn prove_expressions_fast(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
-        results.push(prove_fast_fail(
+        results.push(prove_fast_passes(
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -256,7 +276,13 @@ fn main() {
                 )
                 .unwrap();
             }
+
             "prove_exprs_fast" => {
+                let expression_vect = read_expressions(&expressions_file).unwrap();
+                let results = prove_expressions_fast(&expression_vect, -1, params, true, true);
+                write_results(&format!("tmp/results_fast.csv"), &results).unwrap();
+            }
+            "prove_exprs_fast_passes" => {
                 let threshold = get_nth_arg(6)
                     .unwrap()
                     .into_string()
@@ -264,9 +290,19 @@ fn main() {
                     .parse::<f64>()
                     .unwrap();
                 let expression_vect = read_expressions(&expressions_file).unwrap();
-                let results =
-                    prove_expressions_fast(&expression_vect, -1, threshold, params, true, true);
-                write_results(&format!("tmp/results_fast_{}.csv", threshold), &results).unwrap();
+                let results = prove_expressions_fast_passes(
+                    &expression_vect,
+                    -1,
+                    threshold,
+                    params,
+                    true,
+                    true,
+                );
+                write_results(
+                    &format!("tmp/results_fast_passes_{}.csv", threshold),
+                    &results,
+                )
+                .unwrap();
             }
             "test_classes" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();

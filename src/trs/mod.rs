@@ -986,7 +986,7 @@ pub fn check_impo(egraph: &EGraph, start_id: Id) -> (bool, String) {
 }
 
 #[allow(dead_code)]
-pub fn prove_fast_fail(
+pub fn prove_fast_passes(
     index: i16,
     start_expression: &str,
     ruleset_class: i8,
