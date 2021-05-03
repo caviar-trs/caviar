@@ -1,7 +1,10 @@
 use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 
-use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
 use crate::structs::{ExpressionStruct, ResultStructure};
+use crate::{
+    io::reader::{get_runner_params, get_start_end, read_expressions},
+    trs::prove_fast,
+};
 use crate::{io::writer::write_results, trs::prove_fast_fail};
 use io::reader::get_nth_arg;
 use json::parse;
@@ -315,10 +318,7 @@ fn main() {
         // );
         // println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
         // println!("{:?}", prove(-1, &start, -1, params, true, true));
-        println!(
-            "{:?}",
-            prove_fast_fail(-1, &start, -1, 1.0, params, true, true)
-        );
+        println!("{:?}", prove_fast(-1, &start, -1, params, true, true));
 
         println!(
             "{:?}",

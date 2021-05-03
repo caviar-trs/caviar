@@ -1144,3 +1144,126 @@ pub fn prove_fast_fail(
         None,
     )
 }
+
+#[allow(dead_code)]
+pub fn prove_fast(
+    index: i16,
+    start_expression: &str,
+    ruleset_class: i8,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> ResultStructure {
+    let start: RecExpr<Math> = start_expression.parse().unwrap();
+    let end_1: Pattern<Math> = "1".parse().unwrap();
+    let end_0: Pattern<Math> = "0".parse().unwrap();
+    let goals = [end_0.clone(), end_1.clone()];
+    let runner: Runner<Math, ConstantFold>;
+    let mut result = false;
+    let mut proved_goal_index = 0;
+    let id;
+    let best_expr;
+    let mut total_time: f64 = 0.0;
+
+    // // print the ruleset used as a vector of strings
+    // println!(
+    //     "{:?}",
+    //     rules(ruleset_class)
+    //         .iter()
+    //         .map(|rew| rew.name.clone())
+    //         .collect::<Vec<String>>()
+    // );
+
+    if report {
+        println!(
+            "\n====================================\nProving Expression:\n {}\n",
+            start_expression
+        )
+    }
+    if use_iteration_check {
+        let (runner_temp, impo_time) = Runner::default()
+            .with_iter_limit(params.0)
+            .with_node_limit(params.1)
+            .with_time_limit(Duration::new(params.2, 0))
+            .with_expr(&start)
+            .run_fast(rules(ruleset_class).iter(), &goals, check_impo);
+        runner = runner_temp;
+        total_time += impo_time;
+    } else {
+        runner = Runner::default()
+            .with_iter_limit(params.0)
+            .with_node_limit(params.1)
+            .with_time_limit(Duration::new(params.2, 0))
+            .with_expr(&start)
+            .run(rules(ruleset_class).iter());
+    }
+
+    id = runner.egraph.find(*runner.roots.last().unwrap());
+    for (goal_index, goal) in goals.iter().enumerate() {
+        let boolean = (goal.search_eclass(&runner.egraph, id)).is_none();
+        if !boolean {
+            result = true;
+            proved_goal_index = goal_index;
+            break;
+        }
+    }
+
+    if result {
+        if report {
+            println!(
+                "{}\n{:?}",
+                "Proved goal:".bright_green().bold(),
+                goals[proved_goal_index].to_string()
+            );
+        }
+        best_expr = Some(goals[proved_goal_index].to_string());
+    } else {
+        let mut extractor = Extractor::new(&runner.egraph, AstDepth);
+        let now = Instant::now();
+        let (_, best_exprr) = extractor.find_best(id);
+        let extraction_time = now.elapsed().as_secs_f32();
+
+        best_expr = Some(best_exprr.to_string());
+
+        if report {
+            println!("{}\n", "Could not prove any goal:".bright_red().bold(),);
+            println!(
+                "Best Expr: {}",
+                format!("{}", best_exprr).bright_green().bold()
+            );
+            println!(
+                "{} {}",
+                "Extracting Best Expression took:".bright_red(),
+                extraction_time.to_string().bright_green()
+            );
+        }
+    }
+    let total_time_runner: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
+    total_time += total_time_runner;
+    if report {
+        runner.print_report();
+    }
+
+    let stop_reason = match runner.stop_reason.unwrap() {
+        StopReason::Saturated => "Saturation".to_string(),
+        StopReason::IterationLimit(iter) => format!("Iterations: {}", iter),
+        StopReason::NodeLimit(nodes) => format!("Node Limit: {}", nodes),
+        StopReason::TimeLimit(time) => format!("Time Limit : {}", time),
+        StopReason::Other(reason) => reason,
+    };
+
+    ResultStructure::new(
+        index,
+        start_expression.to_string(),
+        "1/0".to_string(),
+        result,
+        best_expr.unwrap_or_default(),
+        ruleset_class as i64,
+        runner.iterations.len(),
+        runner.egraph.total_number_of_nodes(),
+        runner.iterations.iter().map(|i| i.n_rebuilds).sum(),
+        total_time,
+        stop_reason,
+        None,
+    )
+}
