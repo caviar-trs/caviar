@@ -1,8 +1,8 @@
 use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
 
 use crate::io::reader::{get_runner_params, get_start_end, read_expressions};
-use crate::io::writer::write_results;
 use crate::structs::{ExpressionStruct, ResultStructure};
+use crate::{io::writer::write_results, trs::prove_fast_fail};
 use dataset::generate_dataset_par;
 use io::reader::get_nth_arg;
 use json::parse;
@@ -61,6 +61,30 @@ fn prove_expressions_multiple_passes(
     results
 }
 
+#[allow(dead_code)]
+fn prove_expressions_fast(
+    exprs_vect: &Vec<ExpressionStruct>,
+    ruleset_class: i8,
+    threshold: f64,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> Vec<ResultStructure> {
+    let mut results = Vec::new();
+    for expression in exprs_vect.iter() {
+        results.push(prove_fast_fail(
+            expression.index,
+            &expression.expression,
+            ruleset_class,
+            threshold,
+            params,
+            use_iteration_check,
+            report,
+        ));
+    }
+    results
+}
+
 fn test_classes(
     path: OsString,
     exprs_vect: &Vec<ExpressionStruct>,
@@ -77,11 +101,13 @@ fn test_classes(
     let mut results_proving_class = Vec::new();
     let mut results_exec_time = Vec::new();
     let start_t = Instant::now();
-    let mut average = 0.0;
+    let mut average;
     let mut prove_result: (ResultStructure, i64, Duration);
-    let mut i = 0;
+    let mut i;
     for expression in exprs_vect.iter() {
-        println!("Starting Expression: {}", expression.index);
+        if report {
+            println!("Starting Expression: {}", expression.index);
+        }
         i = 0;
         average = 0.0;
         loop {
@@ -94,7 +120,9 @@ fn test_classes(
                 false,
             )
             .unwrap();
-            println!("Iter: {} | time: {}", i, prove_result.0.total_time);
+            if report {
+                println!("Iter: {} | time: {}", i, prove_result.0.total_time);
+            }
             average += prove_result.0.total_time;
             i += 1;
             if i == count || !prove_result.0.result {
@@ -105,11 +133,15 @@ fn test_classes(
         results_structs.push(prove_result.0);
         results_proving_class.push(prove_result.1);
         results_exec_time.push(prove_result.2);
-        println!("Average time: {}", average / (i as f64));
+        if report {
+            println!("Average time: {}", average / (i as f64));
+        }
     }
     let duration = start_t.elapsed().as_secs();
     let exec_time: f64 = results_exec_time.iter().map(|i| i.as_secs() as f64).sum();
-    println!("Execution time : |{}| |{}|", duration, exec_time);
+    if report {
+        println!("Execution time : |{}| |{}|", duration, exec_time);
+    }
     write_results(
         &format!(
             "results/k_{}_class_analysis_results_params_{}_{}_{}_exec_{}.csv",
@@ -222,6 +254,18 @@ fn main() {
                 )
                 .unwrap();
             }
+            "prove_exprs_fast" => {
+                let threshold = get_nth_arg(6)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<f64>()
+                    .unwrap();
+                let expression_vect = read_expressions(&expressions_file).unwrap();
+                let results =
+                    prove_expressions_fast(&expression_vect, -1, threshold, params, true, true);
+                write_results(&format!("tmp/results_fast_{}.csv", threshold), &results).unwrap();
+            }
             "test_classes" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let classes_file = get_nth_arg(6).unwrap();
@@ -268,10 +312,19 @@ fn main() {
         println!("Simplifying expression:\n {}\n to {}", start, end);
         // println!(
         //     "{:?}",
-        //     prove_multiple_passes(-1, &start, -1, params, 0.5, true, true)
+        //     prove_multiple_passes(-1, &start, -1, 0.5, params, true, true)
         // );
         // println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
-        println!("{:?}", prove(-1, &start, -1, params, true, true));
+        // println!("{:?}", prove(-1, &start, -1, params, true, true));
+        println!(
+            "{:?}",
+            prove_fast_fail(-1, &start, -1, 1.0, params, true, true)
+        );
+
+        println!(
+            "{:?}",
+            prove_multiple_passes(-1, &start, -1, 1.0, params, true, true)
+        );
 
         // let expressions = vec![(&start[..], &end[..])];
         // generate_dataset_par(&expressions, params, -1, 10);

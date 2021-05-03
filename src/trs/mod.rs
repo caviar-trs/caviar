@@ -1,4 +1,5 @@
 use json::JsonValue;
+use serde::ser::Impossible;
 // use ordered_float::NotNan;
 use std::error::Error;
 use std::time::Duration;
@@ -732,234 +733,79 @@ pub fn prove_expression_with_file_classes(
     Ok((result_struct, proving_class, start_t.elapsed()))
 }
 
-#[allow(dead_code)]
-pub fn fast_fail_prove_old(
-    index: i16,
-    start_expression: &str,
-    ruleset_class: i8,
-    params: (usize, usize, u64),
-    use_iteration_check: bool,
-    report: bool,
-) -> ResultStructure {
-    let start: RecExpr<Math> = start_expression.parse().unwrap();
-    let end_1: Pattern<Math> = "1".parse().unwrap();
-    let end_0: Pattern<Math> = "0".parse().unwrap();
-    let goals = [end_0.clone(), end_1.clone()];
-    let impossible: Pattern<Math> = "(== ?a ?c)".parse().unwrap();
-    let impossibles = [impossible];
-    let mut runner: Runner<Math, ConstantFold>;
-    let mut result = false;
-    let mut proved_goal_index = 0;
-    let mut id;
-    let best_expr;
-    let mut total_time: f64 = 0.0;
-    let threshold = 0.5;
+// pub fn is_variable(var: &str, egraph: &EGraph, subst: &Subst) -> bool {
+//     let var = var.parse().unwrap();
+//     egraph[subst[var]].nodes.iter().any(|n| match n {
+//         Math::Symbol(_) => true,
+//         _ => return false,
+//     })
+// }
 
-    let mut time_limit = if (params.2 as f64) < threshold {
-        params.2 as f64
-    } else {
-        threshold
-    };
-
-    if report {
-        println!(
-            "\n====================================\nProving Expression:\n {}\n",
-            start_expression
-        )
+pub fn impossible_conditions(
+    condition: &str,
+    variables: &Vec<&str>,
+) -> impl Fn(&EGraph, &Subst) -> bool {
+    let mut vars = Vec::new();
+    for var in variables {
+        let v: Var = var.parse().unwrap();
+        vars.push(v)
     }
-    if use_iteration_check {
-        runner = Runner::default()
-            .with_iter_limit(params.0)
-            .with_node_limit(params.1)
-            .with_time_limit(Duration::from_secs_f64(time_limit))
-            .with_expr(&start)
-            .run_check_iteration(rules(ruleset_class).iter(), &goals);
-    } else {
-        runner = Runner::default()
-            .with_iter_limit(params.0)
-            .with_node_limit(params.1)
-            .with_time_limit(Duration::from_secs_f64(time_limit))
-            .with_expr(&start)
-            .run(rules(ruleset_class).iter());
+    let condition = condition.to_string();
+    move |egraph, subst| match condition.as_str() {
+        "c|v&v" => {
+            let var = vars[0];
+            let var1 = vars[1];
+            let var2 = vars[2];
+            // println!(
+            //     "a: {:?}\nb: {:?}\nc:{:?}",
+            //     egraph[subst[var]].nodes, egraph[subst[var1]].nodes, egraph[subst[var2]].nodes
+            // );
+            egraph[subst[var]].nodes.iter().any(|n| match n {
+                Math::Symbol(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(_) => egraph[subst[var2]].nodes.iter().any(|n2| match n2 {
+                        Math::Constant(_) => true,
+                        _ => false,
+                    }),
+                    _ => false,
+                }),
+                Math::Constant(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
+                    Math::Symbol(_) => egraph[subst[var2]].nodes.iter().any(|n2| match n2 {
+                        Math::Constant(_) => true,
+                        _ => false,
+                    }),
+                    _ => false,
+                }),
+                _ => false,
+            })
+        }
+        "c&v" => {
+            let var = vars[0];
+            let var1 = vars[1];
+            egraph[subst[var]].nodes.iter().any(|n| match n {
+                Math::Symbol(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(_) => true,
+                    _ => false,
+                }),
+                Math::Constant(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
+                    Math::Symbol(_) => true,
+                    _ => false,
+                }),
+                _ => false,
+            })
+        }
+        _ => false,
     }
+}
 
-    id = runner.egraph.find(*runner.roots.last().unwrap());
-    for (goal_index, goal) in goals.iter().enumerate() {
-        let boolean = (goal.search_eclass(&runner.egraph, id)).is_none();
-        if !boolean {
-            result = true;
-            proved_goal_index = goal_index;
-            break;
-        }
-    }
-
-    if result {
-        if report {
-            println!(
-                "{}\n{:?}",
-                "Proved goal:".bright_green().bold(),
-                goals[proved_goal_index].to_string()
-            );
-        }
-        best_expr = Some(goals[proved_goal_index].to_string());
-    } else {
-        let mut extractor = Extractor::new(&runner.egraph, AstDepth);
-        let now = Instant::now();
-        let (_, best_exprr) = extractor.find_best(id);
-        // let mut egraph = EGraph::default();
-        // let a11 = egraph.add_expr(&best_exprr.to_string().parse().unwrap());
-        // egraph.rebuild();
-        // for (impo_index, impo) in impossibles.iter().enumerate() {
-        //     let results = impo.search_eclass(&egraph, a11).unwrap();
-        //     // for result in results {}
-        //     let a: Var = "?a".parse().unwrap();
-        //     let c: Var = "?c".parse().unwrap();
-        //     println!("{:?}", egraph[results.substs[0][a]].nodes);
-        //     println!(
-        //         "{:?}",
-        //         egraph[results.substs[0][a]].nodes.iter().any(|n| match n {
-        //             Math::Symbol(_) => true,
-        //             _ => return false,
-        //         }) && egraph[results.substs[0][c]].nodes.iter().all(|n| match n {
-        //             Math::Symbol(_) => false,
-        //             _ => return true,
-        //         })
-        //     )
-        //     // for subs in results.substs.iter() {
-        //     //     println!("{:?}", subs);
-        //     // }
-        //     // if !boolean {
-        //     //     result = true;
-        //     //     proved_goal_index = goal_index;
-        //     //     break;
-        //     // }
-        // }
-        let extraction_time = now.elapsed().as_secs_f32();
-
-        let first_exec_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
-        total_time += first_exec_time;
-        if match &runner.stop_reason.as_ref().unwrap() {
-            StopReason::Saturated => false,
-            _ => true,
-        } {
-            println!(
-                "Starting 2nd pass with Best Expr: {} in {}",
-                format!("{}", best_exprr).bright_green().bold(),
-                format!("{}", extraction_time).bright_green().bold()
-            );
-            if use_iteration_check {
-                runner = Runner::default()
-                    .with_iter_limit(params.0)
-                    .with_node_limit(params.1)
-                    .with_time_limit(Duration::from_secs_f64((params.2 as f64) - threshold))
-                    .with_expr(&best_exprr)
-                    .run_check_iteration(rules(ruleset_class).iter(), &goals);
-            } else {
-                runner = Runner::default()
-                    .with_iter_limit(params.0)
-                    .with_node_limit(params.1)
-                    .with_time_limit(Duration::from_secs_f64((params.2 as f64) - threshold))
-                    .with_expr(&best_exprr)
-                    .run(rules(ruleset_class).iter());
-            }
-        }
-
-        id = runner.egraph.find(*runner.roots.last().unwrap());
-        for (goal_index, goal) in goals.iter().enumerate() {
-            let boolean = (goal.search_eclass(&runner.egraph, id)).is_none();
-            if !boolean {
-                result = true;
-                proved_goal_index = goal_index;
-                break;
-            }
-        }
-
-        if result {
-            if report {
-                println!(
-                    "{}\n{:?}",
-                    "Proved goal:".bright_green().bold(),
-                    goals[proved_goal_index].to_string()
-                );
-            }
-            best_expr = Some(goals[proved_goal_index].to_string());
-        } else {
-            let mut extractor = Extractor::new(&runner.egraph, AstDepth);
-            let now = Instant::now();
-            let (_, best_exprr) = extractor.find_best(id);
-            // let mut egraph = EGraph::default();
-            // let a11 = egraph.add_expr(&best_exprr.to_string().parse().unwrap());
-            // egraph.rebuild();
-            // for (impo_index, impo) in impossibles.iter().enumerate() {
-            //     let results = impo.search_eclass(&egraph, a11).unwrap();
-            //     // for result in results {}
-            //     let a: Var = "?a".parse().unwrap();
-            //     let c: Var = "?c".parse().unwrap();
-            //     println!("{:?}", egraph[results.substs[0][a]].nodes);
-            //     println!(
-            //         "{:?}",
-            //         egraph[results.substs[0][a]].nodes.iter().any(|n| match n {
-            //             Math::Symbol(_) => true,
-            //             _ => return false,
-            //         }) && egraph[results.substs[0][c]].nodes.iter().all(|n| match n {
-            //             Math::Symbol(_) => false,
-            //             _ => return true,
-            //         })
-            //     )
-            //     // for subs in results.substs.iter() {
-            //     //     println!("{:?}", subs);
-            //     // }
-            //     // if !boolean {
-            //     //     result = true;
-            //     //     proved_goal_index = goal_index;
-            //     //     break;
-            //     // }
-            // }
-            let extraction_time = now.elapsed().as_secs_f32();
-
-            best_expr = Some(best_exprr.to_string());
-            if report {
-                println!("{}\n", "Could not prove any goal:".bright_red().bold(),);
-                println!(
-                    "Best Expr: {}",
-                    format!("{}", best_exprr).bright_green().bold()
-                );
-                println!(
-                    "{} {}",
-                    "Extracting Best Expression took:".bright_red(),
-                    extraction_time.to_string().bright_green()
-                );
-            }
-        }
-    }
-    let second_exec_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
-    total_time += second_exec_time;
-    if report {
-        runner.print_report();
-    }
-
-    let stop_reason = match runner.stop_reason.unwrap() {
-        StopReason::Saturated => "Saturation".to_string(),
-        StopReason::IterationLimit(iter) => format!("Iterations: {}", iter),
-        StopReason::NodeLimit(nodes) => format!("Node Limit: {}", nodes),
-        StopReason::TimeLimit(time) => format!("Time Limit : {}", time),
-        StopReason::Other(reason) => reason,
-    };
-
-    ResultStructure::new(
-        index,
-        start_expression.to_string(),
-        "1/0".to_string(),
-        result,
-        best_expr.unwrap_or_default(),
-        ruleset_class as i64,
-        runner.iterations.len(),
-        runner.egraph.total_number_of_nodes(),
-        runner.iterations.iter().map(|i| i.n_rebuilds).sum(),
-        total_time,
-        stop_reason,
-        None,
-    )
+#[macro_export]
+macro_rules! write_impo {
+    (
+        $rhs:tt;
+        $cond:expr
+    ) => {{
+        let pattern: Pattern<Math> = $rhs.parse().unwrap();
+        (pattern, $cond)
+    }};
 }
 
 #[allow(dead_code)]
@@ -1052,6 +898,196 @@ pub fn prove_multiple_passes(
         let exec_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
         total_time += exec_time;
         if saturated || i > (nbr_passes - 1.0) || result {
+            exit = true;
+        } else {
+            i += 1.0;
+        }
+    }
+    if result {
+        if report {
+            println!(
+                "{}\n{:?}",
+                "Proved goal:".bright_green().bold(),
+                goals[proved_goal_index].to_string()
+            );
+        }
+        best_expr = Some(goals[proved_goal_index].to_string());
+    } else {
+        let mut extractor = Extractor::new(&runner.egraph, AstDepth);
+        let now = Instant::now();
+        let (_, best_exprr) = extractor.find_best(id);
+        let extraction_time = now.elapsed().as_secs_f32();
+
+        best_expr = Some(best_exprr.to_string());
+        if report {
+            println!("{}\n", "Could not prove any goal:".bright_red().bold(),);
+            println!(
+                "Best Expr: {}",
+                format!("{}", best_exprr).bright_green().bold()
+            );
+            println!(
+                "{} {}",
+                "Extracting Best Expression took:".bright_red(),
+                extraction_time.to_string().bright_green()
+            );
+        }
+    }
+    if report {
+        runner.print_report();
+    }
+
+    let stop_reason = match runner.stop_reason.unwrap() {
+        StopReason::Saturated => "Saturation".to_string(),
+        StopReason::IterationLimit(iter) => format!("Iterations: {}", iter),
+        StopReason::NodeLimit(nodes) => format!("Node Limit: {}", nodes),
+        StopReason::TimeLimit(time) => format!("Time Limit : {}", time),
+        StopReason::Other(reason) => reason,
+    };
+
+    ResultStructure::new(
+        index,
+        start_expression.to_string(),
+        "1/0".to_string(),
+        result,
+        best_expr.unwrap_or_default(),
+        ruleset_class as i64,
+        runner.iterations.len(),
+        runner.egraph.total_number_of_nodes(),
+        runner.iterations.iter().map(|i| i.n_rebuilds).sum(),
+        total_time,
+        stop_reason,
+        None,
+    )
+}
+
+pub fn check_impo(egraph: &EGraph, start_id: Id) -> (bool, String) {
+    let impossibles = [
+        write_impo!("(== (* ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
+        write_impo!("(!= (* ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
+        write_impo!("(!= (/ ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
+        write_impo!("(<= (% ?a ?b) ?c )"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
+        write_impo!("(<= ?c (% ?a ?b) )"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
+        write_impo!("(< ?c (% ?a ?b))"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
+        write_impo!("(< (% ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
+        write_impo!("(!= ?a ?c)";  impossible_conditions("c&v", &vec!["?a","?c"])),
+    ];
+    let mut proved_impo = false;
+    let mut proved_impo_index = 0;
+    // let mut egraph = EGraph::default();start_id
+    // let start_id = egraph.add_expr(&best_expr.parse().unwrap());
+    // egraph.rebuild();
+    for (impo_index, impo) in impossibles.iter().enumerate() {
+        let results = match impo.0.search_eclass(&egraph, start_id) {
+            Option::Some(res) => res,
+            _ => continue,
+        };
+        if results.substs.iter().any(|subst| (impo.1)(&egraph, subst)) {
+            proved_impo = true;
+            proved_impo_index = impo_index;
+            break;
+        }
+    }
+    (proved_impo, impossibles[proved_impo_index].0.to_string())
+}
+
+#[allow(dead_code)]
+pub fn prove_fast_fail(
+    index: i16,
+    start_expression: &str,
+    ruleset_class: i8,
+    threshold: f64,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> ResultStructure {
+    let start: RecExpr<Math> = start_expression.parse().unwrap();
+    let end_1: Pattern<Math> = "1".parse().unwrap();
+    let end_0: Pattern<Math> = "0".parse().unwrap();
+    let goals = [end_0.clone(), end_1.clone()];
+    let mut result = false;
+    let mut proved_goal_index = 0;
+    let mut id;
+    let best_expr;
+    let mut total_time: f64 = 0.0;
+    let nbr_passes = (params.2 as f64) / threshold;
+
+    if report {
+        println!(
+            "\n====================================\nProving Expression:\n {}\n",
+            start_expression
+        )
+    }
+
+    let mut i = 0.0;
+    let mut exit = false;
+    let mut expr = start;
+    let mut runner = Runner::default()
+        .with_iter_limit(params.0)
+        .with_node_limit(params.1)
+        .with_time_limit(Duration::from_secs_f64(threshold))
+        .with_expr(&expr);
+    id = runner.egraph.find(*runner.roots.last().unwrap());
+    while !exit {
+        if i > 0.0 {
+            let mut extractor;
+            extractor = Extractor::new(&((&runner).egraph), AstDepth);
+            let now = Instant::now();
+            let (_, best_exprr) = extractor.find_best(id);
+            let extraction_time = now.elapsed().as_secs_f64();
+            expr = best_exprr;
+            total_time += extraction_time;
+            if report {
+                println!(
+                    "Starting pass {} with Expr: {} in {}",
+                    i,
+                    format!("{}", expr).bright_green().bold(),
+                    format!("{}", extraction_time).bright_green().bold()
+                );
+            }
+        }
+
+        if use_iteration_check {
+            let (temp_runner, impo_time) = Runner::default()
+                .with_iter_limit(params.0)
+                .with_node_limit(params.1)
+                .with_time_limit(Duration::from_secs_f64(threshold))
+                .with_expr(&expr)
+                .run_fast(rules(ruleset_class).iter(), &goals, check_impo);
+            runner = temp_runner;
+            total_time += impo_time;
+        } else {
+            runner = Runner::default()
+                .with_iter_limit(params.0)
+                .with_node_limit(params.1)
+                .with_time_limit(Duration::from_secs_f64(threshold))
+                .with_expr(&expr)
+                .run(rules(ruleset_class).iter());
+        }
+
+        id = runner.egraph.find(*runner.roots.last().unwrap());
+        for (goal_index, goal) in goals.iter().enumerate() {
+            let boolean = (goal.search_eclass(&runner.egraph, id)).is_none();
+            if !boolean {
+                result = true;
+                proved_goal_index = goal_index;
+                break;
+            }
+        }
+
+        let dont_continue = match &runner.stop_reason.as_ref().unwrap() {
+            StopReason::Saturated => true,
+            StopReason::Other(stop) => {
+                if stop.contains("Impossible") {
+                    true
+                } else {
+                    false
+                }
+            }
+            _ => false,
+        };
+        let exec_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
+        total_time += exec_time;
+        if dont_continue || i > (nbr_passes - 1.0) || result {
             exit = true;
         } else {
             i += 1.0;

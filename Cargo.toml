@@ -7,7 +7,8 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-egg = { git = "https://github.com/namani-kourta-pfe/egg", branch = "check_equivalence_iteration_level" }
+# egg = { git = "https://github.com/namani-kourta-pfe/egg", branch = "check_equivalence_iteration_level" }
+egg = { git = "https://github.com/namani-kourta-pfe/egg", branch = "fail_fast" }
 # egg = { path="../egg" }
 
 ordered-float = "1"
