@@ -1,3 +1,3 @@
 #!/bin/bash
-python utils/infix-to-prefix/Expression.py "$1" > tmp/exprs.txt
-cargo run --release 100000000 100000000 3
+../../target/release/egg_halides_trs prove_exprs_fast_passes ../../data/prefix/expressions_egg.csv 10000000 10000000 3 0.1
+../../target/release/egg_halides_trs prove_exprs_fast ../../data/prefix/expressions_egg.csv 10000000 10000000 3

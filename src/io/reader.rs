@@ -21,6 +21,7 @@ pub fn read_expressions(file_path: &OsString) -> Result<Vec<ExpressionStruct>, B
     return Ok(expressions_vect);
 }
 
+#[allow(dead_code)]
 pub fn read_rules(file_path: &OsString) -> Result<Vec<Rule>, Box<dyn Error>> {
     let mut rules_vect: Vec<Rule> = Vec::new();
     let file = File::open(file_path)?;
