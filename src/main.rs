@@ -266,10 +266,10 @@ fn main() {
         let params = get_runner_params(1).unwrap();
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start, end);
-        println!(
-            "{:?}",
-            prove_multiple_passes(-1, &start, -1, 0.5, params, true, true)
-        );
+        // println!(
+        //     "{:?}",
+        //     prove_multiple_passes(-1, &start, -1, params, 0.5, true, true)
+        // );
         // println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
         println!("{:?}", prove(-1, &start, -1, params, true, true));
 
