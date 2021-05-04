@@ -815,7 +815,7 @@ pub fn impossible_conditions(
                         }),
                         _ => false,
                     }),
-                _ => false,
+                    _ => false,
                 }),
                 _ => false,
             })
@@ -856,6 +856,64 @@ pub fn impossible_conditions(
                             Math::Constant(_) => egraph[subst[var3]].nodes.iter().any(|n3| match n3 {
                                 Math::Symbol(_) => true,
                                     _ => false,
+                            }),
+                            _ => false,
+                        }),
+                        _ => false,
+                    }),
+                    _ => false,
+                }),
+                _ => false,
+            })
+        }
+        "v|c&c|c|v"=> {
+            let a = vars[0];
+            let x = vars[1];
+            let b = vars[2];
+            let c = vars[3];
+            let y = vars[4];
+            egraph[subst[a]].nodes.iter().any(|n| match n {
+                Math::Symbol(_) => egraph[subst[x]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(_) => egraph[subst[b]].nodes.iter().any(|n| match n {
+                        Math::Symbol(_) => egraph[subst[c]].nodes.iter().any(|n1| match n1 {
+                                Math::Constant(_) => egraph[subst[y]].nodes.iter().any(|n2| match n2 {
+                                        Math::Constant(_) => true,
+                                        _ => false,
+                                }),
+                                _ => false,
+                        }),
+                        Math::Constant(_) => egraph[subst[c]].nodes.iter().any(|n1| match n1 {
+                            Math::Symbol(_) => egraph[subst[y]].nodes.iter().any(|n2| match n2 {
+                                Math::Constant(_) => true,
+                                _ => false,
+                            }),
+                            Math::Constant(_) => egraph[subst[y]].nodes.iter().any(|n2| match n2 {
+                                Math::Symbol(_) => true,
+                                _ => false,
+                            }),
+                            _ => false,
+                        }),
+                        _ => false,
+                    }),
+                    _ => false,
+                }),
+                Math::Constant(_) => egraph[subst[x]].nodes.iter().any(|n1| match n1 {
+                    Math::Symbol(_) => egraph[subst[b]].nodes.iter().any(|n| match n {
+                        Math::Symbol(_) => egraph[subst[c]].nodes.iter().any(|n1| match n1 {
+                                Math::Constant(_) => egraph[subst[y]].nodes.iter().any(|n2| match n2 {
+                                        Math::Constant(_) => true,
+                                        _ => false,
+                                }),
+                                _ => false,
+                        }),
+                        Math::Constant(_) => egraph[subst[c]].nodes.iter().any(|n1| match n1 {
+                            Math::Symbol(_) => egraph[subst[y]].nodes.iter().any(|n2| match n2 {
+                                Math::Constant(_) => true,
+                                _ => false,
+                            }),
+                            Math::Constant(_) => egraph[subst[y]].nodes.iter().any(|n2| match n2 {
+                                Math::Symbol(_) => true,
+                                _ => false,
                             }),
                             _ => false,
                         }),
@@ -1072,6 +1130,8 @@ pub fn check_impo(egraph: &EGraph, start_id: Id) -> (bool, String) {
         write_impo!("(|| (< ?x ?a) (< ?b ?x))"; impossible_conditions("a<b", &vec!["?a","?b","?x"])),
         write_impo!("(!(&& (< ?a ?x) (< ?x ?b)))"; impossible_conditions("a<b", &vec!["?a","?b","?x"])),
         write_impo!("(!(&& (< ?a ?x) (< ?x ?b)))"; impossible_conditions("a<b", &vec!["?a","?b","?x"])),
+
+        write_impo!("(== (* ?a ?x) (+ (* ?b ?y) ?c))"; impossible_conditions("v|c&c|c|v", &vec!["?a", "?x","?b","?c","?y"]))
     ];
     let mut proved_impo = false;
     let mut proved_impo_index = 0;
