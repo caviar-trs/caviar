@@ -8,6 +8,8 @@ use structs::{ExpressionStruct, ResultStructure};
 use trs::{
     prove, prove_expression_with_file_classes, prove_fast, prove_fast_passes, prove_multiple_passes,
 };
+
+use crate::dataset::generate_dataset_par;
 mod trs;
 
 mod dataset;
@@ -182,17 +184,18 @@ fn test_classes(
 
 fn main() {
     let _args: Vec<String> = env::args().collect();
-    // let expressions = vec![
-    //     ("( < ( min y ( + x 2 ) ) x )","1"),
-    // ];
-    // dataset::generate_dataset(expressions,(3000, 100000, 5), -2, 15);
-    // generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
-    // println!("Printing rules ...");
-    // let arr = filteredRules(&get_first_arg().unwrap(), 1).unwrap();
-    // for rule in arr{
-    //     println!("{}", rule.name());
-    // }
-    // println!("End.");
+    let expressions = vec![(
+        "( >= ( max ( - -508 ( * v0 4 ) ) ( + ( * v0 4 ) 5 ) ) 0 )",
+        "(! (&& (< -127 v0) (< v0 0)))",
+    )];
+    dataset::generate_dataset(expressions, (3000, 100000, 5), -2, 15);
+    generate_dataset_par(&expressions, (30, 10000, 5), 2, 10);
+    println!("Printing rules ...");
+    let arr = filteredRules(&get_first_arg().unwrap(), 1).unwrap();
+    for rule in arr {
+        println!("{}", rule.name());
+    }
+    println!("End.");
 
     if _args.len() > 4 {
         let operation = get_nth_arg(1).unwrap();
@@ -354,12 +357,12 @@ fn main() {
         //     "{:?}",
         //     prove_multiple_passes(-1, &start, -1, 0.5, params, true, true)
         // );
-        // println!(
-        // "{:?}",
-        // trs::prove_equiv(&start, &end, -1, params, true, true)
-        // );
+        println!(
+            "{:?}",
+            trs::prove_equiv(&start, &end, -1, params, true, true)
+        );
         // println!("{:?}", prove(-1, &start, -1, params, true, true));
-        println!("{:?}", prove_fast(-1, &start, -1, params, true, true));
+        // println!("{:?}", prove_fast(-1, &start, -1, params, true, true));
 
         // println!(
         //     "{:?}",
