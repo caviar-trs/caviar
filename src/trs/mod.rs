@@ -768,19 +768,19 @@ pub fn impossible_conditions(
         // v0 and v1: one var one const
         // v2: const
         "c|v&v" => {
-            let var0 = vars[0];
-            let var1 = vars[1];
-            let var2 = vars[2];
-            egraph[subst[var0]].nodes.iter().any(|n| match n {
-                Math::Symbol(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
-                    Math::Constant(_) => egraph[subst[var2]].nodes.iter().any(|n2| match n2 {
-                        Math::Constant(_) => true,
+            let a = vars[0];
+            let b = vars[1];
+            let c = vars[2];
+            egraph[subst[a]].nodes.iter().any(|n| match n {
+                Math::Symbol(_) => egraph[subst[b]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(vb) => (*vb != 0) && egraph[subst[c]].nodes.iter().any(|n2| match n2 {
+                         Math::Constant(_) => true,
                         _ => false,
                     }),
                     _ => false,
                 }),
-                Math::Constant(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
-                    Math::Symbol(_) => egraph[subst[var2]].nodes.iter().any(|n2| match n2 {
+                Math::Constant(va) => (*va != 0) && egraph[subst[b]].nodes.iter().any(|n1| match n1 {
+                     Math::Symbol(_) => egraph[subst[c]].nodes.iter().any(|n2| match n2 {
                         Math::Constant(_) => true,
                         _ => false,
                     }),
@@ -926,14 +926,14 @@ pub fn impossible_conditions(
             let c = vars[3];
             let y = vars[4];
             egraph[subst[a]].nodes.iter().any(|n| match n {
-                Math::Symbol(_) => egraph[subst[x]].nodes.iter().any(|n1| match n1 {
+                Math::Symbol(a_v) => egraph[subst[x]].nodes.iter().any(|n1| match n1 {
                     Math::Constant(x_v) => {
                         (*x_v != 0)
                             && egraph[subst[b]].nodes.iter().any(|n2| match n2 {
-                                Math::Symbol(_) => {
-                                    egraph[subst[c]].nodes.iter().any(|n3| match n3 {
-                                        Math::Constant(_) => {
-                                            egraph[subst[y]].nodes.iter().any(|n4| match n4 {
+                                Math::Symbol(b_v) => {
+                                    (a_v != b_v) && egraph[subst[c]].nodes.iter().any(|n3| match n3 {
+                                        Math::Constant(c_v) => {
+                                            (*c_v != 0) && egraph[subst[y]].nodes.iter().any(|n4| match n4 {
                                                 Math::Constant(y_v) => *y_v != 0,
                                                 _ => false,
                                             })
@@ -944,9 +944,9 @@ pub fn impossible_conditions(
                                 Math::Constant(b_v) => {
                                     (*b_v != 0)
                                         && egraph[subst[c]].nodes.iter().any(|n3| match n3 {
-                                            Math::Constant(_) => {
-                                                egraph[subst[y]].nodes.iter().any(|n4| match n4 {
-                                                    Math::Symbol(_) => true,
+                                            Math::Constant(c_v) => {
+                                                (*c_v != 0) && egraph[subst[y]].nodes.iter().any(|n4| match n4 {
+                                                    Math::Symbol(y_v) => a_v != y_v,
                                                     _ => false,
                                                 })
                                             }
@@ -962,11 +962,11 @@ pub fn impossible_conditions(
                 Math::Constant(a_v) => {
                     (*a_v != 0)
                         && egraph[subst[x]].nodes.iter().any(|n1| match n1 {
-                            Math::Symbol(_) => egraph[subst[b]].nodes.iter().any(|n2| match n2 {
-                                Math::Symbol(_) => {
-                                    egraph[subst[c]].nodes.iter().any(|n3| match n3 {
-                                        Math::Constant(_) => {
-                                            egraph[subst[y]].nodes.iter().any(|n4| match n4 {
+                            Math::Symbol(x_v) => egraph[subst[b]].nodes.iter().any(|n2| match n2 {
+                                Math::Symbol(b_v) => {
+                                    (x_v != b_v) && egraph[subst[c]].nodes.iter().any(|n3| match n3 {
+                                        Math::Constant(c_v) => {
+                                            (*c_v != 0) && egraph[subst[y]].nodes.iter().any(|n4| match n4 {
                                                 Math::Constant(y_v) => *y_v != 0,
                                                 _ => false,
                                             })
@@ -977,9 +977,9 @@ pub fn impossible_conditions(
                                 Math::Constant(b_v) => {
                                     (*b_v != 0)
                                         && egraph[subst[c]].nodes.iter().any(|n3| match n3 {
-                                            Math::Constant(_) => {
-                                                egraph[subst[y]].nodes.iter().any(|n4| match n4 {
-                                                    Math::Constant(y_v) => *y_v != 0,
+                                            Math::Constant(c_v) => {
+                                                (*c_v != 0) && egraph[subst[y]].nodes.iter().any(|n4| match n4 {
+                                                    Math::Symbol(y_v) => y_v != x_v,
                                                     _ => false,
                                                 })
                                             }
