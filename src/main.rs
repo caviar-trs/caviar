@@ -361,8 +361,8 @@ fn main() {
         //     "{:?}",
         //     trs::prove_equiv(&start, &end, -1, params, true, true)
         // );
-        println!("{:?}", prove(-1, &start, -1, params, true, true));
-        // println!("{:?}", prove_fast(-1, &start, -1, params, true, true));
+        // println!("{:?}", prove(-1, &start, -1, params, true, true));
+        println!("{:?}", prove_fast(-1, &start, -1, params, true, true));
 
         // println!(
         //     "{:?}",

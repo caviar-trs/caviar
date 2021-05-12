@@ -211,6 +211,7 @@ pub fn compare_c0_c1(
                     ">=a-1" => c >= &(c1.abs() - 1),
                     "!=" => c != c1,
                     "%0" => (*c1 != 0) && (c % c1 == 0),
+                    "!%0" => (*c1 != 0) && (c % c1 != 0),
                     "%0<" => (*c1 > 0) && (c % c1 == 0),
                     "%0>" => (*c1 < 0) && (c % c1 == 0),
                     _ => false,
@@ -1009,6 +1010,25 @@ pub fn impossible_conditions(
                 _ => false,
             })
         }
+        "b%a=0" => {
+            let a = vars[0];
+            let x = vars[1];
+            let b = vars[2];
+            egraph[subst[b]].nodes.iter().any(|n| match n {
+                Math::Constant(vb) => egraph[subst[a]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(va) => egraph[subst[x]].nodes.iter().any(|n2| match n2 {
+                        Math::Symbol(_) => vb % va == 0,
+                        _ => false
+                    }),
+                    Math::Symbol(_) => egraph[subst[x]].nodes.iter().any(|n2| match n2 {
+                        Math::Constant(vx) => vb % vx == 0,
+                        _ => false
+                    }),
+                    _ => false
+                }),
+                _ => false
+            })
+        }
         _ => false,
     }
 }
@@ -1180,7 +1200,7 @@ pub fn check_impo(egraph: &EGraph, start_id: Id) -> (bool, String) {
         write_impo!("(== ?a ?x)";  impossible_conditions("c&v", &vec!["?a","?x"])),
         write_impo!("(!= ?a ?x)";  impossible_conditions("c&v", &vec!["?a","?x"])),
         write_impo!("(< ?a ?x)" ;  impossible_conditions("c&v", &vec!["?a","?x"])),
-        write_impo!("(== (* ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
+        write_impo!("(== (* ?a ?x) ?b)"; impossible_conditions("b%a=0", &vec!["?a","?x","?b"])),
         write_impo!("(!= (* ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
         write_impo!("(!= (/ ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
         // write_impo!("(<= (% ?a ?b) ?c)"; impossible_conditions("c|v&v_|2|-1>3", &vec!["?a","?b","?c"])),
