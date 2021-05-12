@@ -27,14 +27,16 @@ fn prove_expressions(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
-        results.push(prove(
+        let mut res = prove(
             expression.index,
             &expression.expression,
             ruleset_class,
             params,
             use_iteration_check,
             report,
-        ));
+        );
+        res.add_halide(expression.halide_result, expression.halide_time);
+        results.push(res);
     }
     results
 }
@@ -50,7 +52,7 @@ fn prove_expressions_multiple_passes(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
-        results.push(prove_multiple_passes(
+        let mut res = prove_multiple_passes(
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -58,7 +60,9 @@ fn prove_expressions_multiple_passes(
             params,
             use_iteration_check,
             report,
-        ));
+        );
+        res.add_halide(expression.halide_result, expression.halide_time);
+        results.push(res);
     }
     results
 }
@@ -74,14 +78,16 @@ fn prove_expressions_fast(
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
-        results.push(prove_fast(
+        let mut res = prove_fast(
             expression.index,
             &expression.expression,
             ruleset_class,
             params,
             use_iteration_check,
             report,
-        ));
+        );
+        res.add_halide(expression.halide_result, expression.halide_time);
+        results.push(res);
     }
     results
 }
@@ -98,7 +104,7 @@ fn prove_expressions_fast_passes(
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
-        results.push(prove_fast_passes(
+        let mut res = prove_fast_passes(
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -106,7 +112,9 @@ fn prove_expressions_fast_passes(
             params,
             use_iteration_check,
             report,
-        ));
+        );
+        res.add_halide(expression.halide_result, expression.halide_time);
+        results.push(res);
     }
     results
 }

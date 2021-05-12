@@ -36,7 +36,7 @@ def extract_one(i, row, remove):
             expr = ' '.join(right.infixToPrefix())
             expr = re.sub("\( \- (?P<var>[a-zA-Z_$][a-zA-Z_$0-9]*) \)", r'(* \1 -1)', expr)
             print("Expression "+ str(i) +" processed.")
-            return expr
+            return (expr, row[1], row[2])
         else:
             raise Exception("Expression too long!")
     except Exception as e:
@@ -53,9 +53,9 @@ if __name__ == '__main__':
     exprs = [i for i in exprs if i]
     frmt = []
     for i, expr in enumerate(exprs):
-        frmt.append([i+1, expr])
-    with open('results/expressions_egg.csv', 'w') as f:
+        frmt.append([i+1, expr[0], expr[1], expr[2]])
+    with open('expressions_egg.csv', 'w') as f:
         # using csv.writer method from CSV package
         write = csv.writer(f)
-        write.writerow(["ID", 'Expression'])
+        write.writerow(["ID", 'Expression', 'HalideResult', 'HalideTime'])
         write.writerows(frmt)

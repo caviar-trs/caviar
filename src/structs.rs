@@ -16,6 +16,8 @@ pub struct ResultStructure {
     pub total_time: f64,
     stop_reason: String,
     condition: Option<String>,
+    halide_result: bool,
+    halide_time: f64
 }
 
 impl ResultStructure {
@@ -32,6 +34,8 @@ impl ResultStructure {
         total_time: f64,
         stop_reason: String,
         condition: Option<String>,
+        // halide_result: bool,
+        // halide_time: f64
     ) -> Self {
         Self {
             index,
@@ -46,6 +50,8 @@ impl ResultStructure {
             total_time,
             stop_reason,
             condition,
+            halide_result: false,
+            halide_time: 0.0
         }
     }
 
@@ -53,17 +59,24 @@ impl ResultStructure {
         self.index = index;
         self.condition = Some(condition);
     }
+
+    pub fn add_halide(&mut self, halide_result: bool, halide_time: f64) {
+        self.halide_result = halide_result;
+        self.halide_time = halide_time;
+    }
 }
 
 #[derive(Serialize, Debug)]
 pub struct ExpressionStruct {
     pub index: i16,
     pub expression: String,
+    pub halide_result: bool,
+    pub halide_time: f64,
 }
 
 impl ExpressionStruct {
-    pub fn new(index: i16, expression: String) -> Self {
-        Self { index, expression }
+    pub fn new(index: i16, expression: String, halide_result: bool, halide_time: f64) -> Self {
+        Self { index, expression, halide_result, halide_time }
     }
 }
 

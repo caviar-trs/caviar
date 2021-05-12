@@ -16,7 +16,9 @@ pub fn read_expressions(file_path: &OsString) -> Result<Vec<ExpressionStruct>, B
         let record = result?;
         let index: i16 = record[0].parse::<i16>().unwrap();
         let expression = &record[1];
-        expressions_vect.push(ExpressionStruct::new(index, expression.to_string()))
+        let halide_result = if record[2].parse::<i16>().unwrap() == 1 { true } else { false };
+        let halide_time = record[3].parse::<f64>().unwrap();
+        expressions_vect.push(ExpressionStruct::new(index, expression.to_string(), halide_result, halide_time))
     }
     return Ok(expressions_vect);
 }
