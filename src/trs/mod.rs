@@ -1017,11 +1017,11 @@ pub fn impossible_conditions(
             egraph[subst[b]].nodes.iter().any(|n| match n {
                 Math::Constant(vb) => egraph[subst[a]].nodes.iter().any(|n1| match n1 {
                     Math::Constant(va) => egraph[subst[x]].nodes.iter().any(|n2| match n2 {
-                        Math::Symbol(_) => vb % va == 0,
+                        Math::Symbol(_) => (*va != 0) && (vb % va == 0),
                         _ => false
                     }),
                     Math::Symbol(_) => egraph[subst[x]].nodes.iter().any(|n2| match n2 {
-                        Math::Constant(vx) => vb % vx == 0,
+                        Math::Constant(vx) => (*vx != 0) && (vb % vx == 0),
                         _ => false
                     }),
                     _ => false
