@@ -258,7 +258,7 @@ fn main() {
             }
             "prove_exprs" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
-                let results = prove_expressions(&expression_vect, -1, params, true, true);
+                let results = prove_expressions(&expression_vect, -1, params, true, false);
                 write_results("tmp/results_prove.csv", &results).unwrap();
             }
             "prove_exprs_passes" => {
@@ -275,7 +275,7 @@ fn main() {
                     threshold,
                     params,
                     true,
-                    true,
+                    false,
                 );
                 write_results(
                     &format!("tmp/results_multiple_passes_{}.csv", threshold),
