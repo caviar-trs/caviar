@@ -184,11 +184,11 @@ fn test_classes(
 
 fn main() {
     let _args: Vec<String> = env::args().collect();
-    let expressions = vec![(
-        "( >= ( max ( - -508 ( * v0 4 ) ) ( + ( * v0 4 ) 5 ) ) 0 )",
-        "0"
-    )];
-    // dataset::generate_dataset(expressions, (3000, 100000, 1), -2, 5);
+    // let expressions = vec![(
+    //     "( == 0 ( - ( + 0 ( / ( + ( - 494 ( * v0 256 ) ) 21 ) 4 ) ) 1 ) )",
+    //     "0"
+    // )];
+    // dataset::generate_dataset(expressions, (3000, 100000, 1), -2, 1);
     // generate_dataset_par(&expressions, (30, 10000, 5), 2, 10);
     // println!("Printing rules ...");
     // let arr = filteredRules(&get_first_arg().unwrap(), 1).unwrap();
