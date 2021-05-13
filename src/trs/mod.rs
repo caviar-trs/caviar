@@ -1246,6 +1246,7 @@ pub fn check_impo(egraph: &EGraph, start_id: Id) -> (bool, String) {
         write_impo!("(!= ?a ?x)";  impossible_conditions("c&v", &vec!["?a","?x"])),
         // write_impo!("(< ?a ?x)" ;  impossible_conditions("c&v", &vec!["?a","?x"])),
         // write_impo!("(== (* ?a ?x) ?b)"; impossible_conditions("b%a=0", &vec!["?a","?x","?b"])),
+        write_impo!("(== (* ?a ?x) ?b)"; impossible_conditions("b%a=0", &vec!["?a","?x","?b"])),
         write_impo!("(!= (* ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
         // write_impo!("(!= (/ ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
         // // write_impo!("(<= (% ?a ?b) ?c)"; impossible_conditions("c|v&v_|2|-1>3", &vec!["?a","?b","?c"])),
