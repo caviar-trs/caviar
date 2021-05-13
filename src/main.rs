@@ -8,6 +8,8 @@ use structs::{ExpressionStruct, ResultStructure};
 use trs::{
     prove, prove_expression_with_file_classes, prove_fast, prove_fast_passes, prove_multiple_passes,
 };
+
+use crate::dataset::generate_dataset_par;
 mod trs;
 
 mod dataset;
@@ -25,7 +27,8 @@ fn prove_expressions(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
-        results.push(prove(
+        println!("Starting Expression: {}", expression.index);
+	results.push(prove(
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -48,7 +51,8 @@ fn prove_expressions_multiple_passes(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
-        results.push(prove_multiple_passes(
+        println!("Starting Expression: {}", expression.index);
+	results.push(prove_multiple_passes(
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -182,14 +186,15 @@ fn test_classes(
 
 fn main() {
     let _args: Vec<String> = env::args().collect();
-    // let expressions = vec![
-    //     ("( < ( min y ( + x 2 ) ) x )","1"),
-    // ];
-    // dataset::generate_dataset(expressions,(3000, 100000, 5), -2, 15);
-    // generate_dataset_par(&expressions,(30, 10000, 5), 2, 10);
+    // let expressions = vec![(
+    //     "( == 0 ( - ( + 0 ( / ( + ( - 494 ( * v0 256 ) ) 21 ) 4 ) ) 1 ) )",
+    //     "0"
+    // )];
+    // dataset::generate_dataset(expressions, (3000, 100000, 1), -2, 1);
+    // generate_dataset_par(&expressions, (30, 10000, 5), 2, 10);
     // println!("Printing rules ...");
     // let arr = filteredRules(&get_first_arg().unwrap(), 1).unwrap();
-    // for rule in arr{
+    // for rule in arr {
     //     println!("{}", rule.name());
     // }
     // println!("End.");
@@ -253,7 +258,7 @@ fn main() {
             }
             "prove_exprs" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
-                let results = prove_expressions(&expression_vect, -1, params, true, true);
+                let results = prove_expressions(&expression_vect, -1, params, true, false);
                 write_results("tmp/results_prove.csv", &results).unwrap();
             }
             "prove_exprs_passes" => {
@@ -270,7 +275,7 @@ fn main() {
                     threshold,
                     params,
                     true,
-                    true,
+                    false,
                 );
                 write_results(
                     &format!("tmp/results_multiple_passes_{}.csv", threshold),
@@ -354,14 +359,17 @@ fn main() {
         //     "{:?}",
         //     prove_multiple_passes(-1, &start, -1, 0.5, params, true, true)
         // );
-        // println!("{:?}", prove_equiv(&start, &end, -1, params, true, true));
+        // println!(
+        //     "{:?}",
+        //     trs::prove_equiv(&start, &end, -1, params, true, true)
+        // );
         // println!("{:?}", prove(-1, &start, -1, params, true, true));
         println!("{:?}", prove_fast(-1, &start, -1, params, true, true));
 
-        println!(
-            "{:?}",
-            prove_multiple_passes(-1, &start, -1, 1.0, params, true, true)
-        );
+        // println!(
+        //     "{:?}",
+        //     prove_multiple_passes(-1, &start, -1, 1.0, params, true, true)
+        // );
 
         // let expressions = vec![(&start[..], &end[..])];
         // generate_dataset_par(&expressions, params, -1, 10);

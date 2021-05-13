@@ -211,6 +211,7 @@ pub fn compare_c0_c1(
                     ">=a-1" => c >= &(c1.abs() - 1),
                     "!=" => c != c1,
                     "%0" => (*c1 != 0) && (c % c1 == 0),
+                    "!%0" => (*c1 != 0) && (c % c1 != 0),
                     "%0<" => (*c1 > 0) && (c % c1 == 0),
                     "%0>" => (*c1 < 0) && (c % c1 == 0),
                     _ => false,
@@ -375,6 +376,7 @@ pub fn prove_equiv(
 
     let id = runner.egraph.find(*runner.roots.last().unwrap());
     let matches = end.search_eclass(&runner.egraph, id);
+
     if matches.is_none() {
         let mut extractor = Extractor::new(&runner.egraph, AstDepth);
         let (_, best_expr) = extractor.find_best(id);
@@ -748,18 +750,82 @@ pub fn impossible_conditions(
     }
     let condition = condition.to_string();
     move |egraph, subst| match condition.as_str() {
-        "c|v&v" => {
+        // v0 and v1: one var one const
+        "c&v" => {
             let var = vars[0];
             let var1 = vars[1];
-            let var2 = vars[2];
-            // println!(
-            //     "a: {:?}\nb: {:?}\nc:{:?}",
-            //     egraph[subst[var]].nodes, egraph[subst[var1]].nodes, egraph[subst[var2]].nodes
-            // );
             egraph[subst[var]].nodes.iter().any(|n| match n {
                 Math::Symbol(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
-                    Math::Constant(_) => egraph[subst[var2]].nodes.iter().any(|n2| match n2 {
-                        Math::Constant(_) => true,
+                    Math::Constant(_) => true,
+                    _ => false,
+                }),
+                Math::Constant(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
+                    Math::Symbol(_) => true,
+                    _ => false,
+                }),
+                _ => false,
+            })
+        }
+        // v0 and v1: one var one const
+        // v2: const
+        "c|v&v" => {
+            let a = vars[0];
+            let b = vars[1];
+            let c = vars[2];
+            egraph[subst[a]].nodes.iter().any(|n| match n {
+                Math::Symbol(_) => egraph[subst[b]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(vb) => {
+                        (*vb != 0)
+                            && egraph[subst[c]].nodes.iter().any(|n2| match n2 {
+                                Math::Constant(_) => true,
+                                _ => false,
+                            })
+                    }
+                    _ => false,
+                }),
+                Math::Constant(va) => {
+                    (*va != 0)
+                        && egraph[subst[b]].nodes.iter().any(|n1| match n1 {
+                            Math::Symbol(_) => egraph[subst[c]].nodes.iter().any(|n2| match n2 {
+                                Math::Constant(_) => true,
+                                _ => false,
+                            }),
+                            _ => false,
+                        })
+                }
+                _ => false,
+            })
+        }
+        // v0 and v1: one var one const
+        // v2: const
+        // if v1 const then v2 > - |v1| + 1
+        "c<|b|" => {
+            let x = vars[0];
+            let b = vars[1];
+            let c = vars[2];
+            egraph[subst[x]].nodes.iter().any(|n| match n {
+                Math::Symbol(_) => egraph[subst[b]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(b_v) => egraph[subst[c]].nodes.iter().any(|n2| match n2 {
+                        Math::Constant(c_v) => (*c_v > -b_v.abs()) && (*c_v < b_v.abs()),
+                        _ => false,
+                    }),
+                    _ => false,
+                }),
+                _ => false,
+            })
+        }
+        // v0 and v1: one var one const
+        // v2: const
+        // if v1 const then |v1| -1 > v2
+        "c|v&v_|2|-1>3" => {
+            let var0 = vars[0];
+            let var1 = vars[1];
+            let var2 = vars[2];
+            egraph[subst[var0]].nodes.iter().any(|n| match n {
+                Math::Symbol(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(b) => egraph[subst[var2]].nodes.iter().any(|n2| match n2 {
+                        //c.abs() < (b.abs() - 1)
+                        Math::Constant(c) => (!(*c < -(b.abs() - 1))) && (!(*c > b.abs() - 1)),
                         _ => false,
                     }),
                     _ => false,
@@ -774,16 +840,235 @@ pub fn impossible_conditions(
                 _ => false,
             })
         }
-        "c&v" => {
-            let var = vars[0];
+        // v0 , v1 , v2: 1 var 2 const
+        // v3: const
+        "c|c|v&c" => {
+            let var0 = vars[0];
             let var1 = vars[1];
-            egraph[subst[var]].nodes.iter().any(|n| match n {
-                Math::Symbol(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
-                    Math::Constant(_) => true,
+            let var2 = vars[2];
+            let var3 = vars[3];
+            egraph[subst[var3]].nodes.iter().any(|n3| match n3 {
+                Math::Constant(_) => egraph[subst[var0]].nodes.iter().any(|n| match n {
+                    Math::Symbol(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
+                        Math::Constant(_) => egraph[subst[var2]].nodes.iter().any(|n2| match n2 {
+                            Math::Constant(_) => true,
+                            _ => false,
+                        }),
+                        _ => false,
+                    }),
+                    Math::Constant(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
+                        Math::Symbol(_) => egraph[subst[var2]].nodes.iter().any(|n2| match n2 {
+                            Math::Constant(_) => true,
+                            _ => false,
+                        }),
+                        Math::Constant(_) => egraph[subst[var2]].nodes.iter().any(|n2| match n2 {
+                            Math::Symbol(_) => true,
+                            _ => false,
+                        }),
+                        _ => false,
+                    }),
                     _ => false,
                 }),
-                Math::Constant(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
-                    Math::Symbol(_) => true,
+                _ => false,
+            })
+        }
+        "cd-a%b=0" => {
+            let a = vars[0];
+            let x = vars[1];
+            let b = vars[2];
+            let c = vars[3];
+            let d = vars[4];
+            egraph[subst[a]].nodes.iter().any(|n1| match n1 {
+                Math::Constant(va) => egraph[subst[b]].nodes.iter().any(|n2| match n2 {
+                    Math::Constant(vb) => egraph[subst[c]].nodes.iter().any(|n3| match n3 {
+                        Math::Constant(vc) => egraph[subst[d]].nodes.iter().any(|n4| match n4 {
+                            Math::Constant(vd) => {
+                                egraph[subst[x]].nodes.iter().any(|n5| match n5 {
+                                    Math::Symbol(_) => (*vb != 0) && ((vc * vd - va) % vb == 0),
+                                    _ => false,
+                                })
+                            }
+                            _ => false,
+                        }),
+                        _ => false,
+                    }),
+                    _ => false,
+                }),
+                _ => false,
+            })
+        }
+        // v0 , v1 , v2 , v3: 1 var 3 const
+        // v4: const
+        "c|c|c|v&c" => {
+            let var0 = vars[0];
+            let var1 = vars[1];
+            let var2 = vars[2];
+            let var3 = vars[3];
+            let var4 = vars[4];
+            egraph[subst[var4]].nodes.iter().any(|n4| match n4 {
+                Math::Constant(_) => egraph[subst[var0]].nodes.iter().any(|n| match n {
+                    Math::Symbol(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
+                        Math::Constant(_) => egraph[subst[var2]].nodes.iter().any(|n2| match n2 {
+                            Math::Constant(_) => {
+                                egraph[subst[var3]].nodes.iter().any(|n3| match n3 {
+                                    Math::Constant(_) => true,
+                                    _ => false,
+                                })
+                            }
+                            _ => false,
+                        }),
+                        _ => false,
+                    }),
+                    Math::Constant(_) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
+                        Math::Symbol(_) => egraph[subst[var2]].nodes.iter().any(|n2| match n2 {
+                            Math::Constant(_) => {
+                                egraph[subst[var3]].nodes.iter().any(|n3| match n3 {
+                                    Math::Constant(_) => true,
+                                    _ => false,
+                                })
+                            }
+                            _ => false,
+                        }),
+                        Math::Constant(_) => egraph[subst[var2]].nodes.iter().any(|n2| match n2 {
+                            Math::Symbol(_) => {
+                                egraph[subst[var3]].nodes.iter().any(|n3| match n3 {
+                                    Math::Constant(_) => true,
+                                    _ => false,
+                                })
+                            }
+                            Math::Constant(_) => {
+                                egraph[subst[var3]].nodes.iter().any(|n3| match n3 {
+                                    Math::Symbol(_) => true,
+                                    _ => false,
+                                })
+                            }
+                            _ => false,
+                        }),
+                        _ => false,
+                    }),
+                    _ => false,
+                }),
+                _ => false,
+            })
+        }
+        "v|c&c|c|v" => {
+            let a = vars[0];
+            let x = vars[1];
+            let b = vars[2];
+            let c = vars[3];
+            let y = vars[4];
+            egraph[subst[a]].nodes.iter().any(|n| match n {
+                Math::Symbol(a_v) => egraph[subst[x]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(x_v) => {
+                        (*x_v != 0)
+                            && egraph[subst[b]].nodes.iter().any(|n2| match n2 {
+                                Math::Symbol(b_v) => {
+                                    (a_v != b_v)
+                                        && egraph[subst[c]].nodes.iter().any(|n3| match n3 {
+                                            Math::Constant(c_v) => {
+                                                (*c_v != 0)
+                                                    && egraph[subst[y]].nodes.iter().any(|n4| {
+                                                        match n4 {
+                                                            Math::Constant(y_v) => *y_v != 0,
+                                                            _ => false,
+                                                        }
+                                                    })
+                                            }
+                                            _ => false,
+                                        })
+                                }
+                                Math::Constant(b_v) => {
+                                    (*b_v != 0)
+                                        && egraph[subst[c]].nodes.iter().any(|n3| match n3 {
+                                            Math::Constant(c_v) => {
+                                                (*c_v != 0)
+                                                    && egraph[subst[y]].nodes.iter().any(|n4| {
+                                                        match n4 {
+                                                            Math::Symbol(y_v) => a_v != y_v,
+                                                            _ => false,
+                                                        }
+                                                    })
+                                            }
+                                            _ => false,
+                                        })
+                                }
+
+                                _ => false,
+                            })
+                    }
+                    _ => false,
+                }),
+                Math::Constant(a_v) => {
+                    (*a_v != 0)
+                        && egraph[subst[x]].nodes.iter().any(|n1| match n1 {
+                            Math::Symbol(x_v) => egraph[subst[b]].nodes.iter().any(|n2| match n2 {
+                                Math::Symbol(b_v) => {
+                                    (x_v != b_v)
+                                        && egraph[subst[c]].nodes.iter().any(|n3| match n3 {
+                                            Math::Constant(c_v) => {
+                                                (*c_v != 0)
+                                                    && egraph[subst[y]].nodes.iter().any(|n4| {
+                                                        match n4 {
+                                                            Math::Constant(y_v) => *y_v != 0,
+                                                            _ => false,
+                                                        }
+                                                    })
+                                            }
+                                            _ => false,
+                                        })
+                                }
+                                Math::Constant(b_v) => {
+                                    (*b_v != 0)
+                                        && egraph[subst[c]].nodes.iter().any(|n3| match n3 {
+                                            Math::Constant(c_v) => {
+                                                (*c_v != 0)
+                                                    && egraph[subst[y]].nodes.iter().any(|n4| {
+                                                        match n4 {
+                                                            Math::Symbol(y_v) => y_v != x_v,
+                                                            _ => false,
+                                                        }
+                                                    })
+                                            }
+                                            _ => false,
+                                        })
+                                }
+                                _ => false,
+                            }),
+                            _ => false,
+                        })
+                }
+                _ => false,
+            })
+        }
+        "a<b" => {
+            let a = vars[0];
+            let b = vars[1];
+            let x = vars[2];
+            egraph[subst[a]].nodes.iter().any(|n| match n {
+                Math::Constant(ca) => egraph[subst[b]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(cb) => egraph[subst[x]].nodes.iter().any(|n2| match n2 {
+                        Math::Symbol(_) => ca < cb,
+                        _ => false,
+                    }),
+                    _ => false,
+                }),
+                _ => false,
+            })
+        }
+        "b%a=0" => {
+            let a = vars[0];
+            let x = vars[1];
+            let b = vars[2];
+            egraph[subst[b]].nodes.iter().any(|n| match n {
+                Math::Constant(vb) => egraph[subst[a]].nodes.iter().any(|n1| match n1 {
+                    Math::Constant(va) => egraph[subst[x]].nodes.iter().any(|n2| match n2 {
+                        Math::Symbol(_) => (*va != 0) && (vb % va == 0),
+                        _ => false,
+                    }),
+                    Math::Symbol(_) => egraph[subst[x]].nodes.iter().any(|n2| match n2 {
+                        Math::Constant(vx) => (*vx != 0) && (vb % vx == 0),
+                        _ => false,
+                    }),
                     _ => false,
                 }),
                 _ => false,
@@ -957,14 +1242,25 @@ pub fn prove_multiple_passes(
 
 pub fn check_impo(egraph: &EGraph, start_id: Id) -> (bool, String) {
     let impossibles = [
-        write_impo!("(== (* ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
+        // write_impo!("(== ?a ?x)";  impossible_conditions("c&v", &vec!["?a","?x"])),
+        write_impo!("(!= ?a ?x)";  impossible_conditions("c&v", &vec!["?a","?x"])),
+        // write_impo!("(< ?a ?x)" ;  impossible_conditions("c&v", &vec!["?a","?x"])),
+        // write_impo!("(== (* ?a ?x) ?b)"; impossible_conditions("b%a=0", &vec!["?a","?x","?b"])),
         write_impo!("(!= (* ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
-        write_impo!("(!= (/ ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
-        write_impo!("(<= (% ?a ?b) ?c )"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
-        write_impo!("(<= ?c (% ?a ?b) )"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
-        write_impo!("(< ?c (% ?a ?b))"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
-        write_impo!("(< (% ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
-        write_impo!("(!= ?a ?c)";  impossible_conditions("c&v", &vec!["?a","?c"])),
+        // write_impo!("(!= (/ ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
+        // // write_impo!("(<= (% ?a ?b) ?c)"; impossible_conditions("c|v&v_|2|-1>3", &vec!["?a","?b","?c"])),
+        // // write_impo!("(<= ?c (% ?a ?b))"; impossible_conditions("c|v&v_3>-|2|+1", &vec!["?a","?b","?c"])),
+        // write_impo!("(< ?c (% ?x ?b))"; impossible_conditions("c<|b|", &vec!["?x","?b","?c"])),
+        // write_impo!("(< (% ?a ?b) ?c)"; impossible_conditions("c|v&v", &vec!["?a","?b","?c"])),
+        // write_impo!("(== (/ (+ ?a ?x) ?b) ?c)"; impossible_conditions("c|c|v&c", &vec!["?a", "?x","?b","?c"])),
+        write_impo!("(!= (/ (+ ?a ?x) ?b) ?c)"; impossible_conditions("c|c|v&c", &vec!["?a", "?x","?b","?c"])),
+        // write_impo!("(== (/ (+ ?a (* ?x ?b)) ?c) ?d)"; impossible_conditions("cd-a%b=0", &vec!["?a", "?x","?b","?c","?d"])),
+        write_impo!("(!= (/ (+ ?a (* ?x ?b)) ?c) ?d)"; impossible_conditions("c|c|c|v&c", &vec!["?a", "?x","?b","?c","?d"])),
+        // write_impo!("(|| (< ?x ?a) (< ?b ?x))"; impossible_conditions("a<b", &vec!["?a","?b","?x"])),
+        // write_impo!("(|| (< ?x ?a) (< ?b ?x))"; impossible_conditions("a<b", &vec!["?a","?b","?x"])),
+        write_impo!("(!(&& (< ?a ?x) (< ?x ?b)))"; impossible_conditions("a<b", &vec!["?a","?b","?x"])),
+        // write_impo!("(!(&& (< ?a ?x) (< ?x ?b)))"; impossible_conditions("a<b", &vec!["?a","?b","?x"])),
+        // write_impo!("(== (* ?a ?x) (+ (* ?b ?y) ?c))"; impossible_conditions("v|c&c|c|v", &vec!["?a", "?x","?b","?c","?y"])),
     ];
     let mut proved_impo = false;
     let mut proved_impo_index = 0;
@@ -1199,6 +1495,7 @@ pub fn prove_fast(
     }
 
     id = runner.egraph.find(*runner.roots.last().unwrap());
+
     for (goal_index, goal) in goals.iter().enumerate() {
         let boolean = (goal.search_eclass(&runner.egraph, id)).is_none();
         if !boolean {

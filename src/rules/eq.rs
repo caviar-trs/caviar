@@ -13,6 +13,7 @@ pub fn eq() -> Vec<Rewrite> {
         rw!("eq-max-lt"     ; "( == (max ?x ?y) ?y)" => "(<= ?x ?y)"),
         rw!("Eq-min-lt"     ; "( == (min ?x ?y) ?y)" => "(<= ?y ?x)"),
         rw!("Eq-lt-min"     ; "(<= ?y ?x)"           => "( == (min ?x ?y) ?y)"),
+        rw!("Eq-a-b"        ; "(== (* ?a ?x) ?b)"    => "0" if crate::trs::compare_c0_c1("?b", "?a", "!%0")),
         rw!("Eq-max-c-pos"  ; "(== (max ?x ?c) 0)"   => "0" if crate::trs::is_const_pos("?c")),
         rw!("Eq-max-c-neg"  ; "(== (max ?x ?c) 0)"   => "(== ?x 0)" if crate::trs::is_const_neg("?c")),
         rw!("Eq-min-c-pos"  ; "(== (min ?x ?c) 0)"   => "0" if crate::trs::is_const_neg("?c")),
