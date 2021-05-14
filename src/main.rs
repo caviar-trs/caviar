@@ -27,7 +27,12 @@ fn prove_expressions(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
+<<<<<<< HEAD
         let mut res = prove(
+=======
+        println!("Starting Expression: {}", expression.index);
+	results.push(prove(
+>>>>>>> 8604e38a5681bd5ab55d78f8d8107e62784bdcb4
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -52,7 +57,12 @@ fn prove_expressions_multiple_passes(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
+<<<<<<< HEAD
         let mut res = prove_multiple_passes(
+=======
+        println!("Starting Expression: {}", expression.index);
+	results.push(prove_multiple_passes(
+>>>>>>> 8604e38a5681bd5ab55d78f8d8107e62784bdcb4
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -192,11 +202,11 @@ fn test_classes(
 
 fn main() {
     let _args: Vec<String> = env::args().collect();
-    let expressions = vec![(
-        "( >= ( max ( - -508 ( * v0 4 ) ) ( + ( * v0 4 ) 5 ) ) 0 )",
-        "0"
-    )];
-    // dataset::generate_dataset(expressions, (3000, 100000, 1), -2, 5);
+    // let expressions = vec![(
+    //     "( == 0 ( - ( + 0 ( / ( + ( - 494 ( * v0 256 ) ) 21 ) 4 ) ) 1 ) )",
+    //     "0"
+    // )];
+    // dataset::generate_dataset(expressions, (3000, 100000, 1), -2, 1);
     // generate_dataset_par(&expressions, (30, 10000, 5), 2, 10);
     // println!("Printing rules ...");
     // let arr = filteredRules(&get_first_arg().unwrap(), 1).unwrap();
@@ -264,7 +274,7 @@ fn main() {
             }
             "prove_exprs" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
-                let results = prove_expressions(&expression_vect, -1, params, true, true);
+                let results = prove_expressions(&expression_vect, -1, params, true, false);
                 write_results("tmp/results_prove.csv", &results).unwrap();
             }
             "prove_exprs_passes" => {
@@ -281,7 +291,7 @@ fn main() {
                     threshold,
                     params,
                     true,
-                    true,
+                    false,
                 );
                 write_results(
                     &format!("tmp/results_multiple_passes_{}.csv", threshold),

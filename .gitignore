@@ -11,3 +11,4 @@ tmp/*
 !tmp/.gitkeep
 
 **/results/
+**/tmp/
