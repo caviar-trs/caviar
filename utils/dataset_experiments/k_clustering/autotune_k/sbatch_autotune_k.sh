@@ -5,7 +5,7 @@
 #
 #SBATCH --ntasks=48
 
-for i in 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75
+for i in 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 105 110
 do
 	echo "Starting: K="$i
 	python "`dirname "$0"`/../k_clustering.py" $i "`dirname "$0"`/5k_dataset.json"
