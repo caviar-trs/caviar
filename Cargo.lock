@@ -137,7 +137,7 @@ dependencies = [
 [[package]]
 name = "egg"
 version = "0.6.1-dev"
-source = "git+https://github.com/namani-kourta-pfe/egg?branch=fail_fast#59a266a0426a7bceb15d8b65e911e262b3553fc7"
+source = "git+https://github.com/namani-kourta-pfe/egg?branch=fail_fast_less_check#ef9c0f230e1315f80e422c1f33c3d9fe67eee14e"
 dependencies = [
  "fxhash",
  "indexmap",
@@ -226,9 +226,9 @@ checksum = "9a3a5bfb195931eeb336b2a7b4d761daec841b97f947d34394601737a7bba5e4"
 
 [[package]]
 name = "indexmap"
-version = "1.6.1"
+version = "1.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4fb1fa934250de4de8aef298d81c729a7d33d8c239daa3a7575e6b92bfc7313b"
+checksum = "824845a0bf897a9042383849b02c1bc219c2383772efcd5c6f9766fa4b81aef3"
 dependencies = [
  "autocfg",
  "hashbrown",
@@ -312,9 +312,9 @@ dependencies = [
 
 [[package]]
 name = "once_cell"
-version = "1.5.2"
+version = "1.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "13bd41f508810a131401606d54ac32a467c97172d74ba7662562ebba5ad07fa0"
+checksum = "af8b08b04175473088b46763e51ee54da5f9a164bc162f615b91bc179dbf15a3"
 
 [[package]]
 name = "ordered-float"

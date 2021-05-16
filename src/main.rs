@@ -6,10 +6,9 @@ use json::parse;
 use std::time::Duration;
 use structs::{ExpressionStruct, ResultStructure};
 use trs::{
-    prove, prove_expression_with_file_classes, prove_fast, prove_fast_passes, prove_multiple_passes,
+    prove, prove_expression_with_file_classes, prove_fast, prove_faster, prove_fast_passes, prove_multiple_passes,
 };
 
-use crate::dataset::generate_dataset_par;
 mod trs;
 
 mod dataset;
@@ -77,6 +76,29 @@ fn prove_expressions_fast(
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
         results.push(prove_fast(
+            expression.index,
+            &expression.expression,
+            ruleset_class,
+            params,
+            use_iteration_check,
+            report,
+        ));
+    }
+    results
+}
+
+#[allow(dead_code)]
+fn prove_expressions_faster(
+    exprs_vect: &Vec<ExpressionStruct>,
+    ruleset_class: i8,
+    params: (usize, usize, u64),
+    use_iteration_check: bool,
+    report: bool,
+) -> Vec<ResultStructure> {
+    let mut results = Vec::new();
+    for expression in exprs_vect.iter() {
+        println!("Starting Expression: {}", expression.index);
+        results.push(prove_faster(
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -289,6 +311,17 @@ fn main() {
                 let results = prove_expressions_fast(&expression_vect, -1, params, true, false);
                 write_results(&format!("tmp/results_fast.csv"), &results).unwrap();
             }
+
+            "compare_fast_faster" => {
+                let expression_vect = read_expressions(&expressions_file).unwrap();
+                let results = prove_expressions(&expression_vect, -1, params, true, false);
+                let results_fast = prove_expressions_fast(&expression_vect, -1, params, true, false);
+                let results_faster = prove_expressions_faster(&expression_vect, -1, params, true, false);
+                write_results(&format!("tmp/results.csv"), &results).unwrap(); 
+                write_results(&format!("tmp/results_fast.csv"), &results_fast).unwrap(); 
+                write_results(&format!("tmp/results_faster.csv"), &results_faster).unwrap();
+            }
+
             "prove_exprs_fast_passes" => {
                 let threshold = get_nth_arg(6)
                     .unwrap()
@@ -363,8 +396,9 @@ fn main() {
         //     "{:?}",
         //     trs::prove_equiv(&start, &end, -1, params, true, true)
         // );
-        println!("{:?}", prove(-1, &start, -1, params, true, true));
-        println!("{:?}", prove_fast(-1, &start, -1, params, true, true));
+        // println!("{:?}", prove(-1, &start, -1, params, true, true));
+        println!("{:?}", prove_fast(-1, &start, -1, params, true, false).total_time);
+        println!("{:?}", prove_faster(-1, &start, -1, params, true, false).total_time);
 
         // println!(
         //     "{:?}",
