@@ -27,12 +27,8 @@ fn prove_expressions(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
-<<<<<<< HEAD
-        let mut res = prove(
-=======
         println!("Starting Expression: {}", expression.index);
-	results.push(prove(
->>>>>>> 8604e38a5681bd5ab55d78f8d8107e62784bdcb4
+        let mut res = prove(
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -57,12 +53,8 @@ fn prove_expressions_multiple_passes(
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
-<<<<<<< HEAD
-        let mut res = prove_multiple_passes(
-=======
         println!("Starting Expression: {}", expression.index);
-	results.push(prove_multiple_passes(
->>>>>>> 8604e38a5681bd5ab55d78f8d8107e62784bdcb4
+        let mut res = prove_multiple_passes(
             expression.index,
             &expression.expression,
             ruleset_class,
