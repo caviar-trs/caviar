@@ -5,7 +5,7 @@ use io::writer::write_results;
 use json::parse;
 use std::time::Duration;
 use structs::{ExpressionStruct, ResultStructure};
-use trs::{prove, prove_beh, prove_expression_with_file_classes, prove_fast, prove_fast_passes};
+use trs::{prove, prove_beh, prove_beh_npp, prove_expression_with_file_classes, prove_npp};
 
 use crate::dataset::generate_dataset_par;
 mod trs;
@@ -68,7 +68,7 @@ fn prove_expressions_beh(
 }
 
 #[allow(dead_code)]
-fn prove_expressions_fast(
+fn prove_expressions_npp(
     exprs_vect: &Vec<ExpressionStruct>,
     ruleset_class: i8,
     params: (usize, usize, f64),
@@ -78,7 +78,7 @@ fn prove_expressions_fast(
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
-        let mut res = prove_fast(
+        let mut res = prove_npp(
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -93,7 +93,7 @@ fn prove_expressions_fast(
 }
 
 #[allow(dead_code)]
-fn prove_expressions_fast_passes(
+fn prove_expressions_beh_npp(
     exprs_vect: &Vec<ExpressionStruct>,
     ruleset_class: i8,
     threshold: f64,
@@ -104,7 +104,7 @@ fn prove_expressions_fast_passes(
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
-        let mut res = prove_fast_passes(
+        let mut res = prove_beh_npp(
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -151,7 +151,7 @@ fn test_classes(
                 expression.index,
                 &expression.expression.clone(),
                 use_iteration_check,
-                false,
+                report,
             )
             .unwrap();
             if report {
@@ -262,12 +262,12 @@ fn main() {
                     continue_from_expr,
                 );
             }
-            "prove_exprs" => {
+            "prove" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let results = prove_expressions(&expression_vect, -1, params, true, false);
                 write_results("tmp/results_prove.csv", &results).unwrap();
             }
-            "prove_exprs_passes" => {
+            "beh" => {
                 let threshold = get_nth_arg(6)
                     .unwrap()
                     .into_string()
@@ -277,19 +277,15 @@ fn main() {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let results =
                     prove_expressions_beh(&expression_vect, -1, threshold, params, true, false);
-                write_results(
-                    &format!("tmp/results_multiple_passes_{}.csv", threshold),
-                    &results,
-                )
-                .unwrap();
+                write_results(&format!("tmp/results_beh_{}.csv", threshold), &results).unwrap();
             }
 
-            "prove_exprs_fast" => {
+            "npp" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
-                let results = prove_expressions_fast(&expression_vect, -1, params, true, false);
+                let results = prove_expressions_npp(&expression_vect, -1, params, true, false);
                 write_results(&format!("tmp/results_fast.csv"), &results).unwrap();
             }
-            "prove_exprs_fast_passes" => {
+            "beh_npp" => {
                 let threshold = get_nth_arg(6)
                     .unwrap()
                     .into_string()
@@ -297,14 +293,8 @@ fn main() {
                     .parse::<f64>()
                     .unwrap();
                 let expression_vect = read_expressions(&expressions_file).unwrap();
-                let results = prove_expressions_fast_passes(
-                    &expression_vect,
-                    -1,
-                    threshold,
-                    params,
-                    true,
-                    false,
-                );
+                let results =
+                    prove_expressions_beh_npp(&expression_vect, -1, threshold, params, true, false);
                 write_results(
                     &format!("tmp/results_fast_passes_{}.csv", threshold),
                     &results,
@@ -364,7 +354,7 @@ fn main() {
         //     trs::prove_equiv(&start, &end, -1, params, true, true)
         // );
         // println!("{:?}", prove(-1, &start, -1, params, true, true));
-        println!("{:?}", prove_fast(-1, &start, -1, params, true, true));
+        println!("{:?}", prove_npp(-1, &start, -1, params, true, true));
 
         // println!(
         //     "{:?}",
