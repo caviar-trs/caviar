@@ -295,11 +295,7 @@ fn main() {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let results =
                     prove_expressions_beh_npp(&expression_vect, -1, threshold, params, true, false);
-                write_results(
-                    &format!("tmp/results_fast_passes_{}.csv", threshold),
-                    &results,
-                )
-                .unwrap();
+                write_results(&format!("tmp/results_beh_npp_{}.csv", threshold), &results).unwrap();
             }
             "test_classes" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
