@@ -321,14 +321,14 @@ pub fn print_graph(egraph: &EGraph, name: &str) {
 pub fn simplify(
     start_expression: &str,
     ruleset_class: i8,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     report: bool,
 ) {
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let runner = Runner::default()
         .with_iter_limit(params.0)
         .with_node_limit(params.1)
-        .with_time_limit(Duration::new(params.2, 0))
+        .with_time_limit(Duration::from_secs_f64(params.2))
         .with_expr(&start)
         .run(rules(ruleset_class).iter());
     let id = runner.egraph.find(*runner.roots.last().unwrap());
@@ -349,7 +349,7 @@ pub fn prove_equiv(
     start_expression: &str,
     end_expressions: &str,
     ruleset_class: i8,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     use_iteration_check: bool,
     report: bool,
 ) -> ResultStructure {
@@ -362,14 +362,14 @@ pub fn prove_equiv(
         runner = Runner::default()
             .with_iter_limit(params.0)
             .with_node_limit(params.1)
-            .with_time_limit(Duration::new(params.2, 0))
+            .with_time_limit(Duration::from_secs_f64(params.2))
             .with_expr(&start)
             .run_check_iteration(rules(ruleset_class).iter(), &[end.clone()]);
     } else {
         runner = Runner::default()
             .with_iter_limit(params.0)
             .with_node_limit(params.1)
-            .with_time_limit(Duration::new(params.2, 0))
+            .with_time_limit(Duration::from_secs_f64(params.2))
             .with_expr(&start)
             .run(rules(ruleset_class).iter());
     }
@@ -440,7 +440,7 @@ pub fn prove(
     index: i16,
     start_expression: &str,
     ruleset_class: i8,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     use_iteration_check: bool,
     report: bool,
 ) -> ResultStructure {
@@ -473,14 +473,14 @@ pub fn prove(
         runner = Runner::default()
             .with_iter_limit(params.0)
             .with_node_limit(params.1)
-            .with_time_limit(Duration::new(params.2, 0))
+            .with_time_limit(Duration::from_secs_f64(params.2))
             .with_expr(&start)
             .run_check_iteration(rules(ruleset_class).iter(), &goals);
     } else {
         runner = Runner::default()
             .with_iter_limit(params.0)
             .with_node_limit(params.1)
-            .with_time_limit(Duration::new(params.2, 0))
+            .with_time_limit(Duration::from_secs_f64(params.2))
             .with_expr(&start)
             .run(rules(ruleset_class).iter());
     }
@@ -588,7 +588,7 @@ pub fn prove(
 pub fn prove_rule(
     rule: &Rule,
     ruleset_class: i8,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     use_iteration_check: bool,
     report: bool,
 ) -> ResultStructure {
@@ -606,7 +606,7 @@ pub fn prove_rule(
 
 pub fn prove_expression_with_file_classes(
     classes: &JsonValue,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     index: i16,
     start_expression: &str,
     use_iteration_check: bool,
@@ -1090,12 +1090,12 @@ macro_rules! write_impo {
 }
 
 #[allow(dead_code)]
-pub fn prove_multiple_passes(
+pub fn prove_beh(
     index: i16,
     start_expression: &str,
     ruleset_class: i8,
     threshold: f64,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     use_iteration_check: bool,
     report: bool,
 ) -> ResultStructure {
@@ -1282,12 +1282,12 @@ pub fn check_impo(egraph: &EGraph, start_id: Id) -> (bool, String) {
 }
 
 #[allow(dead_code)]
-pub fn prove_fast_passes(
+pub fn prove_beh_npp(
     index: i16,
     start_expression: &str,
     ruleset_class: i8,
     threshold: f64,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     use_iteration_check: bool,
     report: bool,
 ) -> ResultStructure {
@@ -1442,11 +1442,11 @@ pub fn prove_fast_passes(
 }
 
 #[allow(dead_code)]
-pub fn prove_fast(
+pub fn prove_npp(
     index: i16,
     start_expression: &str,
     ruleset_class: i8,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     use_iteration_check: bool,
     report: bool,
 ) -> ResultStructure {
@@ -1480,7 +1480,7 @@ pub fn prove_fast(
         let (runner_temp, impo_time) = Runner::default()
             .with_iter_limit(params.0)
             .with_node_limit(params.1)
-            .with_time_limit(Duration::new(params.2, 0))
+            .with_time_limit(Duration::from_secs_f64(params.2))
             .with_expr(&start)
             .run_fast(rules(ruleset_class).iter(), &goals, check_impo);
         runner = runner_temp;
@@ -1489,7 +1489,7 @@ pub fn prove_fast(
         runner = Runner::default()
             .with_iter_limit(params.0)
             .with_node_limit(params.1)
-            .with_time_limit(Duration::new(params.2, 0))
+            .with_time_limit(Duration::from_secs_f64(params.2))
             .with_expr(&start)
             .run(rules(ruleset_class).iter());
     }

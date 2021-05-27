@@ -5,9 +5,7 @@ use io::writer::write_results;
 use json::parse;
 use std::time::Duration;
 use structs::{ExpressionStruct, ResultStructure};
-use trs::{
-    prove, prove_expression_with_file_classes, prove_fast, prove_fast_passes, prove_multiple_passes,
-};
+use trs::{prove, prove_beh, prove_expression_with_file_classes, prove_fast, prove_fast_passes};
 
 use crate::dataset::generate_dataset_par;
 mod trs;
@@ -21,7 +19,7 @@ mod structs;
 fn prove_expressions(
     exprs_vect: &Vec<ExpressionStruct>,
     ruleset_class: i8,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     use_iteration_check: bool,
     report: bool,
 ) -> Vec<ResultStructure> {
@@ -43,18 +41,18 @@ fn prove_expressions(
 }
 
 #[allow(dead_code)]
-fn prove_expressions_multiple_passes(
+fn prove_expressions_beh(
     exprs_vect: &Vec<ExpressionStruct>,
     ruleset_class: i8,
     threshold: f64,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     use_iteration_check: bool,
     report: bool,
 ) -> Vec<ResultStructure> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
-        let mut res = prove_multiple_passes(
+        let mut res = prove_beh(
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -73,7 +71,7 @@ fn prove_expressions_multiple_passes(
 fn prove_expressions_fast(
     exprs_vect: &Vec<ExpressionStruct>,
     ruleset_class: i8,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     use_iteration_check: bool,
     report: bool,
 ) -> Vec<ResultStructure> {
@@ -99,7 +97,7 @@ fn prove_expressions_fast_passes(
     exprs_vect: &Vec<ExpressionStruct>,
     ruleset_class: i8,
     threshold: f64,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     use_iteration_check: bool,
     report: bool,
 ) -> Vec<ResultStructure> {
@@ -124,7 +122,7 @@ fn prove_expressions_fast_passes(
 fn test_classes(
     path: OsString,
     exprs_vect: &Vec<ExpressionStruct>,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     count: usize,
     use_iteration_check: bool,
     report: bool,
@@ -277,14 +275,8 @@ fn main() {
                     .parse::<f64>()
                     .unwrap();
                 let expression_vect = read_expressions(&expressions_file).unwrap();
-                let results = prove_expressions_multiple_passes(
-                    &expression_vect,
-                    -1,
-                    threshold,
-                    params,
-                    true,
-                    false,
-                );
+                let results =
+                    prove_expressions_beh(&expression_vect, -1, threshold, params, true, false);
                 write_results(
                     &format!("tmp/results_multiple_passes_{}.csv", threshold),
                     &results,
