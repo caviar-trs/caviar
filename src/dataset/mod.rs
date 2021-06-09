@@ -16,7 +16,7 @@ use std::time::Duration;
 #[allow(dead_code)]
 pub fn generate_dataset(
     expressions: Vec<(&str, &str)>,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     ruleset_id: i8,
     reorder_count: usize,
 ) {
@@ -53,7 +53,7 @@ pub fn generate_dataset(
                 runner = Runner::default()
                     .with_iter_limit(params.0)
                     .with_node_limit(params.1)
-                    .with_time_limit(Duration::new(params.2, 0))
+                    .with_time_limit(Duration::from_secs_f64(params.2))
                     .with_expr(&start)
                     .run(ruleset_copy.iter());
                 id = runner.egraph.find(*runner.roots.last().unwrap());
@@ -101,7 +101,7 @@ pub fn generate_dataset(
 #[allow(dead_code)]
 pub fn generate_dataset_par(
     expressions: &Vec<(&str, &str)>,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     ruleset_id: i8,
     reorder_count: usize,
 ) {
@@ -118,7 +118,7 @@ pub fn generate_dataset_par(
 #[allow(dead_code)]
 pub fn minimal_set_to_prove(
     expression: (&str, &str),
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     ruleset_id: i8,
     reorder_count: usize,
     data: &Arc<Mutex<Vec<JsonValue>>>,
@@ -154,7 +154,7 @@ pub fn minimal_set_to_prove(
             runner = Runner::default()
                 .with_iter_limit(params.0)
                 .with_node_limit(params.1)
-                .with_time_limit(Duration::new(params.2, 0))
+                .with_time_limit(Duration::from_secs_f64(params.2))
                 .with_expr(&start)
                 .run(ruleset_copy.iter());
             id = runner.egraph.find(*runner.roots.last().unwrap());
@@ -203,7 +203,7 @@ pub fn minimal_set_to_prove(
 
 pub fn generation_execution(
     file_path: &OsString,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     reorder_count: usize,
     batch_size: usize,
     continue_from_expr: usize,
@@ -250,7 +250,7 @@ pub fn generation_execution(
 pub fn generate_dataset_0_1_par(
     expressions: &Vec<String>,
     ruleset_id: i8,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     use_iteration_check: bool,
     reorder_count: usize,
     batch_number: usize,
@@ -270,7 +270,7 @@ pub fn generate_dataset_0_1_par(
             use_iteration_check,
             reorder_count,
             &data,
-            batch_number
+            batch_number,
         )
     });
     dataset
@@ -282,11 +282,11 @@ pub fn generate_dataset_0_1_par(
 pub fn minimal_set_to_prove_0_1(
     expression: &str,
     ruleset_id: i8,
-    params: (usize, usize, u64),
+    params: (usize, usize, f64),
     use_iteration_check: bool,
     reorder_count: usize,
     data: &Arc<Mutex<Vec<JsonValue>>>,
-    batch_number: usize
+    batch_number: usize,
 ) {
     let mut rng = thread_rng();
     let mut start: RecExpr<Math>;
@@ -320,7 +320,7 @@ pub fn minimal_set_to_prove_0_1(
                 runner = Runner::default()
                     .with_iter_limit(params.0)
                     .with_node_limit(params.1)
-                    .with_time_limit(Duration::new(params.2, 0))
+                    .with_time_limit(Duration::from_secs_f64(params.2))
                     .with_expr(&start);
 
                 if use_iteration_check {
