@@ -379,7 +379,7 @@ pub fn compare_rulesets(
     let mut runner;
     let mut total_time1: f64 = 0.0;
     let mut total_time2: f64 = 0.0;
-    for i in 0 .. 10{
+    for i in 0 .. 1{
         runner = Runner::default()
         .with_iter_limit(params.0)
         .with_node_limit(params.1)
@@ -400,5 +400,5 @@ pub fn compare_rulesets(
         total_time2 = total_time2 + runner.iterations.iter().map(|i| i.total_time).sum::<f64>();
     };
     
-    results.push((expression_with_rules["expression"]["start"].to_string(), total_time1 / 10.0, total_time2 / 10.0)); 
+    results.push((expression_with_rules["expression"]["start"].to_string(), total_time1 / 1.0, total_time2 / 1.0)); 
 }
