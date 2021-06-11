@@ -386,7 +386,7 @@ pub fn compare_rulesets(
         .with_time_limit(Duration::new(params.2, 0))
         .with_expr(&start);
         println!("{}",format!("\n\nFull ruleset").blue().bold());
-        runner = runner.run_check_iteration(ruleset.iter(), &goals);
+        runner = runner.run(ruleset.iter());
         runner.print_report();
         total_time1 = total_time1 + runner.iterations.iter().map(|i| i.total_time).sum::<f64>();
         runner = Runner::default()
@@ -395,7 +395,7 @@ pub fn compare_rulesets(
                 .with_time_limit(Duration::new(params.2, 0))
                 .with_expr(&start);
         println!("{}",format!("\n\nMinimal ruleset").blue().bold());
-        runner = runner.run_check_iteration(minimal_ruleset.iter(), &goals);
+        runner = runner.run(minimal_ruleset.iter());
         runner.print_report(); 
         total_time2 = total_time2 + runner.iterations.iter().map(|i| i.total_time).sum::<f64>();
     };

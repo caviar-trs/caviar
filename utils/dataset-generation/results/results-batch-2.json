@@ -1,0 +1,1 @@
+[{"expression": {"start": "( == ( * ( / ( * v0 -1000 ) 4 ) 4 ) ( * v0 -1000 ) )", "end": "1"}, "rules": ["mul-cancel-div", "add-zero", "add-assoc", "add-comm", "sub-to-add", "mod-consts", "eq-x-x", "eq-x-y-0"]}]
