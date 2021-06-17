@@ -33,6 +33,22 @@ pub fn read_expressions(file_path: &OsString) -> Result<Vec<ExpressionStruct>, B
 }
 
 #[allow(dead_code)]
+pub fn read_expressions_paper(
+    file_path: &OsString,
+) -> Result<Vec<(String, String)>, Box<dyn Error>> {
+    let mut expressions_vect = Vec::new();
+    let file = File::open(file_path)?;
+    let mut rdr = csv::ReaderBuilder::new().delimiter(b';').from_reader(file);
+    for result in rdr.records() {
+        let record = result?;
+        let infix = record[0].to_string();
+        let prefix = record[1].to_string();
+        expressions_vect.push((infix, prefix))
+    }
+    return Ok(expressions_vect);
+}
+
+#[allow(dead_code)]
 pub fn read_rules(file_path: &OsString) -> Result<Vec<Rule>, Box<dyn Error>> {
     let mut rules_vect: Vec<Rule> = Vec::new();
     let file = File::open(file_path)?;

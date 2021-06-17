@@ -17,7 +17,7 @@ pub struct ResultStructure {
     stop_reason: String,
     condition: Option<String>,
     halide_result: bool,
-    halide_time: f64
+    halide_time: f64,
 }
 
 impl ResultStructure {
@@ -51,7 +51,7 @@ impl ResultStructure {
             stop_reason,
             condition,
             halide_result: false,
-            halide_time: 0.0
+            halide_time: 0.0,
         }
     }
 
@@ -76,7 +76,12 @@ pub struct ExpressionStruct {
 
 impl ExpressionStruct {
     pub fn new(index: i16, expression: String, halide_result: bool, halide_time: f64) -> Self {
-        Self { index, expression, halide_result, halide_time }
+        Self {
+            index,
+            expression,
+            halide_result,
+            halide_time,
+        }
     }
 }
 
@@ -96,6 +101,22 @@ impl Rule {
             lhs,
             rhs,
             condition,
+        }
+    }
+}
+#[derive(Serialize, Debug)]
+pub struct PaperResult {
+    infix: String,
+    prefix: String,
+    result: i8,
+}
+
+impl PaperResult {
+    pub fn new(infix: String, prefix: String, result: i8) -> Self {
+        Self {
+            infix,
+            prefix,
+            result,
         }
     }
 }

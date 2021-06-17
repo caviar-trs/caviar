@@ -7,7 +7,9 @@ use std::time::Duration;
 use structs::{ExpressionStruct, ResultStructure};
 use trs::{prove, prove_beh, prove_beh_npp, prove_expression_with_file_classes, prove_npp};
 
-use crate::dataset::generate_dataset_par;
+use crate::io::reader::read_expressions_paper;
+use crate::io::writer::write_results_paper;
+use crate::structs::PaperResult;
 mod trs;
 
 mod dataset;
@@ -93,28 +95,32 @@ fn prove_expressions_npp(
 }
 
 #[allow(dead_code)]
-fn prove_expressions_beh_npp(
-    exprs_vect: &Vec<ExpressionStruct>,
+fn prove_expressions_beh_npp_paper(
+    exprs_vect: &Vec<(String, String)>,
     ruleset_class: i8,
     threshold: f64,
     params: (usize, usize, f64),
     use_iteration_check: bool,
     report: bool,
-) -> Vec<ResultStructure> {
+) -> Vec<PaperResult> {
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
-        println!("Starting Expression: {}", expression.index);
-        let mut res = prove_beh_npp(
-            expression.index,
-            &expression.expression,
+        println!("Starting Expression: {}", expression.0);
+        let res = prove_beh_npp(
+            -1,
+            &expression.1,
             ruleset_class,
             threshold,
             params,
             use_iteration_check,
             report,
         );
-        res.add_halide(expression.halide_result, expression.halide_time);
-        results.push(res);
+        // res.add_halide(expression.halide_result, expression.halide_time);
+        results.push(PaperResult::new(
+            expression.0.clone(),
+            expression.1.clone(),
+            if res.result { 1 } else { 0 },
+        ));
     }
     results
 }
@@ -285,18 +291,18 @@ fn main() {
                 let results = prove_expressions_npp(&expression_vect, -1, params, true, false);
                 write_results(&format!("tmp/results_fast.csv"), &results).unwrap();
             }
-            "beh_npp" => {
-                let threshold = get_nth_arg(6)
-                    .unwrap()
-                    .into_string()
-                    .unwrap()
-                    .parse::<f64>()
-                    .unwrap();
-                let expression_vect = read_expressions(&expressions_file).unwrap();
-                let results =
-                    prove_expressions_beh_npp(&expression_vect, -1, threshold, params, true, false);
-                write_results(&format!("tmp/results_beh_npp_{}.csv", threshold), &results).unwrap();
-            }
+            // "beh_npp" => {
+            //     let threshold = get_nth_arg(6)
+            //         .unwrap()
+            //         .into_string()
+            //         .unwrap()
+            //         .parse::<f64>()
+            //         .unwrap();
+            //     let expression_vect = read_expressions(&expressions_file).unwrap();
+            //     let results =
+            //         prove_expressions_beh_npp(&expression_vect, -1, threshold, params, true, false);
+            //     write_results(&format!("tmp/results_beh_npp_{}.csv", threshold), &results).unwrap();
+            // }
             "test_classes" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let classes_file = get_nth_arg(6).unwrap();
@@ -335,6 +341,29 @@ fn main() {
                 .unwrap();
                 println!("{}", start_t.elapsed().as_secs_f64());
             }
+            "paper" => {
+                let threshold = get_nth_arg(6)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<f64>()
+                    .unwrap();
+                let expression_vect = read_expressions_paper(&expressions_file).unwrap();
+                let results = prove_expressions_beh_npp_paper(
+                    &expression_vect,
+                    -1,
+                    threshold,
+                    params,
+                    true,
+                    false,
+                );
+                write_results_paper(
+                    &format!("tmp/paper_results_{}_{}.csv", params.2, threshold),
+                    &results,
+                )
+                .unwrap();
+            }
+
             _ => {}
         }
     } else {
