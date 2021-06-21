@@ -14,7 +14,7 @@ pub struct ResultStructure {
     egraph_size: usize,
     rebuilds: usize,
     pub total_time: f64,
-    stop_reason: String,
+    pub stop_reason: String,
     condition: Option<String>,
     halide_result: bool,
     halide_time: f64

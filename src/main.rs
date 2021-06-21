@@ -1,19 +1,24 @@
 use std::{env, ffi::OsString, fs::File, io::Read, time::Instant};
-
 use io::reader::{get_nth_arg, get_runner_params, get_start_end, read_expressions};
 use io::writer::write_results;
 use json::parse;
 use std::time::Duration;
 use structs::{ExpressionStruct, ResultStructure};
-use trs::{prove, prove_beh, prove_beh_npp, prove_expression_with_file_classes, prove_npp};
-
-use crate::dataset::generate_dataset_par;
+use trs::{prove, prove_equiv, simplify, prove_beh, prove_beh_npp, prove_expression_with_file_classes, prove_npp};
+use colored::*;
 mod trs;
-
+use std::time::{SystemTime, UNIX_EPOCH};
 mod dataset;
 mod io;
 mod rules;
 mod structs;
+
+fn get_epoch_s() -> u64 {
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs()
+}
 
 #[allow(dead_code)]
 fn prove_expressions(
@@ -190,6 +195,39 @@ fn test_classes(
     .unwrap();
 }
 
+fn summary(results: Vec<structs::ResultStructure>, npp: bool){
+    let max_time: f64 = results.iter().map(|result| result.total_time).max_by(|a, b| a.partial_cmp(b).unwrap()).unwrap();
+    let min_time: f64 = results.iter().map(|result| result.total_time).min_by(|a, b| a.partial_cmp(b).unwrap()).unwrap();
+    let average_time = results.iter().map(|result| result.total_time).sum::<f64>() as f64  / results.len() as f64;
+    let total_time = results.iter().map(|result| result.total_time).sum::<f64>() as f64;
+    let proved_expressions = results.iter().map(|result| result.result as usize).sum::<usize>() as usize;
+    let mut npp_matched = 0;
+    if npp{
+        npp_matched = results.iter().filter(|result| result.stop_reason.contains("Impossible")).collect::<Vec<&ResultStructure>>().len();
+    }
+    println!("\n\n\n");
+    println!(" =====================================");
+    println!("| ");
+    println!("| {}", format!("Execution Summary").green().bold());
+    println!("| =================");
+    println!("| {}{}","Total time:   ".truecolor(255,255,255) ,format!("{} s", total_time).cyan().bold());
+    println!("| {}{}","Max time:     ".truecolor(255,255,255) ,format!("{} s", max_time).cyan().bold());
+    println!("| {}{}","Min time:     ".truecolor(255,255,255) ,format!("{} s", min_time).cyan().bold());
+    println!("| {}{}","Average time: ".truecolor(255,255,255) ,format!("{} s", average_time).cyan().bold());
+    println!("| ");
+    println!("| {}{}{}{}","Proved expressions ".truecolor(255,255,255), format!("{}", proved_expressions).green().bold()," out of ".truecolor(255,255,255) , format!("{}", results.len()).red().bold());
+    if npp{
+        println!("| {}{}{}{}{}",
+        "Non provable expression identified ".truecolor(255,255,255), 
+        format!("{}", npp_matched).green().bold()," out of ".truecolor(255,255,255), 
+        format!("{}", results.len() - proved_expressions).red().bold(), 
+        " Non proved expressions.".truecolor(255,255,255));
+    }
+    println!("| ");
+    println!(" =====================================");
+
+}
+
 fn main() {
     let _args: Vec<String> = env::args().collect();
     // let expressions = vec![(
@@ -205,7 +243,7 @@ fn main() {
     // }
     // println!("End.");
 
-    if _args.len() > 4 {
+    if _args.len() > 5 {
         let operation = get_nth_arg(1).unwrap();
         let expressions_file = get_nth_arg(2).unwrap();
         let params = get_runner_params(3).unwrap();
@@ -280,11 +318,11 @@ fn main() {
                 write_results(&format!("tmp/results_beh_{}.csv", threshold), &results).unwrap();
             }
 
-            "npp" => {
-                let expression_vect = read_expressions(&expressions_file).unwrap();
-                let results = prove_expressions_npp(&expression_vect, -1, params, true, false);
-                write_results(&format!("tmp/results_fast.csv"), &results).unwrap();
-            }
+            // "npp" => {
+            //     let expression_vect = read_expressions(&expressions_file).unwrap();
+            //     let results = prove_expressions_npp(&expression_vect, -1, params, true, false);
+            //     write_results(&format!("tmp/results_fast.csv"), &results).unwrap();
+            // }
             "beh_npp" => {
                 let threshold = get_nth_arg(6)
                     .unwrap()
@@ -335,29 +373,75 @@ fn main() {
                 .unwrap();
                 println!("{}", start_t.elapsed().as_secs_f64());
             }
+            /* ===============DEMO=========================================== */
+            "caviar" => {
+                let expression_vect = read_expressions(&expressions_file).unwrap();
+                let results = prove_expressions(&expression_vect, -1, params, false, true);
+                write_results(&format!("tmp/demo/{}_results_caviar.csv",get_epoch_s()), &results).unwrap();
+                summary(results, false);
+            }
+            "ilc" => {
+                let expression_vect = read_expressions(&expressions_file).unwrap();
+                let results = prove_expressions(&expression_vect, -1, params, true, true);
+                write_results(&format!("tmp/demo/{}_results_ilc.csv",get_epoch_s()), &results).unwrap();
+                summary(results, false);
+            }
+            "pulses" => {
+                let expression_vect = read_expressions(&expressions_file).unwrap();
+                let threshold = get_nth_arg(6)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<f64>()
+                    .unwrap();
+                let results = prove_expressions_beh(&expression_vect, -1, threshold,params, false, true);
+                write_results(&format!("tmp/demo/{}_results_pulses.csv",get_epoch_s()), &results).unwrap();
+                summary(results, false);
+            }
+            "npp" => {
+                let expression_vect = read_expressions(&expressions_file).unwrap();
+                let results = prove_expressions_npp(&expression_vect, -1, params, false, true);
+                write_results(&format!("tmp/demo/{}_results_npp.csv",get_epoch_s()), &results).unwrap();
+                summary(results, true);
+            }
+            "caviar+" => {
+                let threshold = get_nth_arg(6)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<f64>()
+                    .unwrap();
+                let expression_vect = read_expressions(&expressions_file).unwrap();
+                let results = prove_expressions_beh_npp(&expression_vect, -1, threshold, params, true, true);
+                write_results(&format!("tmp/demo/{}_results_caviar+.csv",get_epoch_s()), &results).unwrap();
+                summary(results, true);
+            }
             _ => {}
         }
     } else {
-        let params = get_runner_params(1).unwrap();
+        let operation = get_nth_arg(1).unwrap();
+        let params = get_runner_params(2).unwrap();
         let (start, end) = get_start_end().unwrap();
-        println!("Simplifying expression:\n {}\n to {}", start, end);
-        // println!(
-        //     "{:?}",
-        //     prove_multiple_passes(-1, &start, -1, 0.5, params, true, true)
-        // );
-        // println!(
-        //     "{:?}",
-        //     trs::prove_equiv(&start, &end, -1, params, true, true)
-        // );
-        // println!("{:?}", prove(-1, &start, -1, params, true, true));
-        println!("{:?}", prove_npp(-1, &start, -1, params, true, true));
-
-        // println!(
-        //     "{:?}",
-        //     prove_multiple_passes(-1, &start, -1, 1.0, params, true, true)
-        // );
-
-        // let expressions = vec![(&start[..], &end[..])];
-        // generate_dataset_par(&expressions, params, -1, 10);
+        match operation.to_str().unwrap() {
+            "prove" => {
+                println!("\n\n\n");
+                println!("{}", format!("Proving that an expression is True or False").cyan().bold());
+                println!("===========================================");
+                prove(1, &start, -1, params, false, true);
+            }
+            "prove_equivalence" => {
+                println!("\n\n\n");
+                println!("{}", format!("Proving equivalence between 2 expressions").cyan().bold());
+                println!("=========================================");
+                prove_equiv(&start, &end, -1, params, false, true);
+            }
+            "simplify" => {
+                println!("\n\n\n");
+                println!("{}", format!("Simplifying an expression to its shorter equivalent form").cyan().bold());
+                println!("========================================================");
+                simplify(&start, -1, params, true);
+            }
+            _ => {}
+        }
     }
 }

@@ -358,6 +358,13 @@ pub fn prove_equiv(
     let result: bool;
     let runner;
     let best_expr_string;
+    if report {
+        println!(
+            "\nProving equivalence between:\n {}\n\n and\n\n {}\n",
+            start_expression,
+            end_expressions
+        )
+    }
     if use_iteration_check {
         runner = Runner::default()
             .with_iter_limit(params.0)
@@ -385,7 +392,7 @@ pub fn prove_equiv(
         if report {
             println!(
                 "{}\n{}\n",
-                "Could not prove goal:".bright_red().bold(),
+                "Could not prove equivalence:".bright_red().bold(),
                 end.pretty(40),
             );
             println!(
@@ -399,7 +406,7 @@ pub fn prove_equiv(
         if report {
             println!(
                 "{}\n{}\n",
-                "Proved goal:".bright_green().bold(),
+                "Proved equivalence with:".bright_green().bold(),
                 end.pretty(40)
             );
         }
@@ -465,7 +472,7 @@ pub fn prove(
 
     if report {
         println!(
-            "\n====================================\nProving Expression:\n {}\n",
+            "\nProving Expression:\n {}\n",
             start_expression
         )
     }
@@ -1110,12 +1117,12 @@ pub fn prove_beh(
     let mut total_time: f64 = 0.0;
     let nbr_passes = (params.2 as f64) / threshold;
 
-    if report {
-        println!(
-            "\n====================================\nProving Expression:\n {}\n",
-            start_expression
-        )
-    }
+    // if report {
+    //     println!(
+    //         "\n====================================\nProving Expression:\n {}\n",
+    //         start_expression
+    //     )
+    // }
 
     let mut i = 0.0;
     let mut exit = false;
@@ -1135,14 +1142,14 @@ pub fn prove_beh(
             let extraction_time = now.elapsed().as_secs_f64();
             expr = best_exprr;
             total_time += extraction_time;
-            if report {
-                println!(
-                    "Starting pass {} with Expr: {} in {}",
-                    i,
-                    format!("{}", expr).bright_green().bold(),
-                    format!("{}", extraction_time).bright_green().bold()
-                );
-            }
+            // if report {
+            //     println!(
+            //         "Starting pass {} with Expr: {} in {}",
+            //         i,
+            //         format!("{}", expr).bright_green().bold(),
+            //         format!("{}", extraction_time).bright_green().bold()
+            //     );
+            // }
         }
 
         if use_iteration_check {
@@ -1302,12 +1309,12 @@ pub fn prove_beh_npp(
     let mut total_time: f64 = 0.0;
     let nbr_passes = (params.2 as f64) / threshold;
 
-    if report {
-        println!(
-            "\n====================================\nProving Expression:\n {}\n",
-            start_expression
-        )
-    }
+    // if report {
+    //     println!(
+    //         "\n====================================\nProving Expression:\n {}\n",
+    //         start_expression
+    //     )
+    // }
 
     let mut i = 0.0;
     let mut exit = false;
@@ -1327,14 +1334,14 @@ pub fn prove_beh_npp(
             let extraction_time = now.elapsed().as_secs_f64();
             expr = best_exprr;
             total_time += extraction_time;
-            if report {
-                println!(
-                    "Starting pass {} with Expr: {} in {}",
-                    i,
-                    format!("{}", expr).bright_green().bold(),
-                    format!("{}", extraction_time).bright_green().bold()
-                );
-            }
+            // if report {
+            //     println!(
+            //         "Starting pass {} with Expr: {} in {}",
+            //         i,
+            //         format!("{}", expr).bright_green().bold(),
+            //         format!("{}", extraction_time).bright_green().bold()
+            //     );
+            // }
         }
 
         if use_iteration_check {
@@ -1486,12 +1493,15 @@ pub fn prove_npp(
         runner = runner_temp;
         total_time += impo_time;
     } else {
-        runner = Runner::default()
+        let (runner_temp, impo_time) = Runner::default()
             .with_iter_limit(params.0)
             .with_node_limit(params.1)
             .with_time_limit(Duration::from_secs_f64(params.2))
             .with_expr(&start)
-            .run(rules(ruleset_class).iter());
+            // .run(rules(ruleset_class).iter());
+            .run_fast(rules(ruleset_class).iter(), &[], check_impo);
+        runner = runner_temp;
+        total_time += impo_time;
     }
 
     id = runner.egraph.find(*runner.roots.last().unwrap());
