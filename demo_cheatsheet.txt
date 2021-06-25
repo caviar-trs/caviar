@@ -1,0 +1,14 @@
+cargo run --release simplify 1000000 1000000 5
+cargo run --release prove_equivalence 1000000 1000000 5
+cargo run --release prove 1000000 1000000 5
+
+cargo run --release caviar ./data/prefix/short_demo.csv 1000000 1000000 1
+cargo run --release caviar ./data/prefix/short_demo.csv 1000000 1000000 5
+
+cargo run --release ilc ./data/prefix/demo.csv 1000000 1000000 1
+cargo run --release pulses ./data/prefix/demo.csv 1000000 1000000 1 0.01
+
+cargo run --release npp ./data/prefix/short_demo.csv 1000000 1000000 1
+
+cargo run --release caviar+ ./data/prefix/demo.csv 1000000 1000000 1 0.01
+
