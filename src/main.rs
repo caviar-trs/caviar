@@ -5,7 +5,7 @@ use io::writer::write_results;
 use json::parse;
 use std::time::Duration;
 use structs::{ExpressionStruct, ResultStructure};
-use trs::{prove, prove_beh, prove_beh_npp, prove_expression_with_file_classes, prove_npp};
+use trs::{prove, prove_expression_with_file_classes, prove_npp, prove_pulses, prove_pulses_npp};
 
 use crate::io::reader::read_expressions_paper;
 use crate::io::writer::write_results_paper;
@@ -54,7 +54,7 @@ fn prove_expressions_beh(
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
-        let mut res = prove_beh(
+        let mut res = prove_pulses(
             expression.index,
             &expression.expression,
             ruleset_class,
@@ -106,7 +106,7 @@ fn prove_expressions_beh_npp_paper(
     let mut results = Vec::new();
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.0);
-        let res = prove_beh_npp(
+        let res = prove_pulses_npp(
             -1,
             &expression.1,
             ruleset_class,
