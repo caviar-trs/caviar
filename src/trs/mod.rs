@@ -8,9 +8,11 @@ use egg::*;
 
 use crate::structs::{ResultStructure, Rule};
 
+// Defining aliases to reduce code.
 pub type EGraph = egg::EGraph<Math, ConstantFold>;
 pub type Rewrite = egg::Rewrite<Math, ConstantFold>;
 
+//Definition of the language used.
 define_language! {
     pub enum Math {
         "+" = Add([Id; 2]),
@@ -33,7 +35,7 @@ define_language! {
         Symbol(Symbol),
     }
 }
-
+/// Enabling Constant Folding through the Analysis of egg.
 #[derive(Default, Clone)]
 pub struct ConstantFold;
 
@@ -1271,6 +1273,7 @@ pub fn prove_pulses(
 /// Prove an expression to true or false by using the non-provable patterns technique.
 #[allow(dead_code)]
 pub fn check_npp(egraph: &EGraph, start_id: Id) -> (bool, String) {
+    //Define the non-provable patterns.
     let impossibles = [
         // write_impo!("(== ?a ?x)";  impossible_conditions("c&v", &vec!["?a","?x"])),
         write_npp!("(!= ?a ?x)";  impossible_conditions("c&v", &vec!["?a","?x"])),
@@ -1292,14 +1295,17 @@ pub fn check_npp(egraph: &EGraph, start_id: Id) -> (bool, String) {
         // write_impo!("(!(&& (< ?a ?x) (< ?x ?b)))"; impossible_conditions("a<b", &vec!["?a","?b","?x"])),
         // write_impo!("(== (* ?a ?x) (+ (* ?b ?y) ?c))"; impossible_conditions("v|c&c|c|v", &vec!["?a", "?x","?b","?c","?y"])),
     ];
+
     let mut proved_impo = false;
     let mut proved_impo_index = 0;
-
+    // For each npp check if the empo matches the root eclass of the egraph
     for (impo_index, impo) in impossibles.iter().enumerate() {
+        //check if the npp maches the root eclass of the egraph
         let results = match impo.0.search_eclass(&egraph, start_id) {
             Option::Some(res) => res,
             _ => continue,
         };
+        // Run the condition function then return the npp if the condition is true.
         if results.substs.iter().any(|subst| (impo.1)(&egraph, subst)) {
             proved_impo = true;
             proved_impo_index = impo_index;
@@ -1309,8 +1315,9 @@ pub fn check_npp(egraph: &EGraph, start_id: Id) -> (bool, String) {
     (proved_impo, impossibles[proved_impo_index].0.to_string())
 }
 
+///Prove an expression using Pulses and the non-provable patterns.
 #[allow(dead_code)]
-pub fn prove_beh_npp(
+pub fn prove_pulses_npp(
     index: i16,
     start_expression: &str,
     ruleset_class: i8,
@@ -1319,6 +1326,7 @@ pub fn prove_beh_npp(
     use_iteration_check: bool,
     report: bool,
 ) -> ResultStructure {
+    // Parse the start expression and the goals.
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end_1: Pattern<Math> = "1".parse().unwrap();
     let end_0: Pattern<Math> = "0".parse().unwrap();
@@ -1328,6 +1336,8 @@ pub fn prove_beh_npp(
     let mut id;
     let best_expr;
     let mut total_time: f64 = 0.0;
+
+    // Initialize the number of pulses based on the threshold passed as parameter.
     let nbr_passes = (params.2 as f64) / threshold;
 
     if report {
@@ -1340,6 +1350,8 @@ pub fn prove_beh_npp(
     let mut i = 0.0;
     let mut exit = false;
     let mut expr = start;
+
+    //Initialze the runner for the first Pulse
     let mut runner = Runner::default()
         .with_iter_limit(params.0)
         .with_node_limit(params.1)
@@ -1347,7 +1359,9 @@ pub fn prove_beh_npp(
         .with_expr(&expr);
     id = runner.egraph.find(*runner.roots.last().unwrap());
     while !exit {
+        // Extract the best expression and reinitialize the runner if it's not the first pulse
         if i > 0.0 {
+            //Extract the best expression and calculate the extraction time.
             let mut extractor;
             extractor = Extractor::new(&((&runner).egraph), AstDepth);
             let now = Instant::now();
@@ -1355,6 +1369,7 @@ pub fn prove_beh_npp(
             let extraction_time = now.elapsed().as_secs_f64();
             expr = best_exprr;
             total_time += extraction_time;
+
             if report {
                 println!(
                     "Starting pass {} with Expr: {} in {}",
@@ -1366,6 +1381,7 @@ pub fn prove_beh_npp(
         }
 
         if use_iteration_check {
+            //Reinitialize the runner and run equality saturation using ILC
             let (temp_runner, impo_time) = Runner::default()
                 .with_iter_limit(params.0)
                 .with_node_limit(params.1)
@@ -1375,6 +1391,7 @@ pub fn prove_beh_npp(
             runner = temp_runner;
             total_time += impo_time;
         } else {
+            //Reinitialize the runner and run equality saturation
             runner = Runner::default()
                 .with_iter_limit(params.0)
                 .with_node_limit(params.1)
@@ -1383,6 +1400,7 @@ pub fn prove_beh_npp(
                 .run(rules(ruleset_class).iter());
         }
 
+        //Check if one of the goals match the root eclass of the egraph.
         id = runner.egraph.find(*runner.roots.last().unwrap());
         for (goal_index, goal) in goals.iter().enumerate() {
             let boolean = (goal.search_eclass(&runner.egraph, id)).is_none();
@@ -1393,6 +1411,7 @@ pub fn prove_beh_npp(
             }
         }
 
+        //Check if the runner saturated or found an NPP
         let dont_continue = match &runner.stop_reason.as_ref().unwrap() {
             StopReason::Saturated => true,
             StopReason::Other(stop) => {
@@ -1404,8 +1423,11 @@ pub fn prove_beh_npp(
             }
             _ => false,
         };
+
+        //Sum up the execution time
         let exec_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
         total_time += exec_time;
+        //Exit if the runner saturated, found an NPP or we reached the number of pulses or proved a result.
         if dont_continue || i > (nbr_passes - 1.0) || result {
             exit = true;
         } else {
@@ -1420,8 +1442,10 @@ pub fn prove_beh_npp(
                 goals[proved_goal_index].to_string()
             );
         }
+        //Set the best expression to the goal matched.
         best_expr = Some(goals[proved_goal_index].to_string());
     } else {
+        //Extract the best expression and calculate the extraction time if we can't prove.
         let mut extractor = Extractor::new(&runner.egraph, AstDepth);
         let now = Instant::now();
         let (_, best_exprr) = extractor.find_best(id);
@@ -1479,6 +1503,7 @@ pub fn prove_npp(
     use_iteration_check: bool,
     report: bool,
 ) -> ResultStructure {
+    //Parse the start expression and goals then initialize the different used variables.
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     let end_1: Pattern<Math> = "1".parse().unwrap();
     let end_0: Pattern<Math> = "0".parse().unwrap();
@@ -1508,6 +1533,7 @@ pub fn prove_npp(
         runner = runner_temp;
         total_time += impo_time;
     } else {
+        //Run simple ES.
         runner = Runner::default()
             .with_iter_limit(params.0)
             .with_node_limit(params.1)
@@ -1515,7 +1541,7 @@ pub fn prove_npp(
             .with_expr(&start)
             .run(rules(ruleset_class).iter());
     }
-
+    //Get the id of the  eclass containing the input expression.
     id = runner.egraph.find(*runner.roots.last().unwrap());
 
     // Check if one of the goals matches
