@@ -1,14 +1,20 @@
-cargo run --release simplify 1000000 1000000 5
-cargo run --release prove_equivalence 1000000 1000000 5
-cargo run --release prove 1000000 1000000 5
+run simplify 1000000 1000000 5
+run prove_equivalence 1000000 1000000 5
+run prove 1000000 1000000 5
 
-cargo run --release caviar ./data/prefix/short_demo.csv 1000000 1000000 1
-cargo run --release caviar ./data/prefix/short_demo.csv 1000000 1000000 5
+run caviar ./data/prefix/short_demo.csv 1000000 1000000 1
+run caviar ./data/prefix/short_demo.csv 1000000 1000000 5
 
-cargo run --release ilc ./data/prefix/demo.csv 1000000 1000000 1
-cargo run --release pulses ./data/prefix/demo.csv 1000000 1000000 1 0.01
+run ilc ./data/prefix/demo.csv 1000000 1000000 1
+run pulses ./data/prefix/demo.csv 1000000 1000000 1 0.01
 
-cargo run --release npp ./data/prefix/short_demo.csv 1000000 1000000 1
+run npp ./data/prefix/short_demo.csv 1000000 1000000 1
 
-cargo run --release caviar+ ./data/prefix/demo.csv 1000000 1000000 1 0.01
+run caviar+ ./data/prefix/demo.csv 1000000 1000000 1 0.01
 
+(* a (+ b c))
+( + (* a b) (* a c))
+
+( == ( - ( * ( max ( min ( / v0 2 ) 999 ) 0 ) 2 ) 4 ) ( - ( + ( - ( * ( max ( min ( / v0 2 ) 999 ) 0 ) 2 ) 4 ) ( + ( * v1 2 ) 12 ) ) 1 ) )
+
+( == ( * ( / ( * ( min ( + ( * ( % v2 ( / ( + v3 102 ) 16 ) ) 128 ) ( * ( max ( min ( * ( / v1 125 ) 16 ) 286 ) 37 ) 8 ) ) ( + ( * ( max ( min ( * ( / ( + ( + v4 v1 ) 124 ) 125 ) 16 ) 204 ) -45 ) 8 ) 564 ) ) -1 ) 4 ) 4 ) ( * ( min ( + ( * ( % v2 ( / ( + v3 102 ) 16 ) ) 128 ) ( * ( max ( min ( * ( / v1 125 ) 16 ) 286 ) 37 ) 8 ) ) ( + ( * ( max ( min ( * ( / ( + ( + v4 v1 ) 124 ) 125 ) 16 ) 204 ) -45 ) 8 ) 564 ) ) -1 ) )
