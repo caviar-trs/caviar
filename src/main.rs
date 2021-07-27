@@ -17,6 +17,7 @@ mod io;
 mod rules;
 mod structs;
 
+/// Runs Simple Caviar to prove the expressions passed as vector using the different params passed.
 #[allow(dead_code)]
 fn prove_expressions(
     exprs_vect: &Vec<ExpressionStruct>,
@@ -25,7 +26,10 @@ fn prove_expressions(
     use_iteration_check: bool,
     report: bool,
 ) -> Vec<ResultStructure> {
+    //Initialize the results vector.
     let mut results = Vec::new();
+
+    //For each expression try to prove it then push the results into the results vector.
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
         let mut res = prove(
@@ -42,8 +46,9 @@ fn prove_expressions(
     results
 }
 
+/// Runs Caviar with Pulses on the expressions passed as vector using the different params passed.
 #[allow(dead_code)]
-fn prove_expressions_beh(
+fn prove_expressions_pulses(
     exprs_vect: &Vec<ExpressionStruct>,
     ruleset_class: i8,
     threshold: f64,
@@ -51,7 +56,9 @@ fn prove_expressions_beh(
     use_iteration_check: bool,
     report: bool,
 ) -> Vec<ResultStructure> {
+    //Initialize the results vector.
     let mut results = Vec::new();
+    //For each expression try to prove it using Caviar with Pulses then push the results into the results vector.
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
         let mut res = prove_pulses(
@@ -69,6 +76,7 @@ fn prove_expressions_beh(
     results
 }
 
+/// Runs Caviar with NPP on the expressions passed as vector using the different params passed.
 #[allow(dead_code)]
 fn prove_expressions_npp(
     exprs_vect: &Vec<ExpressionStruct>,
@@ -77,7 +85,10 @@ fn prove_expressions_npp(
     use_iteration_check: bool,
     report: bool,
 ) -> Vec<ResultStructure> {
+    //Initialize the results vector.
     let mut results = Vec::new();
+
+    //For each expression try to prove it using Caviar with NPP then push the results into the results vector.
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.index);
         let mut res = prove_npp(
@@ -94,8 +105,9 @@ fn prove_expressions_npp(
     results
 }
 
+/// Runs  Caviar with Pulses and NPP on the expressions passed as vector using the different params passed.
 #[allow(dead_code)]
-fn prove_expressions_beh_npp_paper(
+fn prove_expressions_pulses_npp_paper(
     exprs_vect: &Vec<(String, String)>,
     ruleset_class: i8,
     threshold: f64,
@@ -103,7 +115,9 @@ fn prove_expressions_beh_npp_paper(
     use_iteration_check: bool,
     report: bool,
 ) -> Vec<PaperResult> {
+    //Initialize the results vector.
     let mut results = Vec::new();
+    // For each expression try to prove it using Caviar with Pulses and NPP then push the results into the results vector.
     for expression in exprs_vect.iter() {
         println!("Starting Expression: {}", expression.0);
         let res = prove_pulses_npp(
@@ -125,7 +139,36 @@ fn prove_expressions_beh_npp_paper(
     results
 }
 
-fn test_classes(
+///Runs Caviar with Pulses and NPP on the expressions passed as vector using the different params passed.
+#[allow(dead_code)]
+fn prove_expressions_pulses_npp(
+    exprs_vect: &Vec<ExpressionStruct>,
+    ruleset_class: i8,
+    threshold: f64,
+    params: (usize, usize, f64),
+    use_iteration_check: bool,
+    report: bool,
+) -> Vec<ResultStructure> {
+    //Initialize the results vector.
+    let mut results = Vec::new();
+    // For each expression try to prove it using Caviar with Pulses and NPP then push the results into the results vector.
+    for expression in exprs_vect.iter() {
+        println!("Starting Expression: {}", expression.index);
+        results.push(prove_pulses_npp(
+            expression.index,
+            &expression.expression,
+            ruleset_class,
+            threshold,
+            params,
+            use_iteration_check,
+            report,
+        ));
+    }
+    results
+}
+
+/// Runs Caviar using hierarchical clusters of rules to prove the expressions passed as vector using the different params passed.
+fn prove_clusters(
     path: OsString,
     exprs_vect: &Vec<ExpressionStruct>,
     params: (usize, usize, f64),
@@ -133,10 +176,13 @@ fn test_classes(
     use_iteration_check: bool,
     report: bool,
 ) -> () {
+    //Read the clusters from the files generated using Python.
     let mut file = File::open(path).unwrap();
     let mut s = String::new();
     file.read_to_string(&mut s).unwrap();
     let classes = parse(&s).unwrap();
+
+    //Initialization
     let mut results_structs = Vec::new();
     let mut results_proving_class = Vec::new();
     let mut results_exec_time = Vec::new();
@@ -144,6 +190,8 @@ fn test_classes(
     let mut average;
     let mut prove_result: (ResultStructure, i64, Duration);
     let mut i;
+
+    //For each expression try to prove it using the clusters generated one after the other.
     for expression in exprs_vect.iter() {
         if report {
             println!("Starting Expression: {}", expression.index);
@@ -182,6 +230,8 @@ fn test_classes(
     if report {
         println!("Execution time : |{}| |{}|", duration, exec_time);
     }
+
+    //Write the results into the results csv file.
     write_results(
         &format!(
             "results/k_{}_class_analysis_results_params_{}_{}_{}_exec_{}.csv",
@@ -198,38 +248,12 @@ fn test_classes(
 
 fn main() {
     let _args: Vec<String> = env::args().collect();
-    // let expressions = vec![(
-    //     "( == 0 ( - ( + 0 ( / ( + ( - 494 ( * v0 256 ) ) 21 ) 4 ) ) 1 ) )",
-    //     "0"
-    // )];
-    // dataset::generate_dataset(expressions, (3000, 100000, 1), -2, 1);
-    // generate_dataset_par(&expressions, (30, 10000, 5), 2, 10);
-    // println!("Printing rules ...");
-    // let arr = filteredRules(&get_first_arg().unwrap(), 1).unwrap();
-    // for rule in arr {
-    //     println!("{}", rule.name());
-    // }
-    // println!("End.");
-
     if _args.len() > 4 {
         let operation = get_nth_arg(1).unwrap();
         let expressions_file = get_nth_arg(2).unwrap();
         let params = get_runner_params(3).unwrap();
         match operation.to_str().unwrap() {
-            "comparaison" => {
-                /*let expression_vect = read_expressions(&expressions_file).unwrap();
-                let classes_file = get_nth_arg(6).unwrap();
-                let mut average_k = 0.0;
-                let mut average = 0.0;
-                for i in 0..5000{
-                    let results_k = test_classes(classes_file.clone(), &expression_vect, params, true, false);
-                    let results = prove_expressions(&expression_vect, -1, params, true, false);
-                    average_k += results_k[0].total_time;
-                    average += results[0].total_time;
-                }
-                println!("Average time with classes {}", average_k/5000.0);
-                println!("Average time without classes {}", average/5000.0);*/
-            }
+            // Generates a dataset for minimum rulesets needed for each expression from the expressions file passed as argument
             "dataset" => {
                 // cargo run --release dataset ./results/expressions_egg.csv 1000000 10000000 5 5 3 0 4
                 let reorder_count = get_nth_arg(6)
@@ -268,12 +292,14 @@ fn main() {
                     continue_from_expr,
                 );
             }
+            // Prove expressions using Caviar with/without ILC
             "prove" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let results = prove_expressions(&expression_vect, -1, params, true, false);
                 write_results("tmp/results_prove.csv", &results).unwrap();
             }
-            "beh" => {
+            // Prove expressions using Caviar with pulses and with/without ILC.
+            "pulses" => {
                 let threshold = get_nth_arg(6)
                     .unwrap()
                     .into_string()
@@ -282,28 +308,36 @@ fn main() {
                     .unwrap();
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let results =
-                    prove_expressions_beh(&expression_vect, -1, threshold, params, true, false);
+                    prove_expressions_pulses(&expression_vect, -1, threshold, params, true, false);
                 write_results(&format!("tmp/results_beh_{}.csv", threshold), &results).unwrap();
             }
-
+            // Prove expressions using Caviar with NPP and with/without ILC.
             "npp" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let results = prove_expressions_npp(&expression_vect, -1, params, true, false);
                 write_results(&format!("tmp/results_fast.csv"), &results).unwrap();
             }
-            // "beh_npp" => {
-            //     let threshold = get_nth_arg(6)
-            //         .unwrap()
-            //         .into_string()
-            //         .unwrap()
-            //         .parse::<f64>()
-            //         .unwrap();
-            //     let expression_vect = read_expressions(&expressions_file).unwrap();
-            //     let results =
-            //         prove_expressions_beh_npp(&expression_vect, -1, threshold, params, true, false);
-            //     write_results(&format!("tmp/results_beh_npp_{}.csv", threshold), &results).unwrap();
-            // }
-            "test_classes" => {
+            // Prove expressions using Caviar with Pulses and NPP and with pulses and with/without ILC.
+            "pulses_npp" => {
+                let threshold = get_nth_arg(6)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<f64>()
+                    .unwrap();
+                let expression_vect = read_expressions(&expressions_file).unwrap();
+                let results = prove_expressions_pulses_npp(
+                    &expression_vect,
+                    -1,
+                    threshold,
+                    params,
+                    true,
+                    false,
+                );
+                write_results(&format!("tmp/results_beh_npp_{}.csv", threshold), &results).unwrap();
+            }
+            // Prove expressions using Caviar with clusters of rules and with pulses and with/without ILC.
+            "clusters" => {
                 let expression_vect = read_expressions(&expressions_file).unwrap();
                 let classes_file = get_nth_arg(6).unwrap();
                 let iterations_count = get_nth_arg(7)
@@ -312,7 +346,7 @@ fn main() {
                     .unwrap()
                     .parse::<usize>()
                     .unwrap();
-                test_classes(
+                prove_clusters(
                     classes_file,
                     &expression_vect,
                     params,
@@ -321,55 +355,14 @@ fn main() {
                     true,
                 );
             }
-            "prove_one_expr" => {
-                let expression_vect = read_expressions(&expressions_file).unwrap();
-                let classes_file = get_nth_arg(6).unwrap();
-                let mut file = File::open(classes_file).unwrap();
-                let mut s = String::new();
-                file.read_to_string(&mut s).unwrap();
-                let classes = parse(&s).unwrap();
-                let start_t = Instant::now();
-
-                let (_strct, _class, _exec_time) = prove_expression_with_file_classes(
-                    &classes,
-                    params,
-                    expression_vect[0].index,
-                    &expression_vect[0].expression.clone(),
-                    true,
-                    true,
-                )
-                .unwrap();
-                println!("{}", start_t.elapsed().as_secs_f64());
-            }
-            "paper" => {
-                let threshold = get_nth_arg(6)
-                    .unwrap()
-                    .into_string()
-                    .unwrap()
-                    .parse::<f64>()
-                    .unwrap();
-                let expression_vect = read_expressions_paper(&expressions_file).unwrap();
-                let results = prove_expressions_beh_npp_paper(
-                    &expression_vect,
-                    -1,
-                    threshold,
-                    params,
-                    true,
-                    false,
-                );
-                write_results_paper(
-                    &format!("tmp/paper_results_{}_{}.csv", params.2, threshold),
-                    &results,
-                )
-                .unwrap();
-            }
-
             _ => {}
         }
     } else {
+        //Quick executions with default parameters
         let params = get_runner_params(1).unwrap();
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start, end);
+        //Example of NPP execution with default parameters
         println!("{:?}", prove_npp(-1, &start, -1, params, true, true));
     }
 }
