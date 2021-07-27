@@ -1,5 +1,5 @@
 [package]
-name = "egg_halides_trs"
+name = "caviar"
 version = "0.1.0"
 authors = ["Smail KOURTA <gs_kourta@esi.dz>"]
 edition = "2018"
