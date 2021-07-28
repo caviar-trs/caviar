@@ -8,7 +8,7 @@ use serde::Serialize;
 ///The `ResultStructure` type is used to represent the result of proving or simplifying an expression
 pub struct ResultStructure {
     //index of the expression set to make debugging easier
-    index: i16,
+    index: i32,
     // The expression to be proved or simplified
     start_expression: String,
     // The goal to prove
@@ -32,7 +32,7 @@ pub struct ResultStructure {
     //The condition of the rule
     condition: Option<String>,
     // Halide's result for proving the expression
-    halide_result: bool,
+    halide_result: String,
     // The time it took halide to prove the expression
     halide_time: f64,
 }
@@ -40,7 +40,7 @@ pub struct ResultStructure {
 impl ResultStructure {
     //Constructor for the ResultStructure
     pub fn new(
-        index: i16,
+        index: i32,
         start_expression: String,
         end_expression: String,
         result: bool,
@@ -68,18 +68,18 @@ impl ResultStructure {
             total_time,
             stop_reason,
             condition,
-            halide_result: false,
+            halide_result: "false".to_string(),
             halide_time: 0.0,
         }
     }
 
     //adds index and the condition to the result
-    pub fn add_index_condition(&mut self, index: i16, condition: String) {
+    pub fn add_index_condition(&mut self, index: i32, condition: String) {
         self.index = index;
         self.condition = Some(condition);
     }
 
-    pub fn add_halide(&mut self, halide_result: bool, halide_time: f64) {
+    pub fn add_halide(&mut self, halide_result: String, halide_time: f64) {
         self.halide_result = halide_result;
         self.halide_time = halide_time;
     }
@@ -89,18 +89,18 @@ impl ResultStructure {
 #[derive(Serialize, Debug)]
 pub struct ExpressionStruct {
     //index of the expression
-    pub index: i16,
+    pub index: i32,
     // the string of the expression
     pub expression: String,
     // Halide's result for proving the expression
-    pub halide_result: bool,
+    pub halide_result: String,
     // The time it took halide to prove the expression
     pub halide_time: f64,
 }
 
 impl ExpressionStruct {
     //Constructor of ExpressionStruct
-    pub fn new(index: i16, expression: String, halide_result: bool, halide_time: f64) -> Self {
+    pub fn new(index: i32, expression: String, halide_result: String, halide_time: f64) -> Self {
         Self {
             index,
             expression,
@@ -114,7 +114,7 @@ impl ExpressionStruct {
 #[derive(Serialize, Debug)]
 pub struct Rule {
     //index of the rule
-    pub index: i16,
+    pub index: i32,
     // the LHS of the rule
     pub lhs: String,
     // the RHS of the rule
@@ -126,7 +126,7 @@ pub struct Rule {
 impl Rule {
     // Constructor of Rule
     #[allow(dead_code)]
-    pub fn new(index: i16, lhs: String, rhs: String, condition: Option<String>) -> Self {
+    pub fn new(index: i32, lhs: String, rhs: String, condition: Option<String>) -> Self {
         Self {
             index,
             lhs,

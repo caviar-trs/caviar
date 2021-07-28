@@ -346,11 +346,12 @@ pub fn print_graph(egraph: &EGraph, name: &str) {
 #[allow(dead_code)]
 /// Prints the most simplified version of the passed expression.
 pub fn simplify(
+    index: i32,
     start_expression: &str,
     ruleset_class: i8,
     params: (usize, usize, f64),
     report: bool,
-) {
+) -> ResultStructure {
     //Parse the input expression
     let start: RecExpr<Math> = start_expression.parse().unwrap();
     //Initialize the runner and run it.
@@ -374,10 +375,33 @@ pub fn simplify(
         format!("{}", best_expr).bright_green().bold()
     );
 
-    //Print the runner's report on the execution
+    let total_time: f64 = runner.iterations.iter().map(|i| i.total_time).sum();
     if report {
         runner.print_report();
     }
+
+    let stop_reason = match runner.stop_reason.unwrap() {
+        StopReason::Saturated => "Saturation".to_string(),
+        StopReason::IterationLimit(iter) => format!("Iterations: {}", iter),
+        StopReason::NodeLimit(nodes) => format!("Node Limit: {}", nodes),
+        StopReason::TimeLimit(time) => format!("Time Limit : {}", time),
+        StopReason::Other(reason) => reason,
+    };
+
+    ResultStructure::new(
+        index,
+        start_expression.to_string(),
+        "1/0".to_string(),
+        true,
+        best_expr.to_string(),
+        ruleset_class as i64,
+        runner.iterations.len(),
+        runner.egraph.total_number_of_nodes(),
+        runner.iterations.iter().map(|i| i.n_rebuilds).sum(),
+        total_time,
+        stop_reason,
+        None,
+    )
 }
 
 /// Checks if two expressions are equivalent
@@ -481,7 +505,7 @@ pub fn prove_equiv(
 ///Prove an expression to true or false using the given ruleset
 #[allow(dead_code)]
 pub fn prove(
-    index: i16,
+    index: i32,
     start_expression: &str,
     ruleset_class: i8,
     params: (usize, usize, f64),
@@ -623,7 +647,7 @@ pub fn prove_rule(
 pub fn prove_expression_with_file_classes(
     classes: &JsonValue,
     params: (usize, usize, f64),
-    index: i16,
+    index: i32,
     start_expression: &str,
     use_iteration_check: bool,
     report: bool,
@@ -1108,7 +1132,7 @@ macro_rules! write_npp {
 /// Prove an expression to true or false by using the Pulsing Caviar heuristic.
 #[allow(dead_code)]
 pub fn prove_pulses(
-    index: i16,
+    index: i32,
     start_expression: &str,
     ruleset_class: i8,
     threshold: f64,
@@ -1318,7 +1342,7 @@ pub fn check_npp(egraph: &EGraph, start_id: Id) -> (bool, String) {
 ///Prove an expression using Pulses and the non-provable patterns.
 #[allow(dead_code)]
 pub fn prove_pulses_npp(
-    index: i16,
+    index: i32,
     start_expression: &str,
     ruleset_class: i8,
     threshold: f64,
@@ -1496,7 +1520,7 @@ pub fn prove_pulses_npp(
 /// prove_npp runs caviar with the non-provable patterns
 #[allow(dead_code)]
 pub fn prove_npp(
-    index: i16,
+    index: i32,
     start_expression: &str,
     ruleset_class: i8,
     params: (usize, usize, f64),

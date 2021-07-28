@@ -10,6 +10,7 @@ use trs::{prove, prove_expression_with_file_classes, prove_npp, prove_pulses, pr
 use crate::io::reader::read_expressions_paper;
 use crate::io::writer::write_results_paper;
 use crate::structs::PaperResult;
+use crate::trs::simplify;
 mod trs;
 
 mod dataset;
@@ -40,7 +41,7 @@ fn prove_expressions(
             use_iteration_check,
             report,
         );
-        res.add_halide(expression.halide_result, expression.halide_time);
+        res.add_halide(expression.halide_result.clone(), expression.halide_time);
         results.push(res);
     }
     results
@@ -70,7 +71,7 @@ fn prove_expressions_pulses(
             use_iteration_check,
             report,
         );
-        res.add_halide(expression.halide_result, expression.halide_time);
+        res.add_halide(expression.halide_result.clone(), expression.halide_time);
         results.push(res);
     }
     results
@@ -99,7 +100,7 @@ fn prove_expressions_npp(
             use_iteration_check,
             report,
         );
-        res.add_halide(expression.halide_result, expression.halide_time);
+        res.add_halide(expression.halide_result.clone(), expression.halide_time);
         results.push(res);
     }
     results
@@ -246,6 +247,33 @@ fn prove_clusters(
     .unwrap();
 }
 
+/// Runs Simple Caviar to simplify the expressions passed as vector using the different params passed.
+#[allow(dead_code)]
+fn simplify_expressions(
+    exprs_vect: &Vec<ExpressionStruct>,
+    ruleset_class: i8,
+    params: (usize, usize, f64),
+    report: bool,
+) -> Vec<ResultStructure> {
+    //Initialize the results vector.
+    let mut results = Vec::new();
+
+    //For each expression try to prove it then push the results into the results vector.
+    for expression in exprs_vect.iter() {
+        println!("Starting Expression: {}", expression.index);
+        let mut res = simplify(
+            expression.index,
+            &expression.expression,
+            ruleset_class,
+            params,
+            report,
+        );
+        res.add_halide(expression.halide_result.clone(), expression.halide_time);
+        results.push(res);
+    }
+    results
+}
+
 fn main() {
     let _args: Vec<String> = env::args().collect();
     if _args.len() > 4 {
@@ -355,6 +383,11 @@ fn main() {
                     true,
                 );
             }
+            "simplify" => {
+                let expression_vect = read_expressions(&expressions_file).unwrap();
+                let results = simplify_expressions(&expression_vect, -1, params, true);
+                write_results("tmp/results_simplify.csv", &results).unwrap();
+            }
             _ => {}
         }
     } else {
@@ -363,6 +396,6 @@ fn main() {
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start, end);
         //Example of NPP execution with default parameters
-        println!("{:?}", prove_npp(-1, &start, -1, params, true, true));
+        println!("{:?}", simplify(-1, &start, -1, params, true));
     }
 }

@@ -18,20 +18,16 @@ pub fn read_expressions(file_path: &OsString) -> Result<Vec<ExpressionStruct>, B
     for result in rdr.records() {
         // get the String of the value
         let record = result?;
-        let index: i16 = record[0].parse::<i16>().unwrap();
+        let index: i32 = record[0].parse::<i32>().unwrap();
         let expression = &record[1];
         // Check if Halide's resluts are included then add them if they are
-        let halide_result = if record[2].parse::<i16>().unwrap() == 1 {
-            true
-        } else {
-            false
-        };
+        let halide_result = &record[2];
         let halide_time = record[3].parse::<f64>().unwrap();
         // Push the new ExpressionStruct initialized with the values extracted into the vector.
         expressions_vect.push(ExpressionStruct::new(
             index,
             expression.to_string(),
-            halide_result,
+            halide_result.to_string(),
             halide_time,
         ))
     }
@@ -63,7 +59,7 @@ pub fn read_rules(file_path: &OsString) -> Result<Vec<Rule>, Box<dyn Error>> {
     let mut rdr = csv::Reader::from_reader(file);
     for result in rdr.records() {
         let record = result?;
-        let index: i16 = record[0].parse::<i16>().unwrap();
+        let index: i32 = record[0].parse::<i32>().unwrap();
         let lhs = (&record[2]).to_string();
         let rhs = (&record[3]).to_string();
         let condition = (&record[4]).to_string();
