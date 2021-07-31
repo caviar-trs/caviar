@@ -13,91 +13,9 @@ use std::io::Write;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-#[allow(dead_code)]
-pub fn generate_dataset(
-    expressions: Vec<(&str, &str)>,
-    params: (usize, usize, f64),
-    ruleset_id: i8,
-    reorder_count: usize,
-) {
-    let mut dataset = File::create("results/dataset.json").unwrap();
-    let mut rng = thread_rng();
-    let mut start: RecExpr<Math>;
-    let mut end: Pattern<Math>;
-    let mut runner;
-    let mut id;
-    let mut matches;
-    let mut i: usize;
-    let mut counter: usize;
-    // let mut minimal_ruleset_len: usize;
-    let mut rule;
-    let mut ruleset = rules(ruleset_id);
-    let mut data_object;
-    let mut data: Vec<JsonValue> = Vec::new();
-    ruleset.shuffle(&mut rng);
-    println!("Ruleset size == {}", ruleset.len());
-    let mut ruleset_copy: Vec<egg::Rewrite<Math, ConstantFold>>;
-    let mut ruleset_minimal: Vec<egg::Rewrite<Math, ConstantFold>>;
-    let mut ruleset_copy_names: Vec<String>;
-    for expression in expressions.iter() {
-        counter = 0;
-        ruleset_minimal = ruleset.clone();
-        while counter < reorder_count {
-            ruleset_copy = ruleset.clone();
-            ruleset_copy.shuffle(&mut rng);
-            i = 0;
-            while i < ruleset_copy.len() {
-                rule = ruleset_copy.remove(i);
-                start = expression.0.parse().unwrap();
-                end = expression.1.parse().unwrap();
-                runner = Runner::default()
-                    .with_iter_limit(params.0)
-                    .with_node_limit(params.1)
-                    .with_time_limit(Duration::from_secs_f64(params.2))
-                    .with_expr(&start)
-                    .run(ruleset_copy.iter());
-                id = runner.egraph.find(*runner.roots.last().unwrap());
-                matches = end.search_eclass(&runner.egraph, id);
-                if matches.is_none() {
-                    ruleset_copy.insert(i, rule);
-                    i += 1;
-                }
-            }
-            if ruleset_copy.len() < ruleset_minimal.len() {
-                ruleset_minimal = ruleset_copy.clone();
-            }
-            counter += 1;
-        }
-        ruleset_copy_names = ruleset_minimal
-            .clone()
-            .into_iter()
-            .map(|rule| rule.name().to_string())
-            .rev()
-            .collect();
-        data_object = object! {
-            expression: object!{
-                start: expression.0,
-                end: expression.1,
-            },
-            rules: ruleset_copy_names
-        };
-        data.push(data_object);
-        println!(
-            "{0} rules are needed to prove: {1}",
-            format!("{0}", ruleset_minimal.len()).red().bold(),
-            format!("{0}", expression.0.to_string())
-                .bright_green()
-                .bold(),
-        );
-        // for r in ruleset_copy{
-        //     println!(
-        //         "{}",format!("{}", r.name()).blue().bold()
-        //     );
-        // }
-    }
-    dataset.write_all(json::stringify(data).as_bytes()).unwrap();
-}
-
+/// Given a vector (expression, goal), the functions writes
+/// to dataset.json each expression along with the approximate
+/// minimal subset of rules needed to prove it. (Parallelized)
 #[allow(dead_code)]
 pub fn generate_dataset_par(
     expressions: &Vec<(&str, &str)>,
@@ -115,6 +33,10 @@ pub fn generate_dataset_par(
         .unwrap();
 }
 
+/// For a given expression and goal, the function
+/// adds to the data vector the expression along 
+/// with the minimal subset of rules it needs to be
+/// proved. Algorithm explained in the manuscript
 #[allow(dead_code)]
 pub fn minimal_set_to_prove(
     expression: (&str, &str),
@@ -201,51 +123,9 @@ pub fn minimal_set_to_prove(
     }
 }
 
-pub fn generation_execution(
-    file_path: &OsString,
-    params: (usize, usize, f64),
-    reorder_count: usize,
-    batch_size: usize,
-    continue_from_expr: usize,
-) {
-    let mut expressions_vect = Vec::new();
-    let file = File::open(file_path).unwrap();
-    //let mut rdr = csv::Reader::from_reader(file);
-    let mut rdr = ReaderBuilder::new().delimiter(b',').from_reader(file);
-    let mut i = 0;
-    for result in rdr.records() {
-        i += 1;
-        if i > continue_from_expr {
-            let record = result.unwrap();
-            let expression = &record[1];
-            expressions_vect.push(expression.to_string());
-            if i % batch_size == 0 {
-                generate_dataset_0_1_par(
-                    &expressions_vect,
-                    -2,
-                    params,
-                    true,
-                    reorder_count,
-                    i / batch_size,
-                );
-                println!("{} expressions processed!", i);
-                expressions_vect = Vec::new();
-            }
-        }
-    }
-    if expressions_vect.len() > 0 {
-        generate_dataset_0_1_par(
-            &expressions_vect,
-            -2,
-            params,
-            true,
-            reorder_count,
-            i / batch_size + 1,
-        );
-        println!("{} expressions processed!", i);
-    }
-}
-
+/// Same as generate_dataset, but this time
+/// the expression are passed without goals 
+/// The goal is assumed to be either 0 or 1.
 #[allow(dead_code)]
 pub fn generate_dataset_0_1_par(
     expressions: &Vec<String>,
@@ -278,6 +158,9 @@ pub fn generate_dataset_0_1_par(
         .unwrap();
 }
 
+/// Same as minimal_set_to_prove, but this time
+/// the expression are passed without goals 
+/// The goal is assumed to be either 0 or 1.
 #[allow(dead_code)]
 pub fn minimal_set_to_prove_0_1(
     expression: &str,
@@ -377,5 +260,63 @@ pub fn minimal_set_to_prove_0_1(
             format!("{0}", batch_number).blue().bold(),
             format!("{0}", expression.to_string()).red().bold()
         );
+    }
+}
+
+/// This function was made to generate the
+/// dataset for big number of expressions.
+/// It starts by reading expressions from a CSV file
+/// that must have the format (id, expression) for each
+/// row. It reads batch_size expressions before passing
+/// them to generate_dataset_0_1_par, which generate the 
+/// dataset for this batch of expressions and store it in a 
+/// json file. Until the vector of expressions end.
+/// The continue_from_expr parameter can be used in case of failure.
+/// For example if we have 1 million expressions, our batch_size
+/// is set to 1000, and the execution fails after generating the
+/// dataset of 200 batched, we should relaunch the execution starting 
+/// from the 200*1000 = 200,000th expression.
+pub fn generation_execution(
+    file_path: &OsString,
+    params: (usize, usize, f64),
+    reorder_count: usize,
+    batch_size: usize,
+    continue_from_expr: usize,
+) {
+    let mut expressions_vect = Vec::new();
+    let file = File::open(file_path).unwrap();
+    //let mut rdr = csv::Reader::from_reader(file);
+    let mut rdr = ReaderBuilder::new().delimiter(b',').from_reader(file);
+    let mut i = 0;
+    for result in rdr.records() {
+        i += 1;
+        if i > continue_from_expr {
+            let record = result.unwrap();
+            let expression = &record[1];
+            expressions_vect.push(expression.to_string());
+            if i % batch_size == 0 {
+                generate_dataset_0_1_par(
+                    &expressions_vect,
+                    -2,
+                    params,
+                    true,
+                    reorder_count,
+                    i / batch_size,
+                );
+                println!("{} expressions processed!", i);
+                expressions_vect = Vec::new();
+            }
+        }
+    }
+    if expressions_vect.len() > 0 {
+        generate_dataset_0_1_par(
+            &expressions_vect,
+            -2,
+            params,
+            true,
+            reorder_count,
+            i / batch_size + 1,
+        );
+        println!("{} expressions processed!", i);
     }
 }
