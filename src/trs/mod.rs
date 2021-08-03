@@ -391,7 +391,7 @@ pub fn simplify(
     ResultStructure::new(
         index,
         start_expression.to_string(),
-        "1/0".to_string(),
+        best_expr.to_string(),
         true,
         best_expr.to_string(),
         ruleset_class as i64,

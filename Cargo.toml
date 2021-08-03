@@ -1,14 +1,14 @@
 [package]
 name = "caviar"
 version = "0.1.0"
-authors = ["Smail KOURTA <gs_kourta@esi.dz>"]
+authors = ["Adel NAMANI <ga_namani@esi.dz>, Smail KOURTA <gs_kourta@esi.dz>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-# egg = { git = "https://github.com/namani-kourta-pfe/egg", branch = "check_equivalence_iteration_level" }
-egg = { git = "https://github.com/namani-kourta-pfe/egg", branch = "fail_fast" }
+# egg = { git = "https://github.com/caviar-trs/egg", branch = "check_equivalence_iteration_level" }
+egg = { git = "https://github.com/caviar-trs/egg", branch = "fail_fast" }
 # egg = { path="../egg" }
 
 ordered-float = "1"

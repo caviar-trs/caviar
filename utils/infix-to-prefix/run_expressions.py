@@ -12,8 +12,8 @@ def extract(path, delimiter):
     num_cores = multiprocessing.cpu_count() // 2
     with open(path) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=delimiter)
-        remove = ['int32', 'float32', 'select', 'broadcast', 'ramp', 'fold', 'Overflow',
-                  'can_prove', 'canprove', 'op->type', 'op->type', 'Call', 'this', 'IRMatcher']
+        remove = ['int32', 'int64', 'halide', 'buffer', 'float32', 'select', 'broadcast', 'ramp', 'fold', 'Overflow',
+                  'can_prove', 'canprove', 'op->type', 'op->type', 'Call', 'this', 'IRMatcher', 'void']
         exprs = []
         exprs = Parallel(n_jobs=num_cores)(delayed(extract_one)(
             i, row, remove) for i, row in enumerate(csv_reader))
@@ -34,12 +34,16 @@ def extract_one(i, row, remove):
                 # print("Skipped row :", i)
                 return None
             row[0] = row[0].replace("(uint1)", "")
+            row[0] = row[0].replace("(int64)", "")
+            row[0] = row[0].replace("(uint64)", "")
             right = Expression(row[0])
             expr = ' '.join(right.infixToPrefix())
             expr = re.sub(
                 "\( \- (?P<var>[a-zA-Z_$][a-zA-Z_$0-9]*) \)", r'(* \1 -1)', expr)
 
             row[1] = row[1].replace("(uint1)", "")
+            row[1] = row[1].replace("(int64)", "")
+            row[1] = row[1].replace("(uint64)", "")
             halideResult = Expression(row[1])
             halideResult = ' '.join(halideResult.infixToPrefix())
             halideResult = re.sub(
