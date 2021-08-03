@@ -10,7 +10,7 @@ use trs::{prove, prove_expression_with_file_classes, prove_npp, prove_pulses, pr
 use crate::io::reader::read_expressions_paper;
 use crate::io::writer::write_results_paper;
 use crate::structs::PaperResult;
-use crate::trs::simplify;
+use crate::trs::{simplify, simplify_pulses};
 mod trs;
 
 mod dataset;
@@ -396,6 +396,9 @@ fn main() {
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start, end);
         //Example of NPP execution with default parameters
-        println!("{:?}", simplify(-1, &start, -1, params, true));
+        println!(
+            "{:?}",
+            simplify_pulses(-1, &start, -1, 0.001, params, true, true)
+        );
     }
 }
