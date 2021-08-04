@@ -28,3 +28,23 @@ cd egg_halides_trs
 cargo build
 ```
 ## Test the expressions' prover and simplifier
+### For proving a csv file run:
+```   
+# Specify your own parameters
+~ cargo run --release prove [Path to csv file containing the expressions in prefix format]  [Iterations Limit] [Egraph Size Limit] [Time Limit]
+```
+#### For simplifying run:
+```   
+# Specify your own parameters
+~ cargo run --release simplify [Path to csv file containing the expressions in prefix format]  [Iterations Limit] [Egraph Size Limit] [Time Limit]
+```
+### For simplifying a single expression:
+
+```   
+# Using default parameters
+~ cargo run --release
+# Specify your own parameters
+~ cargo run --release [Iterations Limit] [Egraph Size Limit] [Time Limit]
+```
+### Other Techniques and Executions
+Please check the main.rs where you will find all the execution functions available for use.
