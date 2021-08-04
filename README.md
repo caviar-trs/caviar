@@ -33,7 +33,7 @@ cargo build
 # Specify your own parameters
 ~ cargo run --release prove [Path to csv file containing the expressions in prefix format]  [Iterations Limit] [Egraph Size Limit] [Time Limit]
 ```
-#### For simplifying run:
+### For simplifying a csv run:
 ```   
 # Specify your own parameters
 ~ cargo run --release simplify [Path to csv file containing the expressions in prefix format]  [Iterations Limit] [Egraph Size Limit] [Time Limit]
