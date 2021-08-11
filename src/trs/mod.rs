@@ -1,4 +1,5 @@
 use json::JsonValue;
+use num_traits::ToPrimitive;
 use std::error::Error;
 use std::time::Duration;
 use std::{cmp::Ordering, time::Instant};
@@ -388,12 +389,15 @@ pub fn simplify(
         StopReason::Other(reason) => reason,
     };
 
-    ResultStructure::new(
+    let ast_depth = AstDepth.cost_rec(&best_expr);
+
+    ResultStructure::new_depth(
         index,
         start_expression.to_string(),
         best_expr.to_string(),
         true,
         best_expr.to_string(),
+        ast_depth,
         ruleset_class as i64,
         runner.iterations.len(),
         runner.egraph.total_number_of_nodes(),
@@ -1670,6 +1674,7 @@ pub fn simplify_pulses(
     let best_expr;
     let mut total_time: f64 = 0.0;
     let nbr_passes = (params.2 as f64) / threshold;
+    let mut ast_depth: usize = 0;
 
     if report {
         println!(
@@ -1721,7 +1726,6 @@ pub fn simplify_pulses(
                 .with_time_limit(Duration::from_secs_f64(threshold))
                 .with_expr(&expr)
                 .run_prob(rules(ruleset_class).iter(), &goals, apply_probability);
-            println!("here");
         } else {
             runner = Runner::default()
                 .with_iter_limit(params.0)
@@ -1772,6 +1776,8 @@ pub fn simplify_pulses(
         let extraction_time = now.elapsed().as_secs_f32();
 
         best_expr = Some(best_exprr.to_string());
+
+        ast_depth = AstDepth.cost_rec(&best_exprr);
         if report {
             println!("{}\n", "Could not prove any goal:".bright_red().bold(),);
             println!(
@@ -1797,12 +1803,13 @@ pub fn simplify_pulses(
         StopReason::Other(reason) => reason,
     };
 
-    ResultStructure::new(
+    ResultStructure::new_depth(
         index,
         start_expression.to_string(),
         "1/0".to_string(),
         result,
         best_expr.unwrap_or_default(),
+        ast_depth,
         ruleset_class as i64,
         runner.iterations.len(),
         runner.egraph.total_number_of_nodes(),

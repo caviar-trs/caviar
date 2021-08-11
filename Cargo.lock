@@ -148,6 +148,7 @@ dependencies = [
 [[package]]
 name = "egg"
 version = "0.6.1-dev"
+source = "git+https://github.com/caviar-trs/egg?branch=random_pulses#acfb7ba52231419e08e2ca509ac7fe9bf311d60b"
 dependencies = [
  "fxhash",
  "indexmap",

@@ -17,6 +17,8 @@ pub struct ResultStructure {
     pub result: bool,
     // The simplest representation extracted
     best_expr: String,
+    //The AST depth of the end expression
+    ast_depth: usize,
     //The id of the cluster that was used to prove the expression in case we used clusters
     class: i64,
     //Number of iterations used to prove the expression
@@ -61,6 +63,43 @@ impl ResultStructure {
             end_expression,
             result,
             best_expr,
+            ast_depth: 0,
+            class,
+            iterations,
+            egraph_size,
+            rebuilds,
+            total_time,
+            stop_reason,
+            condition,
+            halide_result: "false".to_string(),
+            halide_time: 0.0,
+        }
+    }
+
+    pub fn new_depth(
+        index: i32,
+        start_expression: String,
+        end_expression: String,
+        result: bool,
+        best_expr: String,
+        ast_depth: usize,
+        class: i64,
+        iterations: usize,
+        egraph_size: usize,
+        rebuilds: usize,
+        total_time: f64,
+        stop_reason: String,
+        condition: Option<String>,
+        // halide_result: bool,
+        // halide_time: f64
+    ) -> Self {
+        Self {
+            index,
+            start_expression,
+            end_expression,
+            result,
+            best_expr,
+            ast_depth,
             class,
             iterations,
             egraph_size,

@@ -274,6 +274,39 @@ fn simplify_expressions(
     results
 }
 
+/// Runs Simple Caviar to simplify the expressions passed as vector using the different params passed.
+#[allow(dead_code)]
+fn simplify_expressions_pulses(
+    exprs_vect: &Vec<ExpressionStruct>,
+    ruleset_class: i8,
+    threshold: f64,
+    apply_probability: f64,
+    params: (usize, usize, f64),
+    use_iteration_check: bool,
+    report: bool,
+) -> Vec<ResultStructure> {
+    //Initialize the results vector.
+    let mut results = Vec::new();
+
+    //For each expression try to prove it then push the results into the results vector.
+    for expression in exprs_vect.iter() {
+        println!("Starting Expression: {}", expression.index);
+        let mut res = simplify_pulses(
+            expression.index,
+            &expression.expression,
+            ruleset_class,
+            threshold,
+            apply_probability,
+            params,
+            use_iteration_check,
+            report,
+        );
+        res.add_halide(expression.halide_result.clone(), expression.halide_time);
+        results.push(res);
+    }
+    results
+}
+
 fn main() {
     env_logger::init();
     let _args: Vec<String> = env::args().collect();
@@ -389,6 +422,38 @@ fn main() {
                 let results = simplify_expressions(&expression_vect, -1, params, true);
                 write_results("tmp/results_simplify.csv", &results).unwrap();
             }
+            "simplify_pulses" => {
+                let threshold = get_nth_arg(6)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<f64>()
+                    .unwrap();
+                let apply_probability = get_nth_arg(7)
+                    .unwrap()
+                    .into_string()
+                    .unwrap()
+                    .parse::<f64>()
+                    .unwrap();
+                let expression_vect = read_expressions(&expressions_file).unwrap();
+                let results = simplify_expressions_pulses(
+                    &expression_vect,
+                    -1,
+                    threshold,
+                    apply_probability,
+                    params,
+                    true,
+                    false,
+                );
+                write_results(
+                    &format!(
+                        "tmp/results_simplify_pulses_{}_{}_{}.csv",
+                        params.2, threshold, apply_probability,
+                    ),
+                    &results,
+                )
+                .unwrap();
+            }
             _ => {}
         }
     } else {
@@ -399,7 +464,11 @@ fn main() {
         //Example of NPP execution with default parameters
         println!(
             "{:?}",
-            simplify_pulses(-1, &start, -1, 0.0001, 0.5, params, true, true)
+            simplify_pulses(-1, &start, -1, 1.0, 0.75, params, true, true)
+        );
+        println!(
+            "\n\n Simple \n\n {:?}",
+            simplify(-1, &start, -1, params, true)
         );
     }
 }
