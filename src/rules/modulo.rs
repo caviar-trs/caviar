@@ -16,5 +16,9 @@ pub fn modulo() -> Vec<Rewrite> {
         //FOLD
         rw!("mod-consts"    ; "( % ( + ( * ?x ?c0 ) ?y ) ?c1 )" => "( % ?y ?c1 )" if crate::trs::compare_c0_c1("?c0", "?c1", "%0")),
         rw!("mod-multiple";"(% (* ?c0 ?x) ?c1)" => "0" if crate::trs::compare_c0_c1("?c0", "?c1", "%0")),
+        //NON
+        rw!("mod-non-1";"( % ( * ?x ?c0 ) ?c1 )" => "( % ( * ?x ( % ?c0 ?c1 ) ) ?c1 )" if crate::trs::compare_c0_c1("?c0", "?c1", "c0>=c1||c0<0")),
+        rw!("mod-non-2";"( % ( + ?x ?c0 ) ?c1 )" => "( % ( + ?x ( % ?c0 ?c1 ) ) ?c1 )" if crate::trs::compare_c0_c1("?c0", "?c1", "c0>=c1||c0<0")),
+        rw!("mod-non-3";"( % ( * ?x ?c0 ) ?c1 )" => "( * ( % ?x ( / ?c1 ?c0 ) ) ?c0 )" if crate::trs::compare_c0_c1("?c0", "?c1", "c0>=0&%0")),
     ]
 }

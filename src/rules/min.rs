@@ -39,5 +39,10 @@ pub fn min() -> Vec<Rewrite> {
         rw!("min-min-div-pos"        ; "( min ( * ?x ?a ) ( * ?y ?b ) )" => "( * ( min ?x ( * ?y ( / ?b ?a ) ) ) ?a )" if crate::trs::compare_c0_c1("?b", "?a", "%0<") ),  
         rw!("min-consts-div-neg"     ; "( min ( * ?x ?a ) ?b )" => "( * ( max ?x ( / ?b ?a ) ) ?a )" if crate::trs::compare_c0_c1("?b", "?a", "%0>") ),  
         rw!("min-min-div-neg"        ; "( min ( * ?x ?a ) ( * ?y ?b ) )" => "( * ( max ?x ( * ?y ( / ?b ?a ) ) ) ?a )" if crate::trs::compare_c0_c1("?b", "?a", "%0>") ), 
+        //NON
+        rw!("min-non-1"        ; "( min ( + ( * ( min ( / ( + ?y ?c0 ) ?c1 ) ?x ) ?c1 ) ?c2 ) ?y )" => "( min ( + ( * ?x ?c1 ) ?c2 ) ?y )" if crate::trs::compare_c0_c1_c2("?c0", "?c1", "?c2", "c1<c0+c2+1")), 
+
+
+
     ]
 }

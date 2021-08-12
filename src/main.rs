@@ -5,7 +5,7 @@ use io::writer::write_results;
 use json::parse;
 use std::time::Duration;
 use structs::{ExpressionStruct, ResultStructure};
-use trs::{prove, prove_expression_with_file_classes, prove_npp, prove_pulses, prove_pulses_npp};
+use trs::{prove, prove_expression_with_file_classes, prove_npp, prove_pulses, prove_pulses_npp, prove_equiv};
 
 use crate::io::reader::read_expressions_paper;
 use crate::io::writer::write_results_paper;
@@ -396,6 +396,6 @@ fn main() {
         let (start, end) = get_start_end().unwrap();
         println!("Simplifying expression:\n {}\n to {}", start, end);
         //Example of NPP execution with default parameters
-        println!("{:?}", simplify(-1, &start, -1, params, true));
+        prove_equiv(&start, &end, -1, params, true, true);
     }
 }

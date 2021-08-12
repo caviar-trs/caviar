@@ -236,12 +236,54 @@ pub fn compare_c0_c1(
                     "!%0" => (*c1 != 0) && (c % c1 != 0),
                     "%0<" => (*c1 > 0) && (c % c1 == 0),
                     "%0>" => (*c1 < 0) && (c % c1 == 0),
+                    "+1==" => (*c1 > 0) && (c + 1 == *c1),
+                    "c2+c0<=0" => (*c > 0) && (c1 + c <= 0),
+                    "c0>=c1||c0<0" => (*c1>0)&&((*c>=*c1)||(*c<0)),
+                    "c0>=0&%0" => (*c>0) && (*c1%*c==0),
                     _ => false,
                 },
                 _ => return false,
             }),
             _ => return false,
         })
+    }
+}
+
+/// Compares two constants c0, c1 and c2
+pub fn compare_c0_c1_c2(
+    // first constant
+    var0: &str,
+    // 2nd constant
+    var1: &str,
+    // 3nd constant
+    var2: &str,
+    // the comparison we're checking
+    comp: &'static str,
+) -> impl Fn(&mut EGraph, Id, &Subst) -> bool {
+    // Get constants
+    let var0: Var = var0.parse().unwrap();
+    let var1: Var = var1.parse().unwrap();
+    let var2: Var = var2.parse().unwrap();
+
+    move |egraph, _, subst| {
+            // Get the eclass of the third constant then match the values of its enodes to check if one of them proves the coming conditions
+            egraph[subst[var2]].nodes.iter().any(|n1| match n1 {
+                // Get the eclass of the second constant then match it to c2
+                Math::Constant(c2) => egraph[subst[var1]].nodes.iter().any(|n1| match n1 {
+                // Get the eclass of the first constant then match it to c1
+                    Math::Constant(c1) => egraph[subst[var0]].nodes.iter().any(|n| match n {
+                        // match the comparison then do it
+                        Math::Constant(c0) => match comp {
+                            "c1<c0+c2+1" => *c1 > 0 && *c1 <= *c0 + *c2 +1,
+                            "c2<=c1-c0" => (*c0 > 0) && ( *c2 <= *c1 - *c0 ),
+                            _ => false,
+                        },
+                        _ => return false,
+                    }),
+                    _ => return false,
+                }),
+                _ => return false,
+            })
     }
 }
 

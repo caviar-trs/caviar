@@ -28,5 +28,9 @@ pub fn lt() -> Vec<Rewrite> {
         rw!("lt-mul-div-cancel"     ; "(< ?y (/ ?x ?z))"                            => "( < ( - ( * ( + ?y 1 ) ?z ) 1 ) ?x )"  if crate::trs::is_const_pos("?z")),
         rw!("lt-const-mod"     ; "(< ?a (% ?x ?b))" => "1"  if crate::trs::compare_c0_c1("?a", "?b", "<=-a")),
         rw!("lt-const-mod-false"     ; "(< ?a (% ?x ?b))" => "0"  if crate::trs::compare_c0_c1("?a", "?b", ">=a")),
+        //NON
+        rw!("lt-non-1"     ; "( < ( min ?y ( / ( + ?x ?c2 ) ?c0 ) ) ( / ?x ?c0 ) )" => "1"  if crate::trs::compare_c0_c1("?c0", "?c2", "c2+c0<=0")),
+        rw!("lt-non-2"     ; "( < ( min ?y ( / ( + ?x ?c2 ) ?c0 ) ) ( / ( + ?x ?c1 ) ?c0 ) )" => "1"  if crate::trs::compare_c0_c1_c2("?c0", "?c1", "?c2", "c2<=c1-c0")),
+
     ]
 }
