@@ -1,19 +1,11 @@
 # Caviar: An E-Graph Based Term Rewriting System for Automatic Code Optimization
 ## Abstract
-A lot of study and efforts are being dedicated to optimizing code and making it run faster which contributed to the development of automatic code optimization tools,
-optimizing compilers are an example of such a tool. Optimizing compilers focus on modifying code so that it runs faster and uses the underlying hardware more efficiently.
-To do so, optimizing compilers often need to simplify or prove algebraic expressions, whether they were arithmetic or boolean.
-They generally use a term rewriting system that transforms syntactically the given expressions to either prove them or simplify them.
-A term rewriting system is essentially composed of a set of rewrite rules along with an algorithm that determines how these rules will be applied.
-In the last few years, equality graphs have inspired a tremendous of academic interest because they hold a lot of potential for addressing equivalence 
-relations with the ability to apply rewrites without altering the original terms. The objective of this work is to build an equality-graphs-based term 
-rewriting system for simplifying and proving compilers’ algebraic expressions. The TRS (that we named Caviar) is designed to prove and simplify expressions generated
-by the Halide compiler and contains only axiomatic rules. The implementation of this TRS is done using the state-of-the-art e-graphs library: egg [Willsey et al., 2021].
-To increase the efficiency and the speed of our TRS, we adapt the equality saturation algorithm for proving expressions by designing, implementing, and integrating several
-contributions to this technique including: Iteration Level Check for Equivalence (ILC): a technique which increased performances by 14x, Pulsing Caviar:
-a heuristic that improved performances by 15x while also raising the number of expressions we can prove, and Non Provable Patterns technique which added the ability of detecting 
-non-provable expressions to our TRS. By evaluating our solution on expressions extracted from Halide programs compilation processes, we show that the proposed TRS is 
-able to prove 51% of the expressions Halide’s TRS cannot prove and that the contributions we made to the equality saturation method have made it 20 times faster for this task.
+Term Rewriting Systems (TRSs) are used in compilers to simplify and prove expressions.
+State-of-the-art TRSs in compilers use a greedy algorithm that applies a set of rewriting rules in a predefined order (where some of the rules are not axiomatic). This leads to a loss of the ability to simplify certain expressions.
+E-graphs and equality saturation sidestep this issue by representing the different equivalent expressions in a compact manner from which the optimal expression can be extracted. While an e-graph-based TRS can be more powerful than a TRS that uses a greedy algorithm, it is slower because expressions may have a large or sometimes infinite number of equivalent expressions. Accelerating e-graph construction is crucial for making the use of e-graphs practical in compilers. In this paper, we present Caviar, an e-graph-based TRS for proving expressions within compilers. 
+The main advantage of Caviar is its speed. It can prove expressions much faster than base e-graph TRSs.
+It relies on three techniques: 1) a technique that stops e-graphs from growing when the goal is reached, called Iteration Level Check; 2) a mechanism that balances exploration and exploitation in the equality saturation algorithm, called Pulsing Caviar; 3) a technique to stop e-graph construction before reaching saturation when a non-provable pattern is detected, called Non-Provable Patterns Detection (NPPD). We evaluate caviar on Halide, an optimizing compiler that relies on a greedy-algorithm-based TRS to simplify and prove its expressions. The proposed techniques allow Caviar to accelerate e-graph expansion for the task of proving expressions. They also allow Caviar to prove expressions that Halide’s TRS cannot prove while being only 0.68x slower. Caviar is publicly available at: <https://github.com/caviar-trs/caviar>.
+
 ## About this project
 This work is the final year project of two computer science students: KOURTA Smail & NAMANI Adel Abderahmane. To get a better knowledge about the foundations of this work 
 (Term rewriting systems, E-Graphs and Equality Saturation ...), how we desinged and implemented our solutions, the tests and evaluations ... you can take a look at our 
