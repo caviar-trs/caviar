@@ -1,4 +1,7 @@
 # Caviar: An E-Graph Based Term Rewriting System for Automatic Code Optimization
+
+The **caviar** paper was accepted at [CC 2022](https://conf.researchr.org/track/CC-2022/CC-2022-research-papers#event-overview)! Check it out: [link](https://dl.acm.org/doi/10.1145/3497776.3517781)
+
 ## Abstract
 Term Rewriting Systems (TRSs) are used in compilers to simplify and prove expressions.
 State-of-the-art TRSs in compilers use a greedy algorithm that applies a set of rewriting rules in a predefined order (where some of the rules are not axiomatic). This leads to a loss of the ability to simplify certain expressions.
