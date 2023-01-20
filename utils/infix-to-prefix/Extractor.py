@@ -14,7 +14,7 @@ def extract(path):
               'op->type', 'op->type', 'Call', 'this', 'IRMatcher']
     rules = []
     for line in txtfile:
-        rule = re.search('rewrite\((.*)\) *\|\|$', line)
+        rule = re.search('rewrite\((.*)\)', line)
         if rule:
             formated_rule = [r for r in rule.group(1)]
             formated_rule = ''.join(formated_rule)
